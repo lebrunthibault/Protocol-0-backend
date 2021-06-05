@@ -1,18 +1,29 @@
 import PySimpleGUI as sg
 import requests
 
+layout = [[sg.Input(key="input")]]
 
-with open("log.txt", "w") as f:
-    f.write("I'm here")
-
-layout = [[sg.Input()],
-          [sg.Button('Ok', bind_return_key=True, visible=False)]]
-
-window = sg.Window('Search set', layout)
-
-event, values = window.read()  # Event loop or Window.read call
+# window = sg.Window("", layout, return_keyboard_events=True, no_titlebar=True)
+window = sg.Window("toto", layout, return_keyboard_events=True)
 
 
-requests.get('http://127.0.0.1:8000/search/%s' % values[0].strip(), auth=('user', 'pass'))
+def send_search(search):
+    requests.get('http://127.0.0.1:8000/search/%s' % search, auth=('user', 'pass'))
+
+
+while True:
+    event, values = window.read()
+    if event.split(":")[0] == "Escape":
+        break
+
+    if len(event) == 1 and ord(event) == 13:
+        # requests.get('http://127.0.0.1:8000/search/%s' % values["input"].strip(), auth=('user', 'pass'))
+        break
+
+    if len(event) == 1:
+        search = values["input"]
+        if len(search) >= 3:
+            send_search(search)
+
 
 window.close()
