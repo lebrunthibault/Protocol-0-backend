@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad0dab70-0a88-4ad4-adfd-dd4b463a1216" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/gui/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/protocol0_search.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/protocol0_search.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/search_backup.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/start.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +100,7 @@
       <workItem from="1622895002856" duration="1265000" />
       <workItem from="1622896393135" duration="3862000" />
       <workItem from="1622903758468" duration="9000" />
+      <workItem from="1622903918869" duration="739000" />
     </task>
     <servers />
   </component>

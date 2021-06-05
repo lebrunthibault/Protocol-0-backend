@@ -1,6 +1,4 @@
 .PHONY: dev, migrate, flask, activate
-include .env
-export $(shell sed 's/=.*//' .env)
 
 activate:
 	 powershell .\venv\Scripts\activate.ps1
