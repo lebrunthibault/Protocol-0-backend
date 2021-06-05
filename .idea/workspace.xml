@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad0dab70-0a88-4ad4-adfd-dd4b463a1216" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/dummy_server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/search_backup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dummy_server/dummy.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dummy_server/dummy2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dummy_server/dummy3.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/protocol0_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/protocol0_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_socket/client.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_socket/server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/protocol0_search.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/protocol0_search.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/search_backup.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,6 +99,9 @@
       <workItem from="1622801416361" duration="3872000" />
       <workItem from="1622817857681" duration="598000" />
       <workItem from="1622850149825" duration="9485000" />
+      <workItem from="1622895002856" duration="1265000" />
+      <workItem from="1622896393135" duration="3862000" />
+      <workItem from="1622903758468" duration="9000" />
     </task>
     <servers />
   </component>
