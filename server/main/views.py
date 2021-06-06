@@ -1,6 +1,3 @@
-import keyboard
-from django.shortcuts import render
-
 from django.http import HttpResponse, JsonResponse
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum

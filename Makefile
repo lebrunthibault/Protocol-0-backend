@@ -1,13 +1,8 @@
-.PHONY: dev, migrate, flask, activate
+.PHONY: dev
 
-activate:
-	 powershell .\venv\Scripts\activate.ps1
+PYTHON := C:\Users\thiba\AppData\Local\Programs\Python\Python39\python.exe
 
 dev:
-	C:\Users\thiba\AppData\Local\Microsoft\WindowsApps\python3.exe manage.py runserver
+	${PYTHON} server\manage.py runserver
 
-migrate:
-	python manage.py migrate
 
-flask:
-	flask run
