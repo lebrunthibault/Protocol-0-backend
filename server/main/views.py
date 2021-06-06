@@ -1,6 +1,9 @@
+import keyboard
 from django.shortcuts import render
 
 from django.http import HttpResponse, JsonResponse
+from lib.keys import send_keys
+from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
 
 class Search():
@@ -15,6 +18,12 @@ def search(request, search):
     response = HttpResponse("You searched for : %s, last_search: %s" % (search, Search.LAST_SEARCH))
     Search.LAST_SEARCH = search
     return response
+
+
+def show_plugins(request):
+    if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.CLASS):
+        send_keys('^%p')
+    return HttpResponse("show plugins")
 
 
 def action(request):

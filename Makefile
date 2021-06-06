@@ -4,7 +4,7 @@ activate:
 	 powershell .\venv\Scripts\activate.ps1
 
 dev:
-	python manage.py runserver
+	C:\Users\thiba\AppData\Local\Microsoft\WindowsApps\python3.exe manage.py runserver
 
 migrate:
 	python manage.py migrate
