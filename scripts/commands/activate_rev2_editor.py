@@ -2,7 +2,9 @@ import logging
 from typing import Tuple
 
 import win32gui
+
 from lib.click import click_and_restore_pos
+from lib.window.ableton import show_plugins
 from lib.window.window import get_window_position
 
 
@@ -16,6 +18,7 @@ def get_button_middle_position(handle):
 
 def activate_rev2_editor():
     # type: () -> None
+    show_plugins()
     handle = win32gui.FindWindowEx(None, None, None, "REV2Editor/midi")
     logging.info("found handle for rev2 editor: %s" % handle)
     if not handle:

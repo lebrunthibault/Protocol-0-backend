@@ -2,11 +2,15 @@ import logging
 from functools import partial
 from typing import Optional, Any, List
 
+import win32api
+import win32con
 import win32gui
 import win32process
 import wmi
 from a_protocol_0.enums.AbstractEnum import AbstractEnum
 from a_protocol_0.errors.Protocol0Error import Protocol0Error
+
+c = wmi.WMI()
 
 
 class SearchTypeEnum(AbstractEnum):
@@ -50,60 +54,54 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
     if handle:
         logging.info("Window handle found : %s" % handle)
     else:
-        logging.error("Window handle not found : %s" % handle)
+        logging.error(
+            f"Window handle not found. class_name={class_name}, app_name={app_name}, partial_name={partial_name}")
 
     return handle
 
 
-def show_windows(app_name_black_list: Optional[List[str]] = None, show_path=False) -> None:
+def show_windows(app_name_black_list: Optional[List[str]] = None) -> List[str]:
     app_name_black_list = app_name_black_list or [
         "explorer.exe", "chrome.exe", "ipoint.exe", "TextInputHost.exe"
     ]
+    class_name_black_list = [
+        "ThumbnailDeviceHelperWnd", "Shell_TrayWnd", "wxWindowNR"
+    ]
+
+    result = []
 
     def winEnumHandler(hwnd, _):
         # type: (int, Any) -> None
+        nonlocal result
         if win32gui.IsWindowVisible(hwnd):
             name = _get_window_title(hwnd)
             class_name = win32gui.GetClassName(hwnd)
             app_name = _get_app_name(hwnd)
-            if app_name in app_name_black_list:
+            if app_name in app_name_black_list or class_name in class_name_black_list:
                 return
-            app_path = _get_app_path(hwnd)
-            log = f"handle: {hwnd}, name: {name}, class_name: {class_name}, app_name: {app_name}"
-            if show_path:
-                log += f", app_path: {app_path}"
-            logging.info(log)
+            line = {
+                "name": name,
+                "class_name": class_name,
+                "app_name": app_name
+            }
+            logging.info(line)
+            result.append(line)
 
     win32gui.EnumWindows(winEnumHandler, None)
+
+    return result
 
 
 def _get_window_title(hwnd: int) -> str:
     return win32gui.GetWindowText(hwnd)
 
 
-def _get_app_path(hwnd: int) -> Optional[str]:
-    """Get application path given hwnd."""
-    # noinspection PyBroadException
-    try:
-        _, pid = win32process.GetWindowThreadProcessId(hwnd)
-
-        c = wmi.WMI()
-        # noinspection SqlDialectInspection,SqlNoDataSourceInspection
-        for p in c.query("SELECT ExecutablePath FROM Win32_Process WHERE ProcessId = %s" % str(pid)):
-            return p.ExecutablePath
-    except Exception:
-        return None
-
-
 def _get_app_name(hwnd: int) -> Optional[str]:
-    """Get application filename given hwnd."""
-    # noinspection PyBroadException
+    """Get application base name given hwnd."""
+    pid = win32process.GetWindowThreadProcessId(hwnd)
     try:
-        _, pid = win32process.GetWindowThreadProcessId(hwnd)
-        c = wmi.WMI()
-
-        # noinspection SqlDialectInspection,SqlNoDataSourceInspection
-        for p in c.query("SELECT Name FROM Win32_Process WHERE ProcessId = %s" % str(pid)):
-            return p.Name
-    except Exception:
+        handle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1])
+        return win32process.GetModuleFileNameEx(handle, 0).split("\\")[-1]
+    except Exception as e:
+        logging.error(e)
         return None

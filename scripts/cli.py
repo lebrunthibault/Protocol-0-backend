@@ -4,19 +4,22 @@ from typing import Optional
 
 import click
 from a_protocol_0.enums.CommandEnum import CommandEnum
+
 from commands.activate_rev2_editor import activate_rev2_editor
 from commands.reload_ableton import reload_ableton
 from commands.search_set import search_set
 from commands.sync_presets import sync_presets
 from commands.toggle_ableton_button import toggle_ableton_button
+from consts import LOGGING_DIRECTORY
 from lib.click import click_and_restore_pos, pixel_has_color
 from lib.keys import send_keys
 from lib.window.ableton import show_plugins
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_criteria, show_windows
 from lib.window.window import focus_window
+from scripts.hotkeys import setup_hotkeys
 
 logging.basicConfig(
-    filename="C:\\Users\\thiba\\OneDrive\\Documents\\protocol0_logs\\cli.log",
+    filename=f"{LOGGING_DIRECTORY}\\cli.log",
     encoding="utf-8",
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s: %(message)s",
@@ -30,7 +33,7 @@ def cli():
     pass
 
 
-@cli.command(name=CommandEnum.SEND_CLICK.name)
+@cli.command(name=CommandEnum.CLICK.name)
 @click.argument("x")
 @click.argument("y")
 def command_send_click(x: str, y: str) -> None:
@@ -103,6 +106,11 @@ def command_show_windows() -> None:
 @cli.command(name=CommandEnum.SHOW_PLUGINS.name)
 def command_show_windows() -> None:
     show_plugins()
+
+
+@cli.command(name=CommandEnum.SETUP_HOTKEYS.name)
+def command_setup_hotkeys() -> None:
+    setup_hotkeys()
 
 
 if __name__ == "__main__":

@@ -1,24 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/openapi_templates/api.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/hotkeys.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_django/main_app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_django/main_app/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_django/main_app/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_django/main_app/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_django/protocol_0/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server_django/start.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/cli/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/protocol0/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/protocol0/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/ahk/active_window.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/active_window.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_client/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/reload_ableton.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/search_set.bat" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/sync_presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/sync_presets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/hotkeys/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/consts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli/hotkeys/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/main_app/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/main_app/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/main_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/main_app/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/protocol0/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/protocol0/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/protocol_0/asgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/protocol0/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/protocol_0/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/protocol0/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/protocol_0/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/protocol0/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/protocol_0/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/start.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
   <component name="ProjectLevelVcsManager">
@@ -30,12 +84,36 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
+    <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../temp/p0-client" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\server" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="hotkeys" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/scripts/cli.py" />
+      <option name="SCRIPT_OPTIONS" value="SETUP_HOTKEYS" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="false" />
+      <option name="INTERPRETER_PATH" value="$USER_HOME$/AppData/Local/Programs/Python/Python39/python.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -48,12 +126,18 @@
       <workItem from="1623008210165" duration="305000" />
       <workItem from="1623008626580" duration="993000" />
       <workItem from="1623018190632" duration="136000" />
-      <workItem from="1623018337337" duration="284000" />
+      <workItem from="1623018337337" duration="12751000" />
+      <workItem from="1623078804954" duration="2343000" />
+      <workItem from="1623348911273" duration="14033000" />
+      <workItem from="1623456253055" duration="527000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ahk" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

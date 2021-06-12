@@ -28,7 +28,6 @@ global ableton := "Ableton Live 10 Suite"
 
 ; global hotkeys
 Hotkey("", "^#+n", "reloadAbleton")
-Hotkey("", "^#+a", "restartAbleton")
 Hotkey("", "^#+l", "refreshLogs")
 ; ableton hotkeys
 HotkeyAbleton("^+f", "searchSet")
@@ -46,10 +45,6 @@ HotkeyAbleton("^!+o", "loadVst", "Omnisphere rack", true, true, true)
 HotkeyAbleton("^!+r", "loadVst", "Reverb", false)
 HotkeyAbleton("^!+s", "loadVst", "Serum rack", true, false, true)
 HotkeyAbleton("^!+u", "loadVst", "Utility", false)
-HotkeyAbleton("^F1", "ShowPlugins")
-HotkeyAbleton("^F2", "hidePlugins")
-HotkeyAbleton("^F4", "groupTrack")
-HotkeyAbleton("^F5", "up")
 
 ; literal hotkeys should be defined *after* the executable code
 ^+z::
@@ -98,40 +93,6 @@ loadVst(search, vst = true, unGroupRack = false, createMidiTrack = false, positi
     clearSearchBox()
 
     return
-}
-
-groupTrack()
-{
-    Send {Up}
-    Send ^g
-}
-
-
-up()
-{
-    Send {Up Down}
-    Sleep 5 0
-    Send {Up Up}   
-}
-
-showPlugins()
-{
-    if not WinExist("ahk_class AbletonVstPlugClass") {
-        Send ^!p
-    }
-}
-
-
-hidePlugins()
-{
-    if WinExist("ahk_class AbletonVstPlugClass") {
-        Send ^!p
-    }
-}
-
-reloadAbleton()
-{
-    Run cli.py RELOAD_ABLETON, %A_ScriptDir%\..\python, hide
 }
 
 refreshLogs()
