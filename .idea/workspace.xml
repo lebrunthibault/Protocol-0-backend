@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/make_sdk.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_templates/python/api_client.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_templates/python_legacy/api.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_templates/python_legacy/api_client.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_client/test.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/python/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/hotkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/hotkeys.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_django/main_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/main_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_django/protocol_0/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server_django/protocol_0/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/make_sdk.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +92,7 @@
       <workItem from="1623503806308" duration="358000" />
       <workItem from="1623504175998" duration="308000" />
       <workItem from="1623504497444" duration="9345000" />
+      <workItem from="1623596503733" duration="1496000" />
     </task>
     <servers />
   </component>
