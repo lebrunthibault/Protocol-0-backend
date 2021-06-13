@@ -124,7 +124,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 logging.basicConfig(
     filename=f"{LOGGING_DIRECTORY}\\server.log",
-    encoding="utf-8",
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",

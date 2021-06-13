@@ -1,6 +1,6 @@
 import logging
 from functools import partial
-from typing import Optional, Any, List
+from typing import Optional, Any, List, Dict, Union
 
 import win32api
 import win32con
@@ -19,7 +19,7 @@ class SearchTypeEnum(AbstractEnum):
     CLASS = "CLASS"
 
 
-def find_window_handle_by_enum(name: str, search_type: SearchTypeEnum) -> int:
+def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str]) -> int:
     if search_type == SearchTypeEnum.NAME:
         find_func = partial(find_window_handle_by_criteria, partial_name=name)
     elif search_type == SearchTypeEnum.EXE:
@@ -33,10 +33,10 @@ def find_window_handle_by_enum(name: str, search_type: SearchTypeEnum) -> int:
 
 
 def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: Optional[str] = None,
-                                   partial_name: Optional[str] = None) -> Optional[int]:
+                                   partial_name: Optional[str] = None) -> int:
     assert class_name or app_name or partial_name, "You should give a criteria to search a window"
 
-    handle = None
+    handle = 0
 
     def winEnumHandler(hwnd, _):
         # type: (int, Any) -> None
@@ -60,8 +60,8 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
     return handle
 
 
-def show_windows(app_name_black_list: Optional[List[str]] = None) -> List[str]:
-    app_name_black_list = app_name_black_list or [
+def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
+    app_name_black_list = _app_name_black_list if _app_name_black_list else [
         "explorer.exe", "chrome.exe", "ipoint.exe", "TextInputHost.exe"
     ]
     class_name_black_list = [
@@ -77,7 +77,9 @@ def show_windows(app_name_black_list: Optional[List[str]] = None) -> List[str]:
             name = _get_window_title(hwnd)
             class_name = win32gui.GetClassName(hwnd)
             app_name = _get_app_name(hwnd)
-            if app_name in app_name_black_list or class_name in class_name_black_list:
+            if not app_name:
+                return
+            if "too" in app_name_black_list or class_name in class_name_black_list:
                 return
             line = {
                 "name": name,

@@ -1,5 +1,5 @@
 import logging
-from typing import Tuple
+from typing import Tuple, Union
 
 import win32com.client
 import win32gui
@@ -23,7 +23,7 @@ def get_window_position(handle: int) -> Tuple[int, int, int, int]:
     return (int(x), int(y), int(w), int(h))
 
 
-def focus_window(name: str, search_type=SearchTypeEnum.NAME, retry=True):
+def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.NAME, retry: bool = True) -> None:
     handle = find_window_handle_by_enum(name=name, search_type=search_type)
     if handle:
         try:
@@ -36,6 +36,5 @@ def focus_window(name: str, search_type=SearchTypeEnum.NAME, retry=True):
         logging.info("Window focused : %s" % name)
 
 
-def focus_ableton():
-    # type: () -> None
+def focus_ableton() -> None:
     focus_window(ABLETON_EXE, search_type=SearchTypeEnum.EXE)  # type: ignore

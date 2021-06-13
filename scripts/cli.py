@@ -20,7 +20,6 @@ from scripts.hotkeys import setup_hotkeys
 
 logging.basicConfig(
     filename=f"{LOGGING_DIRECTORY}\\cli.log",
-    encoding="utf-8",
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
@@ -29,7 +28,7 @@ logging.getLogger().addHandler(logging.StreamHandler())
 
 
 @click.group()
-def cli():
+def cli() -> None:
     pass
 
 
@@ -104,7 +103,7 @@ def command_show_windows() -> None:
 
 
 @cli.command(name=CommandEnum.SHOW_PLUGINS.name)
-def command_show_windows() -> None:
+def command_show_plugins() -> None:
     show_plugins()
 
 
