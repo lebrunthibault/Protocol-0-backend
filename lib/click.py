@@ -7,7 +7,7 @@ from PIL import ImageGrab
 from a_protocol_0.enums.ColorEnum import InterfaceColorEnum
 
 
-def click_and_restore_pos(x: int, y: int) -> None:
+def click(x: int, y: int) -> None:
     (orig_x, orig_y) = win32api.GetCursorPos()
     logging.info("clicking at x: %s, y: %s" % (x, y))
     _click(x, y)

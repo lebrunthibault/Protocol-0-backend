@@ -37,4 +37,5 @@ def setup_hotkeys() -> None:
 
 
 if __name__ == "__main__":
-    setup_hotkeys()
+    pass
+    # setup_hotkeys()

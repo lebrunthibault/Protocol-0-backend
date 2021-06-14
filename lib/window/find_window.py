@@ -60,6 +60,10 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
     return handle
 
 
+def is_plugin_window_visible(name: str) -> bool:
+    return bool(find_window_handle_by_criteria(class_name="AbletonVstPlugClass", partial_name=name))
+
+
 def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
     app_name_black_list = _app_name_black_list if _app_name_black_list else [
         "explorer.exe", "chrome.exe", "ipoint.exe", "TextInputHost.exe"

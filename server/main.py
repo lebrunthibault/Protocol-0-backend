@@ -1,3 +1,4 @@
+import logging
 import os.path
 from os.path import dirname
 from typing import Dict, List
@@ -6,12 +7,25 @@ from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
 from fastapi import FastAPI, Response, status
 from fastapi.routing import APIRoute
 from pydantic import BaseSettings
+from starlette.requests import Request
 
-from lib.click import pixel_has_color
+from consts import LOGGING_DIRECTORY
+from lib.click import pixel_has_color, click
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
+from lib.window.window import focus_window
+from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.reload_ableton import reload_ableton
+from scripts.commands.toggle_ableton_button import toggle_ableton_button
 from server.models import Action, Search
+
+logging.basicConfig(
+    filename=f"{LOGGING_DIRECTORY}\\cli.log",
+    level=logging.DEBUG,
+    format="%(asctime)s.%(msecs)03d %(levelname)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logging.getLogger().addHandler(logging.StreamHandler())
 
 
 class Settings(BaseSettings):
@@ -28,6 +42,18 @@ app = FastAPI(servers=[{"url": f"http://{settings.api_host}:{settings.api_port}"
               openapi_url=settings.openapi_url, title="Protocol0 System API")
 
 
+async def catch_exceptions_middleware(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception as e:
+        # you probably want some kind of logging here
+        return Response("Internal server error: %s" % e, status_code=500)
+        # return Response("Internal server error: %s\n%s" % (e, traceback.format_exc()), status_code=500)
+
+
+app.middleware('http')(catch_exceptions_middleware)
+
+
 class View():
     @app.get("/")
     def index() -> Dict:
@@ -42,12 +68,17 @@ class View():
         response.status_code = status.HTTP_400_BAD_REQUEST
         return "bad request"
 
-    @app.get("/test/{id}")
-    def test(id: int) -> Dict:
-        return {"id": id}
+    @app.get("/click/{x}/{y}")
+    def click(x: int, y: int) -> None:
+        click(x=x, y=y)
+
+    @app.get("/double_click/{x}/{y}")
+    def double_click(x: int, y: int) -> None:
+        click(x=x, y=y)
+        click(x=x, y=y)
 
     @app.get("/pixel_has_color/{x}/{y}/{color}")
-    def pixel_has_color(request, x: int, y: int, color: str) -> bool:
+    def pixel_has_color(x: int, y: int, color: str) -> bool:
         return pixel_has_color(x=x, y=y, color=color)
 
     @app.get("/show_plugins")
@@ -69,10 +100,26 @@ class View():
         send_keys("{UP}")
         return "ok"
 
+    @app.get("/focus_window/{window_name}")
+    def focus_window(window_name: str):
+        focus_window(name=window_name)
+
+    @app.get("/focus_window/{window_name}")
+    def focus_window(window_name: str):
+        is_plugin_window_visible(name=window_name)
+
     @app.get("/reload_ableton")
     def reload_ableton():
         reload_ableton()
         return "ok"
+
+    @app.get("/toggle_ableton_button/{x}/{y}/{activate}")
+    def toggle_ableton_button(x: int, y: int, activate: bool = False):
+        toggle_ableton_button(x=x, y=y, activate=activate)
+
+    @app.get("/activate_rev2_editor")
+    def activate_rev2_editor():
+        activate_rev2_editor()
 
     @app.get("/show_windows")
     def show_windows() -> List[Dict]:

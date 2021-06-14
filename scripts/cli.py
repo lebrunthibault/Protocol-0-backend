@@ -11,10 +11,11 @@ from commands.search_set import search_set
 from commands.sync_presets import sync_presets
 from commands.toggle_ableton_button import toggle_ableton_button
 from consts import LOGGING_DIRECTORY
-from lib.click import click_and_restore_pos, pixel_has_color
+from lib.click import click, pixel_has_color
 from lib.keys import send_keys
 from lib.window.ableton import show_plugins
-from lib.window.find_window import SearchTypeEnum, find_window_handle_by_criteria, show_windows
+from lib.window.find_window import SearchTypeEnum, show_windows, \
+    is_plugin_window_visible
 from lib.window.window import focus_window
 from scripts.hotkeys import setup_hotkeys
 
@@ -36,7 +37,7 @@ def cli() -> None:
 @click.argument("x")
 @click.argument("y")
 def command_send_click(x: str, y: str) -> None:
-    click_and_restore_pos(int(x), int(y))
+    click(int(x), int(y))
 
 
 @cli.command(name=CommandEnum.SEND_KEYS.name)
@@ -57,8 +58,7 @@ def command_pixel_has_color(x: str, y: str, color: str) -> None:
 @cli.command(name=CommandEnum.IS_PLUGIN_WINDOW_VISIBLE.name)
 @click.argument("name")
 def command_is_plugin_window_visible(name: str) -> None:
-    res = find_window_handle_by_criteria(class_name="AbletonVstPlugClass", partial_name=name)
-    sys.exit(1 if res else 0)
+    sys.exit(1 if is_plugin_window_visible(name=name) else 0)
 
 
 @cli.command(name=CommandEnum.ACTIVATE_REV2_EDITOR.name)

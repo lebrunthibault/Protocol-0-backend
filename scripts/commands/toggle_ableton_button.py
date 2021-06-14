@@ -2,7 +2,7 @@ import logging
 import math
 
 from typing import Tuple
-from lib.click import click_and_restore_pos, get_pixel_color
+from lib.click import click, get_pixel_color
 
 from a_protocol_0.enums.ColorEnum import InterfaceColorEnum
 
@@ -27,6 +27,6 @@ def toggle_ableton_button(x: int, y: int, activate: bool) -> None:
             not activate and closest_color == InterfaceColorEnum.ACTIVATED
     ):
         logging.info("color matching expectation, dispatching click")
-        click_and_restore_pos(x, y)
+        click(x, y)
     else:
         logging.info("color %s not matching expectation, skipping" % closest_color)

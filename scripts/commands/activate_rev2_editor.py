@@ -3,7 +3,7 @@ from typing import Tuple
 
 import win32gui
 
-from lib.click import click_and_restore_pos
+from lib.click import click
 from lib.window.ableton import show_plugins
 from lib.window.window import get_window_position
 
@@ -25,8 +25,4 @@ def activate_rev2_editor():
         return
     (x, y) = get_button_middle_position(handle)
     win32gui.SetForegroundWindow(handle)
-    click_and_restore_pos(x, y)
-
-
-if __name__ == "__main__":
-    activate_rev2_editor()
+    click(x, y)
