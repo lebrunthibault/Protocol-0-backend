@@ -22,14 +22,16 @@ class SerumPresetSynchronizer:
 
     @classmethod
     def synchronize(cls):
-        # type: () -> None
+        # type: () -> str
         presets = list(cls.get_preset_names())
         with open(cls.PROGRAM_CHANGE_FILENAME, "w") as f:
             for preset in presets:
                 f.write("%s\n" % preset)
 
-        logging.info("%d serum presets wrote to %s" % (len(presets), cls.PROGRAM_CHANGE_FILENAME))
+        res = "%d serum presets wrote to %s" % (len(presets), cls.PROGRAM_CHANGE_FILENAME)
+        logging.info(res)
+        return res
 
 
-def sync_presets() -> None:
-    SerumPresetSynchronizer.synchronize()
+def sync_presets() -> str:
+    return SerumPresetSynchronizer.synchronize()

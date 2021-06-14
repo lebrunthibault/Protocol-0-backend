@@ -54,3 +54,7 @@ def search_set():
     else:
         logging.info("didn't find search set window, creating gui")
         create_gui()
+
+
+if __name__ == "__main__":
+    search_set()

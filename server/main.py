@@ -12,10 +12,11 @@ from starlette.requests import Request
 from consts import LOGGING_DIRECTORY
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
-from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
+from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows, is_plugin_window_visible
 from lib.window.window import focus_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.reload_ableton import reload_ableton
+from scripts.commands.sync_presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
 from server.models import Action, Search
 
@@ -77,7 +78,7 @@ class View():
         click(x=x, y=y)
         click(x=x, y=y)
 
-    @app.get("/pixel_has_color/{x}/{y}/{color}")
+    @app.get("/pixel_has_color/{x}/{y}/{color}", response_model=bool)
     def pixel_has_color(x: int, y: int, color: str) -> bool:
         return pixel_has_color(x=x, y=y, color=color)
 
@@ -96,17 +97,20 @@ class View():
             send_keys('^%p')
 
     @app.get("/arrow_up")
-    def arrow_up():
+    def arrow_up() -> None:
         send_keys("{UP}")
-        return "ok"
+
+    @app.get("/arrow_down")
+    def arrow_down() -> None:
+        send_keys("{DOWN}")
 
     @app.get("/focus_window/{window_name}")
     def focus_window(window_name: str):
         focus_window(name=window_name)
 
-    @app.get("/focus_window/{window_name}")
-    def focus_window(window_name: str):
-        is_plugin_window_visible(name=window_name)
+    @app.get("/is_plugin_window_visible/{name}", response_model=bool)
+    def is_plugin_window_visible(name: str) -> bool:
+        return is_plugin_window_visible(name=name)
 
     @app.get("/reload_ableton")
     def reload_ableton():
@@ -114,11 +118,11 @@ class View():
         return "ok"
 
     @app.get("/toggle_ableton_button/{x}/{y}/{activate}")
-    def toggle_ableton_button(x: int, y: int, activate: bool = False):
+    def toggle_ableton_button(x: int, y: int, activate: bool = False) -> None:
         toggle_ableton_button(x=x, y=y, activate=activate)
 
     @app.get("/activate_rev2_editor")
-    def activate_rev2_editor():
+    def activate_rev2_editor() -> None:
         activate_rev2_editor()
 
     @app.get("/show_windows")
@@ -130,6 +134,10 @@ class View():
         res = "You searched for : %s, last_search: %s" % (search, Search.LAST_SEARCH)
         Search.LAST_SEARCH = search
         return res
+
+    @app.get("/sync_presets", response_model=str)
+    def sync_presets() -> str:
+        return sync_presets()
 
     @app.get("/action", response_model=Action)
     def action() -> Action:

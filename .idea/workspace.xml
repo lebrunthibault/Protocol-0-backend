@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/hotkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/hotkeys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/sync_presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/sync_presets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,6 +102,8 @@
       <workItem from="1623675401564" duration="62000" />
       <workItem from="1623675528846" duration="353000" />
       <workItem from="1623676929098" duration="11492000" />
+      <workItem from="1623689241260" duration="951000" />
+      <workItem from="1623690209394" duration="614000" />
     </task>
     <servers />
   </component>

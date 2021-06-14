@@ -54,7 +54,7 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
     if handle:
         logging.info("Window handle found : %s" % handle)
     else:
-        logging.error(
+        logging.info(
             f"Window handle not found. class_name={class_name}, app_name={app_name}, partial_name={partial_name}")
 
     return handle
