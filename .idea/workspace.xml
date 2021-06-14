@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/make_sdk.bat" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi_templates/python_legacy/configuration.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi_templates/python_legacy/model.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/start.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/python_legacy/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/python_legacy/api_client.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +103,13 @@
       <workItem from="1623503806308" duration="358000" />
       <workItem from="1623504175998" duration="308000" />
       <workItem from="1623504497444" duration="9345000" />
-      <workItem from="1623596503733" duration="1496000" />
+      <workItem from="1623596503733" duration="5255000" />
+      <workItem from="1623673506758" duration="587000" />
+      <workItem from="1623674557860" duration="650000" />
+      <workItem from="1623675249293" duration="126000" />
+      <workItem from="1623675401564" duration="62000" />
+      <workItem from="1623675528846" duration="353000" />
+      <workItem from="1623676929098" duration="8650000" />
     </task>
     <servers />
   </component>

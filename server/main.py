@@ -2,6 +2,7 @@ import os.path
 from os.path import dirname
 from typing import Dict, List
 
+from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
 from fastapi import FastAPI, Response, status
 from fastapi.routing import APIRoute
 from pydantic import BaseSettings
@@ -31,6 +32,10 @@ class View():
     @app.get("/")
     def index() -> Dict:
         return {"Hello": "World"}
+
+    @app.get("/health")
+    def health() -> Dict:
+        return {"status": "up"}
 
     @app.get("/bad_request")
     def bad_request(response: Response) -> str:
@@ -82,7 +87,7 @@ class View():
     @app.get("/action", response_model=Action)
     def action() -> Action:
         if Search.LAST_SEARCH:
-            action = Action(name="SEARCH", arg=Search.LAST_SEARCH)
+            action = Action(enum=ServerActionEnum.SEARCH_TRACK, arg=Search.LAST_SEARCH)
             Search.LAST_SEARCH = None
             return action
         else:
