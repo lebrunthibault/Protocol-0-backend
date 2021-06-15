@@ -1,23 +1,20 @@
 import logging
 from typing import Tuple
 
+import pyautogui
 import win32api
-import win32con
 from PIL import ImageGrab
 from a_protocol_0.enums.ColorEnum import InterfaceColorEnum
 
 
-def click(x: int, y: int) -> None:
+def click(x: int, y: int, double_click: bool = False) -> None:
     (orig_x, orig_y) = win32api.GetCursorPos()
     logging.info("clicking at x: %s, y: %s" % (x, y))
-    _click(x, y)
+    if double_click:
+        pyautogui.doubleClick(x, y)
+    else:
+        pyautogui.click(x, y)
     win32api.SetCursorPos((orig_x, orig_y))
-
-
-def _click(x: int, y: int) -> None:
-    win32api.SetCursorPos((x, y))
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
 
 def get_pixel_color(x: int, y: int) -> Tuple[int, int, int]:

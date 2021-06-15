@@ -3,7 +3,7 @@ from typing import Callable, Any
 
 import keyboard
 
-from scripts.commands.reload_ableton import reload_ableton
+from api_client import openapi_client
 
 
 class HotKey():
@@ -31,11 +31,16 @@ class GlobalHotKey(HotKey):
         super().__init__(hotkey=hotkey, callback=callback, suppress=True)
 
 
+from openapi_client.api.default_api import DefaultApi
+
+system = DefaultApi(openapi_client.ApiClient())
+
+
 def setup_hotkeys() -> None:
-    GlobalHotKey.add("ctrl+alt+shift+n", reload_ableton)
+    GlobalHotKey.add("ctrl+alt+shift+n", system.reload_ableton)
     keyboard.wait()
 
 
 if __name__ == "__main__":
-    pass
-    # setup_hotkeys()
+    # pass
+    setup_hotkeys()

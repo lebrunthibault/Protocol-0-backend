@@ -1,27 +1,23 @@
 ﻿global funs := {}, args := {}
+global python3 := "C:\Users\thiba\AppData\Local\Programs\Python\Python39\python.exe"
+global ableton := "Ableton Live 10 Suite"
 
-join(array) {
-    str := ""
-    For i, value In array
-       str .= "|" . value
-    str := LTrim(str, "|")
 
-    return str
-}
-
-clearSearchBox()
+executeCliCommand(command)
 {
-	Send ^f
-	Send ^a
-	Send {BackSpace}
-	Sleep 100
+    Run %python3% cli.py %command%, %A_ScriptDir%\.., hide
 }
 
-; Link Hotkey to function
-HotkeyAbleton(hk, fun, arg*)
+HotkeyCommand(hk, arg*)
+{
+    Hotkey("", hk, "executeCliCommand", arg*)
+}
+
+
+HotkeyCommandAbleton(hk, arg*)
 {
     winActiveCondition = ahk_exe %ableton%.exe
-    Hotkey(winActiveCondition, hk, fun, arg*)
+    Hotkey(winActiveCondition, hk, "executeCliCommand", arg*)
 }
 
 ; Link Hotkey to function

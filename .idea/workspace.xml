@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.bat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/sync_presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/sync_presets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/hotkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/hotkeys.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +57,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Documents/protocol0_logs" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -103,7 +110,8 @@
       <workItem from="1623675528846" duration="353000" />
       <workItem from="1623676929098" duration="11492000" />
       <workItem from="1623689241260" duration="951000" />
-      <workItem from="1623690209394" duration="614000" />
+      <workItem from="1623690209394" duration="1421000" />
+      <workItem from="1623691645699" duration="11250000" />
     </task>
     <servers />
   </component>
@@ -112,6 +120,16 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.ahk" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

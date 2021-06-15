@@ -21,7 +21,7 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 from server.models import Action, Search
 
 logging.basicConfig(
-    filename=f"{LOGGING_DIRECTORY}\\cli.log",
+    filename=f"{LOGGING_DIRECTORY}\\server.log",
     level=logging.DEBUG,
     format="%(asctime)s.%(msecs)03d %(levelname)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
@@ -75,8 +75,7 @@ class View():
 
     @app.get("/double_click/{x}/{y}")
     def double_click(x: int, y: int) -> None:
-        click(x=x, y=y)
-        click(x=x, y=y)
+        click(x=x, y=y, double_click=True)
 
     @app.get("/pixel_has_color/{x}/{y}/{color}", response_model=bool)
     def pixel_has_color(x: int, y: int, color: str) -> bool:
