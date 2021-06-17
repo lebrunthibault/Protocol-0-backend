@@ -1,9 +1,6 @@
 import logging
-import os.path
 import subprocess
 import sys
-
-import pyautogui
 
 from consts import LOGGING_DIRECTORY
 
@@ -14,11 +11,6 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logging.getLogger().addHandler(logging.StreamHandler())
-
-# json handler
-# logJsonHandler = logging.StreamHandler()
-# logJsonHandler.setFormatter(jsonlogger.JsonFormatter())
-# logging.getLogger().addHandler(logJsonHandler)
 
 logger = logging.getLogger(__name__)
 
@@ -88,12 +80,9 @@ def command_save_set_as_template() -> None:
     save_set_as_template()
 
 
-@cli.command(name="click_show_vst")
-def command_click_show_vst() -> None:
-    img_path = f"{os.path.dirname(os.path.realpath(__file__))}/img/shsow_vst.png"
-    logger.info(img_path)
-    res = pyautogui.locateOnScreen(img_path)
-    print(res)
+@cli.command(name="test")
+def command_test() -> None:
+    logger.info("test")
 
 
 if __name__ == "__main__":

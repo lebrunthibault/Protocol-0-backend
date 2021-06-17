@@ -16,7 +16,7 @@ def click(x: int, y: int, double_click: bool = False) -> None:
         pyautogui.doubleClick(x, y)
     else:
         pyautogui.click(x, y)
-    win32api.SetCursorPos((orig_x, orig_y))
+    # win32api.SetCursorPos((orig_x, orig_y))
 
 
 def get_pixel_color(x: int, y: int) -> Tuple[int, int, int]:

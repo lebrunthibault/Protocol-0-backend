@@ -92,7 +92,7 @@ class CustomizeLogger:
         logger.add(
             sys.stdout,
             enqueue=True,
-            backtrace=True,
+            backtrace=False,
             level=level.upper(),
             filter=cls.filter_logs,
             format=partial(format_record, format_string=format_stdout)
@@ -101,7 +101,7 @@ class CustomizeLogger:
         logger.add(
             str(filepath),
             enqueue=True,
-            backtrace=True,
+            backtrace=False,
             level=level.upper(),
             filter=partial(cls.filter_logs, is_log_file=True),
             format=partial(format_record, format_string=format_log_file)
@@ -128,9 +128,12 @@ class CustomizeLogger:
     @classmethod
     def filter_logs(cls, record, is_log_file=False) -> bool:
         # don't pollute web logs with server restarts
-        if is_log_file and any(
-                name in record['name'] for name in ["uvicorn.server", "uvicorn.lifespan"]):
-            return False
+        if is_log_file:
+            if any(
+                    name in record['name'] for name in ["uvicorn.server", "uvicorn.lifespan"]):
+                return False
+            if record["extra"].get("stdout_only"):
+                return False
 
         """ Here do not log polling from ableton """
         if "GET /action" in record['message']:

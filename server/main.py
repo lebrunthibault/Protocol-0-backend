@@ -5,21 +5,21 @@ from typing import Dict, List
 
 from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
 from fastapi import FastAPI, Response, status
+from fastapi import WebSocket
 from fastapi.routing import APIRoute
-from loguru import logger
-from pydantic import BaseSettings
-from starlette.requests import Request
-
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows, is_plugin_window_visible
 from lib.window.window import focus_window
+from loguru import logger
+from pydantic import BaseSettings
 from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.reload_ableton import reload_ableton
 from scripts.commands.sync_presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
 from server.custom_logging import CustomizeLogger
 from server.models import Action, Search
+from starlette.requests import Request
 
 
 class Settings(BaseSettings):
@@ -42,27 +42,13 @@ def create_app() -> FastAPI:
     logger = CustomizeLogger.make_logger(config_path)
     app.logger = logger
 
-    def use_route_names_as_operation_ids(app: FastAPI) -> None:
-        """
-        Simplify operation IDs so that generated API clients have simpler function
-        names.
-
-        Should be called only after all routes have been added.
-        """
-        for route in app.routes:
-            if isinstance(route, APIRoute):
-                route.operation_id = route.name
-
-    use_route_names_as_operation_ids(app)
-
     async def catch_exceptions_middleware(request: Request, call_next):
         try:
             return await call_next(request)
         except Exception as e:
-            logger.exception("Internal Server Error")
-            # you probably want some kind of logging here
+            logger.error(f"Internal server error: {e}")
+            logger.exception("Stack trace", stdout_only=True)
             return Response(f"Internal server error: {e}", status_code=500)
-            # return Response("Internal server error: %s\n%s" % (e, traceback.format_exc()), status_code=500)
 
     app.middleware('http')(catch_exceptions_middleware)
 
@@ -163,3 +149,31 @@ class Routes():
             return action
         else:
             return Action()
+
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        data = await websocket.receive_text()
+        await websocket.send_text(f"Message text was: {data}")
+
+        # await asyncio.sleep(1)
+        # payload = {"time": time.time()}
+        # await websocket.send_json(payload)
+
+
+# should be after the routes are defined
+def use_route_names_as_operation_ids(app: FastAPI) -> None:
+    """
+    Simplify operation IDs so that generated API clients have simpler function
+    names.
+
+    Should be called only after all routes have been added.
+    """
+    for route in app.routes:
+        if isinstance(route, APIRoute):
+            route.operation_id = route.name
+
+
+use_route_names_as_operation_ids(app)
