@@ -2,6 +2,8 @@ import logging
 import os
 from typing import Generator, Any
 
+logger = logging.getLogger(__name__)
+
 
 class SerumPresetSynchronizer:
     PRESET_DIRECTORY = "C:\\Users\\thiba\\OneDrive\\Documents\\Xfer\\Serum Presets\\Presets\\"
@@ -29,7 +31,7 @@ class SerumPresetSynchronizer:
                 f.write("%s\n" % preset)
 
         res = "%d serum presets wrote to %s" % (len(presets), cls.PROGRAM_CHANGE_FILENAME)
-        logging.info(res)
+        logger.info(res)
         return res
 
 

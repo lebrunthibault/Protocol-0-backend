@@ -1,16 +1,27 @@
 import logging
+import os.path
 import subprocess
 import sys
+
+import pyautogui
 
 from consts import LOGGING_DIRECTORY
 
 logging.basicConfig(
     filename=f"{LOGGING_DIRECTORY}\\cli.log",
     level=logging.DEBUG,
-    format="%(asctime)s.%(msecs)03d %(levelname)s: %(message)s",
+    format="%(asctime)s.%(msecs)03d %(name)s %(levelname)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logging.getLogger().addHandler(logging.StreamHandler())
+
+# json handler
+# logJsonHandler = logging.StreamHandler()
+# logJsonHandler.setFormatter(jsonlogger.JsonFormatter())
+# logging.getLogger().addHandler(logJsonHandler)
+
+logger = logging.getLogger(__name__)
+
 from typing import Optional
 
 import click
@@ -20,6 +31,19 @@ from commands.search_set import search_set
 from commands.sync_presets import sync_presets
 from lib.window.find_window import SearchTypeEnum
 from lib.window.window import focus_window
+
+
+def exception_handler(exctype, value, tb):
+    logger.error("Uncaught exception")
+    logger.error(f"Type: {exctype}")
+    logger.error(f"Value: {value}")
+    if tb:
+        format_exception = traceback.format_tb(tb)
+        for line in format_exception:
+            logger.error(repr(line))
+
+
+sys.excepthook = exception_handler
 
 
 @click.group()
@@ -62,6 +86,14 @@ def command_refresh_logs() -> None:
 @cli.command(name="save_set_as_template")
 def command_save_set_as_template() -> None:
     save_set_as_template()
+
+
+@cli.command(name="click_show_vst")
+def command_click_show_vst() -> None:
+    img_path = f"{os.path.dirname(os.path.realpath(__file__))}/img/shsow_vst.png"
+    logger.info(img_path)
+    res = pyautogui.locateOnScreen(img_path)
+    print(res)
 
 
 if __name__ == "__main__":

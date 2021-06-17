@@ -10,6 +10,8 @@ import wmi
 from a_protocol_0.enums.AbstractEnum import AbstractEnum
 from a_protocol_0.errors.Protocol0Error import Protocol0Error
 
+logger = logging.getLogger(__name__)
+
 c = wmi.WMI()
 
 
@@ -41,10 +43,13 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
     def winEnumHandler(hwnd, _):
         # type: (int, Any) -> None
         nonlocal handle
+        handle_app_name = _get_app_name(hwnd)
+        if handle_app_name == "chrome.exe":
+            return
         if (
                 win32gui.IsWindowVisible(hwnd)
                 and (not class_name or win32gui.GetClassName(hwnd) == class_name)
-                and (not app_name or _get_app_name(hwnd) == app_name)
+                and (not app_name or handle_app_name == app_name)
                 and (not partial_name or partial_name in _get_window_title(hwnd))
         ):
             handle = hwnd
@@ -52,9 +57,9 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
     win32gui.EnumWindows(winEnumHandler, None)
 
     if handle:
-        logging.info("Window handle found : %s" % handle)
+        logger.info(f"Window handle found : {handle}, app_name: {_get_app_name(handle)}")
     else:
-        logging.info(
+        logger.info(
             f"Window handle not found. class_name={class_name}, app_name={app_name}, partial_name={partial_name}")
 
     return handle
@@ -90,7 +95,7 @@ def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
                 "class_name": class_name,
                 "app_name": app_name
             }
-            logging.info(line)
+            logger.info(line)
             result.append(line)
 
     win32gui.EnumWindows(winEnumHandler, None)
@@ -109,5 +114,5 @@ def _get_app_name(hwnd: int) -> Optional[str]:
         handle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1])
         return win32process.GetModuleFileNameEx(handle, 0).split("\\")[-1]
     except Exception as e:
-        logging.error(e)
+        logger.error(e)
         return None

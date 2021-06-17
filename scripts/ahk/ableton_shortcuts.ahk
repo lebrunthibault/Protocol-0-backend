@@ -20,17 +20,12 @@ HotkeyCommand("^#+l", "refresh_logs")
 HotkeyCommandAbleton("^+f", "search_set")
 
 ; literal hotkeys should be defined *after* the executable code
-global winActiveCondition = ahk_exe "Ableton Live 10 Suite.exe"
-#IfWinActive winActiveCondition
+#IfWinActive, ahk_exe Ableton Live 10 Suite.exe
 ^#+s::
     Send ^,  ; works best from ahk
     executeCliCommand("save_set_as_template")
-#IfWinActive
-
-
-^+z::
-    Send ^y
 return
+#IfWinActive
 
 ; closes clink terminal window
 #IfWinActive, ahk_class ConsoleWindowClass

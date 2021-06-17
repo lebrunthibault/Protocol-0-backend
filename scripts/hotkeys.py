@@ -5,6 +5,8 @@ import keyboard
 
 from api_client import openapi_client
 
+logger = logging.getLogger(__name__)
+
 
 class HotKey():
     def __init__(self, hotkey: str, callback: Callable, suppress: bool = False) -> None:
@@ -12,7 +14,7 @@ class HotKey():
         self._hotkey = hotkey
         self._suppress = suppress
         keyboard.add_hotkey(self._hotkey, self._execute, suppress=self._suppress)
-        logging.info(f"Registered {self}")
+        logger.info(f"Registered {self}")
 
     def __repr__(self) -> str:
         return f"{self.__class__.__name__} {self._hotkey}: {self._callback.__name__}"
@@ -22,7 +24,7 @@ class HotKey():
         cls(*a, **k)
 
     def _execute(self) -> None:
-        logging.info(f"{self} executing")
+        logger.info(f"{self} executing")
         self._callback()
 
 

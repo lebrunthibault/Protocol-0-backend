@@ -5,15 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/server/custom_logging.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/logging_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/active_window.ahk" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/sync_presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/sync_presets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/hotkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/hotkeys.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
     </list>
@@ -57,10 +62,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Documents/protocol0_logs" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\scripts\img" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\python" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\server" />
@@ -112,6 +118,7 @@
       <workItem from="1623689241260" duration="951000" />
       <workItem from="1623690209394" duration="1421000" />
       <workItem from="1623691645699" duration="11250000" />
+      <workItem from="1623872981910" duration="16304000" />
     </task>
     <servers />
   </component>
