@@ -68,10 +68,11 @@ def command_sync_presets() -> None:
 
 @cli.command(name="refresh_logs")
 def command_refresh_logs() -> None:
+    scripts_dir = "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\a_protocol_0\\scripts"
     p = subprocess.Popen(["powershell.exe",
-                          "invoke-expression", "'cmd /c start powershell -Command { ./tailAbletonLogs.ps1 }'"],
-                         stdout=sys.stdout,
-                         cwd="C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\a_protocol_0\\scripts")
+                          "invoke-expression",
+                          "'cmd /c start powershell -Command { set-location \"%s\"; ./tailAbletonLogs.ps1 }'" % scripts_dir],
+                         stdout=sys.stdout)
     p.communicate()
 
 

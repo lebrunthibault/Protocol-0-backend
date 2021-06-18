@@ -1,3 +1,4 @@
+import asyncio
 import os.path
 from os.path import dirname
 from pathlib import Path
@@ -5,7 +6,6 @@ from typing import Dict, List
 
 from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
 from fastapi import FastAPI, Response, status
-from fastapi import WebSocket
 from fastapi.routing import APIRoute
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
@@ -141,6 +141,11 @@ class Routes():
     def sync_presets() -> str:
         return sync_presets()
 
+    @app.get("/wait/{seconds}", response_model=str)
+    async def wait(seconds: int) -> str:
+        await asyncio.sleep(seconds)
+        return f"waited {seconds}"
+
     @app.get("/action", response_model=Action)
     def action() -> Action:
         if Search.LAST_SEARCH:
@@ -149,18 +154,6 @@ class Routes():
             return action
         else:
             return Action()
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        data = await websocket.receive_text()
-        await websocket.send_text(f"Message text was: {data}")
-
-        # await asyncio.sleep(1)
-        # payload = {"time": time.time()}
-        # await websocket.send_json(payload)
 
 
 # should be after the routes are defined

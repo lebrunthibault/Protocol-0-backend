@@ -1,7 +1,12 @@
-import openapi_client
-from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
-from openapi_client.api.default_api import DefaultApi
+import speech_recognition as sr
 
-client = DefaultApi(openapi_client.ApiClient())
-print(client.health())
-action = Action(enum=ServerActionEnum.SEARCH_TRACK, arg=Search.LAST_SEARCH)
+r = sr.Recognizer()
+mic = sr.Microphone()
+# sr.Microphone.list_microphone_names()
+with mic as source:
+    print("starting recording")
+    r.adjust_for_ambient_noise(source)
+    audio = r.listen(source)
+    print(audio)
+    s = r.recognize_google(audio)
+    print(s)
