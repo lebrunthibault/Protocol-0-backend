@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/speech_recognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/commands/set_vocal_control.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/speech_recognition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +61,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/OneDrive/Documents/protocol0_logs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../backup/MIDI Remote Scripts Live 11" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
@@ -122,6 +120,7 @@
       <workItem from="1623690209394" duration="1421000" />
       <workItem from="1623691645699" duration="11250000" />
       <workItem from="1623872981910" duration="29782000" />
+      <workItem from="1624029776763" duration="3119000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,3 @@
-import asyncio
 import os.path
 from os.path import dirname
 from pathlib import Path
@@ -11,7 +10,6 @@ from lib.click import pixel_has_color, click
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows, is_plugin_window_visible
 from lib.window.window import focus_window
-from loguru import logger
 from pydantic import BaseSettings
 from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.reload_ableton import reload_ableton
@@ -61,7 +59,6 @@ app = create_app()
 class Routes():
     @app.get("/")
     def index() -> Dict:
-        logger.info("logging from the root logger")
         return {"Hello": "World"}
 
     @app.get("/health")
@@ -140,11 +137,6 @@ class Routes():
     @app.get("/sync_presets", response_model=str)
     def sync_presets() -> str:
         return sync_presets()
-
-    @app.get("/wait/{seconds}", response_model=str)
-    async def wait(seconds: int) -> str:
-        await asyncio.sleep(seconds)
-        return f"waited {seconds}"
 
     @app.get("/action", response_model=Action)
     def action() -> Action:

@@ -11,7 +11,7 @@ class SpeechRecognition():
         self.recognizer = sr.Recognizer()
         self.mic = sr.Microphone()
 
-    def get_input(self) -> Optional[str]:
+    async def get_input(self) -> Optional[str]:
         with self.mic as source:
             print("starting recording")
             self.recognizer.adjust_for_ambient_noise(source)
