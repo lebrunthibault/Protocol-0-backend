@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/scripts/commands/set_vocal_control.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/speech_recognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/set_vocal_control.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +59,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../backup/MIDI Remote Scripts Live 11" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -121,6 +119,12 @@
       <workItem from="1623691645699" duration="11250000" />
       <workItem from="1623872981910" duration="29782000" />
       <workItem from="1624029776763" duration="3119000" />
+      <workItem from="1624104445756" duration="1218000" />
+      <workItem from="1624207829020" duration="215000" />
+      <workItem from="1624208051067" duration="6000" />
+      <workItem from="1624208090002" duration="4000" />
+      <workItem from="1624208100772" duration="417000" />
+      <workItem from="1624210439451" duration="1096000" />
     </task>
     <servers />
   </component>
