@@ -8,31 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/custom_logging.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/enum/InterfaceColorEnum.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/enum/PixelEnum.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/enum/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_config.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/__init__package.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/api.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/configuration.mustache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/python/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/python/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python/api_client.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/api_client.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/configuration.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/model.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/model.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +129,7 @@
       <workItem from="1624208090002" duration="4000" />
       <workItem from="1624208100772" duration="417000" />
       <workItem from="1624210439451" duration="1096000" />
-      <workItem from="1624226691152" duration="12613000" />
+      <workItem from="1624226691152" duration="12815000" />
     </task>
     <servers />
   </component>

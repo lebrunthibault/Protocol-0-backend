@@ -53,19 +53,16 @@ class MidiApp():
                 if msg.is_cc(121) or msg.is_cc(123):
                     logger.debug("-")
                     continue
-                bytes_msg = msg.bin()[1:-1]
-                string = bytes_msg.decode("utf-8")
+                string = msg.bin()[1:-1].decode("utf-8")
                 logger.debug(f"Received string {string}")
                 try:
                     obj = json.loads(string)
                 except JSONDecodeError:
                     logger.error(f"json decode error on string : {string}, msg: {msg}")
                     continue
-                method_name = obj["method"]
-                method_args = obj["args"]
-                method_object = getattr(Routes, method_name)
-                logger.info(f"calling {method_object} with args {method_args}")
-                res = method_object(**method_args)
+                method_object = getattr(Routes, obj["method"])
+                logger.info(f"calling {method_object} with args {obj['args']}")
+                res = method_object(**obj["args"])
                 logger.info(f"res : {res}")
 
     @staticmethod
@@ -86,7 +83,6 @@ class MidiApp():
             logger.info(f"port open : {p0_port_name}")
 
             msg = MidiApp.make_message_from_string(json.dumps(dict))
-            logger.info(msg)
             midi_port.send(msg)
             logger.info(f"sent msg to p0: {msg}")
 
