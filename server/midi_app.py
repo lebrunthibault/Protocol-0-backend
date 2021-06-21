@@ -20,9 +20,6 @@ class MidiApp():
     P0_OUTPUT_PORT_NAME = 'P0_OUT'
     P0_INPUT_PORT_NAME = 'P0_IN'
 
-    def __init__(self):
-        self._listen_to_P0_midi_messages()
-
     @staticmethod
     def make_message_from_string(message: str) -> Message:
         print(f"Sending string to midi output : {message}")
@@ -31,17 +28,18 @@ class MidiApp():
         b.append(0xF7)
         return mido.Message.from_bytes(b)
 
-    def _listen_to_P0_midi_messages(self):
+    @staticmethod
+    def listen_to_P0_midi_messages():
         p0_port_name = None
         # noinspection PyUnresolvedReferences
         for port_name in mido.get_input_names():
             logger.debug(port_name)
-            if self.P0_OUTPUT_PORT_NAME in port_name:
+            if MidiApp.P0_OUTPUT_PORT_NAME in port_name:
                 p0_port_name = port_name
                 break
 
         if p0_port_name is None:
-            raise Exception(f"couldn't find {self.P0_OUTPUT_PORT_NAME} port")
+            raise Exception(f"couldn't find {MidiApp.P0_OUTPUT_PORT_NAME} port")
 
         from server.routes import Routes
 
@@ -89,4 +87,4 @@ class MidiApp():
 
 if __name__ == "__main__":
     logger.info("starting app")
-    MidiApp()
+    MidiApp.listen_to_P0_midi_messages()
