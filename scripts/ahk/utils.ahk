@@ -1,5 +1,5 @@
 ﻿global funs := {}, args := {}
-global python3 := "C:\Users\thiba\AppData\Local\Programs\Python\Python39\python.exe"
+global python3 := "C:\Users\thiba\AppData\Local\Programs\Python\Python37\python.exe"
 global ableton := "Ableton Live 10 Suite"
 
 

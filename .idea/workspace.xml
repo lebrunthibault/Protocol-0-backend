@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/scripts/commands/set_vocal_control.py" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_logging.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/enum/InterfaceColorEnum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/enum/PixelEnum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/enum/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/__init__package.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/api.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/configuration.mustache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python/api_client.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/api_client.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/configuration.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/python_legacy/model.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/model.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,10 +92,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\scripts\img" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\python" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\server" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi\python_legacy" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api\python_legacy" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\enum" />
     </key>
   </component>
   <component name="RunManager">
@@ -125,6 +153,7 @@
       <workItem from="1624208090002" duration="4000" />
       <workItem from="1624208100772" duration="417000" />
       <workItem from="1624210439451" duration="1096000" />
+      <workItem from="1624226691152" duration="12613000" />
     </task>
     <servers />
   </component>

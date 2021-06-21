@@ -2,15 +2,9 @@ import logging
 import subprocess
 import sys
 
-from consts import LOGGING_DIRECTORY
+from lib.custom_logging import configure_logging
 
-logging.basicConfig(
-    filename=f"{LOGGING_DIRECTORY}\\cli.log",
-    level=logging.DEBUG,
-    format="%(asctime)s.%(msecs)03d %(name)s %(levelname)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
-logging.getLogger().addHandler(logging.StreamHandler())
+configure_logging(filename="cli.log")
 
 logger = logging.getLogger(__name__)
 

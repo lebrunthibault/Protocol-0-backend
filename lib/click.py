@@ -4,7 +4,8 @@ from typing import Tuple
 import pyautogui
 import win32api
 from PIL import ImageGrab
-from a_protocol_0.enums.ColorEnum import InterfaceColorEnum
+
+from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 logger = logging.getLogger(__name__)
 

@@ -2,9 +2,8 @@ import logging
 import math
 from typing import Tuple
 
-from a_protocol_0.enums.ColorEnum import InterfaceColorEnum
-
 from lib.click import click, get_pixel_color
+from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 logger = logging.getLogger(__name__)
 

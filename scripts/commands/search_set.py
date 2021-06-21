@@ -1,12 +1,11 @@
 import logging
 
 import PySimpleGUI as sg
-import requests
 import win32gui
 
-from lib.speech_recognition import SpeechRecognition
 from lib.window.find_window import find_window_handle_by_criteria
 from lib.window.window import focus_ableton
+from server.midi_app import MidiApp
 
 logger = logging.getLogger(__name__)
 
@@ -15,26 +14,28 @@ KEEP_WINDOW_IN_BACKGROUND = False
 
 def send_search(search):
     # type: (str) -> None
-    logger.info("sending search %s to server" % search)
-    requests.get("http://127.0.0.1:8000/search/%s" % search, auth=("user", "pass"))
+    logger.info(f"sending search {search} to api")
+    MidiApp.send_message_to_output({"enum": "SEARCH_TRACK", "arg": search})
+    # requests.get("http://127.0.0.1:8000/search/%s" % search, auth=("user", "pass"))
 
 
-def create_vocal():
-    # sr.Microphone.list_microphone_names()
-    with mic as source:
-        print("starting recording")
-        r.adjust_for_ambient_noise(source)
-        audio = r.listen(source)
-        print(audio)
-        s = r.recognize_google(audio, language="fr-FR")
-        print(s)
+#
+# def create_vocal():
+#     # sr.Microphone.list_microphone_names()
+#     with mic as source:
+#         print("starting recording")
+#         r.adjust_for_ambient_noise(source)
+#         audio = r.listen(source)
+#         print(audio)
+#         s = r.recognize_google(audio, language="fr-FR")
+#         print(s)
 
 
 def create_gui():
     # type: () -> None
     layout = [[sg.Input(key="input")]]
     window = sg.Window("", layout, return_keyboard_events=True, no_titlebar=True)
-    speech_recognition = SpeechRecognition()
+    # speech_recognition = SpeechRecognition()
 
     while True:
         event, values = window.read()
