@@ -8,7 +8,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/server/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdk_generation/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_api/python/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_api/python/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python/api_client.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/api_client.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/api_client.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/configuration.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_api/python_legacy/model.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/model.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_midi/python_legacy/__init__package.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_midi/python_legacy/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi_templates/via_midi/python_legacy/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_midi/python_legacy/configuration.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/.gitlab-ci.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/.openapi-generator-ignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/.openapi-generator/FILES" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/.openapi-generator/VERSION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/docs/DefaultApi.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/docs/HTTPValidationError.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/docs/ValidationError.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/git_push.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/api/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/api/default_api.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/api_client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/configuration.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/exceptions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/models/http_validation_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/models/validation_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/p0_system_api/rest.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/setup.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/test-requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/test/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/restart_ableton.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/test/test_default_api.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/test/test_http_validation_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/test/test_validation_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/p0_system_api/tox.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +110,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi\python_legacy" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api\python_legacy" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\enum" />
     </key>
   </component>
   <component name="RunManager">
@@ -131,6 +173,7 @@
       <workItem from="1624210439451" duration="1096000" />
       <workItem from="1624226691152" duration="12815000" />
       <workItem from="1624281726515" duration="2630000" />
+      <workItem from="1624555981550" duration="4903000" />
     </task>
     <servers />
   </component>

@@ -75,6 +75,17 @@ def command_save_set_as_template() -> None:
     save_set_as_template()
 
 
+@cli.command(name="save_set_as_template")
+def command_save_set_as_template() -> None:
+    save_set_as_template()
+
+
+#
+# @cli.command(name="restart_ableton")
+# def command_save_set_as_template() -> None:
+#     save_set_as_template()
+
+
 @cli.command(name="test")
 def command_test() -> None:
     logger.info("test")

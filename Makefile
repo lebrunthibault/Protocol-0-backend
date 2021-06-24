@@ -13,6 +13,9 @@ dev:
 midi:
 	${PYTHON} server/midi_app.py
 
+spec:
+	${PYTHON} sdk_generation/generate_api_specs.py
+
 sdk:
 	cls
 	openapi-generator generate -i http://localhost:8000/openapi.json -g python-legacy -c openapi_config.json -o p0_system_api -t openapi_templates/via_midi/python_legacy
