@@ -2,12 +2,24 @@ import os
 from typing import List, Callable
 
 # If no exception is raised by validate_spec(), the spec is valid.
-from a_protocol_0.utils.decorators import EXPOSED_METHODS
+from a_protocol_0.utils.decorators import EXPOSED_P0_METHODS
 from openapi_spec_validator import validate_spec
 
-print(EXPOSED_METHODS)
+print(EXPOSED_P0_METHODS)
 
 from apispec import APISpec
+
+
+def switch_p0_to_python_version(version: int):
+    from a_protocol_0.consts import REMOTE_SCRIPTS_DIR
+
+    def switch_package_to_python_version(package_name: str, version: int):
+        current_version = 3 if version == 2 else 2
+        os.rename(f"{REMOTE_SCRIPTS_DIR}/{package_name}", f"{REMOTE_SCRIPTS_DIR}/{package_name}_py{current_version}")
+        os.rename(f"{REMOTE_SCRIPTS_DIR}/{package_name}_py{version}", f"{REMOTE_SCRIPTS_DIR}/{package_name}")
+
+    switch_package_to_python_version(package_name="_Framework", version=version)
+    switch_package_to_python_version(package_name="ableton", version=version)
 
 
 class OpenApiSpecDescription():
@@ -18,7 +30,7 @@ class OpenApiSpecDescription():
 
 
 class OpenAPISpec():
-    _P0_INTERNAL_API_SPEC_DESCRIPTION = OpenApiSpecDescription(title="P0 Internal API", methods=EXPOSED_METHODS,
+    _P0_INTERNAL_API_SPEC_DESCRIPTION = OpenApiSpecDescription(title="P0 Internal API", methods=EXPOSED_P0_METHODS,
                                                                filename="p0_internal_api.yaml")
 
     def __init__(self, spec_description: OpenApiSpecDescription):
@@ -63,4 +75,6 @@ class OpenAPISpec():
 
 
 if __name__ == "__main__":
+    switch_p0_to_python_version(version=3)
     OpenAPISpec.generate_api_specs()
+    switch_p0_to_python_version(version=2)
