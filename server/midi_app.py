@@ -16,20 +16,29 @@ logger = logging.getLogger(__name__)
 
 
 class MidiApp():
+    IS_RUNNING = False
     # port names are relative to the Protocol0 script and not this midi backend
     P0_OUTPUT_PORT_NAME = 'P0_OUT'
     P0_INPUT_PORT_NAME = 'P0_IN'
 
+    def __init__(self):
+        if self.IS_RUNNING:
+            raise Exception("a midi app instance is already running")
+
+        logger.info("Starting midi app")
+        self.IS_RUNNING = True
+        self._listen_to_P0_midi_messages()
+
     @staticmethod
-    def make_message_from_string(message: str) -> Message:
+    def _make_message_from_dict(dict: Dict) -> Message:
+        message = json.dumps(dict)
         print(f"Sending string to midi output : {message}")
         b = bytearray(message.encode())
         b.insert(0, 0xF0)
         b.append(0xF7)
         return mido.Message.from_bytes(b)
 
-    @staticmethod
-    def listen_to_P0_midi_messages():
+    def _listen_to_P0_midi_messages():
         p0_port_name = None
         # noinspection PyUnresolvedReferences
         for port_name in mido.get_input_names():
@@ -80,11 +89,10 @@ class MidiApp():
         with mido.open_output(p0_port_name, autoreset=False) as midi_port:
             logger.info(f"port open : {p0_port_name}")
 
-            msg = MidiApp.make_message_from_string(json.dumps(dict))
+            msg = MidiApp._make_message_from_dict(dict=dict)
             midi_port.send(msg)
             logger.info(f"sent msg to p0: {msg}")
 
 
 if __name__ == "__main__":
-    logger.info("starting app")
-    MidiApp.listen_to_P0_midi_messages()
+    midi_app = MidiApp()

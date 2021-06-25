@@ -19,7 +19,7 @@ class {{classname}}(object):
     """
 {{#operation}}
 
-    def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}**kwargs):  # noqa: E501
+    def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{paramName}}={{{defaultValue}}}{{^-last}}, {{/-last}}{{/optionalParams}}):  # noqa: E501
         # type: ({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{dataType}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}Any) -> None
         """{{#summary}}{{{.}}}{{/summary}}{{^summary}}{{operationId}}{{/summary}}  # noqa: E501
 
@@ -37,8 +37,7 @@ class {{classname}}(object):
         obj = {
             "method": "{{operationId}}",
             "args": {
-                {{#allParams}}{{#required}}"{{paramName}}": {{paramName}},
-                {{/required}}{{/allParams}}
+                {{#allParams}}"{{paramName}}": {{paramName}}, {{/allParams}}
             }
         }
 

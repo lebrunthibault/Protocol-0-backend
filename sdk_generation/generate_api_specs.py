@@ -1,80 +1,133 @@
+import inspect
+import itertools
+import json
 import os
-from typing import List, Callable
 
-# If no exception is raised by validate_spec(), the spec is valid.
 from a_protocol_0.utils.decorators import EXPOSED_P0_METHODS
-from openapi_spec_validator import validate_spec
-
-print(EXPOSED_P0_METHODS)
-
 from apispec import APISpec
+from enum import Enum
+from openapi_spec_validator import validate_spec
+from openapi_spec_validator.exceptions import OpenAPIValidationError
+from typing import Callable, List, Dict
 
 
-def switch_p0_to_python_version(version: int):
-    from a_protocol_0.consts import REMOTE_SCRIPTS_DIR
+class ApiEnum(Enum):
+    @property
+    def title(self):
+        # type: () -> str
+        return " ".join(word.title() for word in self.name.split("_")) + " API"
 
-    def switch_package_to_python_version(package_name: str, version: int):
-        current_version = 3 if version == 2 else 2
-        os.rename(f"{REMOTE_SCRIPTS_DIR}/{package_name}", f"{REMOTE_SCRIPTS_DIR}/{package_name}_py{current_version}")
-        os.rename(f"{REMOTE_SCRIPTS_DIR}/{package_name}_py{version}", f"{REMOTE_SCRIPTS_DIR}/{package_name}")
+    @property
+    def methods(self):
+        # type: () -> List[Callable]
+        return self.value
 
-    switch_package_to_python_version(package_name="_Framework", version=version)
-    switch_package_to_python_version(package_name="ableton", version=version)
-
-
-class OpenApiSpecDescription():
-    def __init__(self, title: str, methods: List[Callable], filename: str):
-        self.title = title
-        self.methods = methods
-        self.filename = f"{os.path.dirname(__file__)}/{filename}"
+    P0_SCRIPT = EXPOSED_P0_METHODS
 
 
 class OpenAPISpec():
-    _P0_INTERNAL_API_SPEC_DESCRIPTION = OpenApiSpecDescription(title="P0 Internal API", methods=EXPOSED_P0_METHODS,
-                                                               filename="p0_internal_api.yaml")
+    def __init__(self, apiEnum):
+        # type: (ApiEnum) -> None
+        self.folder_name = apiEnum.name.lower()
+        self.spec = self._generate_bare_spec(title=apiEnum.title)
 
-    def __init__(self, spec_description: OpenApiSpecDescription):
-        self.spec_description = spec_description
-        self.spec = self._generate_bare_spec()
-        for method in self.spec_description.methods:
+        for method in apiEnum.methods:
             self._add_spec_path_from_method(method=method)
 
-        validate_spec(self.spec)
+        try:
+            validate_spec(self.spec.to_dict())
+            print("spec is valid")
+        except OpenAPIValidationError as e:
+            print(e)
+            return
+
+    @staticmethod
+    def get_openapi_string_type(obj):
+        if isinstance(obj, basestring):
+            return "string"
+        elif isinstance(obj, int):
+            return "integer"
+        elif isinstance(obj, float):
+            return "number"
+        elif isinstance(obj, list):
+            return "array"
+        else:
+            return "object"
 
     @staticmethod
     def generate_api_specs():
-        OpenAPISpec(spec_description=OpenAPISpec._P0_INTERNAL_API_SPEC_DESCRIPTION)._write_to_file()
+        for apiEnum in ApiEnum:
+            OpenAPISpec(apiEnum=apiEnum)._write_to_file()
 
-    def _generate_bare_spec(self) -> APISpec:
+    @staticmethod
+    def _generate_bare_spec(title):
+        # type: (str) -> APISpec
         return APISpec(
-            title=self.spec_description.title,
+            title=title,
             version="1.0.0",
             openapi_version="3.0.2",
-            info=dict(description=self.spec_description.title),
+            info=dict(description=title),
         )
 
-    def _add_spec_path_from_method(self, method: Callable) -> APISpec:
-        # signature = inspect.signature(test)
-        # print(signature)
-        # print(signature.parameters)
+    def _add_spec_path_from_method(self, method):
+        # type: (Callable) -> APISpec
+
         return self.spec.path(
-            path=f"/{method.__name__}",
-            operations=dict(
-                get=dict(
-                    responses={
+            path="/%s/" % method.__name__,
+            parameters=list(self._get_parameters_dict_from_method(method)),
+            operations={
+                "get": {
+                    "responses": {
                         "200": {
                             "description": ""
                         }
                     }
-                ))
+                }
+            }
         )
 
+    def _get_parameters_dict_from_method(self, method):
+        s = inspect.getargspec(method)
+        names = s.args
+        if len(names) and names[0] == "self":
+            names = names[1:]
+
+        required = object()  # unique object
+        total_defaults = [required] * (len(names))
+        if s.defaults:
+            total_defaults[-len(s.defaults):] = s.defaults
+
+        for name, default in itertools.izip(names, total_defaults):
+            param = {
+                "in": "query",
+                "name": name,
+                "required": default == required,
+                "schema": {}
+            }
+            if default != required:
+                param["schema"]["default"] = default
+                param["schema"]["type"] = self.get_openapi_string_type(default)
+            yield param
+
+    def _get_dict_from_signature_parameter(self, required, arg):
+        # type: (bool, str) -> Dict
+        return {
+            "required": required,
+            "name": arg,
+            "in": "query",
+            "schema": {}
+        }
+
     def _write_to_file(self):
-        with open(self.spec_description.filename, "w") as f:
+        folder_name = "%s/%s" % (os.path.dirname(__file__), self.folder_name)
+        if not os.path.exists(folder_name):
+            os.mkdir(folder_name)
+        with open("%s/openapi.yaml" % folder_name, "w") as f:
             f.write(self.spec.to_yaml())
+        with open("%s/openapi_config.json" % folder_name, "w") as f:
+            f.write(json.dumps({"packageName": "%s_api" % self.folder_name}))
+        print("wrote spec files %s" % folder_name)
 
 
 if __name__ == "__main__":
-    switch_p0_to_python_version(version=3)
     OpenAPISpec.generate_api_specs()
-    switch_p0_to_python_version(version=2)

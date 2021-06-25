@@ -8,9 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/restart_ableton.bat" beforeDir="false" afterPath="$PROJECT_DIR$/restart_ableton.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openapitools.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_midi/python_legacy/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_midi/python_legacy/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_midi/python_legacy/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/configuration.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +87,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation\p0_system" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation\p0_script" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi\python_legacy" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api\python_legacy" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api" />
     </key>
   </component>
   <component name="RunManager">
@@ -148,7 +153,8 @@
       <workItem from="1624555981550" duration="4903000" />
       <workItem from="1624568776894" duration="377000" />
       <workItem from="1624570070581" duration="1976000" />
-      <workItem from="1624610377605" duration="1719000" />
+      <workItem from="1624610377605" duration="2344000" />
+      <workItem from="1624612805518" duration="13689000" />
     </task>
     <servers />
   </component>
