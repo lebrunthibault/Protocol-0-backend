@@ -4,8 +4,15 @@ info:
   version: 1.0.0
 openapi: 3.0.2
 paths:
-  /search_track/:
+  /test:
     get:
+      operationId: test
+      responses:
+        '200':
+          description: ''
+  /search_track:
+    get:
+      operationId: search_track
       responses:
         '200':
           description: ''
@@ -14,15 +21,3 @@ paths:
       name: search
       required: true
       schema: {}
-    - in: query
-      name: toto
-      required: false
-      schema:
-        default: 4242
-        nullable: false
-        type: integer
-  /test/:
-    get:
-      responses:
-        '200':
-          description: ''

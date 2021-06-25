@@ -27,6 +27,12 @@ HotkeyCommandAbleton("^+f", "search_set")
 return
 #IfWinActive
 
+#IfWinActive, ahk_exe Ableton Live 10 Suite.exe
+^+f::
+    executeCliCommand("search_set")
+return
+#IfWinActive
+
 ; closes clink terminal window
 #IfWinActive, ahk_class ConsoleWindowClass
     !F4::WinClose, A

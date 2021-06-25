@@ -31,6 +31,7 @@ class MidiApp():
 
     @staticmethod
     def _make_message_from_dict(dict: Dict) -> Message:
+        assert isinstance(dict, Dict)
         message = json.dumps(dict)
         print(f"Sending string to midi output : {message}")
         b = bytearray(message.encode())

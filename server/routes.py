@@ -12,8 +12,7 @@ from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.reload_ableton import reload_ableton
 from scripts.commands.sync_presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
-from server.midi_app import MidiApp
-from server.models import Search
+from server.p0_script_api_client import p0_script_api_client
 
 router = APIRouter()
 
@@ -26,6 +25,11 @@ class Routes():
     @router.get("/health")
     def health() -> Dict:
         return {"status": "up"}
+
+    @router.get("/test")
+    def test() -> Dict:
+        p0_script_api_client.test()
+        return {"test": "done"}
 
     @router.get("/bad_request")
     def bad_request(response: Response) -> str:
@@ -92,10 +96,8 @@ class Routes():
 
     @router.get("/search/{search}")
     def search(search: str) -> str:
-        MidiApp.send_message_to_output({"enum": "SEARCH_TRACK", "arg": search})
-        Search.LAST_SEARCH = search
+        p0_script_api_client.search_track(search=search)
         return f"You searched for : {search}"
-        return res
 
     @router.get("/sync_presets", response_model=str)
     def sync_presets() -> str:

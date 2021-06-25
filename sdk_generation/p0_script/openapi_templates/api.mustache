@@ -4,8 +4,6 @@
 
 from __future__ import absolute_import
 
-import json
-
 from typing import Any
 
 
@@ -34,15 +32,14 @@ class {{classname}}(object):
         :rtype: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
         """
 
-        obj = {
+        message = {
             "method": "{{operationId}}",
             "args": {
                 {{#allParams}}"{{paramName}}": {{paramName}}, {{/allParams}}
             }
         }
 
-        from a_protocol_0 import Protocol0
-
-        Protocol0.SELF.midiManager.send_string(json.dumps(obj))
+        from server.midi_app import MidiApp
+        MidiApp.send_message_to_output(message)
 {{/operation}}
 {{/operations}}

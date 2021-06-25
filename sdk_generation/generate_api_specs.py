@@ -2,13 +2,13 @@ import inspect
 import itertools
 import json
 import os
+from enum import Enum
+from typing import Callable, List, Dict
 
 from a_protocol_0.utils.decorators import EXPOSED_P0_METHODS
 from apispec import APISpec
-from enum import Enum
 from openapi_spec_validator import validate_spec
 from openapi_spec_validator.exceptions import OpenAPIValidationError
-from typing import Callable, List, Dict
 
 
 class ApiEnum(Enum):
@@ -20,7 +20,7 @@ class ApiEnum(Enum):
     @property
     def methods(self):
         # type: () -> List[Callable]
-        return self.value
+        return [getattr(cls, method_name) for method_name, cls in self.value.items()]
 
     P0_SCRIPT = EXPOSED_P0_METHODS
 
@@ -73,10 +73,11 @@ class OpenAPISpec():
         # type: (Callable) -> APISpec
 
         return self.spec.path(
-            path="/%s/" % method.__name__,
+            path="/%s" % method.__name__,
             parameters=list(self._get_parameters_dict_from_method(method)),
             operations={
                 "get": {
+                    "operationId": method.__name__,
                     "responses": {
                         "200": {
                             "description": ""

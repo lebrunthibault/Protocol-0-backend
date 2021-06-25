@@ -12,9 +12,6 @@ import re  # noqa: F401
 import six
 
 
-from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
-
-
 # {{#imports}}
 # {{import}}
 # {{/imports}}
@@ -100,7 +97,7 @@ class {{classname}}(object):
 {{#vars}}
     @property
     def {{name}}(self):
-        # type: () -> {{#allowableValues}}ServerActionEnum{{/allowableValues}}{{^allowableValues}}{{dataType}}{{/allowableValues}}
+        # type: () -> {{#allowableValues}}{{/allowableValues}}{{^allowableValues}}{{dataType}}{{/allowableValues}}
         """Gets the {{name}} of this {{classname}}.  # noqa: E501
 
 {{#description}}
@@ -111,8 +108,7 @@ class {{classname}}(object):
         :rtype: {{dataType}}
         """
         {{#allowableValues}}
-        from a_protocol_0.enums.ServerActionEnum import ServerActionEnum
-        enum_value = ServerActionEnum.get_from_value(self._{{name}})
+        enum_value = None # todo
         if enum_value:
             return enum_value
         else:

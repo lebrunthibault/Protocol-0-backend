@@ -5,18 +5,18 @@ import win32gui
 
 from lib.window.find_window import find_window_handle_by_criteria
 from lib.window.window import focus_ableton
-from server.midi_app import MidiApp
+from server.p0_script_api_client import p0_script_api_client
 
 logger = logging.getLogger(__name__)
 
 KEEP_WINDOW_IN_BACKGROUND = False
+RELOAD_ON_STARTUP = True
 
 
 def send_search(search):
     # type: (str) -> None
     logger.info(f"sending search {search} to api")
-    MidiApp.send_message_to_output({"enum": "SEARCH_TRACK", "arg": search})
-    # requests.get("http://127.0.0.1:8000/search/%s" % search, auth=("user", "pass"))
+    p0_script_api_client.search_track(search=search)
 
 
 #
@@ -63,10 +63,13 @@ def create_gui():
 
 def search_set():
     # type: () -> None
-    search_window_handle = find_window_handle_by_criteria(class_name="TkTopLevel", app_name="python.exe")
-    if search_window_handle:
-        logger.info("found search set window, focusing")
-        win32gui.SetForegroundWindow(search_window_handle)
-    else:
-        logger.info("didn't find search set window, creating gui")
-        create_gui()
+    if not RELOAD_ON_STARTUP:
+        search_window_handle = find_window_handle_by_criteria(class_name="TkTopLevel", app_name="python.exe")
+        if search_window_handle:
+            logger.info("found search set window, focusing")
+            win32gui.SetForegroundWindow(search_window_handle)
+            return
+        else:
+            logger.info("didn't find search set window, creating gui")
+
+    create_gui()
