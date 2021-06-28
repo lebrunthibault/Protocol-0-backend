@@ -1,19 +1,19 @@
-import logging
 import subprocess
 import sys
 
+from loguru import logger
+
 from lib.custom_logging import configure_logging
+from lib.speech_recognition import SpeechRecognition
+from scripts.commands.search_set_gui import search_set_gui
 
 configure_logging(filename="cli.log")
-
-logger = logging.getLogger(__name__)
 
 from typing import Optional
 
 import click
 
 from commands.reload_ableton import reload_ableton, save_set_as_template
-from commands.search_set import search_set
 from commands.sync_presets import sync_presets
 from lib.window.find_window import SearchTypeEnum
 from lib.window.window import focus_window
@@ -50,9 +50,15 @@ def command_focus_window(name: str, search_type: Optional[str]) -> None:
     focus_window(name, search_type_enum)
 
 
-@cli.command(name="search_set")
-def command_search_set() -> None:
-    search_set()
+@cli.command(name="search_set_gui")
+def command_search_set_gui() -> None:
+    search_set_gui()
+
+
+@cli.command(name="search_set_vocal")
+def command_search_set_vocal() -> None:
+    speech_recognition = SpeechRecognition()
+    speech_recognition.get_input()
 
 
 @cli.command(name="sync_presets")
@@ -68,11 +74,6 @@ def command_refresh_logs() -> None:
                           "'cmd /c start powershell -Command { set-location \"%s\"; ./tailAbletonLogs.ps1 }'" % scripts_dir],
                          stdout=sys.stdout)
     p.communicate()
-
-
-@cli.command(name="save_set_as_template")
-def command_save_set_as_template() -> None:
-    save_set_as_template()
 
 
 @cli.command(name="save_set_as_template")

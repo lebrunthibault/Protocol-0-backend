@@ -19,18 +19,6 @@ def send_search(search):
     p0_script_api_client.search_track(search=search)
 
 
-#
-# def create_vocal():
-#     # sr.Microphone.list_microphone_names()
-#     with mic as source:
-#         print("starting recording")
-#         r.adjust_for_ambient_noise(source)
-#         audio = r.listen(source)
-#         print(audio)
-#         s = r.recognize_google(audio, language="fr-FR")
-#         print(s)
-
-
 def create_gui():
     # type: () -> None
     layout = [[sg.Input(key="input")]]
@@ -61,7 +49,7 @@ def create_gui():
     window.close()
 
 
-def search_set():
+def search_set_gui():
     # type: () -> None
     if not RELOAD_ON_STARTUP:
         search_window_handle = find_window_handle_by_criteria(class_name="TkTopLevel", app_name="python.exe")

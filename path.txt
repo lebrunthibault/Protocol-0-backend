@@ -1,0 +1,27 @@
+['',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python37\\python37.zip',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python37\\DLLs',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python37\\lib',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python37',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages',
+'C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts',
+'C:\\Users\\thiba\\Google Drive\\music\\dev\\Protocol0 System',
+'C:\\Python27\\Lib\\site-packages',
+'C:\\Users\\thiba\\anaconda3\\Lib\\site-packages',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\win32',
+'C:\
+
+
+['',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39\\python39.zip',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39\\DLLs',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39\\lib',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39',
+'C:\\Users\\thiba\\AppData\\Roaming\\Python\\Python39\\site-packages',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages',
+'C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts',
+'C:\\Users\\thiba\\Google Drive\\music\\dev\\Protocol0 System',
+'C:\\Python27\\Lib\\site-packages',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\win32',
+'C:\Users\thiba\AppData\Local\Programs\Python\Python39\lib\site-packages\win32\lib',
+'C:\\Users\\thiba\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\Pythonwin']

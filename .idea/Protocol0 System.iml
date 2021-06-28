@@ -8,6 +8,7 @@
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="protocol0_logs" />
+    <orderEntry type="module" module-name="speech_recognition" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

@@ -70,10 +70,9 @@ class CustomizeLogger:
 
     @classmethod
     def make_logger(cls, config_path: Path):
-        config = cls.load_logging_config(config_path)
-        logging_config = config.get('logger')
+        logging_config = cls._load_logging_config(config_path)
 
-        logger = cls.customize_logging(
+        logger = cls._customize_logging(
             f"{LOGGING_DIRECTORY}\\{logging_config.get('filename')}",
             level=logging_config.get('level'),
             format_stdout=logging_config.get('format_stdout'),
@@ -82,19 +81,19 @@ class CustomizeLogger:
         return logger
 
     @classmethod
-    def customize_logging(cls,
-                          filepath: str,
-                          level: str,
-                          format_stdout: str,
-                          format_log_file: str
-                          ):
+    def _customize_logging(cls,
+                           filepath: str,
+                           level: str,
+                           format_stdout: str,
+                           format_log_file: str
+                           ):
         logger.remove()
         logger.add(
             sys.stdout,
             enqueue=True,
             backtrace=False,
             level=level.upper(),
-            filter=cls.filter_logs,
+            filter=cls._filter_logs,
             format=partial(format_record, format_string=format_stdout)
         )
 
@@ -103,7 +102,7 @@ class CustomizeLogger:
             enqueue=True,
             backtrace=False,
             level=level.upper(),
-            filter=partial(cls.filter_logs, is_log_file=True),
+            filter=partial(cls._filter_logs, is_log_file=True),
             format=partial(format_record, format_string=format_log_file)
         )
         logging.basicConfig(handlers=[InterceptHandler()], level=0)
@@ -119,14 +118,14 @@ class CustomizeLogger:
         return logger.bind(method=None)
 
     @classmethod
-    def load_logging_config(cls, config_path):
+    def _load_logging_config(cls, config_path):
         config = None
         with open(config_path) as config_file:
             config = json.load(config_file)
         return config
 
     @classmethod
-    def filter_logs(cls, record, is_log_file=False) -> bool:
+    def _filter_logs(cls, record, is_log_file=False) -> bool:
         # don't pollute web logs with server restarts
         if is_log_file:
             if any(
@@ -135,8 +134,4 @@ class CustomizeLogger:
             if record["extra"].get("stdout_only"):
                 return False
 
-        """ Here do not log polling from ableton """
-        if "GET /action" in record['message']:
-            return False
-        else:
-            return True
+        return True

@@ -17,7 +17,6 @@ CoordMode,mouse,screen
 ; global hotkeys
 HotkeyCommand("^#+n", "reload_ableton")
 HotkeyCommand("^#+l", "refresh_logs")
-HotkeyCommandAbleton("^+f", "search_set")
 
 ; literal hotkeys should be defined *after* the executable code
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
@@ -29,7 +28,7 @@ return
 
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
 ^+f::
-    executeCliCommand("search_set")
+    executeCliCommand("search_set_gui")
 return
 #IfWinActive
 

@@ -1,11 +1,9 @@
 {
-  "logger": {
-    "filename": "server.log",
-    "level": "debug",
-    "rotation": "3 days",
-    "retention": "3 days",
-    "format_stdout2": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
-    "format_stdout": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
-    "format_log_file": "<level>{level: <8}</level> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
-  }
+  "filename": "server.log",
+  "level": "DEBUG",
+  "rotation": "3 days",
+  "retention": "3 days",
+  "format_stdout2": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
+  "format_stdout": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
+  "format_log_file": "<level>{level: <8}</level> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
 }

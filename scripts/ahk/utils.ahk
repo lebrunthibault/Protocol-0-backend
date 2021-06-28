@@ -13,13 +13,6 @@ HotkeyCommand(hk, arg*)
     Hotkey("", hk, "executeCliCommand", arg*)
 }
 
-
-HotkeyCommandAbleton(hk, arg*)
-{
-    winActiveCondition = ahk_exe %ableton%.exe
-    Hotkey(winActiveCondition, hk, "executeCliCommand", arg*)
-}
-
 ; Link Hotkey to function
 Hotkey(ifWinActiveCondition, hk, fun, arg*)
 {

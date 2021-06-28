@@ -8,20 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/server/p0_script_api_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openapi_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/path.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/commands/sr_google.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/custom_logging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/speech_recognition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/model.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/model.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/async_api.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/custom_logging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/logging_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/logging_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +60,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sdk_generation/generate_api_specs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
@@ -70,7 +69,7 @@
     <setting file="file://$PROJECT_DIR$/server/routes.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -84,7 +83,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 11 Suite/Resources/MIDI Remote Scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../speech_recognition" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
@@ -93,11 +92,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\scripts\commands" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation\p0_system" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation\p0_script" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi\python_legacy" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_api\python_legacy" />
     </key>
   </component>
   <component name="RunManager">
@@ -160,7 +159,9 @@
       <workItem from="1624568776894" duration="377000" />
       <workItem from="1624570070581" duration="1976000" />
       <workItem from="1624610377605" duration="2344000" />
-      <workItem from="1624612805518" duration="20753000" />
+      <workItem from="1624612805518" duration="25125000" />
+      <workItem from="1624661880162" duration="9362000" />
+      <workItem from="1624715229888" duration="2244000" />
     </task>
     <servers />
   </component>

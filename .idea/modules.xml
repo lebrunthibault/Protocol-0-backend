@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Protocol0 System.iml" filepath="$PROJECT_DIR$/.idea/Protocol0 System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../speech_recognition/.idea/speech_recognition.iml" filepath="$PROJECT_DIR$/../speech_recognition/.idea/speech_recognition.iml" />
     </modules>
   </component>
 </project>

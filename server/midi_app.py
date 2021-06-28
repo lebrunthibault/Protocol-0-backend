@@ -74,7 +74,7 @@ class MidiApp():
                 logger.info(f"res : {res}")
 
     @staticmethod
-    def send_message_to_output(dict: Dict) -> None:
+    def send_message_to_script(dict: Dict) -> None:
         p0_port_name = None
         # noinspection PyUnresolvedReferences
         for port_name in mido.get_output_names():
