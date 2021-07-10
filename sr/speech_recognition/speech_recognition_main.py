@@ -1,0 +1,5 @@
+from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
+
+
+class SpeechRecognitionMain(AbstractSpeechRecognition):
+    AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
