@@ -66,7 +66,7 @@ class DictionaryManager():
     def keep_unique_words(self, words: list):
         """ keep only words that are not in other word lists
         and remove duplicates from other lists as well
-        Each list is composed of unique words that did'nt appear in other lists
+        Each list is composed of unique words that didn't appear in other lists
         """
         for word in words:
             if word not in self.synonyms_set:

@@ -41,7 +41,7 @@ class Recognizer(Observable):
     def _load(self):
         logger.info(f"loading model {self.name}")
         model = Model(
-            f"{dirname(PROJECT_ROOT)}/speech_recognition_models/model_{self.name}")
+            f"{PROJECT_ROOT}/sr/models/model_{self.name}")
         logger.info(f"model loaded")
         args = [model, self.sample_rate]
         if self.name != "p0" and self.use_word_list:

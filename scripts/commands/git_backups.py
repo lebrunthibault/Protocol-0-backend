@@ -24,8 +24,8 @@ def _git_repo_backup(path: str):
     os.chdir(path)
     subprocess.run(["git", "add", "."])
     try:
-        subprocess.check_call(["git", "commit", "-a", "-m", "'backup'"],shell=False,
-    stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        subprocess.check_call(["git", "commit", "-a", "-m", "'backup'"], shell=False,
+                              stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         logger.info(f"Untouched")
         return

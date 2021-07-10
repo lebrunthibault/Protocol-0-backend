@@ -18,6 +18,7 @@ from speech_recognition.recorder.SimpleRecorder import SimpleRecorder
 
 class AbstractSpeechRecognition():
     AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
+    SEND_SEARCH_TO_ABLETON = False
     FINAL_PROCESSING_STEP = RecognizerStep.DICTIONARY
     MODEL = "p0"
     REFERENCE_MODEL = "us_small"
@@ -74,8 +75,9 @@ class AbstractSpeechRecognition():
     def _handle_success(self, word: str):
         logger.success(f"Found word enum: {word}")
         self.gui.update_text(word)
-        logger.info(f"sending search {word} to api")
-        p0_script_api_client.search_track(search=word)
+        if self.SEND_SEARCH_TO_ABLETON:
+            logger.info(f"sending search {word} to api")
+            p0_script_api_client.search_track(search=word)
 
     def _handle_not_found(self, failed_step: RecognizerStep):
         if failed_step == RecognizerStep.RECOGNIZER:
