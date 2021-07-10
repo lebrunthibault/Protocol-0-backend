@@ -8,6 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backups.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backups.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" afterDir="false" />
@@ -194,7 +195,7 @@
       <workItem from="1625806282808" duration="12921000" />
       <workItem from="1625862422752" duration="562000" />
       <workItem from="1625863005981" duration="1621000" />
-      <workItem from="1625922351686" duration="3682000" />
+      <workItem from="1625922351686" duration="3832000" />
     </task>
     <servers />
   </component>
