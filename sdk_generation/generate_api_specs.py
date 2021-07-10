@@ -7,6 +7,7 @@ from typing import Callable, List, Dict
 
 from a_protocol_0.utils.decorators import EXPOSED_P0_METHODS
 from apispec import APISpec
+from loguru import logger
 from openapi_spec_validator import validate_spec
 from openapi_spec_validator.exceptions import OpenAPIValidationError
 
@@ -36,9 +37,9 @@ class OpenAPISpec():
 
         try:
             validate_spec(self.spec.to_dict())
-            print("spec is valid")
+            logger.info("spec is valid")
         except OpenAPIValidationError as e:
-            print(e)
+            logger.error(e)
             return
 
     @staticmethod
@@ -127,7 +128,7 @@ class OpenAPISpec():
             f.write(self.spec.to_yaml())
         with open("%s/openapi_config.json" % folder_name, "w") as f:
             f.write(json.dumps({"packageName": "%s_api" % self.folder_name}))
-        print("wrote spec files %s" % folder_name)
+        logger.info("wrote spec files %s" % folder_name)
 
 
 if __name__ == "__main__":

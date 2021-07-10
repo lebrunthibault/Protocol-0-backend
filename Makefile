@@ -13,6 +13,9 @@ dev:
 midi:
 	${PYTHON} server/midi_app.py
 
+speech:
+	@${PYTHON} .\scripts\cli.py search_set_vocal 2>$null
+
 spec:
 	cls
 	python sdk_generation/generate_api_specs.py

@@ -137,5 +137,10 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-api_client
+api_client/
 debug*
+
+*.wav
+*.flac
+sr/models/
+sr/grammar

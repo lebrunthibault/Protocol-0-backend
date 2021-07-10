@@ -8,19 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/path.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/commands/sr_google.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/custom_logging.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/speech_recognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/custom_logging.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/logging_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/logging_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backups.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backups.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +24,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="PowerShell File" />
         <option value="Python Script" />
       </list>
     </option>
@@ -60,13 +52,22 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/grammar/Gr.fst" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sdk_generation/generate_api_specs.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/midi_app.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_trainer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/routes.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/dictionary/DictionaryManager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -83,36 +84,54 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../speech_recognition" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kaldi" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\scripts\commands" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation\p0_system" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation\p0_script" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sdk_generation" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\openapi_templates\via_midi\python_legacy" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\speech_recognition\dictionary" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\speech_recognition\speech_recognition" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\speech_recognition\results\snare" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\speech_recognition\results\kick" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="hotkeys" type="ShConfigurationType">
-      <option name="SCRIPT_TEXT" value="" />
-      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/scripts/cli.py" />
-      <option name="SCRIPT_OPTIONS" value="SETUP_HOTKEYS" />
-      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="INDEPENDENT_INTERPRETER_PATH" value="false" />
-      <option name="INTERPRETER_PATH" value="$USER_HOME$/AppData/Local/Programs/Python/Python39/python.exe" />
+    <configuration name="default" type="PythonConfigurationType" factoryName="Python">
+      <module name="vosk-api" />
       <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="EXECUTE_IN_TERMINAL" value="true" />
-      <option name="EXECUTE_SCRIPT_FILE" value="true" />
-      <envs />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\thiba\AppData\Local\Programs\Python\Python37\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
+      <option name="SCRIPT_NAME" value="python" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
   </component>
@@ -162,6 +181,21 @@
       <workItem from="1624612805518" duration="25125000" />
       <workItem from="1624661880162" duration="9362000" />
       <workItem from="1624715229888" duration="2244000" />
+      <workItem from="1624886385100" duration="9170000" />
+      <workItem from="1624984770251" duration="9702000" />
+      <workItem from="1625085576237" duration="9229000" />
+      <workItem from="1625100334522" duration="15135000" />
+      <workItem from="1625178004830" duration="11262000" />
+      <workItem from="1625226038042" duration="307000" />
+      <workItem from="1625226356365" duration="177000" />
+      <workItem from="1625226542762" duration="12901000" />
+      <workItem from="1625327285535" duration="1958000" />
+      <workItem from="1625677893860" duration="4221000" />
+      <workItem from="1625747794654" duration="1206000" />
+      <workItem from="1625806282808" duration="12921000" />
+      <workItem from="1625862422752" duration="562000" />
+      <workItem from="1625863005981" duration="1621000" />
+      <workItem from="1625922351686" duration="3324000" />
     </task>
     <servers />
   </component>

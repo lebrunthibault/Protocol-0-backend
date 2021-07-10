@@ -2,6 +2,7 @@ import logging
 
 import PySimpleGUI as sg
 import win32gui
+from PySimpleGUI import WIN_CLOSED
 
 from lib.window.find_window import find_window_handle_by_criteria
 from lib.window.window import focus_ableton
@@ -9,8 +10,9 @@ from server.p0_script_api_client import p0_script_api_client
 
 logger = logging.getLogger(__name__)
 
+WINDOW_TITLE = "toto"
 KEEP_WINDOW_IN_BACKGROUND = False
-RELOAD_ON_STARTUP = True
+RELOAD_ON_STARTUP = False
 
 
 def send_search(search):
@@ -22,12 +24,18 @@ def send_search(search):
 def create_gui():
     # type: () -> None
     layout = [[sg.Input(key="input")]]
-    window = sg.Window("", layout, return_keyboard_events=True, no_titlebar=True)
-    # speech_recognition = SpeechRecognition()
+    window = sg.Window(WINDOW_TITLE, layout,
+                       return_keyboard_events=True,
+                       # no_titlebar=True,
+                       )
 
     while True:
         event, values = window.read()
-        if event.split(":")[0] == "Escape":
+
+        if not event or event == WIN_CLOSED:
+            return
+
+        if not event or event == WIN_CLOSED or event.split(":")[0] == "Escape":
             logger.info("Escape pressed, exiting")
             break
 
@@ -52,7 +60,7 @@ def create_gui():
 def search_set_gui():
     # type: () -> None
     if not RELOAD_ON_STARTUP:
-        search_window_handle = find_window_handle_by_criteria(class_name="TkTopLevel", app_name="python.exe")
+        search_window_handle = find_window_handle_by_criteria(partial_name=WINDOW_TITLE)
         if search_window_handle:
             logger.info("found search set window, focusing")
             win32gui.SetForegroundWindow(search_window_handle)

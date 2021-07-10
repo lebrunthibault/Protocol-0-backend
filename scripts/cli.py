@@ -1,40 +1,28 @@
 import subprocess
 import sys
-
-from loguru import logger
-
-from lib.custom_logging import configure_logging
-from lib.speech_recognition import SpeechRecognition
-from scripts.commands.search_set_gui import search_set_gui
-
-configure_logging(filename="cli.log")
-
+import time
 from typing import Optional
 
 import click
+from loguru import logger
 
+from abstract_cli import setup_cli
 from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
 from lib.window.find_window import SearchTypeEnum
+from lib.window.terminal import clear_terminal
 from lib.window.window import focus_window
+from scripts.commands.git_backups import backup_git_repos
+from scripts.commands.search_set_gui import search_set_gui
+from sr.speech_recognition.speech_recognition_main import SpeechRecognitionMain
 
-
-def exception_handler(exctype, value, tb):
-    logger.error("Uncaught exception")
-    logger.error(f"Type: {exctype}")
-    logger.error(f"Value: {value}")
-    if tb:
-        format_exception = traceback.format_tb(tb)
-        for line in format_exception:
-            logger.error(repr(line))
-
-
-sys.excepthook = exception_handler
+setup_cli()
 
 
 @click.group()
 def cli() -> None:
-    pass
+    clear_terminal()
+    logger.info("launching cli command")
 
 
 @cli.command(name="reload_ableton")
@@ -55,12 +43,6 @@ def command_search_set_gui() -> None:
     search_set_gui()
 
 
-@cli.command(name="search_set_vocal")
-def command_search_set_vocal() -> None:
-    speech_recognition = SpeechRecognition()
-    speech_recognition.get_input()
-
-
 @cli.command(name="sync_presets")
 def command_sync_presets() -> None:
     sync_presets()
@@ -79,6 +61,24 @@ def command_refresh_logs() -> None:
 @cli.command(name="save_set_as_template")
 def command_save_set_as_template() -> None:
     save_set_as_template()
+
+
+@cli.command(name="test_toast")
+def command_test_toast() -> None:
+    from win10toast import ToastNotifier
+    toaster = ToastNotifier()
+    toaster.show_toast("Sample Notification", "Python is awesome!!!", duration=0.5)
+    while toaster.notification_active(): time.sleep(0.1)
+
+
+@cli.command(name="speech")
+def command_speech() -> None:
+    SpeechRecognitionMain().recognize()
+
+
+@cli.command(name="git_backup")
+def command_git_backup() -> None:
+    backup_git_repos()
 
 
 @cli.command(name="test")

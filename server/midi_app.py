@@ -1,5 +1,4 @@
 import json
-import logging
 import time
 from json import JSONDecodeError
 from typing import Dict
@@ -12,7 +11,7 @@ from lib.custom_logging import configure_logging
 
 configure_logging(filename="midi.log")
 
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 class MidiApp():
@@ -33,13 +32,13 @@ class MidiApp():
     def _make_message_from_dict(dict: Dict) -> Message:
         assert isinstance(dict, Dict)
         message = json.dumps(dict)
-        print(f"Sending string to midi output : {message}")
+        logger.info(f"Sending string to midi output : {message}")
         b = bytearray(message.encode())
         b.insert(0, 0xF0)
         b.append(0xF7)
         return mido.Message.from_bytes(b)
 
-    def _listen_to_P0_midi_messages():
+    def _listen_to_P0_midi_messages(self):
         p0_port_name = None
         # noinspection PyUnresolvedReferences
         for port_name in mido.get_input_names():

@@ -28,7 +28,7 @@ return
 
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
 ^+f::
-    executeCliCommand("search_set_gui")
+    executeCliCommand("speech")
 return
 #IfWinActive
 
