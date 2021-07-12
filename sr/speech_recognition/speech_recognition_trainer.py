@@ -3,12 +3,11 @@ import os
 from datetime import datetime
 from typing import List
 
-from loguru import logger
-
 from lib.consts import PROJECT_ROOT
 from lib.utils import filename_datetime
-from sr.Recognizer import Recognizer, RecognizerStep
+from loguru import logger
 from sr.dictionary.TrackWordEnum import TrackWorkEnum
+from sr.recognizer.Recognizer import Recognizer, RecognizerStep
 from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
 
 
@@ -36,6 +35,7 @@ class TrainingSessionResult():
 
 class SpeechRecognitionTrainer(AbstractSpeechRecognition):
     FINAL_PROCESSING_STEP = RecognizerStep
+    EXPORT_DIRECTORY = f"{PROJECT_ROOT}/sr/training/words"
 
     def __init__(self, target_word: str):
         super().__init__()
@@ -43,7 +43,7 @@ class SpeechRecognitionTrainer(AbstractSpeechRecognition):
         if not getattr(TrackWorkEnum, target_word.upper(), None):
             raise NameError(f"The word {target_word} does not exists in the word enum")
 
-        directory = f"{PROJECT_ROOT}/sr/results/{target_word}"
+        directory = f"{self.EXPORT_DIRECTORY}/{target_word}"
         if not os.path.exists(directory):
             os.mkdir(directory)
 

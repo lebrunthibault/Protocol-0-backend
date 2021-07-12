@@ -1,19 +1,17 @@
 import json
 import os
 import subprocess
-from os.path import dirname, realpath
 
 import pystache
-from loguru import logger
-
 from lib.consts import PROJECT_ROOT
 from lib.utils import flatten
+from loguru import logger
 from sr.dictionary.TrackWordEnum import TrackWorkEnum
 from sr.dictionary.synonyms import speech_recognition_dictionary
 
 
 class DictionaryManager():
-    RESULT_DIRECTORY = f"{PROJECT_ROOT}/sr/results"
+    RESULT_DIRECTORY = f"{PROJECT_ROOT}/sr/training/words"
     DICTIONARY_PATH = f"{PROJECT_ROOT}/sr/dictionary/synonyms.py"
     KALDI_WORDS_PATH = f"{PROJECT_ROOT}/sr/grammar/vocabulary.txt"
 
@@ -24,12 +22,13 @@ class DictionaryManager():
 
     def prepare_model_grammar(self):
         with open(self.KALDI_WORDS_PATH, "w") as f:
-            f.write(" ".join([word.name.lower() for word in speech_recognition_dictionary.keys()]))
+            f.write(" ".join([enum.name.lower() for enum in TrackWorkEnum]))
 
-        # subprocess.run(
-        #     ["bash", "-c", "source ~/.bashrc && cd ~/playground && make prepare"])
-        #
-        # logger.info("over")
+        subprocess.run(
+            ["bash", "-c",
+             "source /home/thibault/.zshrc && cd '/mnt/c/Users/thiba/Google Drive/music/dev/Protocol0 System/sr/grammar' && make prepare"])
+
+        logger.info("grammar generated")
 
     def generate_from_results(self):
         for word_folder in os.scandir(self.RESULT_DIRECTORY):

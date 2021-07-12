@@ -4,3 +4,8 @@ from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechReco
 class SpeechRecognitionMain(AbstractSpeechRecognition):
     AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
     SEND_SEARCH_TO_ABLETON = False
+
+    # def _init_recognizers(self):
+    #     self.recognizers = [
+    #         NullRecognizer()
+    #     ]

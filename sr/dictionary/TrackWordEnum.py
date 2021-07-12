@@ -10,3 +10,5 @@ class TrackWorkEnum(Enum):
     BASS = "BASS"
     # MINITAUR = "MINITAUR"
     PIANO = "PIANO"
+    NEXT = "NEXT"
+    HELLO = "HELLO"

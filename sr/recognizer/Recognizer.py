@@ -1,12 +1,12 @@
 import json
-from os.path import dirname
 from typing import Optional
 
 from loguru import logger
 
+from speech_recognition.audio_data.Recording import Recording
+
 logger = logger.opt(colors=True)
 
-from speech_recognition.audio_data.AudioData import AudioData
 from vosk import KaldiRecognizer, Model
 
 from lib.consts import PROJECT_ROOT
@@ -50,13 +50,12 @@ class Recognizer(Observable):
         self._recognizer = KaldiRecognizer(*args)
         self._recognizer.SetWords(True)
 
-    def process_audio_phrase(self, audio: AudioData) -> RecognizerResult:
-        self._recognizer.AcceptWaveform(audio.frame_data)
+    def process_recording(self, recording: Recording) -> RecognizerResult:
+        self._recognizer.AcceptWaveform(recording.raw_data)
         kaldi_result = json.loads(self._recognizer.FinalResult())
 
         if self.DEBUG:
-            processing_duration = time.time() - audio.recording.end_at
-            logger.info(f"recording duration <yellow>{audio.recording.duration:.2f}s</>")
+            processing_duration = time.time() - recording.end_at
             logger.info(f"processing duration <yellow>{processing_duration:.2f}s</>")
             logger.info(f"result: {kaldi_result}")
             full_result = json.loads(self._recognizer.Result())
