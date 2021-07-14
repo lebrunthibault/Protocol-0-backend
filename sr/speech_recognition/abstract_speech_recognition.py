@@ -28,8 +28,9 @@ class AbstractSpeechRecognition(Observable):
     def __init__(self, source: AbstractAudioSource = Microphone()):
         super().__init__()
         self.recorder = Recorder(source=source)
-        self.recognizer = Recognizer(model=SpeechRecognitionModelEnum.MAIN_MODEL,
-                                     sample_rate=self.recorder.source.SAMPLE_RATE)
+        self.recognizer = Recognizer(
+            model=SpeechRecognitionModelEnum.MAIN_MODEL, sample_rate=self.recorder.source.SAMPLE_RATE
+        )
 
     def _setup_observers(self):
         self.recorder.subscribe(Recording, self.recognizer.process_recording)
@@ -65,5 +66,14 @@ class AbstractSpeechRecognition(Observable):
 
         if self.AUTO_SWITCH_TO_KEYBOARD_SEARCH:
             subprocess.Popen(
-                ["python", "C:\\Users\\thiba\\Google Drive\\music\\dev\\Protocol0 System\\scripts\\cli.py",
-                 "search_set_gui"], shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+                [
+                    "python",
+                    "C:\\Users\\thiba\\Google Drive\\music\\dev\\Protocol0 System\\scripts\\cli.py",
+                    "search_set_gui",
+                ],
+                shell=True,
+                stdin=None,
+                stdout=None,
+                stderr=None,
+                close_fds=True,
+            )

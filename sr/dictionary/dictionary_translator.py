@@ -5,7 +5,7 @@ from sr.dictionary.synonyms import speech_recognition_dictionary
 from sr.enums.ableton_command_enum import AbletonCommandEnum
 
 
-class DictionaryTranslator():
+class DictionaryTranslator:
     @classmethod
     @functools.lru_cache()
     def _word_to_enum_mapping(cls):

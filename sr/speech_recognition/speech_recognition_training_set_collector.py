@@ -12,7 +12,9 @@ from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechReco
 class SpeechRecognitionTrainingSetCollector(AbstractSpeechRecognition):
     def __init__(self, target_word: str):
         super().__init__()
-        assert target_word == "noise" or target_word in AbletonCommandEnum.words(), "word should be 'noise' or in the word enum"
+        assert (
+            target_word == "noise" or target_word in AbletonCommandEnum.words()
+        ), "word should be 'noise' or in the word enum"
         self._target_word = target_word
         self.recognizer.final_recognizer_step = RecognizerStepEnum.NO_PROCESSING
 

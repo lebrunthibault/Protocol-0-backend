@@ -12,7 +12,7 @@ from sr.enums.ableton_command_enum import AbletonCommandEnum
 logger = logger.opt(colors=True)
 
 
-class DictionaryManager():
+class DictionaryManager:
     def __init__(self):
         self.word_synonyms = []
 
@@ -23,8 +23,12 @@ class DictionaryManager():
             f.write(" ".join(AbletonCommandEnum.words()))
 
         subprocess.run(
-            ["bash", "-c",
-             "source /home/thibault/.zshrc && cd '/mnt/c/Users/thiba/Google Drive/music/dev/Protocol0 System/sr/grammar' && make prepare"])
+            [
+                "bash",
+                "-c",
+                "source /home/thibault/.zshrc && cd '/mnt/c/Users/thiba/Google Drive/music/dev/Protocol0 System/sr/grammar' && make prepare",
+            ]
+        )
 
         logger.info("grammar generated")
 
@@ -54,7 +58,7 @@ class DictionaryManager():
         for entry in os.scandir(word_folder.path):
             # noinspection PyUnresolvedReferences
             with open(entry.path, "r") as f:
-                result: dict = json.loads(f.read())['result']
+                result: dict = json.loads(f.read())["result"]
                 synonyms.update(result.keys())
 
         unique_words = list(self.keep_unique_words(list(synonyms)))
@@ -63,7 +67,7 @@ class DictionaryManager():
         self.word_synonyms.append({"enum_name": word_enum.name, "synonyms": unique_words})
 
     def keep_unique_words(self, words: list):
-        """ keep only words that are not in other word lists
+        """keep only words that are not in other word lists
         and remove duplicates from other lists as well
         Each list is composed of unique words that didn't appear in other lists
         """

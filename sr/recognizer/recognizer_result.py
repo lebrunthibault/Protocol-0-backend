@@ -4,7 +4,7 @@ from sr.audio.recording import Recording
 from sr.enums.ableton_command_enum import AbletonCommandEnum
 
 
-class RecognizerResult():
+class RecognizerResult:
     def __init__(self, recording: Recording):
         self.recording = recording
         self.word: Optional[str] = None

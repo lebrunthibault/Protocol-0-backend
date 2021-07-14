@@ -1,7 +1,7 @@
 from speech_recognition.audio_source.AbstractAudioSource import AbstractAudioSource
 
 
-class RecordingConfig():
+class RecordingConfig:
     def __init__(self, source: AbstractAudioSource):
         # buffer window to consider for identifying phrase start and end
         self.start_window_duration = 0.1  # seconds

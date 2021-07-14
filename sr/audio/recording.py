@@ -14,7 +14,7 @@ from speech_recognition.errors.WaitTimeoutError import WaitTimeoutError
 from sr.audio.recording_config import RecordingConfig
 
 
-class Recording():
+class Recording:
     def __init__(self, source: AbstractAudioSource):
         self.source = source
         self.config = RecordingConfig(source=source)
@@ -30,13 +30,13 @@ class Recording():
     def start_window(self) -> Optional[AudioSegment]:
         if self.audio.duration_seconds < self.config.start_window_duration:
             return None
-        return self.audio[:self.config.start_window_duration * 1000]
+        return self.audio[: self.config.start_window_duration * 1000]
 
     @property
     def end_window(self) -> Optional[AudioSegment]:
         if self.audio.duration_seconds < self.config.start_window_duration:
             return None
-        return self.audio[-self.config.start_window_duration * 1000:]
+        return self.audio[-self.config.start_window_duration * 1000 :]
 
     @property
     def is_start_valid(self) -> bool:
@@ -60,7 +60,8 @@ class Recording():
         self._generate_frequency_information()
         if self.maximum_voice_frequency_energy < self.config.minimum_frequency_energy:
             logger.info(
-                f"<yellow>Didn't identify a voice, max voice frequency energy : {self.maximum_voice_frequency_energy}</>")
+                f"<yellow>Didn't identify a voice, max voice frequency energy : {self.maximum_voice_frequency_energy}</>"
+            )
             return False
 
         return True
@@ -75,7 +76,7 @@ class Recording():
         # then normalize and convert to numpy array:
         x = np.double(list(self.audio.get_array_of_samples())) / (2 ** 15)
 
-        X = np.abs(scp.fft(x))[0:int(len(x) / 2)]
+        X = np.abs(scp.fft(x))[0 : int(len(x) / 2)]
         freq_window_start, freq_window_end = 50, 400
         voice_frequencies = list(X[freq_window_start:freq_window_end])
         self.maximum_voice_frequency_energy = max(voice_frequencies)
@@ -83,8 +84,5 @@ class Recording():
 
     def _make_audio_segment_from_buffer(self, buffer: bytes) -> AudioSegment:
         return AudioSegment(
-            data=buffer,
-            sample_width=self.source.SAMPLE_WIDTH,
-            frame_rate=self.source.SAMPLE_RATE,
-            channels=1
+            data=buffer, sample_width=self.source.SAMPLE_WIDTH, frame_rate=self.source.SAMPLE_RATE, channels=1
         )

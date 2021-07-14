@@ -24,8 +24,13 @@ from sr.dictionary.dictionary_translator import DictionaryTranslator
 class Recognizer(Observable):
     DEBUG = False
 
-    def __init__(self, model: SpeechRecognitionModelEnum, sample_rate: int, use_word_list=False,
-                 final_recognizer_step: RecognizerStepEnum = RecognizerStepEnum.DICTIONARY):
+    def __init__(
+        self,
+        model: SpeechRecognitionModelEnum,
+        sample_rate: int,
+        use_word_list=False,
+        final_recognizer_step: RecognizerStepEnum = RecognizerStepEnum.DICTIONARY,
+    ):
         super().__init__()
         self._model_name: str = model.value
         self._sample_rate = sample_rate
@@ -37,8 +42,7 @@ class Recognizer(Observable):
 
     def _load_model(self):
         logger.info(f"loading model {self._model_name}")
-        model = Model(
-            f"{PROJECT_ROOT}/sr/models/model_{self._model_name}")
+        model = Model(f"{PROJECT_ROOT}/sr/models/model_{self._model_name}")
         logger.info(f"model loaded")
         args = [model, self._sample_rate]
         if self._model_name != "p0" and self._use_word_list:
