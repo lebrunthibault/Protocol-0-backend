@@ -4,12 +4,12 @@ from abc import abstractmethod
 
 from lib.observable import Observable
 from loguru import logger
+from sr.audio.recording import Recording
 from sr.display.audio_plot import AudioPlot
 from sr.display.speech_gui import SpeechGui
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.recognizer.recognizer import Recognizer, RecognizerResult
 
-from speech_recognition.audio_data.Recording import Recording
 from speech_recognition.audio_source.AbstractAudioSource import AbstractAudioSource
 from speech_recognition.audio_source.Microphone import Microphone
 from speech_recognition.errors.AbstractRecognizerNotFoundError import AbstractRecognizerNotFoundError
@@ -17,7 +17,7 @@ from speech_recognition.errors.WaitTimeoutError import WaitTimeoutError
 
 logger = logger.opt(colors=True)
 
-from speech_recognition.recorder.SimpleRecorder import SimpleRecorder
+from sr.audio.recorder import Recorder
 
 
 class AbstractSpeechRecognition(Observable):
@@ -27,7 +27,7 @@ class AbstractSpeechRecognition(Observable):
 
     def __init__(self, source: AbstractAudioSource = Microphone()):
         super().__init__()
-        self.recorder = SimpleRecorder(source=source)
+        self.recorder = Recorder(source=source)
         self.recognizer = Recognizer(model=SpeechRecognitionModelEnum.MAIN_MODEL,
                                      sample_rate=self.recorder.source.SAMPLE_RATE)
 

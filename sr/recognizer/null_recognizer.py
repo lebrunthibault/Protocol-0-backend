@@ -1,6 +1,5 @@
+from sr.audio.recording import Recording
 from sr.recognizer.recognizer import Recognizer, RecognizerResult
-
-from speech_recognition.audio_data.Recording import Recording
 
 
 class NullRecognizer(Recognizer):

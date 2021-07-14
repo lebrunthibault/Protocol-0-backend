@@ -24,4 +24,4 @@ class SpeechRecognitionTrainingSetCollector(AbstractSpeechRecognition):
             os.mkdir(sample_directory)
 
         filename = f"{sample_directory}/{filename_datetime()}.wav"
-        return recognizer_result.recording.pydub_sound.export(filename, format="wav")
+        recognizer_result.recording.audio.export(filename, format="wav")

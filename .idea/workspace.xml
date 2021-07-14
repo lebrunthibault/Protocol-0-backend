@@ -8,6 +8,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sr/audio/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/audio/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AudioFileContext.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/audio_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/audio_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/Recording.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AbstractAudioSource.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AbstractAudioSource.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AudioFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AudioFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/Microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/Microphone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/RecordingConfig.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/SimpleRecorder.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" afterDir="false" />
@@ -196,7 +212,7 @@
       <workItem from="1625934181005" duration="645000" />
       <workItem from="1625938713135" duration="21070000" />
       <workItem from="1626045100008" duration="20190000" />
-      <workItem from="1626256506485" duration="11029000" />
+      <workItem from="1626256506485" duration="19376000" />
     </task>
     <servers />
   </component>

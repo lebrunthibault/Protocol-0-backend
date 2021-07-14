@@ -3,11 +3,11 @@ import time
 from typing import Optional
 
 from loguru import logger
+from sr.audio.recording import Recording
 from sr.enums.recognizer_step_enum import RecognizerStepEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.recognizer.recognizer_result import RecognizerResult
 
-from speech_recognition.audio_data.Recording import Recording
 from speech_recognition.errors.DictionaryNotFoundError import DictionaryNotFoundError
 from speech_recognition.errors.RecognizerNotFoundError import RecognizerNotFoundError
 
@@ -54,7 +54,7 @@ class Recognizer(Observable):
             self.emit(recognizer_result)
             return
 
-        self._recognizer.AcceptWaveform(recording.raw_data)
+        self._recognizer.AcceptWaveform(recording.audio.raw_data)
         if self.DEBUG:
             self._print_recording_info(recording=recording)
 

@@ -1,8 +1,7 @@
 from typing import Optional
 
+from sr.audio.recording import Recording
 from sr.enums.ableton_command_enum import AbletonCommandEnum
-
-from speech_recognition.audio_data.Recording import Recording
 
 
 class RecognizerResult():
