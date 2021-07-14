@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class TrackWorkEnum(Enum):
+class AbletonCommandEnum(Enum):
     KICK = "KICK"
     SNARE = "SNARE"
     CLAP = "CLAP"
@@ -12,3 +12,7 @@ class TrackWorkEnum(Enum):
     PIANO = "PIANO"
     NEXT = "NEXT"
     HELLO = "HELLO"
+
+    @staticmethod
+    def words():
+        return [enum.name.lower() for enum in AbletonCommandEnum]

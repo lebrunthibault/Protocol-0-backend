@@ -8,42 +8,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sr/display/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/display/audio_plot.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/recognizer/NullRecognizer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/recognizer/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/training/audio_export.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/custom_logging.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/enums/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/enums/recognizer_step_enum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/enums/speech_recognition_model_enum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/mypy.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/pyproject.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/tests/tensorflow/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/tests/tensorflow/test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/tests/test_speech_recognition.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/tox.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/errors/AbstractRecognizerNotFoundError.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/errors/DictionaryNotFoundError.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/errors/RecognizerNotFoundError.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/observable.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/observable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/Recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/Recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/dictionary/DictionaryManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/DictionaryManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/dictionary/TrackWordEnum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/TrackWordEnum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/speech.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/speech.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/logging_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/logging_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/dictionary/DictionaryManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/dictionary/DictionaryTranslator.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/dictionary/TrackWordEnum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/enums/ableton_command_enum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/dictionary/synonym.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/synonym.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/dictionary/synonyms.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/synonyms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/audio_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/audio_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/NullRecognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/Recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_trainer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/bass/20210702-153908.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/bass/20210702-153908.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/clap/20210702-151903.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/clap/20210702-151903.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/hat/20210702-153722.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/hat/20210702-153722.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/kick/20210702-144353.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/kick/20210702-144353.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/minitaur/20210702-154018.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/minitaur/20210702-154018.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/piano/20210702-155520.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/piano/20210702-155520.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/ride/20210702-153624.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/ride/20210702-153624.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/training/snare/20210702-144353.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/words/snare/20210702-144353.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/AudioData.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/AudioData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/AudioDataFactory.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/AudioDataFactory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/AudioFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/AudioFrame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/audio_export.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/bass/20210702-153908.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/bass/20210702-153908.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/clap/20210702-151903.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/clap/20210702-151903.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/hat/20210702-153722.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/hat/20210702-153722.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/kick/20210702-144353.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/kick/20210702-144353.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/minitaur/20210702-154018.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/minitaur/20210702-154018.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/piano/20210702-155520.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/piano/20210702-155520.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/ride/20210702-153624.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/ride/20210702-153624.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/training/words/snare/20210702-144353.json" beforeDir="false" afterPath="$PROJECT_DIR$/sr/training/synonyms/snare/20210702-144353.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/Recording.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_data/Recording.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AbstractAudioSource.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AbstractAudioSource.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AudioFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/AudioFile.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/Microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source/Microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recognizer/Recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recognizer/Recognizer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/AbstractRecorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/AbstractRecorder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/FullRecorder.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/RecorderBackground.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/RecorderBackground.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/RecorderSettings.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/RecordingConfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/RecordingConfig.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/SimpleRecorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/speech_recognition/recorder/SimpleRecorder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" afterDir="false" />
@@ -76,7 +87,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../speech_recognition" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -87,21 +98,18 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/server/routes.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sdk_generation/generate_api_specs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/midi_app.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_trainer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/dictionary/dictionary_manager.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/routes.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/dictionary/DictionaryManager.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -118,7 +126,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../recrutement-basile-staging" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
@@ -128,11 +138,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\enums" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\training\words" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\recognizer" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\display" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\lib\speech_recognition\dictionary" />
     </key>
   </component>
   <component name="RunManager">
@@ -232,7 +242,8 @@
       <workItem from="1625922351686" duration="4579000" />
       <workItem from="1625934181005" duration="645000" />
       <workItem from="1625938713135" duration="21070000" />
-      <workItem from="1626045100008" duration="7356000" />
+      <workItem from="1626045100008" duration="20190000" />
+      <workItem from="1626256506485" duration="10063000" />
     </task>
     <servers />
   </component>

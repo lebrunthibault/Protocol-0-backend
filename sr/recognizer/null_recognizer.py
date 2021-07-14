@@ -1,4 +1,4 @@
-from sr.recognizer.Recognizer import Recognizer, RecognizerResult
+from sr.recognizer.recognizer import Recognizer, RecognizerResult
 
 from speech_recognition.audio_data.Recording import Recording
 

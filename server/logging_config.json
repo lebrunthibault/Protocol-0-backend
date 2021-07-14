@@ -4,6 +4,6 @@
   "rotation": "3 days",
   "retention": "3 days",
   "format_stdout2": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",
-  "format_stdout": "<level>{level: <8}</level> {time:YYYY-MM-DD HH:mm:ss.SSS} - <cyan><dim>{name}</dim></cyan>:<cyan><dim>{function}</dim></cyan> - <level>{message}</level>",
+  "format_stdout": "<level>{level: <8}</level><cyan><dim>{name}</dim></cyan>:<cyan><dim>{function}</dim></cyan> - <level>{message}</level>",
   "format_log_file": "<level>{level: <8}</level> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
 }

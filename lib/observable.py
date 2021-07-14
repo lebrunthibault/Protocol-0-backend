@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 
 class Event(object):
@@ -10,13 +10,14 @@ class Observable(object):
     def __init__(self):
         self.callbacks = []
 
-    def subscribe(self, callback):
-        self.callbacks.append(callback)
+    def subscribe(self, type, callback: Callable):
+        self.callbacks.append((type, callback))
 
-    def emit(self, data: Any, **attrs):
+    def emit(self, data: Any, **attrs) -> None:
         e = Event(data=data)
         e.source = self
         for k, v in attrs.items():
             setattr(e, k, v)
-        for fn in self.callbacks:
-            fn(e)
+        for (type, callback) in self.callbacks:
+            if isinstance(data, type):
+                callback(e.data)

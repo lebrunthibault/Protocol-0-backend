@@ -1,21 +1,22 @@
 import subprocess
 import threading
+from abc import abstractmethod
 
-from lib.observable import Observable, Event
+from lib.observable import Observable
 from loguru import logger
-from server.p0_script_api_client import p0_script_api_client
 from sr.display.audio_plot import AudioPlot
 from sr.display.speech_gui import SpeechGui
-from sr.recognizer.Recognizer import Recognizer, RecognizerStep
-from sr.training.audio_export import AudioExport
+from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
+from sr.recognizer.recognizer import Recognizer, RecognizerResult
 
 from speech_recognition.audio_data.Recording import Recording
+from speech_recognition.audio_source.AbstractAudioSource import AbstractAudioSource
+from speech_recognition.audio_source.Microphone import Microphone
+from speech_recognition.errors.AbstractRecognizerNotFoundError import AbstractRecognizerNotFoundError
 from speech_recognition.errors.WaitTimeoutError import WaitTimeoutError
 
 logger = logger.opt(colors=True)
-from vosk import KaldiRecognizer
 
-from speech_recognition.audio_source.Microphone import Microphone
 from speech_recognition.recorder.SimpleRecorder import SimpleRecorder
 
 
@@ -23,40 +24,30 @@ class AbstractSpeechRecognition(Observable):
     AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
     USE_GUI = False
     DEBUG = False
-    SEND_SEARCH_TO_ABLETON = False
-    FINAL_PROCESSING_STEP = RecognizerStep.DICTIONARY
-    MODEL = "p0"
-    REFERENCE_MODEL = "us_small"
 
-    def __init__(self):
+    def __init__(self, source: AbstractAudioSource = Microphone()):
         super().__init__()
-        self.mic = Microphone()
-        logger.info("Mic initialized")
-        self.recorder = SimpleRecorder(source=self.mic)
-        self.recorder.subscribe(self._process_recording)
+        self.recorder = SimpleRecorder(source=source)
+        self.recognizer = Recognizer(model=SpeechRecognitionModelEnum.MAIN_MODEL,
+                                     sample_rate=self.recorder.source.SAMPLE_RATE)
+
+    def _setup_observers(self):
+        self.recorder.subscribe(Recording, self.recognizer.process_recording)
         if self.DEBUG:
-            self.recorder.subscribe(AudioPlot.receive_recorder_event)
-        self.recorder.subscribe(AudioExport.receive_recorder_event)
-        self.recognizers: List[KaldiRecognizer] = []
+            self.recorder.subscribe(Recording, AudioPlot.plot_recording)
 
-        self._init_recognizers()
-        assert len(self.recognizers), "You should at least configure one Recognizer"
-
-    def recognize(self):
-        if self.USE_GUI:
-            gui = SpeechGui()
-            self.subscribe(gui.receive_event)
-            threading.Thread(target=gui.create_window, daemon=True).start()
-
-        self._launch_recognition()
-
-    def _init_recognizers(self):
-        self.recognizers = [
-            Recognizer(model_name=self.MODEL, sample_rate=self.mic.SAMPLE_RATE, use_word_list=True),
-        ]
+        self.recognizer.subscribe(AbstractRecognizerNotFoundError, self._handle_recognizer_error)
+        self.recognizer.subscribe(RecognizerResult, self._process_recognizer_result)
 
     @logger.catch
-    def _launch_recognition(self) -> None:
+    def recognize(self):
+        self._setup_observers()
+
+        if self.USE_GUI:
+            gui = SpeechGui()
+            self.subscribe(object, gui.process_message)
+            threading.Thread(target=gui.create_window, daemon=True).start()
+
         while True:
             try:
                 self.recorder.listen()
@@ -64,45 +55,13 @@ class AbstractSpeechRecognition(Observable):
                 logger.error(e)
                 logger.info("Retrying")
 
-    def _process_recording(self, event: Event):
-        if not isinstance(event.data, Recording):
-            return
-        logger.info("processing recording")
-        results = [recognizer.process_recording(recording=event.data) for recognizer in
-                   self.recognizers]
+    @abstractmethod
+    def _process_recognizer_result(self, recognizer_result: RecognizerResult):
+        raise NotImplementedError
 
-        if all(result.raw_result is None for result in results):
-            self._handle_not_found(failed_step=RecognizerStep.RECOGNIZER)
-            return
-
-        if self.FINAL_PROCESSING_STEP == RecognizerStep.RECOGNIZER:
-            self._handle_success(results[0])
-            return
-
-        # FINAL_PROCESSING_STEP is RecognizerStep.DICTIONARY
-        word_enums = list(filter(None, set([result.word_enum for result in results])))
-        if len(word_enums) != 1:
-            if len(word_enums) > 1:
-                logger.error(f"dictionary mismatch, found multiple word enums: {word_enums}")
-            self._handle_not_found(failed_step=RecognizerStep.DICTIONARY)
-            return
-
-        self._handle_success(word_enums[0].name)
-
-    def _handle_success(self, word: str):
-        logger.success(f"Found word enum: {word}")
-        self.emit(word)
-        if self.SEND_SEARCH_TO_ABLETON:
-            logger.info(f"sending search {word} to api")
-            p0_script_api_client.search_track(search=word)
-
-    def _handle_not_found(self, failed_step: RecognizerStep):
-        if failed_step == RecognizerStep.RECOGNIZER:
-            logger.warning("<red><dim>Kaldi couldn't identify a word</></>")
-            self.emit("Kaldi not found")
-        else:
-            logger.warning("<red><dim>Word found doesn't belong to dictionary</></>")
-            self.emit("Dictionary not found")
+    def _handle_recognizer_error(self, error: AbstractRecognizerNotFoundError):
+        logger.warning(error.DESCRIPTION)
+        self.emit(error.LABEL)
 
         if self.AUTO_SWITCH_TO_KEYBOARD_SEARCH:
             subprocess.Popen(

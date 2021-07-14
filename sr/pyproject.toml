@@ -1,0 +1,11 @@
+[tool.black]
+line-length = 120
+
+[tool.vulture]
+exclude = ["scripts/"]
+#ignore_decorators = ["@app.route", "@require_*"]
+ignore_names = []
+make_whitelist = true
+min_confidence = 60
+sort_by_size = true
+verbose = false

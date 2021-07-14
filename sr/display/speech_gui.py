@@ -1,9 +1,11 @@
-from typing import Optional
+from typing import Optional, Any
 
 import PySimpleGUI as sg
 import pyautogui
-from lib.observable import Observable, Event
+from lib.observable import Observable
 from loguru import logger
+
+logger = logger.opt(colors=True)
 
 
 class SpeechGui(Observable):
@@ -13,10 +15,9 @@ class SpeechGui(Observable):
         super().__init__()
         self.window: Optional[sg.Window] = None
 
-    def receive_event(self, event: Event):
-        if isinstance(event.data, str):
-            self.window.TKroot.focus_force()  # force this window to have focus
-            self.window["logs"].update(event.data)
+    def process_message(self, message: Any):
+        self.window.TKroot.focus_force()  # force this window to have focus
+        self.window["logs"].update(str(message))
 
     def create_window(self):
         layout = [[sg.Text('logs', key='logs', size=(200, 30), pad=(10, 8))],

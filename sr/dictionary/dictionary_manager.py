@@ -3,26 +3,24 @@ import os
 import subprocess
 
 import pystache
-from lib.consts import PROJECT_ROOT
 from lib.utils import flatten
 from loguru import logger
-from sr.dictionary.TrackWordEnum import TrackWorkEnum
+from sr.config import Config
 from sr.dictionary.synonyms import speech_recognition_dictionary
+from sr.enums.ableton_command_enum import AbletonCommandEnum
+
+logger = logger.opt(colors=True)
 
 
 class DictionaryManager():
-    RESULT_DIRECTORY = f"{PROJECT_ROOT}/sr/training/words"
-    DICTIONARY_PATH = f"{PROJECT_ROOT}/sr/dictionary/synonyms.py"
-    KALDI_WORDS_PATH = f"{PROJECT_ROOT}/sr/grammar/vocabulary.txt"
-
     def __init__(self):
         self.word_synonyms = []
 
         self.synonyms_set = set()
 
     def prepare_model_grammar(self):
-        with open(self.KALDI_WORDS_PATH, "w") as f:
-            f.write(" ".join([enum.name.lower() for enum in TrackWorkEnum]))
+        with open(Config.KALDI_VOCABULARY_PATH, "w") as f:
+            f.write(" ".join(AbletonCommandEnum.words()))
 
         subprocess.run(
             ["bash", "-c",
@@ -31,7 +29,8 @@ class DictionaryManager():
         logger.info("grammar generated")
 
     def generate_from_results(self):
-        for word_folder in os.scandir(self.RESULT_DIRECTORY):
+        for word_folder in os.scandir(Config.TRAINING_SYNONYMS_DIRECTORY):
+            # noinspection PyTypeChecker
             self._generate_from_word_results(word_folder=word_folder)
 
         logger.info(f"synonyms: {self.word_synonyms}")
@@ -39,20 +38,21 @@ class DictionaryManager():
 
     @staticmethod
     def get_word_list():
-        track_enum_words = [enum.name.lower() for enum in TrackWorkEnum]
+        track_enum_words = [enum.name.lower() for enum in AbletonCommandEnum]
         return ["[unk]", "exit"] + track_enum_words + flatten(speech_recognition_dictionary.values())
 
     def _generate_from_word_results(self, word_folder):
         word: str = word_folder.name
         logger.info(f"processing word {word}")
 
-        word_enum: TrackWorkEnum = getattr(TrackWorkEnum, word.upper(), None)
+        word_enum: AbletonCommandEnum = getattr(AbletonCommandEnum, word.upper(), None)
         if not word_enum:
             raise NameError(f"The word {word} does not exists in the word enum")
 
         synonyms = set()
 
         for entry in os.scandir(word_folder.path):
+            # noinspection PyUnresolvedReferences
             with open(entry.path, "r") as f:
                 result: dict = json.loads(f.read())['result']
                 synonyms.update(result.keys())
@@ -79,11 +79,11 @@ class DictionaryManager():
                         word_synonyms["synonyms"].remove(word)
 
     def _write_dictionary_to_file(self, synonyms: list):
-        with open(f"{self.DICTIONARY_PATH.replace('py', 'mustache')}", "r") as f:
+        with open(f"{Config.SYNONYMS_PATH.replace('py', 'mustache')}", "r") as f:
             mustache_template = f.read()
 
         code = pystache.render(mustache_template, {"dictionary": synonyms})
-        with open(self.DICTIONARY_PATH, "w") as f:
+        with open(Config.SYNONYMS_PATH, "w") as f:
             f.write(code)
 
         logger.success("Dictionary code written successfully")

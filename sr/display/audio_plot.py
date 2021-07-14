@@ -1,19 +1,17 @@
 import matplotlib.pyplot as plt
-from lib.observable import Event
 from loguru import logger
 from matplotlib.pyplot import figure
 
 from speech_recognition.audio_data.Recording import Recording
 
+logger = logger.opt(colors=True)
+
 
 class AudioPlot:
-    Y_MAX = 16384
+    Y_MAX = (2 ** 15) / 2
 
     @classmethod
-    def receive_recorder_event(cls, event: Event):
-        if not isinstance(event.data, Recording):
-            return
-        recording = event.data
+    def plot_recording(cls, recording: Recording):
         legend = [
             f"duration: {recording.duration:.3f}",
             f"minimum_duration: {recording.config.minimum_duration:.1f}",
