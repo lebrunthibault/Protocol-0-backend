@@ -4,15 +4,14 @@ import time
 from typing import Optional
 
 import click
-from loguru import logger
-
 from abstract_cli import setup_cli
 from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
 from lib.window.find_window import SearchTypeEnum
 from lib.window.terminal import clear_terminal
 from lib.window.window import focus_window
-from scripts.commands.git_backups import backup_git_repos
+from loguru import logger
+from scripts.commands.git_backup import backup_git_repos
 from scripts.commands.search_set_gui import search_set_gui
 from sr.speech_recognition.speech_recognition_main import SpeechRecognitionMain
 
