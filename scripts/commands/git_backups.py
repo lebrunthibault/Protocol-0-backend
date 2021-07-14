@@ -4,7 +4,7 @@ import subprocess
 from loguru import logger
 
 git_repositories = [
-    "D:\\ableton projects",
+    # "D:\\ableton projects",
     "C:\\Users\\thiba\\Google Drive\\music\\dev\\scripts",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\a_protocol_0",
