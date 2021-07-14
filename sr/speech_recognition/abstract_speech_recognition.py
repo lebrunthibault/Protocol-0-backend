@@ -4,6 +4,7 @@ from abc import abstractmethod
 
 from lib.observable import Observable
 from loguru import logger
+from sr.audio.recorder import Recorder
 from sr.audio.recording import Recording
 from sr.display.audio_plot import AudioPlot
 from sr.display.speech_gui import SpeechGui
@@ -16,8 +17,6 @@ from speech_recognition.errors.AbstractRecognizerNotFoundError import AbstractRe
 from speech_recognition.errors.WaitTimeoutError import WaitTimeoutError
 
 logger = logger.opt(colors=True)
-
-from sr.audio.recorder import Recorder
 
 
 class AbstractSpeechRecognition(Observable):

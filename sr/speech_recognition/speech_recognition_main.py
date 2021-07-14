@@ -8,6 +8,7 @@ class SpeechRecognitionMain(AbstractSpeechRecognition):
     AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
     SEND_SEARCH_TO_ABLETON = False
     USE_GUI = True
+    DEBUG = True
 
     def __init__(self):
         super().__init__()

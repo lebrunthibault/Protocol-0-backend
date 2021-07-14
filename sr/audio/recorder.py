@@ -1,9 +1,9 @@
 from loguru import logger
+from sr.audio.recording import Recording
+
+from speech_recognition.recorder.AbstractRecorder import AbstractRecorder
 
 logger = logger.opt(colors=True)
-
-from sr.audio.recording import Recording
-from speech_recognition.recorder.AbstractRecorder import AbstractRecorder
 
 
 class Recorder(AbstractRecorder):
@@ -20,8 +20,6 @@ class Recorder(AbstractRecorder):
         logger.opt(raw=True, colors=True).warning("<magenta>--------------------------------------- Rec.</>\n")
         while not recording.is_start_valid:
             recording.read()
-
-        recording.frames = recording.frames[-recording.config.start_window_duration :]
 
     def _wait_for_phrase_end(self, recording: Recording) -> None:
         while not recording.is_end_valid():

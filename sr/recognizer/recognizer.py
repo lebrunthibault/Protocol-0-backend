@@ -2,34 +2,32 @@ import json
 import time
 from typing import Optional
 
+from lib.consts import PROJECT_ROOT
+from lib.observable import Observable
 from loguru import logger
 from sr.audio.recording import Recording
+from sr.dictionary.dictionary_manager import DictionaryManager
+from sr.dictionary.dictionary_translator import DictionaryTranslator
 from sr.enums.recognizer_step_enum import RecognizerStepEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.recognizer.recognizer_result import RecognizerResult
+from vosk import KaldiRecognizer, Model
 
 from speech_recognition.errors.DictionaryNotFoundError import DictionaryNotFoundError
 from speech_recognition.errors.RecognizerNotFoundError import RecognizerNotFoundError
 
 logger = logger.opt(colors=True)
 
-from vosk import KaldiRecognizer, Model
-
-from lib.consts import PROJECT_ROOT
-from lib.observable import Observable
-from sr.dictionary.dictionary_manager import DictionaryManager
-from sr.dictionary.dictionary_translator import DictionaryTranslator
-
 
 class Recognizer(Observable):
     DEBUG = False
 
     def __init__(
-        self,
-        model: SpeechRecognitionModelEnum,
-        sample_rate: int,
-        use_word_list=False,
-        final_recognizer_step: RecognizerStepEnum = RecognizerStepEnum.DICTIONARY,
+            self,
+            model: SpeechRecognitionModelEnum,
+            sample_rate: int,
+            use_word_list=False,
+            final_recognizer_step: RecognizerStepEnum = RecognizerStepEnum.DICTIONARY,
     ):
         super().__init__()
         self._model_name: str = model.value
@@ -43,7 +41,7 @@ class Recognizer(Observable):
     def _load_model(self):
         logger.info(f"loading model {self._model_name}")
         model = Model(f"{PROJECT_ROOT}/sr/models/model_{self._model_name}")
-        logger.info(f"model loaded")
+        logger.info("model loaded")
         args = [model, self._sample_rate]
         if self._model_name != "p0" and self._use_word_list:
             args.append(json.dumps(DictionaryManager.get_word_list()))
@@ -81,7 +79,7 @@ class Recognizer(Observable):
             self.emit(DictionaryNotFoundError())
             return
 
-        logger.success(f"Found word enum: {word_enum}")
+        logger.success(f"Found word enum: {word_enum.value}")
         recognizer_result.word_enum = word_enum
 
         self.emit(recognizer_result)
