@@ -11,4 +11,5 @@ class RecognizerResult:
         self.word_enum: Optional[AbletonCommandEnum] = None
 
     def __str__(self):
-        return f"{self.word} -> {self.word_enum.name if self.word_enum else ''}"
+        # return f"{self.word} -> {self.word_enum.name if self.word_enum else ''}"
+        return self.word_enum.name if self.word_enum else self.word

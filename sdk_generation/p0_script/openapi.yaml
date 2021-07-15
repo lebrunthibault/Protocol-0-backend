@@ -3,21 +3,4 @@ info:
   title: P0 Script API
   version: 1.0.0
 openapi: 3.0.2
-paths:
-  /test:
-    get:
-      operationId: test
-      responses:
-        '200':
-          description: ''
-  /search_track:
-    get:
-      operationId: search_track
-      responses:
-        '200':
-          description: ''
-    parameters:
-    - in: query
-      name: search
-      required: true
-      schema: {}
+paths: {}

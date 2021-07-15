@@ -16,6 +16,7 @@ from loguru import logger
 
 class MidiApp():
     IS_RUNNING = False
+    DEBUG = False
     # port names are relative to the Protocol0 script and not this midi backend
     P0_OUTPUT_PORT_NAME = 'P0_OUT'
     P0_INPUT_PORT_NAME = 'P0_IN'
@@ -72,12 +73,11 @@ class MidiApp():
                 res = method_object(**obj["args"])
                 logger.info(f"res : {res}")
 
-    @staticmethod
-    def send_message_to_script(dict: Dict) -> None:
+    @classmethod
+    def send_message_to_script(cls, dict: Dict) -> None:
         p0_port_name = None
         # noinspection PyUnresolvedReferences
         for port_name in mido.get_output_names():
-            logger.debug(port_name)
             if MidiApp.P0_INPUT_PORT_NAME in port_name:
                 p0_port_name = port_name
                 break
@@ -87,11 +87,13 @@ class MidiApp():
 
         # noinspection PyUnresolvedReferences
         with mido.open_output(p0_port_name, autoreset=False) as midi_port:
-            logger.info(f"port open : {p0_port_name}")
+            if cls.DEBUG:
+                logger.info(f"port open : {p0_port_name}")
 
             msg = MidiApp._make_message_from_dict(dict=dict)
             midi_port.send(msg)
-            logger.info(f"sent msg to p0: {msg}")
+            if cls.DEBUG:
+                logger.info(f"sent msg to p0: {msg}")
 
 
 if __name__ == "__main__":

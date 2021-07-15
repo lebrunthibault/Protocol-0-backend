@@ -1,11 +1,9 @@
 import audioop
-import logging
 
 import pyaudio
+from loguru import logger
 # from loguru import logger
 from pydub import AudioSegment
-
-logger = logging.getLogger(__name__)
 
 from sr.audio.source.abstract_audio_source import AbstractAudioSource
 
@@ -30,6 +28,7 @@ class Microphone(AbstractAudioSource):
         # set up PyAudio
         self.pyaudio_module = self.get_pyaudio()
         audio = self.pyaudio_module.PyAudio()
+        logger.info("pyaudio loaded")
         try:
             count = audio.get_device_count()  # obtain device count
             if device_index is not None:  # ensure device index is in range
@@ -54,7 +53,6 @@ class Microphone(AbstractAudioSource):
         self.audio = None
         self.stream = None
         self._open_stream()
-        logger.info("Mic initialized")
 
     @staticmethod
     def get_pyaudio():

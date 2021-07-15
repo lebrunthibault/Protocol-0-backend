@@ -13,12 +13,13 @@ class SpeechRecognitionTrainingSetCollector(AbstractSpeechRecognition):
     def __init__(self, target_word: str):
         super().__init__()
         assert (
-            target_word == "noise" or target_word in AbletonCommandEnum.words()
+                target_word == "noise" or target_word in AbletonCommandEnum.words()
         ), "word should be 'noise' or in the word enum"
         self._target_word = target_word
         self.recognizer.final_recognizer_step = RecognizerStepEnum.NO_PROCESSING
+        self.recognizer.subscribe(RecognizerResult, self._export_recognizer_result)
 
-    def _process_recognizer_result(self, recognizer_result: RecognizerResult):
+    def _export_recognizer_result(self, recognizer_result: RecognizerResult):
         """ Export recording to appropriate directory for training """
         sample_subdir = "noise" if self._target_word == "noise" else f"words/{self._target_word}"
         sample_directory = f"{Config.TRAINING_AUDIO_DIRECTORY}/{sample_subdir}"

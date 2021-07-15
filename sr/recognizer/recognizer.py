@@ -41,7 +41,6 @@ class Recognizer(Observable):
     def _load_model(self):
         logger.info(f"loading model {self._model_name}")
         model = Model(f"{PROJECT_ROOT}/sr/models/model_{self._model_name}")
-        logger.info("model loaded")
         args = [model, self._sample_rate]
         if self._model_name != "p0" and self._use_word_list:
             args.append(json.dumps(DictionaryManager.get_word_list()))
@@ -67,10 +66,11 @@ class Recognizer(Observable):
             self.emit(RecognizerNotFoundError())
             return
 
-        if self.final_recognizer_step == RecognizerStepEnum.RECOGNIZER:
-            self.emit(recognizer_result)
-        else:
+        if self.final_recognizer_step == RecognizerStepEnum.DICTIONARY:
             self._get_word_enum_from_result(recognizer_result=recognizer_result)
+
+        self.emit(recognizer_result)
+        self.emit(str(recognizer_result))
 
     def _get_word_enum_from_result(self, recognizer_result: RecognizerResult) -> None:
         word_clean = recognizer_result.word.replace("[unk]", "").strip()
@@ -81,8 +81,6 @@ class Recognizer(Observable):
 
         logger.success(f"Found word enum: {word_enum.value}")
         recognizer_result.word_enum = word_enum
-
-        self.emit(recognizer_result)
 
     def _print_recording_info(self, recording: Recording):
         kaldi_result = json.loads(self._recognizer.FinalResult())

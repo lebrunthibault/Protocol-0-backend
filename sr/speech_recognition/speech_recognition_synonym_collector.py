@@ -58,6 +58,7 @@ class SpeechRecognitionSynonymCollector(AbstractSpeechRecognition):
             sample_rate=self.recorder.source.sample_rate,
             final_recognizer_step=RecognizerStepEnum.RECOGNIZER,
         )
+        self.recognizer.subscribe(RecognizerResult, self._process_recognizer_result)
 
     def _process_recognizer_result(self, recognizer_result: RecognizerResult):
         self.training_session_result.add_word(recognizer_result.word)

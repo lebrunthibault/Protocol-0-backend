@@ -10,7 +10,7 @@ from server.p0_script_api_client import p0_script_api_client
 
 logger = logging.getLogger(__name__)
 
-WINDOW_TITLE = "toto"
+WINDOW_TITLE = "search"
 KEEP_WINDOW_IN_BACKGROUND = False
 RELOAD_ON_STARTUP = False
 
