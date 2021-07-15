@@ -6,6 +6,7 @@ class AbstractAudioSource(object):
     STEP_MS = 10
 
     def __init__(self):
+        self.name = None
         self.stream = None
         self.sample_rate = None
         self.sample_width = None

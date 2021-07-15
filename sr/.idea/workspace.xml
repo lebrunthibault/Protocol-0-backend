@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="394593f7-8749-4b78-bb28-78176547bf79" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../sdk_generation/p0_script/openapi.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../sdk_generation/p0_script/openapi.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/source/audio_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/audio/source/audio_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_speech_vs_noise.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +42,7 @@
       <option name="presentableId" value="Default" />
       <updated>1626366264846</updated>
       <workItem from="1626366266059" duration="1257000" />
+      <workItem from="1626370773964" duration="1268000" />
     </task>
     <servers />
   </component>

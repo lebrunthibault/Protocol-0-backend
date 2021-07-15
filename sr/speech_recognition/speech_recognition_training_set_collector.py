@@ -26,5 +26,4 @@ class SpeechRecognitionTrainingSetCollector(AbstractSpeechRecognition):
         if not exists(sample_directory):
             os.mkdir(sample_directory)
 
-        filename = f"{sample_directory}/{filename_datetime()}.wav"
-        recognizer_result.recording.audio.export(filename, format="wav")
+        recognizer_result.recording.export(f"{sample_directory}/{filename_datetime()}.wav")

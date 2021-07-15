@@ -6,6 +6,7 @@ from sr.errors.end_of_stream_error import EndOfStreamError
 
 class AudioFile(AbstractAudioSource):
     def __init__(self, path: str):
+        self.name = path
         self.sound = AudioSegment.from_wav(path)
         self.samples = self.sound.get_array_of_samples()
         self.duration = self.sound.duration_seconds * 1000
@@ -17,9 +18,9 @@ class AudioFile(AbstractAudioSource):
         self._current_position_ms = 0
 
     def read(self) -> AudioSegment:
-        end_window_ms = self._current_position_ms + self.WINDOW_MS
-        if self.duration < end_window_ms:
+        if self.duration == self._current_position_ms:
             raise EndOfStreamError()
+        end_window_ms = min(self._current_position_ms + self.WINDOW_MS, self.duration)
         segment = self.sound[self._current_position_ms:end_window_ms]
-        self._current_position_ms += self.WINDOW_MS
+        self._current_position_ms = end_window_ms
         return segment

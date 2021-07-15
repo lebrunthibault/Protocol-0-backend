@@ -45,6 +45,7 @@ class Microphone(AbstractAudioSource):
 
         self.device_index = device_index
         self.device_info = device_info
+        self.name = device_info["name"]
         self.format = self.pyaudio_module.paInt16  # 16-bit int sampling
         self.sample_width = self.pyaudio_module.get_sample_size(self.format)  # size of each sample
         self.sample_rate = sample_rate  # sampling rate in Hertz

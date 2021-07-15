@@ -3,6 +3,7 @@ from loguru import logger
 from lib.observable import Observable
 from sr.audio.recording import Recording
 from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.errors.end_of_stream_error import EndOfStreamError
 from sr.errors.wait_timeout_error import WaitTimeoutError
 
 logger = logger.opt(colors=True)
@@ -11,12 +12,14 @@ logger = logger.opt(colors=True)
 class Recorder(Observable):
     def __init__(self, source: AbstractAudioSource):
         super().__init__()
-        self.source = source
-        logger.info(f"Recorder initialized with source {self.source}")
+        self._source = source
+        self.name = self._source.name
+        self.sample_rate = self._source.sample_rate
+        logger.info(f"Recorder initialized with source {self._source}")
 
     def listen(self) -> None:
         while True:
-            recording = Recording(source=self.source)
+            recording = Recording(source=self._source)
             try:
                 self._wait_for_phrase_start(recording=recording)
             except WaitTimeoutError as e:
@@ -29,10 +32,13 @@ class Recorder(Observable):
                 self.emit(recording)
 
     def _wait_for_phrase_start(self, recording: Recording) -> None:
-        logger.opt(raw=True, colors=True).warning("<magenta>--------------------------------------- Rec.</>\n")
+        logger.opt(raw=True, colors=True).debug("<magenta>--------------------------------------- Rec.</>\n")
         while not recording.is_start_valid:
             recording.read()
 
     def _wait_for_phrase_end(self, recording: Recording) -> None:
-        while not recording.is_end_valid():
-            recording.read()
+        try:
+            while not recording.is_end_valid():
+                recording.read()
+        except EndOfStreamError:
+            pass

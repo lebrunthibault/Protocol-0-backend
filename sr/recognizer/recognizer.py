@@ -35,6 +35,7 @@ class Recognizer(Observable):
         self._use_word_list = use_word_list
         self._recognizer: Optional[KaldiRecognizer] = None
         self.final_recognizer_step = final_recognizer_step
+        self.start_processing_at: Optional[float] = None
         if self.final_recognizer_step != RecognizerStepEnum.NO_PROCESSING:
             self._load_model()
 
@@ -49,15 +50,16 @@ class Recognizer(Observable):
         self._recognizer.SetWords(True)
 
     def process_recording(self, recording: Recording) -> None:
+        self.start_processing_at = time.time()
         recognizer_result = RecognizerResult(recording=recording)
 
         if self.final_recognizer_step == RecognizerStepEnum.NO_PROCESSING:
             self.emit(recognizer_result)
             return
 
-        self._recognizer.AcceptWaveform(recording.audio.raw_data)
+        self._recognizer.AcceptWaveform(recording.raw_data)
         if self.DEBUG:
-            self._print_recording_info(recording=recording)
+            self._print_recognizer_info()
 
         recognizer_result.word = json.loads(self._recognizer.FinalResult())["text"]
         logger.info(f"Got word: <green>{recognizer_result.word}</>")
@@ -82,9 +84,9 @@ class Recognizer(Observable):
         logger.success(f"Found word enum: {word_enum.value}")
         recognizer_result.word_enum = word_enum
 
-    def _print_recording_info(self, recording: Recording):
+    def _print_recognizer_info(self):
         kaldi_result = json.loads(self._recognizer.FinalResult())
-        processing_duration = time.time() - recording.end_at
+        processing_duration = time.time() - self.start_processing_at
         logger.info(f"processing duration <yellow>{processing_duration:.2f}s</>")
         logger.info(f"result: {kaldi_result}")
         full_result = json.loads(self._recognizer.Result())

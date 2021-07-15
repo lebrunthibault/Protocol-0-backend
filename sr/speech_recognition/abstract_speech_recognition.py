@@ -19,6 +19,7 @@ logger = logger.opt(colors=True)
 
 class AbstractSpeechRecognition(Observable):
     AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
+    SEND_SEARCH_TO_ABLETON = False
     USE_GUI = False
     DEBUG = False
 
@@ -29,7 +30,7 @@ class AbstractSpeechRecognition(Observable):
             source = Microphone()
         self.recorder = Recorder(source=source)
         self.recognizer = recognizer or Recognizer(
-            model=SpeechRecognitionModelEnum.MAIN_MODEL, sample_rate=self.recorder.source.sample_rate
+            model=SpeechRecognitionModelEnum.MAIN_MODEL, sample_rate=source.sample_rate
         )
 
     def _setup_observers(self):
