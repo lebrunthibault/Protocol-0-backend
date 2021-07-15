@@ -2,19 +2,19 @@ import json
 import time
 from typing import Optional
 
+from loguru import logger
+from vosk import KaldiRecognizer, Model
+
 from lib.consts import PROJECT_ROOT
 from lib.observable import Observable
-from loguru import logger
 from sr.audio.recording import Recording
 from sr.dictionary.dictionary_manager import DictionaryManager
 from sr.dictionary.dictionary_translator import DictionaryTranslator
 from sr.enums.recognizer_step_enum import RecognizerStepEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
+from sr.errors.dictionary_not_found_error import DictionaryNotFoundError
+from sr.errors.recognizer_not_found_error import RecognizerNotFoundError
 from sr.recognizer.recognizer_result import RecognizerResult
-from vosk import KaldiRecognizer, Model
-
-from speech_recognition.errors.DictionaryNotFoundError import DictionaryNotFoundError
-from speech_recognition.errors.RecognizerNotFoundError import RecognizerNotFoundError
 
 logger = logger.opt(colors=True)
 

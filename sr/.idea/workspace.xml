@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="394593f7-8749-4b78-bb28-78176547bf79" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/audio/source/microphone.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_speech_vs_noise.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mypy.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/audio/recorder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/recording.py" beforeDir="false" afterPath="$PROJECT_DIR$/audio/recording.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/audio/recording_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dictionary/dictionary_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/dictionary/dictionary_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/display/speech_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enums/ableton_command_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/enums/ableton_command_enum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recognizer/null_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/recognizer/null_recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/recognizer/recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/speech_recognition/abstract_speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/speech_recognition/abstract_speech_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/speech_recognition/speech_recognition_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/speech_recognition/speech_recognition_synonym_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/speech_recognition/speech_recognition_synonym_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_speech_recognition.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1vMJwkHnBueZd8hvetDMhUQPlyB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="394593f7-8749-4b78-bb28-78176547bf79" name="Default Changelist" comment="" />
+      <created>1626366264846</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1626366264846</updated>
+      <workItem from="1626366266059" duration="599000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

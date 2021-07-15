@@ -1,16 +1,28 @@
 from loguru import logger
-from sr.audio.recording import Recording
 
-from speech_recognition.recorder.AbstractRecorder import AbstractRecorder
+from lib.observable import Observable
+from sr.audio.recording import Recording
+from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.errors.wait_timeout_error import WaitTimeoutError
 
 logger = logger.opt(colors=True)
 
 
-class Recorder(AbstractRecorder):
+class Recorder(Observable):
+    def __init__(self, source: AbstractAudioSource):
+        super().__init__()
+        self.source = source
+        logger.info(f"Recorder initialized with source {self.source}")
+
     def listen(self) -> None:
         while True:
             recording = Recording(source=self.source)
-            self._wait_for_phrase_start(recording=recording)
+            try:
+                self._wait_for_phrase_start(recording=recording)
+            except WaitTimeoutError as e:
+                logger.error(e)
+                logger.info("Retrying")
+                continue
             self._wait_for_phrase_end(recording=recording)
 
             if recording.is_speech:

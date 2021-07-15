@@ -55,7 +55,7 @@ class SpeechRecognitionSynonymCollector(AbstractSpeechRecognition):
         self.training_session_result = TrainingSessionResult(target_word=target_word)
         self.recognizer = Recognizer(
             model=SpeechRecognitionModelEnum.REFERENCE_MODEL,
-            sample_rate=self.recorder.SAMPLE_RATE,
+            sample_rate=self.recorder.source.sample_rate,
             final_recognizer_step=RecognizerStepEnum.RECOGNIZER,
         )
 

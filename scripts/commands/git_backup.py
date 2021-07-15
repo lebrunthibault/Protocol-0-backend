@@ -8,7 +8,7 @@ git_repositories = [
     "C:\\Users\\thiba\\Google Drive\\music\\dev\\scripts",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\a_protocol_0",
-    "C:\\Users\\thiba\\Google Drive\\music\\dev\\Protocol0 System",
+    "C:\\Users\\thiba\\Google Drive\\music\\dev\\protocol0_system",
     "C:\\Users\\thiba\\Google Drive\\music\\dev\\speech_recognition",
     "C:\\Users\\thiba\\Google Drive\\music\\software presets\\Ableton User Library\\Presets\\MIDI Effects\\Max MIDI Effect",
 ]

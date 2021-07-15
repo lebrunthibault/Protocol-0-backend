@@ -5,11 +5,10 @@ import numpy as np
 import scipy.fftpack as scp
 from loguru import logger
 from pydub import AudioSegment
-from sr.audio.recording_config import RecordingConfig
 
-from speech_recognition.audio_source.AbstractAudioSource import AbstractAudioSource
-from speech_recognition.errors.EndOfStreamError import EndOfStreamError
-from speech_recognition.errors.WaitTimeoutError import WaitTimeoutError
+from sr.audio.recording_config import RecordingConfig
+from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.errors.wait_timeout_error import WaitTimeoutError
 
 logger = logger.opt(colors=True)
 
@@ -18,7 +17,7 @@ class Recording:
     def __init__(self, source: AbstractAudioSource):
         self.source = source
         self.config = RecordingConfig(source=source)
-        self.audio: AudioSegment = self._make_audio_segment_from_buffer(buffer=b"")
+        self.audio: AudioSegment = self.source.make_audio_segment_from_buffer(buffer=b"")
         self.start_at = time.time()
 
     @property
@@ -45,6 +44,7 @@ class Recording:
         if self.config.maximum_duration and time.time() - self.start_at > self.config.maximum_duration:
             raise WaitTimeoutError("listening timed out while waiting for phrase to start")
 
+        self.audio = self.audio[-self.config.start_window_duration:]
         return self.start_window.dBFS >= self.config.minimum_dbfs
 
     def is_end_valid(self) -> bool:
@@ -66,10 +66,7 @@ class Recording:
         return True
 
     def read(self):
-        buffer = self.source.read()
-        if len(buffer) == 0:
-            raise EndOfStreamError
-        self.audio += self._make_audio_segment_from_buffer(buffer=buffer)
+        self.audio += self.source.read()
 
     def _generate_frequency_information(self):
         # then normalize and convert to numpy array:
@@ -83,5 +80,5 @@ class Recording:
 
     def _make_audio_segment_from_buffer(self, buffer: bytes) -> AudioSegment:
         return AudioSegment(
-            data=buffer, sample_width=self.source.SAMPLE_WIDTH, frame_rate=self.source.SAMPLE_RATE, channels=1
+            data=buffer, sample_width=self.source.sample_width, frame_rate=self.source.sample_rate, channels=1
         )

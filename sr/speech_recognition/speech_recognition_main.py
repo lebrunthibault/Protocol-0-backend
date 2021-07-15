@@ -6,13 +6,9 @@ from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechReco
 
 class SpeechRecognitionMain(AbstractSpeechRecognition):
     AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
-    SEND_SEARCH_TO_ABLETON = False
+    SEND_SEARCH_TO_ABLETON = True
     USE_GUI = True
-    DEBUG = True
-
-    def __init__(self):
-        super().__init__()
-        # self.recognizer = NullRecognizer()
+    DEBUG = False
 
     def _process_recognizer_result(self, recognizer_result: RecognizerResult):
         word = recognizer_result.word_enum.name

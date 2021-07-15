@@ -11,6 +11,7 @@ class AbletonCommandEnum(Enum):
     # MINITAUR = "MINITAUR"
     PIANO = "PIANO"
     NEXT = "NEXT"
+    # PREVIOUS = "PREVIOUS"
     HELLO = "HELLO"
 
     @staticmethod

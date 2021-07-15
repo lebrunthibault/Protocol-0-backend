@@ -3,8 +3,9 @@ import os
 import subprocess
 
 import pystache
-from lib.utils import flatten
 from loguru import logger
+
+from lib.utils import flatten
 from sr.config import Config
 from sr.dictionary.synonyms import speech_recognition_dictionary
 from sr.enums.ableton_command_enum import AbletonCommandEnum
@@ -26,7 +27,7 @@ class DictionaryManager:
             [
                 "bash",
                 "-c",
-                "source /home/thibault/.zshrc && cd '/mnt/c/Users/thiba/Google Drive/music/dev/Protocol0 System/sr/grammar' && make prepare",
+                "source /home/thibault/.zshrc && cd '/mnt/c/Users/thiba/Google Drive/music/dev/protocol0_system/sr/grammar' && make prepare",
             ]
         )
 

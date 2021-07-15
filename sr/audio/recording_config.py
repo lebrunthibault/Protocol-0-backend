@@ -1,4 +1,4 @@
-from speech_recognition.audio_source.AbstractAudioSource import AbstractAudioSource
+from sr.audio.source.abstract_audio_source import AbstractAudioSource
 
 
 class RecordingConfig:
@@ -12,3 +12,4 @@ class RecordingConfig:
         # # - values below this are ignored (for filtering out clicks and pops)
         self.minimum_duration = 0.2  # seconds
         self.maximum_duration = 600  # seconds
+        self.window_ms = source.WINDOW_MS

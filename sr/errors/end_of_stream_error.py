@@ -1,0 +1,1 @@
+class EndOfStreamError(Exception): pass
