@@ -3,7 +3,7 @@ import sys
 
 from loguru import logger
 
-from consts import LOGGING_DIRECTORY
+from config import Config
 from lib.consts import PROJECT_ROOT
 
 
@@ -19,7 +19,7 @@ def configure_logging(filename: str) -> None:
     )
 
     logger.add(
-        f"{LOGGING_DIRECTORY}\\{filename}",
+        f"{Config.LOGGING_DIRECTORY}\\{filename}",
         level=logging_config.get("level"),
         format=logging_config.get("format_log_file"),
         colorize=True

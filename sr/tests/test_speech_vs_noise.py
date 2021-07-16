@@ -9,9 +9,9 @@ import pytest
 from lib.utils import filename_datetime
 from sr.audio.recording import Recording
 from sr.audio.source.audio_file import AudioFile
-from sr.config import Config
 from sr.recognizer.null_recognizer import NullRecognizer
 from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
+from sr.sr_config import SRConfig
 
 
 class SpeechRecognitionTest(AbstractSpeechRecognition):
@@ -22,7 +22,7 @@ class SpeechRecognitionTest(AbstractSpeechRecognition):
     def __init__(self, source: AudioFile):
         super().__init__(source=source, recognizer=NullRecognizer())
         self.recordings: List[Recording] = []
-        self.debug_data_directory = os.path.normpath(f"{Config.TEST_DEBUG_DATA_DIRECTORY}/{filename_datetime()}")
+        self.debug_data_directory = os.path.normpath(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}/{filename_datetime()}")
         self.recorder.subscribe(Recording, self.process_recording)
 
     def process_recording(self, recording: Recording):
@@ -49,17 +49,17 @@ class SpeechRecognitionTest(AbstractSpeechRecognition):
 
 @pytest.mark.skip
 def test_speech_recognition():
-    SpeechRecognitionTest(source=AudioFile(f"{Config.TEST_DATA_DIRECTORY}/hello.wav")).assert_speech()
-    SpeechRecognitionTest(source=AudioFile(f"{Config.TEST_DATA_DIRECTORY}/noise.wav")).assert_noise()
+    SpeechRecognitionTest(source=AudioFile(f"{SRConfig.TEST_DATA_DIRECTORY}/hello.wav")).assert_speech()
+    SpeechRecognitionTest(source=AudioFile(f"{SRConfig.TEST_DATA_DIRECTORY}/noise.wav")).assert_noise()
 
 
 @pytest.mark.skip
 def test_speech_recognition_words():
-    for filename in glob.glob(f"{Config.TRAINING_AUDIO_DIRECTORY}/words/**/*.wav", recursive=True):
+    for filename in glob.glob(f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/words/**/*.wav", recursive=True):
         SpeechRecognitionTest(source=AudioFile(filename)).assert_speech()
 
 
 # @pytest.mark.skip
 def test_speech_recognition_noise():
-    for filename in glob.glob(f"{Config.TRAINING_AUDIO_DIRECTORY}/noise/**/*.wav", recursive=True):
+    for filename in glob.glob(f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/noise/**/*.wav", recursive=True):
         SpeechRecognitionTest(source=AudioFile(filename)).assert_noise()

@@ -6,9 +6,9 @@ import pystache
 from loguru import logger
 
 from lib.utils import flatten
-from sr.config import Config
 from sr.dictionary.synonyms import speech_recognition_dictionary
 from sr.enums.ableton_command_enum import AbletonCommandEnum
+from sr.sr_config import SRConfig
 
 logger = logger.opt(colors=True)
 
@@ -20,7 +20,7 @@ class DictionaryManager:
         self.synonyms_set = set()
 
     def prepare_model_grammar(self):
-        with open(Config.KALDI_VOCABULARY_PATH, "w") as f:
+        with open(SRConfig.KALDI_VOCABULARY_PATH, "w") as f:
             f.write(" ".join(AbletonCommandEnum.words()))
 
         subprocess.run(
@@ -34,7 +34,7 @@ class DictionaryManager:
         logger.info("grammar generated")
 
     def generate_from_results(self):
-        for word_folder in os.scandir(Config.TRAINING_SYNONYMS_DIRECTORY):
+        for word_folder in os.scandir(SRConfig.TRAINING_SYNONYMS_DIRECTORY):
             # noinspection PyTypeChecker
             self._generate_from_word_results(word_folder=word_folder)
 
@@ -84,11 +84,11 @@ class DictionaryManager:
                         word_synonyms["synonyms"].remove(word)
 
     def _write_dictionary_to_file(self, synonyms: list):
-        with open(f"{Config.SYNONYMS_PATH.replace('py', 'mustache')}", "r") as f:
+        with open(f"{SRConfig.SYNONYMS_PATH.replace('py', 'mustache')}", "r") as f:
             mustache_template = f.read()
 
         code = pystache.render(mustache_template, {"dictionary": synonyms})
-        with open(Config.SYNONYMS_PATH, "w") as f:
+        with open(SRConfig.SYNONYMS_PATH, "w") as f:
             f.write(code)
 
         logger.success("Dictionary code written successfully")

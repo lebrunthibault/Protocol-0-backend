@@ -4,13 +4,13 @@ from datetime import datetime
 from typing import List
 
 from lib.utils import filename_datetime
-from sr.config import Config
 from sr.enums.ableton_command_enum import AbletonCommandEnum
 from sr.enums.recognizer_step_enum import RecognizerStepEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.recognizer.recognizer import Recognizer
 from sr.recognizer.recognizer_result import RecognizerResult
 from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
+from sr.sr_config import SRConfig
 
 
 class WordResult:
@@ -26,7 +26,7 @@ class TrainingSessionResult:
     def __init__(self, target_word: str):
         self._target_word = target_word
         self._word_results: List[WordResult] = []
-        result_directory = f"{Config.TRAINING_SYNONYMS_DIRECTORY}/{target_word}"
+        result_directory = f"{SRConfig.TRAINING_SYNONYMS_DIRECTORY}/{target_word}"
         if not os.path.exists(result_directory):
             os.mkdir(result_directory)
 
