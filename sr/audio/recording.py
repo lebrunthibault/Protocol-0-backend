@@ -42,6 +42,11 @@ class Recording:
     def raw_data(self) -> bytes:
         return self._audio.raw_data()
 
+    @property
+    def spectrogram(self):
+        from scipy import signal
+        return signal.spectrogram(self.samples, self._source.sample_rate)
+
     def export(self, filename: str) -> None:
         assert filename.endswith(".wav")
         self._audio.export(filename, format="wav")
