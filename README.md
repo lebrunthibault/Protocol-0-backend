@@ -22,4 +22,17 @@ It is composed of the following packages:
   typing gets stronger).
 - server : backend API for the script. Using openAPI as API contract
 - sr : speech recognition component (in progress) for identifying specific vocal commands and pushing them to the
-  script. 
+  script.
+
+### Installation
+
+> This script is more here to showcase development techniques and is not ready for distribution / installation but you can try.
+
+- Some commands are specific to windows, adapt to mac if necessary
+- Create LoopMidi virtual ports (P0_IN and P0_OUT)
+- Install openapi-generator
+- Install make
+
+- `pip install -r ./requirements.txt`
+- `make sdk`
+- `make midi`
