@@ -9,8 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/autocomplete.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/recording.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" afterDir="false" />
@@ -287,7 +285,7 @@
       <workItem from="1626342237584" duration="1040000" />
       <workItem from="1626343294922" duration="10259000" />
       <workItem from="1626370850669" duration="140000" />
-      <workItem from="1626384377908" duration="7579000" />
+      <workItem from="1626384377908" duration="8528000" />
     </task>
     <servers />
   </component>

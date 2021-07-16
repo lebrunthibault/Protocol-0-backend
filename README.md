@@ -1,18 +1,25 @@
 # Protocol0 script backend and audio libraries
 
-This monolithic repo is the backend of my ableton control surface script ([protocol0](
-the https://github.com/lebrunthibault/Protocol-0-Surface-Script))
-It started because the python environment in the control surface script executes in ableton and is limited while it in
-several ways
-(cannot use threading, async, python3, a bunch of system libraries etc ...)
-This repo has no limitations and exposes an API to ableton while also being able to call scripts methods via MIDI.
+This monolithic repo is the backend of my ableton control surface
+script ([protocol0 repo](https://github.com/lebrunthibault/Protocol-0-Surface-Script))
+I created it because the python environment in the control surface script executes in ableton and is limited in several
+ways
+(cannot use threading, asyncio, python3, a bunch of system libraries etc ...)
+This repo has no limitations and exposes an API to ableton while also being able to do the opposite : calling exposed
+scripts methods via MIDI.
 
-It is composed by the following packages:
+> legend:
+>- script: the ableton control surface script
+>- backend : this repo
 
-- lib : common backend library used by other components
+It is composed of the following packages:
+
+- lib : common backend library used by backend components
 - scripts : globally accessible (via cli / ahk hotkeys and api) scripts for tasks related to ableton / speech
   recognition
-- sdk_generation : SDK generation scripts to build 2 clients for backend / surface script bidirectional communication
-  via midi
-- server : backend API for the script
-- sr : speech recognition component (in progress) for identifying specific commands and pushing them to the script. 
+- sdk_generation : SDK code generation scripts to build 2 clients for backend / surface script bidirectional
+  communication via midi (why 2 and not 1 ? because midi protocol is much simpler than http and unidirectional. Also
+  typing gets stronger).
+- server : backend API for the script. Using openAPI as API contract
+- sr : speech recognition component (in progress) for identifying specific vocal commands and pushing them to the
+  script. 
