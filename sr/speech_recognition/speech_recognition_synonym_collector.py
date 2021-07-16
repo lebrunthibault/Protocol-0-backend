@@ -48,6 +48,8 @@ class TrainingSessionResult:
 
 
 class SpeechRecognitionSynonymCollector(AbstractSpeechRecognition):
+    """ deprecated """
+
     def __init__(self, target_word: str):
         super().__init__()
         assert target_word in AbletonCommandEnum.words(), "word should be in the word enum"
@@ -58,8 +60,8 @@ class SpeechRecognitionSynonymCollector(AbstractSpeechRecognition):
             sample_rate=self.recorder.sample_rate,
             final_recognizer_step=RecognizerStepEnum.RECOGNIZER,
         )
-        self.recognizer.subscribe(RecognizerResult, self._process_recognizer_result)
+        self.recognizer.subscribe(RecognizerResult, self._handle_recognizer_result)
 
-    def _process_recognizer_result(self, recognizer_result: RecognizerResult):
+    def _handle_recognizer_result(self, recognizer_result: RecognizerResult):
         self.training_session_result.add_word(recognizer_result.word)
         self.training_session_result.export()

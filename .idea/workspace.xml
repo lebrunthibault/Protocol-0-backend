@@ -8,17 +8,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/errors/Protocol0Error.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/errors/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/logging_config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.ps1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python/api.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python/api_client.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/api.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/api_client.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/configuration.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/openapi_templates/via_api/python_legacy/model.mustache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_simple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" beforeDir="false" afterPath="$PROJECT_DIR$/../vosk-api/python/example/test_text.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/consts.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/abstract_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/abstract_cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/hotkeys.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/hotkeys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/generate_api_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/custom_logging.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/logging_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sr/mypy.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +93,9 @@
     <setting file="file://$PROJECT_DIR$/sdk_generation/generate_api_specs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="3" />
+  </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -87,12 +111,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../scripts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -160,6 +184,21 @@
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="vosk-api" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="pytest for sr.tests.test_speech_vs_noise.test_speech_recognition" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
@@ -292,7 +331,8 @@
       <workItem from="1626342237584" duration="1040000" />
       <workItem from="1626343294922" duration="10259000" />
       <workItem from="1626370850669" duration="140000" />
-      <workItem from="1626384377908" duration="11114000" />
+      <workItem from="1626384377908" duration="11928000" />
+      <workItem from="1626473333513" duration="4267000" />
     </task>
     <servers />
   </component>

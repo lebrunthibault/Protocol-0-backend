@@ -5,7 +5,7 @@ from typing import Optional
 from loguru import logger
 from vosk import KaldiRecognizer, Model
 
-from lib.consts import PROJECT_ROOT
+from config import PROJECT_ROOT
 from lib.observable import Observable
 from sr.audio.recording import Recording
 from sr.dictionary.dictionary_manager import DictionaryManager
@@ -49,7 +49,7 @@ class Recognizer(Observable):
         self._recognizer = KaldiRecognizer(*args)
         self._recognizer.SetWords(True)
 
-    def process_recording(self, recording: Recording) -> None:
+    def handle_recording(self, recording: Recording) -> None:
         self.start_processing_at = time.time()
         recognizer_result = RecognizerResult(recording=recording)
 

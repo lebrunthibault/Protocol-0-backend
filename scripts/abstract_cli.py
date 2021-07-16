@@ -4,7 +4,7 @@ import traceback
 import click_completion
 from loguru import logger
 
-from lib.custom_logging import configure_logging
+from lib.log import configure_logging
 
 
 def _exception_handler(exctype, value, tb):

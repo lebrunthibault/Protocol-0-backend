@@ -19,7 +19,7 @@ class {{classname}}(object):
 
     def send_dict_as_midi(self, dict):
         # type: (dict) -> None
-        from a_protocol_0 import Protocol0
+        from protocol0 import Protocol0
         midi_manager = Protocol0.SELF.midiManager
         message = json.dumps(dict)
         midi_manager.parent.log_dev("Sending string to midi output : %s" % message)

@@ -1,3 +1,4 @@
+import enum
 import logging
 from functools import partial
 from typing import Optional, Any, List, Dict, Union
@@ -7,15 +8,15 @@ import win32con
 import win32gui
 import win32process
 import wmi
-from a_protocol_0.enums.AbstractEnum import AbstractEnum
-from a_protocol_0.errors.Protocol0Error import Protocol0Error
+
+from lib.errors.Protocol0Error import Protocol0Error
 
 logger = logging.getLogger(__name__)
 
 c = wmi.WMI()
 
 
-class SearchTypeEnum(AbstractEnum):
+class SearchTypeEnum(enum.Enum):
     NAME = "NAME"
     EXE = "EXE"
     CLASS = "CLASS"

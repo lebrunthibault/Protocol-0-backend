@@ -3,8 +3,8 @@ from typing import Tuple, Union
 
 import win32com.client
 import win32gui
-from a_protocol_0.consts import ABLETON_EXE
 
+from config import ABLETON_EXE
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
 
 logger = logging.getLogger(__name__)

@@ -1,16 +1,16 @@
 import subprocess
 import sys
 import time
-from typing import Optional
 
 import click
+from loguru import logger
+
 from abstract_cli import setup_cli
 from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
-from lib.window.find_window import SearchTypeEnum
+from config import PROJECT_ROOT
 from lib.window.terminal import clear_terminal
 from lib.window.window import focus_window
-from loguru import logger
 from scripts.commands.git_backup import backup_git_repos
 from scripts.commands.search_set_gui import search_set_gui
 from sr.speech_recognition.speech_recognition_main import SpeechRecognitionMain
@@ -32,9 +32,8 @@ def command_reload_ableton() -> None:
 @cli.command(name="focus_window")
 @click.argument("name")
 @click.argument("search_type", required=False)
-def command_focus_window(name: str, search_type: Optional[str]) -> None:
-    search_type_enum = SearchTypeEnum.get_from_value(search_type, SearchTypeEnum.NAME)  # type: SearchTypeEnum
-    focus_window(name, search_type_enum)
+def command_focus_window(name: str) -> None:
+    focus_window(name)
 
 
 @cli.command(name="search_set_gui")
@@ -49,10 +48,10 @@ def command_sync_presets() -> None:
 
 @cli.command(name="refresh_logs")
 def command_refresh_logs() -> None:
-    scripts_dir = "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\a_protocol_0\\scripts"
+    cwd = f"{PROJECT_ROOT}/scripts"
     p = subprocess.Popen(["powershell.exe",
                           "invoke-expression",
-                          "'cmd /c start powershell -Command { set-location \"%s\"; ./tailAbletonLogs.ps1 }'" % scripts_dir],
+                          "'cmd /c start powershell -Command { set-location \"%s\"; ./tail_protocol0_logs.ps1 }'" % cwd],
                          stdout=sys.stdout)
     p.communicate()
 

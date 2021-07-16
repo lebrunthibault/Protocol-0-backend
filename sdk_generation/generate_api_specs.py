@@ -5,11 +5,11 @@ import os
 from enum import Enum
 from typing import Callable, List, Dict
 
-from a_protocol_0.utils.decorators import EXPOSED_P0_METHODS
 from apispec import APISpec
 from loguru import logger
 from openapi_spec_validator import validate_spec
 from openapi_spec_validator.exceptions import OpenAPIValidationError
+from protocol0.utils.decorators import EXPOSED_P0_METHODS
 
 
 class ApiEnum(Enum):
@@ -44,6 +44,7 @@ class OpenAPISpec():
 
     @staticmethod
     def get_openapi_string_type(obj):
+        # noinspection PyUnresolvedReferences
         if isinstance(obj, basestring):
             return "string"
         elif isinstance(obj, int):

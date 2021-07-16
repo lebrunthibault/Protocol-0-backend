@@ -28,10 +28,11 @@ It is composed of the following packages:
 
 > This script is more here to showcase development techniques and is not ready for distribution / installation but you can try.
 
+- Add to your PYTHON_PATH : your remote scripts folder and this folder
+
 - Some commands are specific to windows, adapt to mac if necessary
 - Create LoopMidi virtual ports (P0_IN and P0_OUT)
-- Install openapi-generator
-- Install make
+- Install openapi-generator, make
 
 - `pip install -r ./requirements.txt`
 - `make sdk`

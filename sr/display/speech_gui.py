@@ -16,7 +16,7 @@ class SpeechGui(Observable):
         super().__init__()
         self.window: Optional[sg.Window] = None
 
-    def process_message(self, message):
+    def handle_string_message(self, message):
         # self.window.TKroot.focus_force()  # force this window to have focus
         self.window["logs"].update(str(message))
 

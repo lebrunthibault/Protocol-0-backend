@@ -1,11 +1,8 @@
 ﻿global funs := {}, args := {}
-global python3 := "C:\Users\thiba\AppData\Local\Programs\Python\Python37\python.exe"
-global ableton := "Ableton Live 10 Suite"
-
 
 executeCliCommand(command)
 {
-    Run %python3% cli.py %command%, %A_ScriptDir%\.., hide
+    Run py cli.py %command%, %A_ScriptDir%\.., hide
 }
 
 HotkeyCommand(hk, arg*)

@@ -15,18 +15,11 @@ from sr.sr_config import SRConfig
 
 
 class SpeechRecognitionTest(AbstractSpeechRecognition):
-    AUTO_SWITCH_TO_KEYBOARD_SEARCH = False
-    SEND_SEARCH_TO_ABLETON = False
-    USE_GUI = False
-
     def __init__(self, source: AudioFile):
         super().__init__(source=source, recognizer=NullRecognizer())
         self.recordings: List[Recording] = []
         self.debug_data_directory = os.path.normpath(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}/{filename_datetime()}")
-        self.recorder.subscribe(Recording, self.process_recording)
-
-    def process_recording(self, recording: Recording):
-        self.recordings.append(recording)
+        self.recorder.subscribe(Recording, self.recordings.append)
 
     def assert_speech(self):
         self.recognize()

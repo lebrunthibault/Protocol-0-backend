@@ -9,5 +9,5 @@ class NullRecognizer(Recognizer):
         super().__init__(model=SpeechRecognitionModelEnum.MAIN_MODEL, sample_rate=0,
                          final_recognizer_step=RecognizerStepEnum.NO_PROCESSING)
 
-    def process_recording(self, recording: Recording) -> RecognizerResult:
+    def handle_recording(self, recording: Recording) -> RecognizerResult:
         return RecognizerResult(recording=recording)

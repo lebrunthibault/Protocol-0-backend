@@ -7,7 +7,7 @@ import mido
 # noinspection PyUnresolvedReferences
 from mido import Message
 
-from lib.custom_logging import configure_logging
+from lib.log import configure_logging
 
 configure_logging(filename="midi.log")
 

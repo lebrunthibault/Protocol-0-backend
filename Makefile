@@ -11,10 +11,6 @@ dev:
 midi:
 	python server/midi_app.py
 
-spec:
-	cls
-	python sdk_generation/generate_api_specs.py
-
 sdk:
 	make sdk_system
 	make sdk_script
@@ -34,7 +30,6 @@ sdk_script:
 sdk_debug:
 	cls
 	cd sdk_generation/p0_script && openapi-generator generate -i openapi.yaml -g python-legacy -o api_client -t ../openapi_templates/via_midi/python_legacy --global-property debugOperations=true
-
 
 mypy:
 	cls

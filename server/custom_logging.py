@@ -7,7 +7,7 @@ from pprint import pformat
 
 from loguru import logger
 
-from config import Config
+from config import LOGGING_DIRECTORY
 
 
 class InterceptHandler(logging.Handler):
@@ -73,7 +73,7 @@ class CustomizeLogger:
         logging_config = cls._load_logging_config(config_path)
 
         logger = cls._customize_logging(
-            f"{Config.LOGGING_DIRECTORY}\\{logging_config.get('filename')}",
+            f"{LOGGING_DIRECTORY}\\server.log",
             level=logging_config.get('level'),
             format_stdout=logging_config.get('format_stdout'),
             format_log_file=logging_config.get('format_log_file')
