@@ -7,9 +7,9 @@ from fastapi.routing import APIRoute
 from pydantic import BaseSettings
 from starlette.requests import Request
 
+from api.custom_logging import CustomizeLogger
+from api.routes import router
 from config import PROJECT_ROOT
-from server.custom_logging import CustomizeLogger
-from server.routes import router
 
 
 class Settings(BaseSettings):

@@ -6,10 +6,10 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 dev:
-	python -m uvicorn server.main:app --host ${API_HOST} --port ${API_PORT} --reload
+	python -m uvicorn api.main:app --host ${API_HOST} --port ${API_PORT} --reload
 
 midi:
-	python server/midi_app.py
+	python api/midi_app.py
 
 sdk:
 	make sdk_system

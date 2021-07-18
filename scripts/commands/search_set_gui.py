@@ -4,9 +4,9 @@ import PySimpleGUI as sg
 import win32gui
 from PySimpleGUI import WIN_CLOSED
 
+from api.p0_script_api_client import p0_script_api_client
 from lib.window.find_window import find_window_handle_by_criteria
 from lib.window.window import focus_ableton
-from server.p0_script_api_client import p0_script_api_client
 
 logger = logging.getLogger(__name__)
 

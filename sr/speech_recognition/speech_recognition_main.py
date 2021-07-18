@@ -1,7 +1,7 @@
 from functools import partial
 
+from api.p0_script_api_client import p0_script_api_client
 from lib.process import execute_cli_command
-from server.p0_script_api_client import p0_script_api_client
 from sr.errors.abstract_recognizer_not_found_error import AbstractRecognizerNotFoundError
 from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
 

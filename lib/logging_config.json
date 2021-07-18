@@ -1,5 +1,5 @@
 {
-  "filename": "server.log",
+  "filename": "api.log",
   "level": "DEBUG",
   "rotation": "3 days",
   "retention": "3 days",

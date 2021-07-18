@@ -73,7 +73,7 @@ class CustomizeLogger:
         logging_config = cls._load_logging_config(config_path)
 
         logger = cls._customize_logging(
-            f"{LOGGING_DIRECTORY}\\server.log",
+            f"{LOGGING_DIRECTORY}\\api.log",
             level=logging_config.get('level'),
             format_stdout=logging_config.get('format_stdout'),
             format_log_file=logging_config.get('format_log_file')
@@ -126,10 +126,10 @@ class CustomizeLogger:
 
     @classmethod
     def _filter_logs(cls, record, is_log_file=False) -> bool:
-        # don't pollute web logs with server restarts
+        # don't pollute web logs with api restarts
         if is_log_file:
             if any(
-                    name in record['name'] for name in ["uvicorn.server", "uvicorn.lifespan"]):
+                    name in record['name'] for name in ["uvicorn.api", "uvicorn.lifespan"]):
                 return False
             if record["extra"].get("stdout_only"):
                 return False

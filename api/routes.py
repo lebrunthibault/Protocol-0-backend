@@ -3,6 +3,7 @@ from typing import Dict, List
 from fastapi import APIRouter
 from fastapi import Response, status
 
+from api.p0_script_api_client import p0_script_api_client
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
 from lib.window.ableton import show_device_view
@@ -12,7 +13,6 @@ from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.reload_ableton import reload_ableton
 from scripts.commands.sync_presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
-from server.p0_script_api_client import p0_script_api_client
 
 router = APIRouter()
 

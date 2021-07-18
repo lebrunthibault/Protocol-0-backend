@@ -1,11 +1,11 @@
 import subprocess
 import sys
-import time
 
 import click
 from loguru import logger
 
 from abstract_cli import setup_cli
+from api.p0_script_api_client import p0_script_api_client
 from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
 from config import PROJECT_ROOT
@@ -61,14 +61,6 @@ def command_save_set_as_template() -> None:
     save_set_as_template()
 
 
-@cli.command(name="test_toast")
-def command_test_toast() -> None:
-    from win10toast import ToastNotifier
-    toaster = ToastNotifier()
-    toaster.show_toast("Sample Notification", "Python is awesome!!!", duration=0.5)
-    while toaster.notification_active(): time.sleep(0.1)
-
-
 @cli.command(name="speech")
 def command_speech() -> None:
     SpeechRecognitionMain().recognize()
@@ -77,6 +69,13 @@ def command_speech() -> None:
 @cli.command(name="git_backup")
 def command_git_backup() -> None:
     backup_git_repos()
+
+
+@cli.command(name="search_set")
+@click.argument("search")
+def command_search_set(search: str) -> None:
+    p0_script_api_client.search_track(search=search)
+    logger.info("test")
 
 
 @cli.command(name="test")

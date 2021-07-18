@@ -51,7 +51,7 @@ class MidiApp():
         if p0_port_name is None:
             raise Exception(f"couldn't find {MidiApp.P0_OUTPUT_PORT_NAME} port")
 
-        from server.routes import Routes
+        from api.routes import Routes
 
         # noinspection PyUnresolvedReferences
         with mido.open_input(p0_port_name, autoreset=False) as midi_port:
