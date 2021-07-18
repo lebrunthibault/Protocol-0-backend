@@ -38,12 +38,4 @@ It is composed of the following packages:
 - `make sdk`
 - `make midi`
 - configure ableton midi as so :
-
-![midi](./doc/img/ableton_midi_config.PNG)
-<style>
-  img { width: 20px }
-</style>
-
-[comment]: <> (<img width="460" src="./doc/img/ableton_midi_config.PNG" alt="midi"/>)
-
-[comment]: <> (<img width="460" src="doc/img/ableton_midi_config.PNG" alt="midi"/>)
+<img width="260px" src="https://raw.githubusercontent.com/lebrunthibault/Protocol-0-backend/master/doc/img/ableton_midi_config.PNG?sanitize=true" alt="ableton screenshot">
