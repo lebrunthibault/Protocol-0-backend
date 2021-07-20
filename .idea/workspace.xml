@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backup.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +83,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -304,7 +301,8 @@
       <workItem from="1626384377908" duration="11928000" />
       <workItem from="1626473333513" duration="11488000" />
       <workItem from="1626611502475" duration="1287000" />
-      <workItem from="1626612949284" duration="16000" />
+      <workItem from="1626612949284" duration="4242000" />
+      <workItem from="1626699327283" duration="2692000" />
     </task>
     <servers />
   </component>
