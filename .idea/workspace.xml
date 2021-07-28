@@ -8,7 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -306,6 +306,8 @@
       <workItem from="1626612949284" duration="4242000" />
       <workItem from="1626699327283" duration="2692000" />
       <workItem from="1627135309591" duration="2088000" />
+      <workItem from="1627220923342" duration="149000" />
+      <workItem from="1627395108102" duration="2627000" />
     </task>
     <servers />
   </component>
