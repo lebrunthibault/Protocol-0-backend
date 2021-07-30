@@ -2,7 +2,7 @@ from loguru import logger
 
 from lib.observable import Observable
 from sr.audio.recording import Recording
-from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.audio.source.audio_source_interface import AudioSourceInterface
 from sr.errors.end_of_stream_error import EndOfStreamError
 from sr.errors.wait_timeout_error import WaitTimeoutError
 
@@ -10,14 +10,21 @@ logger = logger.opt(colors=True)
 
 
 class Recorder(Observable):
-    def __init__(self, source: AbstractAudioSource):
+    def __init__(self, source: AudioSourceInterface):
         super().__init__()
         self._source = source
         self.name = self._source.name
         self.sample_rate = self._source.sample_rate
         logger.info(f"Recorder initialized with source {self._source}")
 
-    def listen(self) -> None:
+    @logger.catch
+    def listen(self):
+        try:
+            self.recorder._listen()
+        except EndOfStreamError:
+            return
+
+    def _listen(self) -> None:
         while True:
             recording = Recording(source=self._source)
             try:

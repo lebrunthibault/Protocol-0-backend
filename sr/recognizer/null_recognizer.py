@@ -1,13 +1,8 @@
+from lib.observable import Observable
 from sr.audio.recording import Recording
-from sr.enums.recognizer_step_enum import RecognizerStepEnum
-from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
-from sr.recognizer.recognizer import Recognizer, RecognizerResult
+from sr.recognizer.recognizer_interface import RecognizerInterface
 
 
-class NullRecognizer(Recognizer):
-    def __init__(self):
-        super().__init__(model=SpeechRecognitionModelEnum.MAIN_MODEL, sample_rate=0,
-                         final_recognizer_step=RecognizerStepEnum.NO_PROCESSING)
-
-    def handle_recording(self, recording: Recording) -> RecognizerResult:
-        return RecognizerResult(recording=recording)
+class NullRecognizer(Observable, RecognizerInterface):
+    def handle_recording(self, recording: Recording) -> None:
+        self.emit(recording)

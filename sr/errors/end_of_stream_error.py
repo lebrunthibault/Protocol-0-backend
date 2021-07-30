@@ -1,1 +1,2 @@
-class EndOfStreamError(Exception): pass
+class EndOfStreamError(Exception):
+    pass

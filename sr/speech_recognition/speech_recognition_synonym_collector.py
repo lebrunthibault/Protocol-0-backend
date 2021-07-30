@@ -9,7 +9,7 @@ from sr.enums.recognizer_step_enum import RecognizerStepEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.recognizer.recognizer import Recognizer
 from sr.recognizer.recognizer_result import RecognizerResult
-from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
+from sr.speech_recognition.speech_recognition import SpeechRecognition
 from sr.sr_config import SRConfig
 
 
@@ -47,21 +47,20 @@ class TrainingSessionResult:
             f.write(json.dumps(output))
 
 
-class SpeechRecognitionSynonymCollector(AbstractSpeechRecognition):
+class SpeechRecognitionSynonymCollector(object):
     """ deprecated """
 
     def __init__(self, target_word: str):
-        super().__init__()
         assert target_word in AbletonCommandEnum.words(), "word should be in the word enum"
-        self.target_word = target_word
-        self.training_session_result = TrainingSessionResult(target_word=target_word)
-        self.recognizer = Recognizer(
+        self._training_session_result = TrainingSessionResult(target_word=target_word)
+
+        recognizer = Recognizer(
             model=SpeechRecognitionModelEnum.REFERENCE_MODEL,
-            sample_rate=self.recorder.sample_rate,
             final_recognizer_step=RecognizerStepEnum.RECOGNIZER,
         )
-        self.recognizer.subscribe(RecognizerResult, self._handle_recognizer_result)
+        recognizer.subscribe(RecognizerResult, self._handle_recognizer_result)
+        SpeechRecognition(recognizer=recognizer).listen()
 
     def _handle_recognizer_result(self, recognizer_result: RecognizerResult):
-        self.training_session_result.add_word(recognizer_result.word)
-        self.training_session_result.export()
+        self._training_session_result.add_word(recognizer_result.word)
+        self._training_session_result.export()

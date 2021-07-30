@@ -63,7 +63,7 @@ def command_save_set_as_template() -> None:
 
 @cli.command(name="speech")
 def command_speech() -> None:
-    SpeechRecognitionMain().recognize()
+    SpeechRecognitionMain.recognize()
 
 
 @cli.command(name="git_backup")

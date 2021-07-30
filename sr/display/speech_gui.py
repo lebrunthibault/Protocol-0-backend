@@ -1,3 +1,4 @@
+import threading
 from typing import Optional
 
 import PySimpleGUI as sg
@@ -10,11 +11,10 @@ logger = logger.opt(colors=True)
 
 
 class SpeechGui(Observable):
-    RUNNING = True
-
     def __init__(self):
         super().__init__()
         self.window: Optional[sg.Window] = None
+        threading.Thread(target=self.create_window, daemon=True).start()
 
     def handle_string_message(self, message):
         # self.window.TKroot.focus_force()  # force this window to have focus
@@ -39,14 +39,9 @@ class SpeechGui(Observable):
             event, values = self.window.read(timeout=1000)
 
             # if user closed the window using X or clicked Quit button
-            if event in (sg.WIN_CLOSED, "Quit") or not self.RUNNING:
+            if event in (sg.WIN_CLOSED, "Quit"):
                 break
 
         logger.info("closing GUI window")
         self.window.close()
         self.emit("exit")
-
-    def exit(self):
-        if self.RUNNING:
-            logger.info("exiting in GUI")
-            self.RUNNING = False

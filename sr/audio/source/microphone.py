@@ -5,11 +5,11 @@ from loguru import logger
 # from loguru import logger
 from pydub import AudioSegment
 
-from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.audio.source.audio_source_interface import AudioSourceInterface, make_audio_segment_from_audio_source_buffer
 
 
 # noinspection PyBroadException
-class Microphone(AbstractAudioSource):
+class Microphone(AudioSourceInterface):
     """
     If ``device_index`` is unspecified or ``None``, the default microphone is used as the audio source. Otherwise, ``device_index`` should be the index of the device to use for audio input.
     See the `PyAudio documentation <https://people.csail.mit.edu/hubert/pyaudio/docs/>`__ for more details.
@@ -22,7 +22,8 @@ class Microphone(AbstractAudioSource):
     def __init__(self, device_index=None, sample_rate=None, chunk_size=1024):
         assert device_index is None or isinstance(device_index, int), "Device index must be None or an integer"
         assert sample_rate is None or (
-                isinstance(sample_rate, int) and sample_rate > 0), "Sample rate must be None or a positive integer"
+            isinstance(sample_rate, int) and sample_rate > 0
+        ), "Sample rate must be None or a positive integer"
         assert isinstance(chunk_size, int) and chunk_size > 0, "Chunk size must be a positive integer"
 
         # set up PyAudio
@@ -32,13 +33,23 @@ class Microphone(AbstractAudioSource):
         try:
             count = audio.get_device_count()  # obtain device count
             if device_index is not None:  # ensure device index is in range
-                assert 0 <= device_index < count, "Device index out of range ({} devices available; device index should be between 0 and {} inclusive)".format(
-                    count, count - 1)
-            if sample_rate is None:  # automatically set the sample rate to the hardware's default sample rate if not specified
-                device_info = audio.get_device_info_by_index(
-                    device_index) if device_index is not None else audio.get_default_input_device_info()
-                assert isinstance(device_info.get("defaultSampleRate"), (float, int)) and device_info[
-                    "defaultSampleRate"] > 0, "Invalid device info returned from PyAudio: {}".format(device_info)
+                assert (
+                    0 <= device_index < count
+                ), "Device index out of range ({} devices available; device index should be between 0 and {} inclusive)".format(
+                    count, count - 1
+                )
+            if (
+                sample_rate is None
+            ):  # automatically set the sample rate to the hardware's default sample rate if not specified
+                device_info = (
+                    audio.get_device_info_by_index(device_index)
+                    if device_index is not None
+                    else audio.get_default_input_device_info()
+                )
+                assert (
+                    isinstance(device_info.get("defaultSampleRate"), (float, int))
+                    and device_info["defaultSampleRate"] > 0
+                ), "Invalid device info returned from PyAudio: {}".format(device_info)
                 sample_rate = int(device_info["defaultSampleRate"])
         finally:
             audio.terminate()
@@ -65,26 +76,27 @@ class Microphone(AbstractAudioSource):
         except ImportError:
             raise AttributeError("Could not find PyAudio; check installation")
         from distutils.version import LooseVersion
+
         if LooseVersion(pyaudio.__version__) < LooseVersion("0.2.11"):
             raise AttributeError("PyAudio 0.2.11 or later is required (found version {})".format(pyaudio.__version__))
         return pyaudio
 
-    @staticmethod
-    def list_microphone_names():
-        """
-        Returns a list of the names of all available microphones. For microphones where the name can't be retrieved, the list entry contains ``None`` instead.
-
-        The index of each microphone's name in the returned list is the same as its device index when creating a ``Microphone`` instance - if you want to use the microphone at index 3 in the returned list, use ``Microphone(device_index=3)``.
-        """
-        audio = Microphone.get_pyaudio().PyAudio()
-        try:
-            result = []
-            for i in range(audio.get_device_count()):
-                device_info = audio.get_device_info_by_index(i)
-                result.append(device_info.get("name"))
-        finally:
-            audio.terminate()
-        return result
+    # @staticmethod
+    # def list_microphone_names():
+    #     """
+    #     Returns a list of the names of all available microphones. For microphones where the name can't be retrieved, the list entry contains ``None`` instead.
+    #
+    #     The index of each microphone's name in the returned list is the same as its device index when creating a ``Microphone`` instance - if you want to use the microphone at index 3 in the returned list, use ``Microphone(device_index=3)``.
+    #     """
+    #     audio = Microphone.get_pyaudio().PyAudio()
+    #     try:
+    #         result = []
+    #         for i in range(audio.get_device_count()):
+    #             device_info = audio.get_device_info_by_index(i)
+    #             result.append(device_info.get("name"))
+    #     finally:
+    #         audio.terminate()
+    #     return result
 
     @staticmethod
     def list_working_microphones():
@@ -102,17 +114,23 @@ class Microphone(AbstractAudioSource):
             for device_index in range(audio.get_device_count()):
                 device_info = audio.get_device_info_by_index(device_index)
                 device_name = device_info.get("name")
-                assert isinstance(device_info.get("defaultSampleRate"), (float, int)) and device_info[
-                    "defaultSampleRate"] > 0, "Invalid device info returned from PyAudio: {}".format(device_info)
+                assert (
+                    isinstance(device_info.get("defaultSampleRate"), (float, int))
+                    and device_info["defaultSampleRate"] > 0
+                ), "Invalid device info returned from PyAudio: {}".format(device_info)
                 try:
                     # read audio
                     pyaudio_stream = audio.open(
-                        input_device_index=device_index, channels=1, format=pyaudio_module.paInt16,
-                        rate=int(device_info["defaultSampleRate"]), input=True
+                        input_device_index=device_index,
+                        channels=1,
+                        format=pyaudio_module.paInt16,
+                        rate=int(device_info["defaultSampleRate"]),
+                        input=True,
                     )
                     try:
                         buffer = pyaudio_stream.read(1024)
-                        if not pyaudio_stream.is_stopped(): pyaudio_stream.stop_stream()
+                        if not pyaudio_stream.is_stopped():
+                            pyaudio_stream.stop_stream()
                     finally:
                         pyaudio_stream.close()
                 except Exception:
@@ -120,8 +138,11 @@ class Microphone(AbstractAudioSource):
 
                 # compute RMS of debiased audio
                 energy = -audioop.rms(buffer, 2)
-                energy_bytes = chr(energy & 0xFF) + chr((energy >> 8) & 0xFF) if bytes is str else bytes(
-                    [energy & 0xFF, (energy >> 8) & 0xFF])  # Python 2 compatibility
+                energy_bytes = (
+                    chr(energy & 0xFF) + chr((energy >> 8) & 0xFF)
+                    if bytes is str
+                    else bytes([energy & 0xFF, (energy >> 8) & 0xFF])
+                )  # Python 2 compatibility
                 debiased_energy = audioop.rms(audioop.add(buffer, energy_bytes * (len(buffer) // 2), 2), 2)
 
                 if debiased_energy > 30:  # probably actually audio
@@ -135,8 +156,12 @@ class Microphone(AbstractAudioSource):
         self.audio = self.pyaudio_module.PyAudio()
         try:
             pyaudio_stream = self.audio.open(
-                input_device_index=self.device_index, channels=1, format=self.format,
-                rate=self.sample_rate, frames_per_buffer=self.chunk_size, input=True,
+                input_device_index=self.device_index,
+                channels=1,
+                format=self.format,
+                rate=self.sample_rate,
+                frames_per_buffer=self.chunk_size,
+                input=True,
             )
         except Exception as e:
             logger.error(f"Exception while opening Microphone pyaudio stream : {e}")
@@ -154,7 +179,7 @@ class Microphone(AbstractAudioSource):
             self.audio.terminate()
 
     def read(self) -> AudioSegment:
-        return self.make_audio_segment_from_buffer(buffer=self.stream.read(self.window_size))
+        return make_audio_segment_from_audio_source_buffer(source=self, buffer=self.stream.read(self.window_size))
 
     class MicrophoneStream(object):
         def __init__(self, pyaudio_stream):

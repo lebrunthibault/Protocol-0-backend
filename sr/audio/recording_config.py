@@ -1,8 +1,8 @@
-from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.audio.source.audio_source_interface import AudioSourceInterface
 
 
 class RecordingConfig:
-    def __init__(self, source: AbstractAudioSource):
+    def __init__(self, source: AudioSourceInterface):
         # buffer window to consider for identifying phrase start and end
         self.start_window_duration = 100  # ms
         self.minimum_dbfs = -35  # minimum dbfs volume to consider speak
@@ -12,4 +12,3 @@ class RecordingConfig:
         # # - values below this are ignored (for filtering out clicks and pops)
         self.minimum_duration = 0.2  # seconds
         self.maximum_duration = 2  # seconds
-        self.window_ms = source.WINDOW_MS

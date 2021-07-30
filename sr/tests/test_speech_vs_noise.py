@@ -10,11 +10,11 @@ from lib.utils import filename_datetime
 from sr.audio.recording import Recording
 from sr.audio.source.audio_file import AudioFile
 from sr.recognizer.null_recognizer import NullRecognizer
-from sr.speech_recognition.abstract_speech_recognition import AbstractSpeechRecognition
+from sr.speech_recognition.speech_recognition import SpeechRecognition
 from sr.sr_config import SRConfig
 
 
-class SpeechRecognitionTest(AbstractSpeechRecognition):
+class SpeechRecognitionTest(SpeechRecognition):
     def __init__(self, source: AudioFile):
         super().__init__(source=source, recognizer=NullRecognizer())
         self.recordings: List[Recording] = []
@@ -23,8 +23,7 @@ class SpeechRecognitionTest(AbstractSpeechRecognition):
 
     def assert_speech(self):
         self.recognize()
-        assert len(
-            self.recordings) == 1, f"Expected to find one and only one speech recording in {self.recorder.name}"
+        assert len(self.recordings) == 1, f"Expected to find one and only one speech recording in {self.recorder.name}"
 
     def assert_noise(self):
         self.recognize()

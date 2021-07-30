@@ -16,7 +16,6 @@ logger = logger.opt(colors=True)
 class DictionaryManager:
     def __init__(self):
         self.word_synonyms = []
-
         self.synonyms_set = set()
 
     def prepare_model_grammar(self):

@@ -1,5 +1,4 @@
 import array
-import time
 from typing import Optional
 
 import numpy as np
@@ -8,17 +7,16 @@ from loguru import logger
 from pydub import AudioSegment
 
 from sr.audio.recording_config import RecordingConfig
-from sr.audio.source.abstract_audio_source import AbstractAudioSource
+from sr.audio.source.audio_source_interface import AudioSourceInterface, make_audio_segment_from_audio_source_buffer
 
 logger = logger.opt(colors=True)
 
 
 class Recording:
-    def __init__(self, source: AbstractAudioSource):
+    def __init__(self, source: AudioSourceInterface):
         self._source = source
         self._config = RecordingConfig(source=source)
-        self._audio: AudioSegment = self._source.make_audio_segment_from_buffer(buffer=b"")
-        self._start_at = time.time()
+        self._audio: AudioSegment = make_audio_segment_from_audio_source_buffer(source=source, buffer=b"")
 
     def to_dict(self):
         return [
@@ -31,10 +29,6 @@ class Recording:
         ]
 
     @property
-    def end_at(self) -> float:
-        return self._start_at + self._audio.duration_seconds
-
-    @property
     def samples(self) -> array.array:
         return self._audio.get_array_of_samples()
 
@@ -45,6 +39,7 @@ class Recording:
     @property
     def spectrogram(self):
         from scipy import signal
+
         return signal.spectrogram(self.samples, self._source.sample_rate)
 
     def export(self, filename: str) -> None:
@@ -78,7 +73,8 @@ class Recording:
     def is_speech(self) -> bool:
         if not self._config.minimum_duration < self._audio.duration_seconds < self._config.maximum_duration:
             logger.info(
-                f"<yellow>Phrase duration not in the configured boundaries (lasted {self._audio.duration_seconds}s)</>")
+                f"<yellow>Phrase duration not in the configured boundaries (lasted {self._audio.duration_seconds}s)</>"
+            )
             return False
 
         self._generate_frequency_information()
@@ -102,8 +98,3 @@ class Recording:
         voice_frequencies = list(X[freq_window_start:freq_window_end])
         self.maximum_voice_frequency_energy = max(voice_frequencies)
         self.maximum_voice_frequency = voice_frequencies.index(self.maximum_voice_frequency_energy) + freq_window_start
-
-    def _make_audio_segment_from_buffer(self, buffer: bytes) -> AudioSegment:
-        return AudioSegment(
-            data=buffer, sample_width=self._source.sample_width, frame_rate=self._source.sample_rate, channels=1
-        )

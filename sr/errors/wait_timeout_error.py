@@ -1,1 +1,2 @@
-class WaitTimeoutError(Exception): pass
+class WaitTimeoutError(Exception):
+    pass
