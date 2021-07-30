@@ -13,14 +13,13 @@ class Recorder(Observable):
     def __init__(self, source: AudioSourceInterface):
         super().__init__()
         self._source = source
-        self.name = self._source.name
         self.sample_rate = self._source.sample_rate
         logger.info(f"Recorder initialized with source {self._source}")
 
     @logger.catch
     def listen(self):
         try:
-            self.recorder._listen()
+            self._listen()
         except EndOfStreamError:
             return
 

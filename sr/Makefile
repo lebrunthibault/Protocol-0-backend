@@ -19,10 +19,6 @@ vulture:
 	cls
 	vulture . .\vulture_whitelist.py
 
-#pycharm:
-#	# not working
-#	pycharm64.exe inspect .. .\InspectionProfile.xml .\InspectionResults -d .
-
 check:
 	make test
 	make flake8

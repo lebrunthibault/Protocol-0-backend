@@ -10,7 +10,6 @@ from lib.observable import Observable
 from sr.audio.recording import Recording
 from sr.dictionary.dictionary_manager import DictionaryManager
 from sr.dictionary.dictionary_translator import DictionaryTranslator
-from sr.enums.recognizer_step_enum import RecognizerStepEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.errors.dictionary_not_found_error import DictionaryNotFoundError
 from sr.errors.recognizer_not_found_error import RecognizerNotFoundError
@@ -26,14 +25,12 @@ class Recognizer(Observable, RecognizerInterface):
     def __init__(
         self,
         model: SpeechRecognitionModelEnum = SpeechRecognitionModelEnum.MAIN_MODEL,
-        use_word_list=False,
-        final_recognizer_step: RecognizerStepEnum = RecognizerStepEnum.DICTIONARY,
+        use_word_list=False
     ):
         super().__init__()
         self._model_name: str = model.value
         self._use_word_list = use_word_list
         self._recognizer: Optional[KaldiRecognizer] = None
-        self.final_recognizer_step = final_recognizer_step
         self.start_processing_at: Optional[float] = None
 
     def load_model(self, sample_rate: int):
@@ -54,28 +51,22 @@ class Recognizer(Observable, RecognizerInterface):
             self._print_recognizer_info()
 
         word = json.loads(self._recognizer.FinalResult())["text"]
-        recognizer_result = RecognizerResult(word=word)
+        clean_word = word.replace("[unk]", "").strip()
+        recognizer_result = RecognizerResult(word=clean_word)
         logger.info(f"Got word: <green>{recognizer_result.word}</>")
 
         if not recognizer_result.word:
             self.emit(RecognizerNotFoundError())
             return
 
-        if self.final_recognizer_step == RecognizerStepEnum.DICTIONARY:
-            self._get_word_enum_from_result(recognizer_result=recognizer_result)
+        try:
+            DictionaryTranslator.process_recognizer_result(recognizer_result=recognizer_result)
+        except DictionaryNotFoundError as e:
+            self.emit(e)
+            return
 
         self.emit(recognizer_result)
         self.emit(str(recognizer_result))
-
-    def _get_word_enum_from_result(self, recognizer_result: RecognizerResult) -> None:
-        word_clean = recognizer_result.word.replace("[unk]", "").strip()
-        word_enum = DictionaryTranslator.translate_word(word=word_clean)
-        if not word_enum:
-            self.emit(DictionaryNotFoundError())
-            return
-
-        logger.success(f"Found word enum: {word_enum.value}")
-        recognizer_result.word_enum = word_enum
 
     def _print_recognizer_info(self):
         kaldi_result = json.loads(self._recognizer.FinalResult())

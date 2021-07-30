@@ -8,34 +8,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/audio/source/audio_source_interface.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/enums/speech_recognition_state_enum.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/sr_google.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/speech.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/sr/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/audio/recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recorder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/recording.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/source/abstract_audio_source.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/source/audio_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/audio_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/source/audio_source_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/audio_source_interface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/audio/source/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/dictionary/dictionary_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/enums/recognizer_step_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/enums/recognizer_step_enum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/errors/end_of_stream_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/errors/end_of_stream_error.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/errors/wait_timeout_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/errors/wait_timeout_error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/enums/recognizer_step_enum.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sr/mypy.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/sr/pyproject.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/abstract_speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +62,6 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_synonym_collector.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
@@ -335,7 +318,7 @@
       <workItem from="1627135309591" duration="2088000" />
       <workItem from="1627220923342" duration="149000" />
       <workItem from="1627395108102" duration="2627000" />
-      <workItem from="1627471418543" duration="13459000" />
+      <workItem from="1627471418543" duration="15179000" />
     </task>
     <servers />
   </component>

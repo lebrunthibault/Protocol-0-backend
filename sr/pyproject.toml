@@ -2,7 +2,7 @@
 line-length = 120
 
 [tool.vulture]
-exclude = ["enums/ableton_command_enum.py", "enums/speech_recognition_state_enum.py"]
+exclude = ["enums/"]
 #ignore_decorators = ["@app.route", "@require_*"]
 ignore_names = ["DESCRIPTION", "command_*"]
 make_whitelist = true

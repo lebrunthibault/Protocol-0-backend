@@ -2,6 +2,7 @@ from typing import Optional
 
 from loguru import logger
 
+from lib.observable import Observable
 from sr.audio.recorder import Recorder
 from sr.audio.recording import Recording
 from sr.audio.source.audio_source_interface import AudioSourceInterface
@@ -12,11 +13,12 @@ from sr.recognizer.recognizer_interface import RecognizerInterface
 logger = logger.opt(colors=True)
 
 
-class SpeechRecognition(object):
+class SpeechRecognition(Observable):
     USE_GUI = False
     DEBUG = False
 
     def __init__(self, source: Optional[AudioSourceInterface] = None, recognizer: Optional[RecognizerInterface] = None):
+        super(SpeechRecognition, self).__init__()
         #
         # # transitions
         # # transitions = [
@@ -46,7 +48,7 @@ class SpeechRecognition(object):
             source = Microphone()
         self._recorder = Recorder(source=source)
         self._recognizer = recognizer or NullRecognizer()
-        recognizer.load_model(sample_rate=source.sample_rate)
+        self._recognizer.load_model(sample_rate=source.sample_rate)
 
         self._recorder.subscribe(Recording, self._recognizer.handle_recording)
 
@@ -61,11 +63,11 @@ class SpeechRecognition(object):
             from sr.display.audio_plot import AudioPlot
 
             self._recorder.subscribe(Recording, AudioPlot.plot_recording)
+            self._recorder.subscribe(Recording, self.emit)
 
     @property
     def recognizer(self) -> RecognizerInterface:
         return self._recognizer
 
-    @property
     def listen(self):
         self._recorder.listen()

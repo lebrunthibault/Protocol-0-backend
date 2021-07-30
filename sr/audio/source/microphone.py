@@ -1,5 +1,3 @@
-import audioop
-
 import pyaudio
 from loguru import logger
 # from loguru import logger
@@ -80,76 +78,6 @@ class Microphone(AudioSourceInterface):
         if LooseVersion(pyaudio.__version__) < LooseVersion("0.2.11"):
             raise AttributeError("PyAudio 0.2.11 or later is required (found version {})".format(pyaudio.__version__))
         return pyaudio
-
-    # @staticmethod
-    # def list_microphone_names():
-    #     """
-    #     Returns a list of the names of all available microphones. For microphones where the name can't be retrieved, the list entry contains ``None`` instead.
-    #
-    #     The index of each microphone's name in the returned list is the same as its device index when creating a ``Microphone`` instance - if you want to use the microphone at index 3 in the returned list, use ``Microphone(device_index=3)``.
-    #     """
-    #     audio = Microphone.get_pyaudio().PyAudio()
-    #     try:
-    #         result = []
-    #         for i in range(audio.get_device_count()):
-    #             device_info = audio.get_device_info_by_index(i)
-    #             result.append(device_info.get("name"))
-    #     finally:
-    #         audio.terminate()
-    #     return result
-
-    @staticmethod
-    def list_working_microphones():
-        """
-        Returns a dictionary mapping device indices to microphone names, for microphones that are currently hearing sounds.
-        When using this function, ensure that your microphone is unmuted and make some noise at it to ensure it will be detected as working.
-
-        Each key in the returned dictionary can be passed to the ``Microphone`` constructor to use that microphone.
-        For example, if the return value is ``{3: "HDA Intel PCH: ALC3232 Analog (hw:1,0)"}``, you can do ``Microphone(device_index=3)`` to use that microphone.
-        """
-        pyaudio_module = Microphone.get_pyaudio()
-        audio = pyaudio_module.PyAudio()
-        try:
-            result = {}
-            for device_index in range(audio.get_device_count()):
-                device_info = audio.get_device_info_by_index(device_index)
-                device_name = device_info.get("name")
-                assert (
-                    isinstance(device_info.get("defaultSampleRate"), (float, int))
-                    and device_info["defaultSampleRate"] > 0
-                ), "Invalid device info returned from PyAudio: {}".format(device_info)
-                try:
-                    # read audio
-                    pyaudio_stream = audio.open(
-                        input_device_index=device_index,
-                        channels=1,
-                        format=pyaudio_module.paInt16,
-                        rate=int(device_info["defaultSampleRate"]),
-                        input=True,
-                    )
-                    try:
-                        buffer = pyaudio_stream.read(1024)
-                        if not pyaudio_stream.is_stopped():
-                            pyaudio_stream.stop_stream()
-                    finally:
-                        pyaudio_stream.close()
-                except Exception:
-                    continue
-
-                # compute RMS of debiased audio
-                energy = -audioop.rms(buffer, 2)
-                energy_bytes = (
-                    chr(energy & 0xFF) + chr((energy >> 8) & 0xFF)
-                    if bytes is str
-                    else bytes([energy & 0xFF, (energy >> 8) & 0xFF])
-                )  # Python 2 compatibility
-                debiased_energy = audioop.rms(audioop.add(buffer, energy_bytes * (len(buffer) // 2), 2), 2)
-
-                if debiased_energy > 30:  # probably actually audio
-                    result[device_index] = device_name
-        finally:
-            audio.terminate()
-        return result
 
     def _open_stream(self):
         assert self.stream is None, "This audio source stream was already opened"

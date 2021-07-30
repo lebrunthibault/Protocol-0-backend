@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from typing import Any
 
 from pydub import AudioSegment
 from typing_extensions import Protocol
@@ -7,25 +7,10 @@ from typing_extensions import Protocol
 class AudioSourceInterface(Protocol):
     WINDOW_MS = 20
 
-    @property
-    @abstractmethod
-    def name(self):
-        raise NotImplementedError()
-
-    @property
-    @abstractmethod
-    def stream(self):
-        raise NotImplementedError()
-
-    @property
-    @abstractmethod
-    def sample_rate(self):
-        raise NotImplementedError()
-
-    @property
-    @abstractmethod
-    def sample_width(self):
-        raise NotImplementedError()
+    name: str
+    stream: Any
+    sample_rate: int
+    sample_width: int
 
     @property
     def window_size(self):
