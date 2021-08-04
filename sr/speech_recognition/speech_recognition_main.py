@@ -7,8 +7,9 @@ class SpeechRecognitionMain(object):
     SEND_SEARCH_TO_ABLETON = True
 
     @classmethod
-    def recognize(cls):
+    async def recognize(cls):
         sr = SpeechRecognition(recognizer=Recognizer())
+        await sr.run()
         # if cls.SEND_SEARCH_TO_ABLETON:
         #     sr.recognizer.subscribe(str, p0_script_api_client.search_track)
         # if cls.AUTO_SWITCH_TO_KEYBOARD_SEARCH:

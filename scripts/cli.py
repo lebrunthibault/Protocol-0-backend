@@ -2,8 +2,6 @@ import subprocess
 import sys
 
 import click
-from loguru import logger
-
 from abstract_cli import setup_cli
 from api.p0_script_api_client import p0_script_api_client
 from commands.reload_ableton import reload_ableton, save_set_as_template
@@ -11,9 +9,9 @@ from commands.sync_presets import sync_presets
 from config import PROJECT_ROOT
 from lib.window.terminal import clear_terminal
 from lib.window.window import focus_window
+from loguru import logger
 from scripts.commands.git_backup import backup_git_repos
 from scripts.commands.search_set_gui import search_set_gui
-from sr.speech_recognition.speech_recognition_main import SpeechRecognitionMain
 
 setup_cli()
 
@@ -59,11 +57,6 @@ def command_refresh_logs() -> None:
 @cli.command(name="save_set_as_template")
 def command_save_set_as_template() -> None:
     save_set_as_template()
-
-
-@cli.command(name="speech")
-def command_speech() -> None:
-    SpeechRecognitionMain.recognize()
 
 
 @cli.command(name="git_backup")

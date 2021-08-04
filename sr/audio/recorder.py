@@ -1,3 +1,4 @@
+import asyncio
 import operator
 from enum import Enum
 from functools import reduce
@@ -7,12 +8,13 @@ from loguru import logger
 from pydub import AudioSegment
 from rx import operators as op, create
 from rx.core.typing import Observable
+from rx.subject import Subject
+
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.short_sound import ShortSound
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 from sr.audio.speech_sound import SpeechSound
 from sr.audio.speech_sound_detector import is_speech
-from sr.rx.rx_utils import rx_debug
 
 logger = logger.opt(colors=True)
 
@@ -60,7 +62,7 @@ def _overlapping_windows_to_audio_segment(windows: List[List[AudioSegment]]) -> 
     return reduce(operator.add, audio_segment_array)
 
 
-def _get_short_sounds_observable(source: AudioSourceInterface) -> Observable[AudioSegment]:
+async def _get_short_sounds_observable(source: AudioSourceInterface) -> Observable[AudioSegment]:
     """
         Make a ShortSound stream from an audio source
         A ShortSound is a chunk of signal that starts with high energy and ends with low energy
@@ -72,16 +74,36 @@ def _get_short_sounds_observable(source: AudioSourceInterface) -> Observable[Aud
     logger.info(f"making speech stream from source {source}")
 
     # windowing the audio source with overlapping windows
-    return source.make_observable().pipe(
-        op.buffer_with_count(RecordingConfig.WINDOW_SIZE, 1),
-        ShortSoundDetection.short_sound_filter_map_operator
-    )
+    # return source.make_observable().pipe(
+    #     op.buffer_with_count(RecordingConfig.WINDOW_SIZE, 1),
+    #     ShortSoundDetection.short_sound_filter_map_operator
+    # )
+    loop = asyncio.get_event_loop()
+    proxy = Subject()
+    print(proxy)
+    source.make_observable(proxy)
+    # aio_scheduler = AsyncIOScheduler(loop=loop)
+
+    proxy.subscribe(print, logger.exception)
+    # await asyncio.sleep(2)
+
+    # await source.make_observable()
+    # buffers = source.make_observable().pipe(
+    #     # op.buffer_with_count(RecordingConfig.WINDOW_SIZE, 1),
+    #     # op.share(),
+    # )
+    # buffers.subscribe(rx_nop, print)
+    # source.make_observable().subscribe(rx_print, print)
+    # return buffers.pipe(
+    #     rx_debug("buffers !"),
+    #     ShortSoundDetection.short_sound_filter_map_operator
+    # )
 
 
 def get_speech_recordings_observable(source: AudioSourceInterface) -> Observable[ShortSound]:
     return _get_short_sounds_observable(source=source).pipe(  # type: ignore
         op.filter(is_speech),
         op.map(SpeechSound),
-        rx_debug("SpeechSound"),
+        # rx_debug("SpeechSound"),
         op.share()
     )

@@ -1,8 +1,9 @@
 from typing import Optional
 
-from lib.observable import Observable
 from loguru import logger
-from sr.audio.recorder import get_speech_recordings_observable
+
+from lib.observable import Observable
+from sr.audio.recorder import get_speech_recordings_observable, _get_short_sounds_observable
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 from sr.display.audio_plot import AudioPlot
 from sr.errors.abstract_recognizer_not_found_error import AbstractRecognizerNotFoundError
@@ -22,9 +23,10 @@ class SpeechRecognition(Observable):
             from sr.audio.source.microphone import Microphone
 
             source = Microphone()
+            self.source = source
         self._recognizer = recognizer or NullRecognizer()
         self._recognizer.load_model(sample_rate=source.sample_rate)
-
+        return
         speech_stream = get_speech_recordings_observable(source=source)
 
         # speech_stream.subscribe(self._recognizer.handle_recording, logger.exception)
@@ -37,10 +39,18 @@ class SpeechRecognition(Observable):
             self._recognizer.subscribe(str, gui.handle_string_message)
             self._recognizer.subscribe(AbstractRecognizerNotFoundError, gui.handle_string_message)
 
-        speech_stream.subscribe(print, logger.exception)
+        # speech_stream.subscribe(print, logger.exception)
+        speech_stream.subscribe(lambda a: print("tototot !!!!!!!"), logger.exception)
+        speech_stream.subscribe(lambda a: print("tititit !!!!!!!"), logger.exception)
+        # speech_stream.subscribe(rx_print, logger.exception)
+        # speech_stream.subscribe(rx_print, logger.exception)
+        # speech_stream.subscribe(rx_print, logger.exception)
 
         if self.DEBUG:
             speech_stream.subscribe(AudioPlot.plot_recording, logger.exception)
+
+    async def run(self):
+        await _get_short_sounds_observable(source=self.source)
 
     @property
     def recognizer(self) -> RecognizerInterface:

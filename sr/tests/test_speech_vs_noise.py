@@ -1,3 +1,4 @@
+import asyncio
 import glob
 import json
 import os
@@ -8,6 +9,7 @@ from typing import List, Callable
 
 import pytest
 from loguru import logger
+
 from sr.audio.recorder import get_speech_recordings_observable
 from sr.audio.short_sound import ShortSound
 from sr.audio.source.audio_file import AudioFile
@@ -51,11 +53,38 @@ def assert_noise(recordings: List[ShortSound]):
     assert len(recordings) == 0, f"identified noise as speech"
 
 
-# @pytest.mark.skip
+@pytest.mark.skip
 def test_speech_recognition():
     # _test_audio_file("hello.wav", partial(assert_speech, speech_count=1))
     _test_audio_file("hello_multiple.wav", partial(assert_speech, speech_count=3))
     # _test_audio_file("noise.wav", assert_noise)
+
+
+def test_asyncio():
+    loop = asyncio.get_event_loop()
+    print("forever")
+    loop.run_forever()
+    print("done")
+    # future = asyncio.Future()
+    # await future
+    # print("done")
+    # return
+    # loop = asyncio.get_event_loop()
+    # loop.run_forever()
+    # await toto()
+
+
+#
+#
+# async def toto():
+#     await wait()
+#     print("closing stuff")
+#
+#
+# async def wait():
+#     print("doing async stuff")
+#     await asyncio.sleep(1)
+#     print("finished async stuff")
 
 
 @pytest.mark.skip

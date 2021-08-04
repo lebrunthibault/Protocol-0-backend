@@ -8,7 +8,7 @@ class RecordingConfig:
     # pause_threshold = 0.1  # seconds of non-speaking audio before a phrase is considered complete
     # # minimum seconds of speaking audio before we consider the speaking audio a phrase
     # # - values below this are ignored (for filtering out clicks and pops)
-    MINIMUM_SPEECH_DURATION = 0.2  # seconds
+    MINIMUM_SPEECH_DURATION = 0.1  # seconds
     MAXIMUM_SPEECH_DURATION = 20  # seconds
 
     SPEECH_FREQUENCY_WINDOW = (50, 400)
