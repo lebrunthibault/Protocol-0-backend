@@ -47,7 +47,7 @@ def format_record(record: dict, format_string: str) -> str:
 
     Example:
     >>> payload = [{"users":[{"name": "Nick", "age": 87, "is_active": True}, {"name": "Alex", "age": 27, "is_active": True}], "count": 2}]
-    >>> logger.bind(payload=).debug("users payload")
+    >>> logger.bind(payload=).rx_debug("users payload")
     >>> [   {   'count': 2,
     >>>         'users': [   {'age': 87, 'is_active': True, 'name': 'Nick'},
     >>>                      {'age': 27, 'is_active': True, 'name': 'Alex'}]}]
@@ -129,7 +129,7 @@ class CustomizeLogger:
         # don't pollute web logs with api restarts
         if is_log_file:
             if any(
-                    name in record['name'] for name in ["uvicorn.api", "uvicorn.lifespan"]):
+                name in record['name'] for name in ["uvicorn.api", "uvicorn.lifespan"]):
                 return False
             if record["extra"].get("stdout_only"):
                 return False

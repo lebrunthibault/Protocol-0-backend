@@ -1,9 +1,14 @@
+from typing import Optional
+
 import pyaudio
 from loguru import logger
 # from loguru import logger
+from pyaudio import Stream
 from pydub import AudioSegment
-
-from sr.audio.source.audio_source_interface import AudioSourceInterface, make_audio_segment_from_audio_source_buffer
+from rx import create, Observable
+from rx.disposable import Disposable
+from sr.audio.recording_config import RecordingConfig
+from sr.audio.source.audio_source_interface import AudioSourceInterface
 
 
 # noinspection PyBroadException
@@ -61,7 +66,7 @@ class Microphone(AudioSourceInterface):
         self.chunk_size = chunk_size  # number of frames stored in each buffer
 
         self.audio = None
-        self.stream = None
+        self.stream: Optional[MicrophoneStream] = None
         self._open_stream()
 
     @staticmethod
@@ -97,7 +102,7 @@ class Microphone(AudioSourceInterface):
             self.audio.terminate()
             raise e
 
-        self.stream = Microphone.MicrophoneStream(pyaudio_stream=pyaudio_stream)
+        self.stream = MicrophoneStream(pyaudio_stream=pyaudio_stream)
 
     def close(self):
         try:
@@ -106,20 +111,40 @@ class Microphone(AudioSourceInterface):
             self.stream = None
             self.audio.terminate()
 
-    def read(self) -> AudioSegment:
-        return make_audio_segment_from_audio_source_buffer(source=self, buffer=self.stream.read(self.window_size))
+    def make_observable(self) -> Observable:
+        # source_subject = Subject()  # needed when we read a sync source
+        # create(self._make_observable).subscribe(source_subject)
+        #
+        # return source_subject
+        return create(self._make_observable)
+        # from rx import operators as op
+        # return create(self._make_observable).pipe(op.share())
 
-    class MicrophoneStream(object):
-        def __init__(self, pyaudio_stream):
-            self.pyaudio_stream = pyaudio_stream
+    def _make_observable(self, observer, _) -> Disposable:
+        window_size = int((self.sample_rate / 1000) * RecordingConfig.BUFFER_MS)
+        while True:
+            buffer = self.stream.read(window_size)
+            if buffer is None:
+                break
+            audio = AudioSegment(data=self.stream.read(window_size), sample_width=self.sample_width,
+                                 frame_rate=self.sample_rate, channels=1)
+            observer.on_next(audio)
 
-        def read(self, size):
-            return self.pyaudio_stream.read(size, exception_on_overflow=False)
+        observer.on_completed()
+        return Disposable()
 
-        def close(self):
-            try:
-                # sometimes, if the stream isn't stopped, closing the stream throws an exception
-                if not self.pyaudio_stream.is_stopped():
-                    self.pyaudio_stream.stop_stream()
-            finally:
-                self.pyaudio_stream.close()
+
+class MicrophoneStream(object):
+    def __init__(self, pyaudio_stream: Stream):
+        self.pyaudio_stream = pyaudio_stream
+
+    def read(self, size):
+        return self.pyaudio_stream.read(size, exception_on_overflow=False)
+
+    def close(self):
+        try:
+            # sometimes, if the stream isn't stopped, closing the stream throws an exception
+            if not self.pyaudio_stream.is_stopped():
+                self.pyaudio_stream.stop_stream()
+        finally:
+            self.pyaudio_stream.close()

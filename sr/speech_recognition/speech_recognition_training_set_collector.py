@@ -3,7 +3,7 @@ from functools import partial
 from os.path import exists
 
 from lib.utils import filename_datetime
-from sr.audio.recording import Recording
+from sr.audio.short_sound import ShortSound
 from sr.enums.ableton_command_enum import AbletonCommandEnum
 from sr.recognizer.recognizer import Recognizer
 from sr.speech_recognition.speech_recognition import SpeechRecognition
@@ -17,11 +17,11 @@ class SpeechRecognitionTrainingSetCollector(object):
             target_word == "noise" or target_word in AbletonCommandEnum.words()
         ), "word should be 'noise' or in the word enum"
         sr = SpeechRecognition(recognizer=Recognizer())
-        sr.recognizer.subscribe(Recording, partial(cls._export_recognizer_result, target_word=target_word))
-        sr.listen()
+        sr.recognizer.subscribe(ShortSound, partial(cls._export_recognizer_result, target_word=target_word))
+        # sr.listen()
 
     @classmethod
-    def _export_recognizer_result(cls, target_word: str, recording: Recording):
+    def _export_recognizer_result(cls, target_word: str, recording: ShortSound):
         """ Export recording to appropriate directory for training """
         sample_subdir = "noise" if target_word == "noise" else f"words/{target_word}"
         sample_directory = f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/{sample_subdir}"

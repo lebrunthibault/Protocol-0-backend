@@ -20,7 +20,8 @@ vulture:
 	vulture . .\vulture_whitelist.py
 
 check:
-	make test
 	make flake8
 	make mypy
 	make vulture
+	make test
+

@@ -2,12 +2,9 @@ import json
 import time
 from typing import Optional
 
-from loguru import logger
-from vosk import KaldiRecognizer, Model
-
 from config import PROJECT_ROOT
-from lib.observable import Observable
-from sr.audio.recording import Recording
+from loguru import logger
+from sr.audio.short_sound import ShortSound
 from sr.dictionary.dictionary_manager import DictionaryManager
 from sr.dictionary.dictionary_translator import DictionaryTranslator
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
@@ -15,11 +12,12 @@ from sr.errors.dictionary_not_found_error import DictionaryNotFoundError
 from sr.errors.recognizer_not_found_error import RecognizerNotFoundError
 from sr.recognizer.recognizer_interface import RecognizerInterface
 from sr.recognizer.recognizer_result import RecognizerResult
+from vosk import KaldiRecognizer, Model
 
 logger = logger.opt(colors=True)
 
 
-class Recognizer(Observable, RecognizerInterface):
+class Recognizer(RecognizerInterface):
     DEBUG = False
 
     def __init__(
@@ -43,7 +41,7 @@ class Recognizer(Observable, RecognizerInterface):
         self._recognizer = KaldiRecognizer(*args)
         self._recognizer.SetWords(True)
 
-    def handle_recording(self, recording: Recording) -> None:
+    def handle_recording(self, recording: ShortSound) -> None:
         self.start_processing_at = time.time()
 
         self._recognizer.AcceptWaveform(recording.raw_data)

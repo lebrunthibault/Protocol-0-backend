@@ -2,57 +2,69 @@ import glob
 import json
 import os
 import subprocess
-from typing import List
+from functools import partial
+from shutil import rmtree
+from typing import List, Callable
 
 import pytest
-
-from lib.utils import filename_datetime
-from sr.audio.recording import Recording
+from loguru import logger
+from sr.audio.recorder import get_speech_recordings_observable
+from sr.audio.short_sound import ShortSound
 from sr.audio.source.audio_file import AudioFile
-from sr.speech_recognition.speech_recognition import SpeechRecognition
 from sr.sr_config import SRConfig
 
 
-class SpeechRecognitionTest(object):
-    def __init__(self, source: AudioFile):
-        self._source = source
-        self._recordings: List[Recording] = []
-        self._debug_data_directory = os.path.normpath(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}/{filename_datetime()}")
+def debug_recordings(recordings: List[ShortSound]):
+    rmtree(SRConfig.TEST_DEBUG_DATA_DIRECTORY)
+    os.mkdir(SRConfig.TEST_DEBUG_DATA_DIRECTORY)
+    for i, recording in enumerate(recordings):
+        print(recording.to_dict())
+        recording.export(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\recording_{i}.wav")
+        with open(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\recording_{i}.json", "w") as f:
+            f.write(json.dumps(recording.to_dict()))
 
-        self._sr = SpeechRecognition(source=source)
-        self._sr.subscribe(Recording, self._recordings.append)
-
-    def assert_speech(self):
-        self._sr.listen()
-        assert len(self._recordings) == 1, f"Expected to find one and only one speech recording in {self._source.name}"
-
-    def assert_noise(self):
-        self._sr.listen()
-        if len(self._recordings) != 0:
-            print(f'explorer /select,"{self._debug_data_directory}"')
-            os.mkdir(self._debug_data_directory)
-            for i, recording in enumerate(self._recordings):
-                recording.export(f"{self._debug_data_directory}/recording_{i}.wav")
-                with open(f"{self._debug_data_directory}/recording_{i}.json", "w") as f:
-                    f.write(json.dumps(recording.to_dict()))
-            subprocess.Popen(f'explorer /select,"{self._debug_data_directory}\\recording_0.wav"')
-
-        assert len(self._recordings) == 0, f"In {self._source.name} identified noise as speech"
+    subprocess.Popen(f'explorer /select,"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\recording_0.wav"')
 
 
-@pytest.mark.skip
+def _test_audio_file(filename: str, assert_callable: Callable):
+    recordings = []
+    source = AudioFile(filename if os.path.isabs(filename) else f"{SRConfig.TEST_DATA_DIRECTORY}\\{filename}")
+
+    def on_complete():
+        try:
+            assert_callable(recordings=recordings)
+        except AssertionError as e:
+            debug_recordings(recordings=recordings)
+            raise e
+
+        # debug_recordings(recordings=recordings)
+
+    get_speech_recordings_observable(source=source).subscribe(recordings.append, logger.exception, on_complete)
+
+
+def assert_speech(recordings: List[ShortSound], speech_count=1):
+    assert len(
+        recordings) == speech_count, f"Expected to find {speech_count} speech recording(s), got {len(recordings)}"
+
+
+def assert_noise(recordings: List[ShortSound]):
+    assert len(recordings) == 0, f"identified noise as speech"
+
+
+# @pytest.mark.skip
 def test_speech_recognition():
-    SpeechRecognitionTest(source=AudioFile(f"{SRConfig.TEST_DATA_DIRECTORY}/hello.wav")).assert_speech()
-    SpeechRecognitionTest(source=AudioFile(f"{SRConfig.TEST_DATA_DIRECTORY}/noise.wav")).assert_noise()
+    # _test_audio_file("hello.wav", partial(assert_speech, speech_count=1))
+    _test_audio_file("hello_multiple.wav", partial(assert_speech, speech_count=3))
+    # _test_audio_file("noise.wav", assert_noise)
 
 
 @pytest.mark.skip
 def test_speech_recognition_words():
     for filename in glob.glob(f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/words/**/*.wav", recursive=True):
-        SpeechRecognitionTest(source=AudioFile(filename)).assert_speech()
+        _test_audio_file(filename, partial(assert_speech, speech_count=1))
 
 
-@pytest.mark.skip
+@pytest.mark.skip(reason="Recognizer not good enough atm")
 def test_speech_recognition_noise():
     for filename in glob.glob(f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/noise/**/*.wav", recursive=True):
-        SpeechRecognitionTest(source=AudioFile(filename)).assert_noise()
+        _test_audio_file(filename, partial(assert_noise))

@@ -8,17 +8,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sr/audio/short_sound.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/audio/sound_mixin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/audio/speech_sound.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/audio/speech_sound_detector.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sr/rx/rx_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/custom_logging.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/custom_logging.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/sr/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/audio/recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recorder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/recording.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/source/audio_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/audio_file.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/audio/source/audio_source_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/audio_source_interface.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/audio/source/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/enums/recognizer_step_enum.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sr/mypy.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/sr/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/audio_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/audio_plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/sr_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/sr_config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +84,7 @@
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="3" />
+    <option name="selectedIndex" value="20" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -95,7 +106,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyDependenciesConfigurable" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -110,7 +121,7 @@
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\training\words" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_speech_vs_noise.test_speech_recognition">
+  <component name="RunManager" selected="Python.recorder">
     <configuration name="AbstractAudioSource" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="speech_recognition" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -157,6 +168,28 @@
         </ENTRIES>
       </EXTENSION>
       <option name="SCRIPT_NAME" value="python" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="recorder" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Protocol0 System" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/sr/audio" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sr/audio/recorder.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -233,6 +266,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.recorder" />
         <item itemvalue="Python tests.pytest for test_speech_vs_noise.test_speech_recognition_all" />
         <item itemvalue="Python tests.pytest for test_speech_vs_noise.test_speech_recognition" />
         <item itemvalue="Python tests.pytest for sr.tests.test_speech_vs_noise.test_speech_recognition" />
@@ -318,7 +352,7 @@
       <workItem from="1627135309591" duration="2088000" />
       <workItem from="1627220923342" duration="149000" />
       <workItem from="1627395108102" duration="2627000" />
-      <workItem from="1627471418543" duration="15179000" />
+      <workItem from="1627471418543" duration="101018000" />
     </task>
     <servers />
   </component>
@@ -353,6 +387,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/protocol0_system$AbstractAudioSource.coverage" NAME="AbstractAudioSource Coverage Results" MODIFIED="1626339605456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source" />
     <SUITE FILE_PATH="coverage/protocol0_system$pytest_for_test_speech_vs_noise_test_speech_recognition.coverage" NAME="pytest for test_speech_vs_noise.test_speech_recognition Coverage Results" MODIFIED="1626386933146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/tests" />
+    <SUITE FILE_PATH="coverage/protocol0_system$recorder.coverage" NAME="recorder Coverage Results" MODIFIED="1628010076803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/audio" />
     <SUITE FILE_PATH="coverage/protocol0_system$pytest_for_test_speech_vs_noise_test_speech_recognition_all.coverage" NAME="pytest for test_speech_vs_noise.test_speech_recognition_all Coverage Results" MODIFIED="1626386928775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/tests" />
     <SUITE FILE_PATH="coverage/protocol0_system$pytest_for_test_speech_recognition_test_speech_recognition.coverage" NAME="pytest for test_speech_recognition.test_speech_recognition Coverage Results" MODIFIED="1626355804051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/tests" />
   </component>

@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from loguru import logger
 from matplotlib.pyplot import figure
 
-from sr.audio.recording import Recording
+from sr.audio.short_sound import ShortSound
 
 logger = logger.opt(colors=True)
 
@@ -11,7 +11,7 @@ class AudioPlot:
     Y_MAX = (2 ** 15) / 2
 
     @classmethod
-    def plot_recording(cls, recording: Recording):
+    def plot_recording(cls, recording: ShortSound):
         figure(figsize=(10, 5))
         logger.disable(__name__)
         plt.plot(recording.samples, label="\n".join(recording.to_dict()))
