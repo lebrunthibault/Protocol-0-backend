@@ -1,4 +1,3 @@
-import asyncio
 from typing import Optional
 
 import pyaudio
@@ -6,12 +5,12 @@ from loguru import logger
 # from loguru import logger
 from pyaudio import Stream
 from pydub import AudioSegment
-from rx import Observable, create
+from rx import Observable
 
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 # noinspection PyBroadException
-from sr.rx.rx_utils import rx_from_aiter
+from sr.rx.rx_utils import rx_obs_from_async_iterable
 
 
 class Microphone(AudioSourceInterface):
@@ -113,61 +112,9 @@ class Microphone(AudioSourceInterface):
             self.stream = None
             self.audio.terminate()
 
-    def make_observable(self, sub) -> Observable:
-        logger.info("creating obs !!!")
-        done = asyncio.Future()
-
-        def on_completed():
-            print("completed")
-            done.set_result(0)
-
-        #     obs = from_aiter(ticker(0.5, 10), loop).pipe(op.share())
-        from rx import operators as op
-
-        obs = rx_from_aiter(self.read(), asyncio.get_event_loop()).pipe(op.share())
-        print("made obs")
-        obs.subscribe(sub)
-        return obs
-        obs.subscribe(sub)
-        # disposable = obs.subscribe(
-        #     on_next=lambda i: print("next: {}".format(i)),
-        #     on_error=lambda e: print("error: {}".format(e)),
-        #     on_completed=on_completed,
-        # )
-        # obs.subscribe(lambda i: print("next 2: {}".format(i), print))
-        #
-        # await done
-        # disposable.dispose()
-
-        # logger.info("creating obs !!!")
-        # # source_subject = Subject()  # needed when we read a sync source
-        # # create(self._make_observable).subscribe(source_subject)
-        # #
-        # # return source_subject
-        # return create(self._make_observable)
-        # from rx import operators as op
-        # return create(self._make_observable).pipe(op.share())
-
-    # def _make_observable(self, observer: Observer, _) -> Disposable:
-    #     #     logger.info("creating disposable !!!")
-    #     #     logger.info(observer)
-    #     #     logger.info(observer._on_next)
-    #     #     # source_subject = Subject()  # needed when we read a sync source
-    #     #     window_size = int((self.sample_rate / 1000) * RecordingConfig.BUFFER_MS)
-    #     #     while True:
-    #     #         start = time.time()
-    #     #         print(f"before read: {start}")
-    #     #         buffer = self.stream.read(window_size)
-    #     #         print(f"after read: {time.time() - start}")
-    #     #         if buffer is None:
-    #     #             break
-    #     #         audio = AudioSegment(data=self.stream.read(window_size), sample_width=self.sample_width,
-    #     #                              frame_rate=self.sample_rate, channels=1)
-    #     #         # source_subject.on_next(audio)
-    #     #         observer.on_next(audio)
-    #     #
-    #     #     observer.on_completed()
-    #     #     return Disposable()
+    def make_observable(self) -> Observable:
+        logger.info("creating microphone observable")
+        return rx_obs_from_async_iterable(self.read())
 
     async def read(self):
         while True:
@@ -175,40 +122,7 @@ class Microphone(AudioSourceInterface):
             buffer = self.stream.read(window_size)
             yield AudioSegment(data=buffer, sample_width=self.sample_width,
                                frame_rate=self.sample_rate, channels=1)
-            await asyncio.sleep(0.1)
-
-    def __make_observable(self, sink):
-        def on_subscribe(observer, scheduler):
-            print("creating obs2")
-
-            async def handle_echo():
-                print("new client connected")
-                while True:
-                    future = asyncio.Future()
-                    observer.on_next((future, 1))
-                    await asyncio.sleep(0.5)
-                    await future
-
-            def on_next(val):
-                print(f"on_next tcp_server: {val}")
-                future, i = val
-                future.set_result(i)
-
-            print("starting server")
-            loop = asyncio.get_event_loop()
-            task = asyncio.ensure_future(handle_echo, loop=loop)
-            loop.create_task(task)
-
-            sink.subscribe(
-                on_next=on_next,
-                # on_error=observer.on_error,
-                on_error=logger.exception,
-                on_completed=observer.on_completed)
-
-        print("creating obs")
-
-        return Observable(lambda *args: print(args))
-        return create(on_subscribe)
+            # await asyncio.sleep(0.1)
 
 
 class MicrophoneStream(object):

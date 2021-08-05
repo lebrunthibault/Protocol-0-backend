@@ -1,17 +1,17 @@
 import asyncio
-from asyncio import AbstractEventLoop
 from functools import partial
 from typing import Any, AsyncIterable
 
 from loguru import logger
-from rx import operators as op, create
+from rx import operators as op, create, Observable
 from rx.core.typing import Observer
 from rx.disposable import Disposable
 
 
-def rx_from_aiter(iter: AsyncIterable, loop: AbstractEventLoop):
+def rx_obs_from_async_iterable(iter: AsyncIterable) -> Observable:
     def on_subscribe(observer: Observer, _):
-        async def _aio_sub():
+        async def _async_subscriber():
+            loop = asyncio.get_event_loop()
             try:
                 async for i in iter:
                     observer.on_next(i)
@@ -20,7 +20,7 @@ def rx_from_aiter(iter: AsyncIterable, loop: AbstractEventLoop):
             except Exception as e:
                 loop.call_soon(partial(observer.on_error, e))
 
-        task = asyncio.ensure_future(_aio_sub(), loop=loop)
+        task = asyncio.create_task(_async_subscriber())
         return Disposable(lambda: task.cancel())  # type: ignore
 
     return create(on_subscribe)
@@ -35,6 +35,11 @@ def rx_debug(name: str, enable=True):
 
 def rx_print(val: Any) -> None:
     logger.info(f"res ---> {val}")
+
+
+def rx_error(val: Any) -> None:
+    print(val)
+    logger.error(val)
 
 
 def rx_nop(*_):

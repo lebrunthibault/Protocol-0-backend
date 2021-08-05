@@ -7,7 +7,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/scripts/abstract_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/abstract_cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recorder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/short_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/short_sound.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/sound_mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/sound_mixin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/source/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/microphone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/speech_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/speech_sound.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/rx/rx_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/rx/rx_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -328,7 +342,7 @@
       <workItem from="1627135309591" duration="2088000" />
       <workItem from="1627220923342" duration="149000" />
       <workItem from="1627395108102" duration="2627000" />
-      <workItem from="1627471418543" duration="110940000" />
+      <workItem from="1627471418543" duration="118286000" />
     </task>
     <servers />
   </component>

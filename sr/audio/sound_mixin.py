@@ -3,8 +3,9 @@ from abc import abstractproperty
 
 from loguru import logger
 from pydub import AudioSegment
-from sr.audio.recording_config import RecordingConfig
 from typing_extensions import Protocol
+
+from sr.audio.recording_config import RecordingConfig
 
 logger = logger.opt(colors=True)
 
@@ -17,6 +18,9 @@ class SoundMixin(Protocol):
             f"start dbFS: {self._start_window.dBFS:.1f}",
             f"end dbFS: {self._end_window.dBFS:.1f}",
         ]
+
+    def __repr__(self):
+        return f"{self.__class__.__name__} {{duration: {self.duration_seconds}s, dBFS: {self.audio.dBFS:.2f}}}"
 
     @abstractproperty
     def audio(self) -> AudioSegment:

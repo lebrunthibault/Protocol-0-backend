@@ -4,6 +4,11 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/api_client" />
+      <excludeFolder url="file://$MODULE_DIR$/sr/grammar" />
+      <excludeFolder url="file://$MODULE_DIR$/sr/models" />
+      <excludeFolder url="file://$MODULE_DIR$/sr/tests/data" />
+      <excludeFolder url="file://$MODULE_DIR$/sr/tests/debug_data" />
+      <excludeFolder url="file://$MODULE_DIR$/sr/training" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
