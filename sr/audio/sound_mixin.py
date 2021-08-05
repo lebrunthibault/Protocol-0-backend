@@ -40,7 +40,7 @@ class SoundMixin(Protocol):
 
     @property
     def raw_data(self) -> bytes:
-        return self.audio.raw_data()
+        return self.audio.raw_data
 
     @property
     def _start_window(self) -> AudioSegment:

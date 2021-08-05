@@ -1,18 +1,20 @@
 import json
 import time
-from typing import Optional
+from typing import Optional, Union
+
+from loguru import logger
+from vosk import KaldiRecognizer, Model
 
 from config import PROJECT_ROOT
-from loguru import logger
-from sr.audio.short_sound import ShortSound
+from sr.audio.speech_sound import SpeechSound
 from sr.dictionary.dictionary_manager import DictionaryManager
-from sr.dictionary.dictionary_translator import DictionaryTranslator
+from sr.dictionary.dictionary_translator import get_word_enum_from_dictionary
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
+from sr.errors.abstract_recognizer_not_found_error import AbstractRecognizerNotFoundError
 from sr.errors.dictionary_not_found_error import DictionaryNotFoundError
 from sr.errors.recognizer_not_found_error import RecognizerNotFoundError
 from sr.recognizer.recognizer_interface import RecognizerInterface
 from sr.recognizer.recognizer_result import RecognizerResult
-from vosk import KaldiRecognizer, Model
 
 logger = logger.opt(colors=True)
 
@@ -41,30 +43,29 @@ class Recognizer(RecognizerInterface):
         self._recognizer = KaldiRecognizer(*args)
         self._recognizer.SetWords(True)
 
-    def handle_recording(self, recording: ShortSound) -> None:
+    def process_speech_sound(self, speech_sound: SpeechSound) -> Union[
+        RecognizerResult, AbstractRecognizerNotFoundError]:
         self.start_processing_at = time.time()
 
-        self._recognizer.AcceptWaveform(recording.raw_data)
+        self._recognizer.AcceptWaveform(speech_sound.raw_data)
         if self.DEBUG:
             self._print_recognizer_info()
 
         word = json.loads(self._recognizer.FinalResult())["text"]
         clean_word = word.replace("[unk]", "").strip()
-        recognizer_result = RecognizerResult(word=clean_word)
-        logger.info(f"Got word: <green>{recognizer_result.word}</>")
+        logger.info(f"Got word: <green>{clean_word}</>")
 
-        if not recognizer_result.word:
-            self.emit(RecognizerNotFoundError())
-            return
+        if not clean_word:
+            return RecognizerNotFoundError()
 
         try:
-            DictionaryTranslator.process_recognizer_result(recognizer_result=recognizer_result)
+            word_enum = get_word_enum_from_dictionary(word=clean_word)
         except DictionaryNotFoundError as e:
-            self.emit(e)
-            return
+            return e
 
-        self.emit(recognizer_result)
-        self.emit(str(recognizer_result))
+        logger.info(f"Found word in dictionary: <green>{word_enum}</>")
+
+        return RecognizerResult(word=word, word_enum=word_enum)
 
     def _print_recognizer_info(self):
         kaldi_result = json.loads(self._recognizer.FinalResult())

@@ -1,11 +1,11 @@
 from abc import abstractmethod
 
-from lib.observable import Observable
+from typing_extensions import Protocol
 
 
-class RecognizerInterface(Observable):
+class RecognizerInterface(Protocol):
     @abstractmethod
-    def handle_recording(self):
+    def process_speech_sound(self):
         raise NotImplementedError
 
     @abstractmethod

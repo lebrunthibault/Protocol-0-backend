@@ -5,12 +5,10 @@ import PySimpleGUI as sg
 import pyautogui
 from loguru import logger
 
-from lib.observable import Observable
-
 logger = logger.opt(colors=True)
 
 
-class SpeechGui(Observable):
+class SpeechGui(object):
     def __init__(self):
         super().__init__()
         self.window: Optional[sg.Window] = None
@@ -44,4 +42,3 @@ class SpeechGui(Observable):
 
         logger.info("closing GUI window")
         self.window.close()
-        self.emit("exit")

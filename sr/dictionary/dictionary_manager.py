@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+from typing import List, Set
 
 import pystache
 from loguru import logger
@@ -16,9 +17,9 @@ logger = logger.opt(colors=True)
 class DictionaryManager:
     def __init__(self):
         self.word_synonyms = []
-        self.synonyms_set = set()
+        self.synonyms_set: Set[str] = set()
 
-    def prepare_model_grammar(self):
+    def prepare_model_grammar(self) -> None:
         with open(SRConfig.KALDI_VOCABULARY_PATH, "w") as f:
             f.write(" ".join(AbletonCommandEnum.words()))
 
@@ -32,7 +33,7 @@ class DictionaryManager:
 
         logger.info("grammar generated")
 
-    def generate_from_results(self):
+    def generate_from_results(self) -> None:
         for word_folder in os.scandir(SRConfig.TRAINING_SYNONYMS_DIRECTORY):
             # noinspection PyTypeChecker
             self._generate_from_word_results(word_folder=word_folder)
@@ -41,11 +42,11 @@ class DictionaryManager:
         self._write_dictionary_to_file(self.word_synonyms)
 
     @staticmethod
-    def get_word_list():
+    def get_word_list() -> List[str]:
         track_enum_words = [enum.name.lower() for enum in AbletonCommandEnum]
         return ["[unk]", "exit"] + track_enum_words + flatten(speech_recognition_dictionary.values())
 
-    def _generate_from_word_results(self, word_folder):
+    def _generate_from_word_results(self, word_folder) -> None:
         word: str = word_folder.name
         logger.info(f"processing word {word}")
 
@@ -61,12 +62,12 @@ class DictionaryManager:
                 result: dict = json.loads(f.read())["result"]
                 synonyms.update(result.keys())
 
-        unique_words = list(self.keep_unique_words(list(synonyms)))
+        unique_words = list(self._keep_unique_words(list(synonyms)))
         self.synonyms_set.update(synonyms)
 
         self.word_synonyms.append({"enum_name": word_enum.name, "synonyms": unique_words})
 
-    def keep_unique_words(self, words: list):
+    def _keep_unique_words(self, words: List[str]):
         """keep only words that are not in other word lists
         and remove duplicates from other lists as well
         Each list is composed of unique words that didn't appear in other lists

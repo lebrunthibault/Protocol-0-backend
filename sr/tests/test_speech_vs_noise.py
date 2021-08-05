@@ -9,13 +9,13 @@ from typing import List, Callable
 import pytest
 from loguru import logger
 
-from sr.audio.recorder import get_speech_sounds_observable
-from sr.audio.short_sound import ShortSound
+from sr.audio.short_sound import SoundMixin
 from sr.audio.source.audio_file import AudioFile
+from sr.audio.speech_sound import SpeechSound, get_speech_sounds_observable
 from sr.sr_config import SRConfig
 
 
-def debug_speech_sounds(speech_sounds: List[ShortSound]):
+def debug_sounds(speech_sounds: List[SoundMixin]):
     rmtree(SRConfig.TEST_DEBUG_DATA_DIRECTORY)
     os.mkdir(SRConfig.TEST_DEBUG_DATA_DIRECTORY)
     for i, speech_sound in enumerate(speech_sounds):
@@ -35,7 +35,7 @@ def _test_audio_file(filename: str, assert_callable: Callable):
         try:
             assert_callable(speech_sounds=speech_sounds)
         except AssertionError as e:
-            debug_speech_sounds(speech_sounds=speech_sounds)
+            debug_sounds(speech_sounds=speech_sounds)
             raise e
 
         # debug_speech_sounds(speech_sounds=speech_sounds)
@@ -43,12 +43,12 @@ def _test_audio_file(filename: str, assert_callable: Callable):
     get_speech_sounds_observable(source=source).subscribe(speech_sounds.append, logger.exception, on_complete)
 
 
-def assert_speech(speech_sounds: List[ShortSound], speech_count=1):
+def assert_speech(speech_sounds: List[SpeechSound], speech_count=1):
     assert len(
         speech_sounds) == speech_count, f"Expected to find {speech_count} speech speech_sound(s), got {len(speech_sounds)}"
 
 
-def assert_noise(speech_sounds: List[ShortSound]):
+def assert_noise(speech_sounds: List[SpeechSound]):
     assert len(speech_sounds) == 0, f"identified noise as speech"
 
 
