@@ -7,7 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/abstract_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/abstract_cli.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -332,6 +335,7 @@
       <workItem from="1627471418543" duration="125307000" />
       <workItem from="1628174710297" duration="566000" />
       <workItem from="1628175624149" duration="952000" />
+      <workItem from="1628184003056" duration="757000" />
     </task>
     <servers />
   </component>

@@ -15,4 +15,5 @@ def _exception_handler(_, value, tb):
 
 def setup_cli():
     # sys.excepthook = _exception_handler
-    configure_logging(filename="cli.log")
+    configure_logging()
+    # configure_logging(filename="cli.log")
