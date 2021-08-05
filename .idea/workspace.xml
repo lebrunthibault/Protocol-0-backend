@@ -8,25 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/observable.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/recorder.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/short_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/short_sound.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/sound_mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/sound_mixin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/speech_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/speech_sound.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/speech_sound_detector.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/dictionary/dictionary_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/dictionary/dictionary_translator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/display/audio_plot.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_training_set_collector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording_config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +62,7 @@
   </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="24" />
+    <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -348,7 +331,8 @@
       <workItem from="1627135309591" duration="2088000" />
       <workItem from="1627220923342" duration="149000" />
       <workItem from="1627395108102" duration="2627000" />
-      <workItem from="1627471418543" duration="122291000" />
+      <workItem from="1627471418543" duration="125307000" />
+      <workItem from="1628174710297" duration="566000" />
     </task>
     <servers />
   </component>
