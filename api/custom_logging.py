@@ -2,7 +2,6 @@ import json
 import logging
 import sys
 from functools import partial
-from pathlib import Path
 from pprint import pformat
 
 from loguru import logger
@@ -69,7 +68,7 @@ def format_record(record: dict, format_string: str) -> str:
 class CustomizeLogger:
 
     @classmethod
-    def make_logger(cls, config_path: Path):
+    def make_logger(cls, config_path: str):
         logging_config = cls._load_logging_config(config_path)
 
         logger = cls._customize_logging(

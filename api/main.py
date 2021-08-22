@@ -1,6 +1,5 @@
 import os.path
 from os.path import dirname
-from pathlib import Path
 
 from fastapi import FastAPI, Response
 from fastapi.routing import APIRoute
@@ -23,14 +22,13 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-config_path = Path(f"{PROJECT_ROOT}/lib").with_name("logging_config.json")
-
 
 def create_app() -> FastAPI:
     # noinspection HttpUrlsUsage
     app = FastAPI(servers=[{"url": f"http://{settings.api_host}:{settings.api_port}", "description": "main"}],
                   openapi_url=settings.openapi_url, title="Protocol0 System API",
                   description="backend API for the Protocol0 Control Surface Script. Accessible via HTTP or via MIDI. Executes on python system version without Ableton python environment limitations")
+    config_path = f"{PROJECT_ROOT}/lib/logging_config.json"
     logger = CustomizeLogger.make_logger(config_path)
     app.logger = logger
 
