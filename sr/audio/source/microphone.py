@@ -6,7 +6,6 @@ from loguru import logger
 from pyaudio import Stream
 from pydub import AudioSegment
 from rx import Observable
-
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 # noinspection PyBroadException

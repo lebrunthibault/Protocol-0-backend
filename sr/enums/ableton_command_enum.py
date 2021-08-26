@@ -13,6 +13,7 @@ class AbletonCommandEnum(Enum):
     NEXT = "NEXT"
     # PREVIOUS = "PREVIOUS"
     HELLO = "HELLO"
+    FOLD = "FOLD"
 
     @staticmethod
     def words():

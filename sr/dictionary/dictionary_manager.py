@@ -4,9 +4,8 @@ import subprocess
 from typing import List, Set
 
 import pystache
-from loguru import logger
-
 from lib.utils import flatten
+from loguru import logger
 from sr.dictionary.synonyms import speech_recognition_dictionary
 from sr.enums.ableton_command_enum import AbletonCommandEnum
 from sr.sr_config import SRConfig
