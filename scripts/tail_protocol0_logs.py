@@ -24,10 +24,10 @@ VERSION = os.environ["abletonVersion"]
 
 
 class Config:
-    PROCESS_LOGS = True
+    PROCESS_LOGS = False
     WINDOW_TITLE = "logs terminal"
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {VERSION}\\Preferences\\Log.txt"
-    START_SIZE = 70
+    START_SIZE = 250
     COLOR_SCHEME = {
         "P0 - dev": "yellow",
         "P0 - debug": "black",
