@@ -60,7 +60,7 @@ def create_gui():
 def search_set_gui():
     # type: () -> None
     if not RELOAD_ON_STARTUP:
-        search_window_handle = find_window_handle_by_criteria(partial_name=WINDOW_TITLE)
+        search_window_handle = find_window_handle_by_criteria(title=WINDOW_TITLE)
         if search_window_handle:
             logger.info("found search set window, focusing")
             win32gui.SetForegroundWindow(search_window_handle)

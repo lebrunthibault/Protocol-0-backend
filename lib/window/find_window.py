@@ -24,7 +24,7 @@ class SearchTypeEnum(enum.Enum):
 
 def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str]) -> int:
     if search_type == SearchTypeEnum.NAME:
-        find_func = partial(find_window_handle_by_criteria, partial_name=name)
+        find_func = partial(find_window_handle_by_criteria, title=name)
     elif search_type == SearchTypeEnum.EXE:
         find_func = partial(find_window_handle_by_criteria, app_name=name)
     elif search_type == SearchTypeEnum.CLASS:
@@ -36,8 +36,8 @@ def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str
 
 
 def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: Optional[str] = None,
-                                   partial_name: Optional[str] = None) -> int:
-    assert class_name or app_name or partial_name, "You should give a criteria to search a window"
+                                   title: Optional[str] = None) -> int:
+    assert class_name or app_name or title, "You should give a criteria to search a window"
 
     handle = 0
 
@@ -48,26 +48,24 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
         if handle_app_name == "chrome.exe":
             return
         if (
-                win32gui.IsWindowVisible(hwnd)
-                and (not class_name or win32gui.GetClassName(hwnd) == class_name)
-                and (not app_name or handle_app_name == app_name)
-                and (not partial_name or partial_name in _get_window_title(hwnd))
+            win32gui.IsWindowVisible(hwnd)
+            and (not class_name or win32gui.GetClassName(hwnd) == class_name)
+            and (not app_name or handle_app_name == app_name)
         ):
             handle = hwnd
 
-    win32gui.EnumWindows(winEnumHandler, None)
+    if title:
+        handle = win32gui.FindWindow(None, title)
+    else:
+        win32gui.EnumWindows(winEnumHandler, None)
 
     if handle:
         logger.info(f"Window handle found : {handle}, app_name: {_get_app_name(handle)}")
     else:
         logger.info(
-            f"Window handle not found. class_name={class_name}, app_name={app_name}, partial_name={partial_name}")
+            f"Window handle not found. class_name={class_name}, app_name={app_name}, title={title}")
 
     return handle
-
-
-def is_plugin_window_visible(name: str) -> bool:
-    return bool(find_window_handle_by_criteria(class_name="AbletonVstPlugClass", partial_name=name))
 
 
 def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
@@ -117,3 +115,12 @@ def _get_app_name(hwnd: int) -> Optional[str]:
     except Exception as e:
         logger.error(e)
         return None
+
+
+def get_pid_by_window_name(name: str) -> int:
+    hwnd = find_window_handle_by_criteria(title=name)
+    if hwnd == 0:
+        return 0
+
+    thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
+    return pid

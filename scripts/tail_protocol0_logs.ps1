@@ -1,3 +1,5 @@
+. "$env:userprofile\dev\scripts\powershell\Import.ps1"
+
 KillProcess (GetProcessFromNameOrTitle "*logs terminal*") -force
 $host.ui.RawUI.WindowTitle = "logs terminal"
 

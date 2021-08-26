@@ -23,5 +23,4 @@ def configure_logging(filename: Optional[str] = None) -> None:
             f"{LOGGING_DIRECTORY}\\{filename}",
             level=logging_config.get("level"),
             format=logging_config.get("format_log_file"),
-            colorize=True
         )

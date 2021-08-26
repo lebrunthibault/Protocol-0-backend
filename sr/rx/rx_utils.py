@@ -39,7 +39,7 @@ def rx_print(val: Any) -> None:
 
 def rx_error(val: Any) -> None:
     print(val)
-    logger.error(val)
+    logger.error(str(val))
 
 
 def rx_nop(*_):
