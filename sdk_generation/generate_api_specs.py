@@ -1,12 +1,15 @@
 import inspect
 import itertools
 import json
+import logging
 import os
 from enum import Enum
 from typing import Callable, List, Dict
 
 from apispec import APISpec
-from loguru import logger
+
+logger = logging.getLogger(__name__)
+# from loguru import logger
 from openapi_spec_validator import validate_spec
 from openapi_spec_validator.exceptions import OpenAPIValidationError
 from protocol0.utils.decorators import EXPOSED_P0_METHODS

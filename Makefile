@@ -22,7 +22,7 @@ sdk_system:
 
 sdk_script:
 	cls
-	python sdk_generation/generate_api_specs.py
+	py -2.7 sdk_generation/generate_api_specs.py
 	cd sdk_generation/p0_script && openapi-generator generate -i openapi.yaml -g python -c openapi_config.json -o api_client -t openapi_templates
 	cd sdk_generation/p0_script/api_client && pip install .
 

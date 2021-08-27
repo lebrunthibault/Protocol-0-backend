@@ -4,10 +4,9 @@ from json import JSONDecodeError
 from typing import Dict
 
 import mido
+from lib.log import configure_logging
 # noinspection PyUnresolvedReferences
 from mido import Message
-
-from lib.log import configure_logging
 
 configure_logging(filename="midi.log")
 
@@ -83,7 +82,8 @@ class MidiApp():
                 break
 
         if p0_port_name is None:
-            raise Exception(f"couldn't find {MidiApp.P0_INPUT_PORT_NAME} port")
+            logger.error(f"couldn't find {MidiApp.P0_INPUT_PORT_NAME} port")
+            return
 
         # noinspection PyUnresolvedReferences
         with mido.open_output(p0_port_name, autoreset=False) as midi_port:
