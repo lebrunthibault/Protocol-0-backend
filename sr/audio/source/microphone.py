@@ -1,3 +1,4 @@
+import asyncio
 from typing import Optional
 
 import pyaudio
@@ -6,6 +7,7 @@ from loguru import logger
 from pyaudio import Stream
 from pydub import AudioSegment
 from rx import Observable
+
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 # noinspection PyBroadException
@@ -118,10 +120,15 @@ class Microphone(AudioSourceInterface):
     async def read(self):
         while True:
             window_size = int((self.sample_rate / 1000) * RecordingConfig.BUFFER_MS)
-            buffer = self.stream.read(window_size)
+            try:
+                buffer = self.stream.read(window_size)
+            except OSError as e:
+                # happens when windows goes to sleep
+                logger.error(e)
+                await asyncio.sleep(1)
+                continue
             yield AudioSegment(data=buffer, sample_width=self.sample_width,
                                frame_rate=self.sample_rate, channels=1)
-            # await asyncio.sleep(0.1)
 
 
 class MicrophoneStream(object):

@@ -4,6 +4,12 @@ root = dirname(realpath(__file__))
 
 
 class SRConfig:
+    WINDOW_TITLE = "speech"
+    DEBUG = True
+    USE_GUI = True
+    EXPORT_RESULTS = False
+    SR_ACTIVE = True
+    WORD_ENUMS = []
     TEST_DATA_DIRECTORY = f"{root}\\tests\\data"
     TEST_DEBUG_DATA_DIRECTORY = f"{root}\\tests\\debug_data"
     TRAINING_SYNONYMS_DIRECTORY = f"{root}\\training\\synonyms"

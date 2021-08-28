@@ -144,3 +144,8 @@ debug*
 *.flac
 sr/models/
 sr/grammar
+sr/training
+
+openapi.json
+openapi.yaml
+openapi_config.json

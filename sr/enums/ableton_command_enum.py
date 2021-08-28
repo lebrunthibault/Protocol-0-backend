@@ -7,14 +7,19 @@ class AbletonCommandEnum(Enum):
     CLAP = "CLAP"
     RIDE = "RIDE"
     HAT = "HAT"
+    CRASH = "CRASH"
     BASS = "BASS"
-    # MINITAUR = "MINITAUR"
+    SERUM = "SERUM"
+    PROPHET = "PROPHET"
     PIANO = "PIANO"
-    NEXT = "NEXT"
-    # PREVIOUS = "PREVIOUS"
-    HELLO = "HELLO"
-    FOLD = "FOLD"
+    MASTER = "MASTER"
+    # MINITAUR = "MINITAUR"
 
-    @staticmethod
-    def words():
-        return [enum.name.lower() for enum in AbletonCommandEnum]
+    NEXT = "NEXT"
+    FOLD = "FOLD"
+    SOLO = "SOLO"
+    ARM = "ARM"
+    REC = "REC"
+    UNDO = "UNDO"
+    DUPLICATE = "DUPLICATE"
+    LOOP = "LOOP"

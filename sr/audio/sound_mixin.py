@@ -1,5 +1,4 @@
 import array
-from abc import abstractproperty
 
 from loguru import logger
 from pydub import AudioSegment
@@ -11,6 +10,8 @@ logger = logger.opt(colors=True)
 
 
 class SoundMixin(Protocol):
+    audio: AudioSegment
+    
     def to_dict(self):
         return [
             f"duration: {self.duration_seconds:.3f}s",
@@ -21,10 +22,6 @@ class SoundMixin(Protocol):
 
     def __repr__(self):
         return f"{self.__class__.__name__} {{duration: {self.duration_seconds}s, dBFS: {self.audio.dBFS:.2f}}}"
-
-    @abstractproperty
-    def audio(self) -> AudioSegment:
-        raise NotImplementedError
 
     def export(self, filename: str) -> None:
         assert filename.endswith(".wav")

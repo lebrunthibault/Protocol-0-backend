@@ -1,6 +1,6 @@
 {
   "filename": "api.log",
-  "level": "DEBUG",
+  "level": "INFO",
   "rotation": "3 days",
   "retention": "3 days",
   "format_stdout2": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>",

@@ -55,8 +55,8 @@ def assert_noise(speech_sounds: List[SpeechSound]):
 # @pytest.mark.skip
 def test_speech_recognition():
     _test_audio_file("hello.wav", partial(assert_speech, speech_count=1))
-    _test_audio_file("hello_multiple.wav", partial(assert_speech, speech_count=3))
-    _test_audio_file("noise.wav", assert_noise)
+    # _test_audio_file("hello_multiple.wav", partial(assert_speech, speech_count=3))
+    # _test_audio_file("noise.wav", assert_noise)
 
 
 @pytest.mark.skip

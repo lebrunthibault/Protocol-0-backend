@@ -7,6 +7,8 @@ from rx import operators as op, create, Observable
 from rx.core.typing import Observer
 from rx.disposable import Disposable
 
+from sr.sr_config import SRConfig
+
 
 def rx_obs_from_async_iterable(iter: AsyncIterable) -> Observable:
     def on_subscribe(observer: Observer, _):
@@ -27,7 +29,7 @@ def rx_obs_from_async_iterable(iter: AsyncIterable) -> Observable:
 
 
 def rx_debug(name: str, enable=True):
-    if enable:
+    if enable and SRConfig.DEBUG:
         return op.do_action(lambda val: logger.info(f"{name}: {val}"))
     else:
         return op.do_action(rx_nop)
@@ -38,8 +40,7 @@ def rx_print(val: Any) -> None:
 
 
 def rx_error(val: Any) -> None:
-    print(val)
-    logger.error(str(val))
+    logger.exception(val)
 
 
 def rx_nop(*_):

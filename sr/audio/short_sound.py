@@ -19,16 +19,7 @@ logger = logger.opt(colors=True)
 
 @dataclass(frozen=True, repr=False)
 class ShortSound(SoundMixin):
-    _audio_segment: AudioSegment
-
-    # def to_dict(self):
-    #     return {**super().to_dict(),
-    #             f"strongest frequency: {self._strongest_frequency}",
-    #             }
-
-    @property
-    def audio(self) -> AudioSegment:
-        return self._audio_segment
+    audio: AudioSegment
 
 
 def get_short_sounds_observable(source: AudioSourceInterface) -> Observable[ShortSound]:
@@ -64,6 +55,7 @@ def get_short_sounds_observable(source: AudioSourceInterface) -> Observable[Shor
 
 class AudioEnergyEnum(Enum):
     LOW = "LOW"
+    MEDIUM = "MEDIUM"
     HIGH = "HIGH"
 
 
@@ -78,9 +70,9 @@ class AudioEnergyChangeDetection():
                 previous_buffer_energy = cls.CURRENT_BUFFER_ENERGY
                 audio_segment = sum(window)
 
-                if audio_segment.dBFS >= RecordingConfig.MINIMUM_DBFS:
+                if audio_segment.dBFS >= RecordingConfig.HIGH_ENERGY_THRESHOLD_DBFS:
                     cls.CURRENT_BUFFER_ENERGY = AudioEnergyEnum.HIGH
-                else:
+                elif audio_segment.dBFS < RecordingConfig.LOW_ENERGY_THRESHOLD_DBFS:
                     cls.CURRENT_BUFFER_ENERGY = AudioEnergyEnum.LOW
 
                 if cls.DEBUG:
@@ -91,7 +83,7 @@ class AudioEnergyChangeDetection():
 
             return source.subscribe(analyze, observer.on_error, observer.on_completed)
 
-        return create(high_energy_change_observable).pipe(rx_debug("energy_change"))
+        return create(high_energy_change_observable)
 
 
 def _overlapping_windows_to_audio_segment(windows: List[List[AudioSegment]]) -> AudioSegment:
