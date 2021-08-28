@@ -38,7 +38,7 @@ class RecognizerResult:
 
     @property
     def is_activation_command(self):
-        return self.word_enum in [SpeechCommandEnum.PROTOCOL, SpeechCommandEnum.PAUSE, SpeechCommandEnum.EXIT]
+        return self.word_enum in [SpeechCommandEnum.PROTOCOL, SpeechCommandEnum.EXIT]
 
     @property
     def display_color(self) -> str:

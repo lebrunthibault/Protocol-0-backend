@@ -10,12 +10,12 @@ from rx.disposable import Disposable
 from sr.sr_config import SRConfig
 
 
-def rx_obs_from_async_iterable(iter: AsyncIterable) -> Observable:
+def rx_obs_from_async_iterable(iterable: AsyncIterable) -> Observable:
     def on_subscribe(observer: Observer, _):
         async def _async_subscriber():
             loop = asyncio.get_event_loop()
             try:
-                async for i in iter:
+                async for i in iterable:
                     observer.on_next(i)
                 loop.call_soon(
                     observer.on_completed)

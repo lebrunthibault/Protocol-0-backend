@@ -17,18 +17,8 @@ def _pause_sr():
     SRConfig.SR_ACTIVE = False
 
 
-def _focus_log_window():
-    focus_window(name=SRConfig.WINDOW_TITLE)
-
-
-def _focus_ableton():
-    logger.info("Focusing log window")
-    focus_window(name=SRConfig.WINDOW_TITLE)
-
-
 speech_command_mapping = {
     SpeechCommandEnum.PROTOCOL: _activate_sr,
-    SpeechCommandEnum.PAUSE: _pause_sr,
     SpeechCommandEnum.EXIT: _pause_sr,
     SpeechCommandEnum.LOG: lambda: focus_window(name=SRConfig.WINDOW_TITLE),
     SpeechCommandEnum.MUSIC: focus_ableton,

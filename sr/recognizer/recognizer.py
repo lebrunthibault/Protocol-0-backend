@@ -7,13 +7,12 @@ from vosk import KaldiRecognizer, Model
 
 from config import PROJECT_ROOT
 from sr.audio.speech_sound import SpeechSound
-from sr.enums.ableton_command_enum import AbletonCommandEnum
-from sr.enums.speech_command_enum import SpeechCommandEnum
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.errors.dictionary_not_found_error import DictionaryNotFoundError
 from sr.errors.recognizer_not_found_error import RecognizerNotFoundError
 from sr.recognizer.recognizer_interface import RecognizerInterface
 from sr.recognizer.recognizer_result import RecognizerResult
+from sr.sr_config import SRConfig
 
 logger = logger.opt(colors=True)
 
@@ -46,18 +45,17 @@ class Recognizer(RecognizerInterface):
             self._print_recognizer_info()
 
         word = json.loads(self._recognizer.FinalResult())["text"]
-        clean_word = word.replace("[unk]", "").strip()
+        clean_word = word.replace("[unk]", "").strip().upper()
         logger.info(f"Got word: <green>{clean_word}</>")
 
         # only accept single words
         if not clean_word or " " in clean_word:
             return RecognizerResult(speech_sound=speech_sound, error=RecognizerNotFoundError())
 
-        try:
-            word_enum = getattr(AbletonCommandEnum, clean_word.upper(), None)
-            word_enum = word_enum or getattr(SpeechCommandEnum, clean_word.upper(), None)
-        except DictionaryNotFoundError as e:
-            return RecognizerResult(speech_sound=speech_sound, error=e)
+        if clean_word not in SRConfig.word_enums_dict():
+            return RecognizerResult(speech_sound=speech_sound, error=DictionaryNotFoundError())
+
+        word_enum = SRConfig.word_enums_dict()[clean_word]
 
         logger.info(f"Found word in dictionary: <green>{word_enum}</>")
 
