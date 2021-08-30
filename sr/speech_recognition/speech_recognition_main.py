@@ -4,6 +4,7 @@ from loguru import logger
 from p0_script_api import DefaultApi
 from rx import operators as op, Observable
 
+from lib.decorators import log_exceptions
 from sr.audio.source.microphone import Microphone
 from sr.audio.speech_sound import get_speech_sounds_observable
 from sr.enums.speech_command_enum import SpeechCommandEnum
@@ -16,40 +17,42 @@ from sr.sr_config import SRConfig
 logger = logger.opt(colors=True)
 
 
+class StreamProvider:
+    def __init__(self):
+        source = Microphone()
+        recognizer = Recognizer()
+        recognizer.load_model(sample_rate=source.sample_rate)
+        speech_stream = get_speech_sounds_observable(source=source)  # type: Observable
+        rr_stream = speech_stream.pipe(
+            op.map(recognizer.process_speech_sound),
+            op.share()
+        )
+        rr_stream.subscribe(rx_nop, logger.exception)  # displays exceptions
+
+        self.activation_command_stream, self.rr_stream = rr_stream.pipe(op.partition(lambda r: r.is_activation_command))
+
+        active_rr_stream = self.rr_stream.pipe(op.filter(lambda r: SRConfig.SR_ACTIVE))
+
+        self.rr_error_stream, self.command_stream = active_rr_stream.pipe(op.partition(lambda r: r.error))
+        self.speech_command_stream, self.ableton_command_stream = self.command_stream.pipe(
+            op.partition(lambda r: isinstance(r.word_enum, SpeechCommandEnum)))
+        self.displayable_stream = self.activation_command_stream.pipe(op.merge(self.rr_error_stream))
+
+
+@log_exceptions
 def recognize_speech():
-    # from sr.display.speech_gui import SpeechGui  # for performance
-    # SpeechGui.display_recognizer_result("toto")
-    # return
-    p0_script_api = DefaultApi()
     ctypes.windll.kernel32.SetConsoleTitleW(SRConfig.WINDOW_TITLE)
-    source = Microphone()
-    recognizer = Recognizer()
-    recognizer.load_model(sample_rate=source.sample_rate)
-    speech_stream = get_speech_sounds_observable(source=source)  # type: Observable
-    rr_stream = speech_stream.pipe(
-        op.map(recognizer.process_speech_sound),
-        op.share()
-    )
+    p0_script_api = DefaultApi()
+    stream_provider = StreamProvider()
 
     if SRConfig.EXPORT_RESULTS:
-        rr_stream.subscribe(export_recognizer_result, logger.exception)
+        stream_provider.rr_stream.subscribe(export_recognizer_result, logger.exception)
 
-    rr_stream.subscribe(rx_nop, logger.exception)  # displays exceptions
-
-    rr_stream.pipe(
-        op.filter(lambda r: isinstance(r.word_enum, SpeechCommandEnum)),
-        op.map(lambda r: r.word_enum)
-    ).subscribe(process_speech_command)
-
-    active_rr_stream = rr_stream.pipe(op.filter(lambda r: SRConfig.SR_ACTIVE or r.is_activation_command))
-    # if SRConfig.DEBUG:
-    #     speech_stream.subscribe(audio_plot_sound, logger.exception)
-
-    rr_ableton_stream = rr_stream.pipe(
-        op.filter(lambda r: SRConfig.SR_ACTIVE and not r.error and not isinstance(r.word_enum, SpeechCommandEnum)))
-    rr_ableton_stream.subscribe(lambda res: p0_script_api.execute_command(str(res)))
+    stream_provider.activation_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))  # always active
+    stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
+    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_api.execute_command(str(res)))
 
     if SRConfig.USE_GUI:
         from sr.display.speech_gui import SpeechGui  # for performance
 
-        active_rr_stream.subscribe(SpeechGui.display_recognizer_result, logger.exception)
+        stream_provider.displayable_stream.subscribe(SpeechGui.display_recognizer_result, logger.exception)

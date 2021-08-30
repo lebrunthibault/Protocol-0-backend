@@ -26,6 +26,7 @@ speech_command_mapping = {
 
 
 def process_speech_command(speech_command: SpeechCommandEnum):
+    assert isinstance(speech_command, SpeechCommandEnum)
     if speech_command not in speech_command_mapping:
         logger.warning(f"{speech_command} not present in speech_command_mapping")
         return

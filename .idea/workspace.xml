@@ -8,12 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/sr/enums/ableton_command_enum.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/enums/speech_command_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/enums/speech_command_enum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/rx/rx_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/rx/rx_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/sr_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/sr_config.py" afterDir="false" />
@@ -57,22 +53,27 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/grammar/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/speech.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/tail_protocol0_logs.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/api/routes.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/sr_config.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/recognizer/grammar_generation.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/apispec/core.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/tail_protocol0_logs.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/api/routes.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer_result.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/enums/speech_command_enum.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/grammar/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="24" />
@@ -94,7 +95,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ToolWindowProblems.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/a_protocol_0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -356,6 +357,11 @@
       <workItem from="1630004181236" duration="2123000" />
       <workItem from="1630006603901" duration="879000" />
       <workItem from="1630023609716" duration="41591000" />
+      <workItem from="1630242467539" duration="1699000" />
+      <workItem from="1630245560491" duration="855000" />
+      <workItem from="1630246536962" duration="599000" />
+      <workItem from="1630247343335" duration="19000" />
+      <workItem from="1630247379858" duration="7886000" />
     </task>
     <servers />
   </component>

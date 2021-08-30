@@ -4,9 +4,9 @@ from functools import reduce
 from os.path import dirname, realpath
 from typing import Dict, List
 
-from protocol0.enums.ActionEnum import ActionEnum
-from protocol0.enums.TrackSearchKeywordEnum import TrackSearchKeywordEnum
-
+from protocol0.enums.vocal_command.ActionEnum import ActionEnum
+from protocol0.enums.vocal_command.QuantifierEnum import QuantifierEnum
+from protocol0.enums.vocal_command.TrackSearchKeywordEnum import TrackSearchKeywordEnum
 from sr.enums.speech_command_enum import SpeechCommandEnum
 
 root = dirname(realpath(__file__))
@@ -14,12 +14,14 @@ root = dirname(realpath(__file__))
 
 class SRConfig:
     WINDOW_TITLE = "speech"
-    DEBUG = True
+    DEBUG = False
     USE_GUI = True
+    ERROR_COUNT_BEFORE_AUTO_SR_PAUSE = 5  # 0 == no auto pausing
     EXPORT_RESULTS = False
     SR_ACTIVE = True
     WORD_ENUM_CLASSES = [
         ActionEnum,
+        QuantifierEnum,
         TrackSearchKeywordEnum,
         SpeechCommandEnum
     ]
