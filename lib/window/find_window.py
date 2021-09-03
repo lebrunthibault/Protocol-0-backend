@@ -20,10 +20,9 @@ class SearchTypeEnum(enum.Enum):
 
 
 def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE) -> int:
+    logger.disable(__name__)
     if search_type == SearchTypeEnum.WINDOW_TITLE:
-        logger.disable(__name__)
         handle = win32gui.FindWindow(None, name)
-        logger.enable(__name__)
     elif search_type == SearchTypeEnum.PROGRAM_NAME:
         handle = _find_window_handle_by_criteria(app_name=name)
     elif search_type == SearchTypeEnum.WINDOW_CLASS_NAME:
@@ -31,6 +30,7 @@ def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str
     else:
         raise Protocol0Error("Invalid enum value %s" % search_type)
 
+    logger.enable(__name__)
     if not handle:
         logger.info(
             f"{name} : Window handle not found")
