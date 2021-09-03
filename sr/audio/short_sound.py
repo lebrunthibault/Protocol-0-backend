@@ -12,7 +12,7 @@ from rx.core.typing import Observable
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.sound_mixin import SoundMixin
 from sr.audio.source.audio_source_interface import AudioSourceInterface
-from sr.rx.rx_utils import rx_debug
+from lib.rx import rx_debug
 
 logger = logger.opt(colors=True)
 
@@ -55,7 +55,6 @@ def get_short_sounds_observable(source: AudioSourceInterface) -> Observable[Shor
 
 class AudioEnergyEnum(Enum):
     LOW = "LOW"
-    MEDIUM = "MEDIUM"
     HIGH = "HIGH"
 
 

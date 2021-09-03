@@ -1,13 +1,11 @@
-import logging
 from typing import Tuple
 
 import win32gui
+from loguru import logger
 
 from lib.click import click
 from lib.window.ableton import show_plugins
 from lib.window.window import get_window_position
-
-logger = logging.getLogger(__name__)
 
 
 def get_button_middle_position(handle):

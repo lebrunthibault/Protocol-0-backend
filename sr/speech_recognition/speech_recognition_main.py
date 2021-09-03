@@ -5,12 +5,13 @@ from p0_script_api import DefaultApi
 from rx import operators as op, Observable
 
 from lib.decorators import log_exceptions
+from lib.window.window import is_ableton_up
 from sr.audio.source.microphone import Microphone
 from sr.audio.speech_sound import get_speech_sounds_observable
 from sr.enums.speech_command_enum import SpeechCommandEnum
 from sr.recognizer.recognizer import Recognizer
 from sr.recognizer.recognizer_result import export_recognizer_result
-from sr.rx.rx_utils import rx_nop
+from lib.rx import rx_nop
 from sr.speech_recognition.speech_command_manager import process_speech_command
 from sr.sr_config import SRConfig
 
@@ -25,6 +26,7 @@ class StreamProvider:
         speech_stream = get_speech_sounds_observable(source=source)  # type: Observable
         rr_stream = speech_stream.pipe(
             op.map(recognizer.process_speech_sound),
+            op.filter(lambda r: is_ableton_up()),
             op.share()
         )
         rr_stream.subscribe(rx_nop, logger.exception)  # displays exceptions

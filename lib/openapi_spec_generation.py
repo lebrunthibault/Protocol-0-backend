@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def generate_api_specs(title, methods_dict, out_folder):
+def generate_api_specs(title, methods_dict, out_folder, package_name):
     # type: (str, Dict, str) -> None
     methods = [getattr(cls, method_name) for method_name, cls in methods_dict.items()]
     spec = _generate_bare_spec(title=title)
@@ -30,7 +30,7 @@ def generate_api_specs(title, methods_dict, out_folder):
         logger.error(e)
         return
 
-    _write_to_file(folder_name=out_folder, spec=spec)
+    _write_to_file(folder_name=out_folder, spec=spec, package_name=package_name)
 
 
 def _generate_bare_spec(title):
@@ -65,8 +65,7 @@ def _add_spec_path_from_method(spec, method):
 def _get_openapi_string_type(obj):
     # noinspection PyUnresolvedReferences
     if sys.version_info.major == 2:
-        # noinspection PyUnresolvedReferences
-        str_class = basestring
+        str_class = basestring  # noqa
     else:
         str_class = str
     if isinstance(obj, str_class):
@@ -117,20 +116,10 @@ def _get_parameters_dict_from_method(method):
         yield param
 
 
-def _get_dict_from_signature_parameter(required, arg):
-    # type: (bool, str) -> Dict
-    return {
-        "required": required,
-        "name": arg,
-        "in": "query",
-        "schema": {}
-    }
-
-
-def _write_to_file(folder_name, spec):
+def _write_to_file(folder_name, spec, package_name):
     # type: (str, APISpec) -> None
     with open("%s/openapi.yaml" % folder_name, "w") as f:
         f.write(spec.to_yaml())
     with open("%s/openapi_config.json" % folder_name, "w") as f:
-        f.write(json.dumps({"packageName": spec.title}))
+        f.write(json.dumps({"packageName": package_name}))
     logger.info("wrote spec files %s" % folder_name)

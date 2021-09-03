@@ -1,6 +1,5 @@
-import logging
-
 import keyboard
+from loguru import logger
 
 from lib.click import pixel_has_color
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
@@ -8,12 +7,10 @@ from lib.enum.PixelEnum import PixelEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
-logger = logging.getLogger(__name__)
-
 
 def show_plugins() -> None:
     logger.info("show plugins pressed")
-    if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.CLASS):
+    if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
         logger.info("keys dispatched")
         keyboard.press_and_release('ctrl+alt+p')
 

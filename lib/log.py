@@ -4,11 +4,11 @@ from typing import Optional
 
 from loguru import logger
 
-from config import LOGGING_DIRECTORY, PROJECT_ROOT
+from config import SystemConfig
 
 
 def configure_logging(filename: Optional[str] = None) -> None:
-    with open(f"{PROJECT_ROOT}/lib/logging_config.json") as config_file:
+    with open(f"{SystemConfig.PROJECT_ROOT}/lib/logging_config.json") as config_file:
         logging_config = json.load(config_file)
 
     logger.remove()
@@ -20,7 +20,7 @@ def configure_logging(filename: Optional[str] = None) -> None:
 
     if filename:
         logger.add(
-            f"{LOGGING_DIRECTORY}\\{filename}",
+            f"{SystemConfig.LOGGING_DIRECTORY}\\{filename}",
             level=logging_config.get("level"),
             format=logging_config.get("format_log_file"),
         )

@@ -1,7 +1,5 @@
 from typing import Dict, List
 
-from fastapi import APIRouter
-
 from api.p0_script_api_client import p0_script_api_client
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
@@ -13,17 +11,9 @@ from scripts.commands.reload_ableton import reload_ableton
 from scripts.commands.sync_presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
 
-router = APIRouter()
-
 
 # noinspection PyMethodParameters
 class Routes:
-    def index() -> Dict:
-        return {"Hello": "World"}
-
-    def health() -> Dict:
-        return {"status": "up"}
-
     def test() -> Dict:
         p0_script_api_client.test()
         return {"test": "done"}
@@ -41,14 +31,14 @@ class Routes:
         show_device_view()
 
     def show_plugins() -> None:
-        if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.CLASS):
+        if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
             send_keys('^%p')
 
     def show_hide_plugins() -> None:
         send_keys('^%p')
 
     def hide_plugins() -> None:
-        if find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.CLASS):
+        if find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
             send_keys('^%p')
 
     def arrow_up() -> None:

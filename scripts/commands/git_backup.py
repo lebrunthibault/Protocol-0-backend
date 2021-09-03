@@ -26,11 +26,11 @@ def _git_repo_backup(path: str):
         subprocess.check_call(["git", "commit", "-a", "-m", "'backup'"], shell=False,
                               stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
-        logger.info(f"Untouched")
+        logger.info("Untouched")
         return
 
     subprocess.run(["git", "push"])
-    logger.info(f"Backed up")
+    logger.info("Backed up")
     os.chdir(cwd)
 
 

@@ -1,98 +1,78 @@
 import json
 from json import JSONDecodeError
-from typing import Dict
+from typing import Dict, Optional
 
 import mido
 from loguru import logger
 
-from lib.log import configure_logging
+from config import SystemConfig
 
 logger = logger.opt(colors=True)
-configure_logging(filename="midi.log")
+
+DEBUG = False
 
 
-class MidiApp:
-    IS_RUNNING = False
-    DEBUG = False
-    # port names are relative to the Protocol0 script and not this midi backend
-    P0_OUTPUT_PORT_NAME = 'P0_OUT'
-    P0_INPUT_PORT_NAME = 'P0_IN'
-
-    def __init__(self):
-        if self.IS_RUNNING:
-            raise Exception("a midi app instance is already running")
-
-        logger.info("Starting midi app")
-        self.IS_RUNNING = True
-        self._listen_to_p0_midi_messages()
-
-    @staticmethod
-    def _make_message_from_dict(data: Dict) -> mido.Message:
-        assert isinstance(data, Dict)
-        message = json.dumps(data)
-        logger.info(f"Sending string to midi output : <magenta>{message}</>")
-        b = bytearray(message.encode())
-        b.insert(0, 0xF0)
-        b.append(0xF7)
-        return mido.Message.from_bytes(b)
-
-    def _listen_to_p0_midi_messages(self):
-        p0_port_name = None
-        # noinspection PyUnresolvedReferences
-        for port_name in mido.get_input_names():
-            logger.debug(port_name)
-            if MidiApp.P0_OUTPUT_PORT_NAME in port_name:
-                p0_port_name = port_name
-                break
-
-        if p0_port_name is None:
-            raise Exception(f"couldn't find {MidiApp.P0_OUTPUT_PORT_NAME} port")
-
-        from api.routes import Routes
-
-        # noinspection PyUnresolvedReferences
-        with mido.open_input(p0_port_name, autoreset=False) as midi_port:
-            logger.info(f"listening on {p0_port_name}")
-            for msg in midi_port:
-                if msg.is_cc(121) or msg.is_cc(123):
-                    logger.debug("-")
-                    continue
-                string = msg.bin()[1:-1].decode("utf-8")  # type: str
-                if not string.startswith("{"):
-                    continue
-                logger.info(f"Received string <blue>{string}</>")
-                try:
-                    obj = json.loads(string)
-                except JSONDecodeError:
-                    logger.error(f"json decode error on string : {string}, msg: {msg}")
-                    continue
-                method_object = getattr(Routes, obj["method"])
-                logger.info(f"calling <green>{method_object.__name__}</> with args {obj['args']}")
-                method_object(**obj["args"])
-
-    @classmethod
-    def send_message_to_script(cls, data: Dict) -> None:
-        p0_port_name = None
-        # noinspection PyUnresolvedReferences
-        for port_name in mido.get_output_names():
-            if MidiApp.P0_INPUT_PORT_NAME in port_name:
-                p0_port_name = port_name
-                break
-
-        if p0_port_name is None:
-            logger.error(f"couldn't find {MidiApp.P0_INPUT_PORT_NAME} port")
-            return
-
-        # noinspection PyUnresolvedReferences
-        with mido.open_output(p0_port_name, autoreset=False) as midi_port:
-            if cls.DEBUG:
-                logger.info(f"port open : {p0_port_name}")
-
-            msg = MidiApp._make_message_from_dict(data=data)
-            midi_port.send(msg)
-            if cls.DEBUG:
-                logger.info(f"sent msg to p0: {msg}")
+def send_message_to_script(data: Dict) -> None:
+    # noinspection PyUnresolvedReferences
+    with mido.open_output(get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
+        msg = _make_sysex_message_from_dict(data=data)
+        midi_port.send(msg)
+        if DEBUG:
+            logger.info(f"sent msg to p0: {msg}")
 
 
-if __name__ == "__main__":
-    midi_app = MidiApp()
+def start_midi_server():
+    from api.routes import Routes
+
+    with mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False) as midi_port:
+        for message in midi_port:
+            payload = _make_dict_from_sysex_message(message=message)
+            if not payload:
+                continue
+            method_object = getattr(Routes, payload["method"])
+            logger.info(f"calling <green>{method_object.__name__}</> with args {payload['args']}")
+            method_object(**payload["args"])
+
+
+def get_output_port(port_name_prefix: str):
+    return get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_output_names())
+
+
+def get_input_port(port_name_prefix: str):
+    return get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_input_names())
+
+
+def get_real_midi_port_name(port_name_prefix: str, ports):
+    # noinspection PyUnresolvedReferences
+    for port_name in ports:
+        if port_name_prefix in port_name:
+            if DEBUG:
+                logger.info(f"ready to open : {port_name}")
+            return port_name
+
+    raise Exception(f"couldn't find {port_name_prefix} port")
+
+
+def _make_sysex_message_from_dict(data: Dict) -> mido.Message:
+    assert isinstance(data, Dict)
+    message = json.dumps(data)
+    logger.info(f"Sending string to midi output : <magenta>{message}</>")
+    b = bytearray(message.encode())
+    b.insert(0, 0xF0)
+    b.append(0xF7)
+    return mido.Message.from_bytes(b)
+
+
+def _make_dict_from_sysex_message(message: mido.Message) -> Optional[Dict]:
+    if message.is_cc(121) or message.is_cc(123):
+        logger.debug("-")
+        return None
+    string = message.bin()[1:-1].decode("utf-8")  # type: str
+    if not string.startswith("{"):
+        return None
+    logger.info(f"Received string <blue>{string}</>")
+    try:
+        return json.loads(string)
+    except JSONDecodeError:
+        logger.error(f"json decode error on string : {string}, message: {message}")
+        return None

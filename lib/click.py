@@ -1,23 +1,22 @@
-import logging
 from typing import Tuple
 
 import pyautogui
 import win32api
 from PIL import ImageGrab
+from loguru import logger
 
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
-logger = logging.getLogger(__name__)
 
-
-def click(x: int, y: int, double_click: bool = False) -> None:
+def click(x: int, y: int, double_click: bool = False, back_to_previous_position: bool = False) -> None:
     (orig_x, orig_y) = win32api.GetCursorPos()
     logger.info("clicking at x: %s, y: %s" % (x, y))
     if double_click:
         pyautogui.doubleClick(x, y)
     else:
         pyautogui.click(x, y)
-    # win32api.SetCursorPos((orig_x, orig_y))
+    if back_to_previous_position:
+        win32api.SetCursorPos((orig_x, orig_y))
 
 
 def get_pixel_color(x: int, y: int) -> Tuple[int, int, int]:

@@ -1,5 +1,4 @@
 import ctypes
-import os
 import re
 import sys
 import time
@@ -12,30 +11,29 @@ from loguru import logger
 from psutil import Process, NoSuchProcess
 from rx import operators as op, create
 
-from config import LOGGING_DIRECTORY
+from config import SystemConfig
 from lib.console import clear_console
-from lib.window.find_window import get_pid_by_window_name
+from lib.rx import rx_error
+from lib.window.find_window import get_pid_by_window_title
 from lib.window.window import focus_window
-from sr.rx.rx_utils import rx_error
 
 logger = logger.opt(colors=True)
-
-VERSION = os.environ["abletonVersion"]
 
 
 class Config:
     PROCESS_LOGS = True
     WINDOW_TITLE = "logs terminal"
-    LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {VERSION}\\Preferences\\Log.txt"
+    LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 100
     IN_ERROR = False
     COLOR_SCHEME = {
         "yellow": ["P0 - dev", "P0 - debug"],
-        "blue": ["P0 - notice"],
+        "light-blue": ["P0 - notice"],
         "magenta": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
     FILTER_KEYWORDS = ["P0", "Protocol0"]
+    ERROR_NON_KEYWORDS = ['\.wav. could not be opened']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
     CLEAR_KEYWORDS = ["clear_logs", "(Protocol0) Initializing", "Check :"]
     PATTERNS_TO_REMOVE = [
@@ -49,7 +47,7 @@ class Config:
 
 logger.remove()
 logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SS}</> {message}")
-logger.add(f"{LOGGING_DIRECTORY}\\logs.log", level="DEBUG")
+logger.add(f"{SystemConfig.LOGGING_DIRECTORY}\\logs.log", level="DEBUG")
 
 
 @dataclass(frozen=True)
@@ -68,7 +66,7 @@ class LogLine:
 
 def _kill_previous_log_window():
     while True:
-        pid = get_pid_by_window_name(Config.WINDOW_TITLE)
+        pid = get_pid_by_window_title(Config.WINDOW_TITLE)
         if pid > 0:
             try:
                 Process(pid=pid).terminate()
@@ -97,7 +95,7 @@ def _filter_line(line: LogLine) -> bool:
 
 
 def _is_error(line: LogLine) -> bool:
-    if line.has_patterns(Config.ERROR_KEYWORDS):
+    if line.has_patterns(Config.ERROR_KEYWORDS) and not line.has_patterns(Config.ERROR_NON_KEYWORDS):
         Config.IN_ERROR = True
         focus_window(Config.WINDOW_TITLE)
         return True

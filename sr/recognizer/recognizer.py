@@ -5,7 +5,6 @@ from typing import Optional
 from loguru import logger
 from vosk import KaldiRecognizer, Model
 
-from config import PROJECT_ROOT
 from sr.audio.speech_sound import SpeechSound
 from sr.enums.speech_recognition_model_enum import SpeechRecognitionModelEnum
 from sr.errors.dictionary_not_found_error import DictionaryNotFoundError
@@ -31,7 +30,7 @@ class Recognizer(RecognizerInterface):
 
     def load_model(self, sample_rate: int):
         logger.info(f"loading model {self._model_name}")
-        model = Model(f"{PROJECT_ROOT}/sr/models/model_{self._model_name}")
+        model = Model(f"{SRConfig.PROJECT_ROOT}/models/model_{self._model_name}")
         args = [model, sample_rate]
 
         self._recognizer = KaldiRecognizer(*args)

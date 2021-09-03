@@ -5,7 +5,11 @@
       <set>
         <option value="activate" />
         <option value="organizeImports" />
-        <option value="reformat" />
+      </set>
+    </option>
+    <option name="exclusions">
+      <set>
+        <option value=".*\.mustache" />
       </set>
     </option>
   </component>

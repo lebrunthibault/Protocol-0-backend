@@ -1,11 +1,10 @@
-import logging
 import math
 from typing import Tuple
 
+from loguru import logger
+
 from lib.click import click, get_pixel_color
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
-
-logger = logging.getLogger(__name__)
 
 
 def _distance(c1, c2):
@@ -25,7 +24,7 @@ def toggle_ableton_button(x: int, y: int, activate: bool) -> None:
     closest_color = _get_closest_color_at_pixel(x, y)
     logger.info("closest_color: %s" % closest_color)
     if (activate and closest_color == InterfaceColorEnum.DEACTIVATED) or (
-            not activate and closest_color == InterfaceColorEnum.ACTIVATED
+        not activate and closest_color == InterfaceColorEnum.ACTIVATED
     ):
         logger.info("color matching expectation, dispatching click")
         click(x, y)

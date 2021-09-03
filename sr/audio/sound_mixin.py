@@ -11,7 +11,7 @@ logger = logger.opt(colors=True)
 
 class SoundMixin(Protocol):
     audio: AudioSegment
-    
+
     def to_dict(self):
         return [
             f"duration: {self.duration_seconds:.3f}s",

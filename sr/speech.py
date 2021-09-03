@@ -1,18 +1,7 @@
 import asyncio
 
-import asyncclick as click
-from loguru import logger
-
-from lib.window.terminal import clear_terminal
-from scripts.abstract_cli import setup_cli
+from scripts.abstract_cli import cli
 from sr.recognizer.grammar_generation import prepare_model_grammar
-
-
-@click.group()
-async def cli() -> None:
-    setup_cli()
-    clear_terminal()
-    logger.info("launching speech cli command")
 
 
 @cli.command(name="run")

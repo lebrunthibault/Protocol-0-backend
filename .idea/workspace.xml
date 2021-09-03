@@ -8,11 +8,62 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tox.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vulture_whitelist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/custom_logging.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/enum/PixelEnum.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/enum/PixelEnum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/logging_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/logging_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/openapi_spec_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/openapi_spec_generation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/terminal.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/terminal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/abstract_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/abstract_cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/sync_presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/sync_presets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/hotkeys.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.ps1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/short_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/short_sound.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/sound_mixin.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/sound_mixin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/source/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/microphone.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/speech_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/speech_sound.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/enums/speech_recognition_model_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/enums/speech_recognition_model_enum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/enums/speech_recognition_state_enum.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/errors/abstract_recognizer_not_found_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/errors/abstract_recognizer_not_found_error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/errors/dictionary_not_found_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/errors/dictionary_not_found_error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/errors/end_of_stream_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/errors/recognizer_not_found_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/errors/recognizer_not_found_error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/errors/wait_timeout_error.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/null_recognizer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/rx/rx_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/rx.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/sr_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/sr_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/tests/tensorflow/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/tests/tensorflow/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/tox.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tox.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +151,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="settings.saveactions" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -108,8 +159,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\recognizer" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\lib" />
+      <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\recognizer" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sdk_generation\p0_script" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\enums" />
@@ -361,7 +412,7 @@
       <workItem from="1630245560491" duration="855000" />
       <workItem from="1630246536962" duration="599000" />
       <workItem from="1630247343335" duration="19000" />
-      <workItem from="1630247379858" duration="7886000" />
+      <workItem from="1630247379858" duration="27357000" />
     </task>
     <servers />
   </component>

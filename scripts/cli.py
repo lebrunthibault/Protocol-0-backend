@@ -1,26 +1,18 @@
+import ctypes
 import subprocess
 import sys
 
-import click
-from loguru import logger
+import asyncclick as click
 
-from abstract_cli import setup_cli
+from api.midi_app import start_midi_server
 from api.p0_script_api_client import p0_script_api_client
 from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
-from config import PROJECT_ROOT
-from lib.window.terminal import clear_terminal
+from config import SystemConfig
 from lib.window.window import focus_window
+from scripts.abstract_cli import cli
 from scripts.commands.git_backup import backup_git_repos
 from scripts.commands.search_set_gui import search_set_gui
-
-setup_cli()
-
-
-@click.group()
-def cli() -> None:
-    clear_terminal()
-    logger.info("launching cli command")
 
 
 @cli.command(name="reload_ableton")
@@ -47,7 +39,7 @@ def command_sync_presets() -> None:
 
 @cli.command(name="refresh_logs")
 def command_refresh_logs() -> None:
-    cwd = f"{PROJECT_ROOT}/scripts"
+    cwd = f"{SystemConfig.PROJECT_ROOT}/scripts"
     p = subprocess.Popen(["powershell.exe",
                           "invoke-expression",
                           "'cmd /c start powershell -Command { set-location \"%s\"; py ./tail_protocol0_logs.py }'" % cwd],
@@ -69,12 +61,12 @@ def command_git_backup() -> None:
 @click.argument("search")
 def command_search_set(search: str) -> None:
     p0_script_api_client.search_track(search=search)
-    logger.info("test")
 
 
-@cli.command(name="test")
-def command_test() -> None:
-    logger.info("test")
+@cli.command(name="midi")
+def command_midi_server() -> None:
+    ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
+    start_midi_server()
 
 
 if __name__ == "__main__":

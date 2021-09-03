@@ -1,7 +1,6 @@
 import subprocess
 
 from loguru import logger
-
 from sr.sr_config import SRConfig
 
 logger = logger.opt(colors=True)
@@ -13,11 +12,12 @@ def prepare_model_grammar() -> None:
     with open(SRConfig.KALDI_VOCABULARY_PATH, "w") as f:
         f.write(vocabulary)
 
+    grammar_directory = "/mnt/c/Users/thiba/Google Drive/music/dev/protocol0_system/sr/grammar"
     subprocess.run(
         [
             "bash",
             "-c",
-            "source /home/thibault/.zshrc && cd '/mnt/c/Users/thiba/Google Drive/music/dev/protocol0_system/sr/grammar' && make prepare",
+            f"source /home/thibault/.zshrc && cd '{grammar_directory}' && make prepare",
         ]
     )
 

@@ -1,8 +1,7 @@
-import logging
 import os
 from typing import Generator, Any
 
-logger = logging.getLogger(__name__)
+from loguru import logger
 
 
 class SerumPresetSynchronizer:
@@ -10,8 +9,7 @@ class SerumPresetSynchronizer:
     PROGRAM_CHANGE_FILENAME = "C:\\Users\\thiba\\OneDrive\\Documents\\Xfer\\Serum Presets\\System\\ProgramChanges.txt"
 
     @classmethod
-    def get_preset_names(cls):
-        # type: () -> Generator[str, Any, Any]
+    def get_preset_names(cls) -> Generator[str, Any, Any]:
         for path, _, files in os.walk(cls.PRESET_DIRECTORY):
             relative_path = path.replace(cls.PRESET_DIRECTORY, "")
             if not relative_path or relative_path.startswith("_"):
@@ -23,8 +21,7 @@ class SerumPresetSynchronizer:
                 yield os.path.join(relative_path, name)
 
     @classmethod
-    def synchronize(cls):
-        # type: () -> str
+    def synchronize(cls) -> str:
         presets = list(cls.get_preset_names())
         with open(cls.PROGRAM_CHANGE_FILENAME, "w") as f:
             for preset in presets:

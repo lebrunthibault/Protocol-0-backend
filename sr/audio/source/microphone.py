@@ -11,7 +11,7 @@ from rx import Observable
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 # noinspection PyBroadException
-from sr.rx.rx_utils import rx_obs_from_async_iterable
+from lib.rx import rx_obs_from_async_iterable
 
 
 class Microphone(AudioSourceInterface):

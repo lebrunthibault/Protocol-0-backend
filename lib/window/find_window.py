@@ -1,6 +1,4 @@
 import enum
-import logging
-from functools import partial
 from typing import Optional, Any, List, Dict, Union
 
 import win32api
@@ -8,36 +6,40 @@ import win32con
 import win32gui
 import win32process
 import wmi
+from loguru import logger
 
 from lib.errors.Protocol0Error import Protocol0Error
-
-logger = logging.getLogger(__name__)
 
 c = wmi.WMI()
 
 
 class SearchTypeEnum(enum.Enum):
-    NAME = "NAME"
-    EXE = "EXE"
-    CLASS = "CLASS"
+    WINDOW_TITLE = "TITLE"
+    PROGRAM_NAME = "PROGRAM_NAME"
+    WINDOW_CLASS_NAME = "WINDOW_CLASS_NAME"
 
 
-def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str]) -> int:
-    if search_type == SearchTypeEnum.NAME:
-        find_func = partial(find_window_handle_by_criteria, title=name)
-    elif search_type == SearchTypeEnum.EXE:
-        find_func = partial(find_window_handle_by_criteria, app_name=name)
-    elif search_type == SearchTypeEnum.CLASS:
-        find_func = partial(find_window_handle_by_criteria, class_name=name)
+def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE) -> int:
+    if search_type == SearchTypeEnum.WINDOW_TITLE:
+        logger.disable(__name__)
+        handle = win32gui.FindWindow(None, name)
+        logger.enable(__name__)
+    elif search_type == SearchTypeEnum.PROGRAM_NAME:
+        handle = _find_window_handle_by_criteria(app_name=name)
+    elif search_type == SearchTypeEnum.WINDOW_CLASS_NAME:
+        handle = _find_window_handle_by_criteria(class_name=name)
     else:
         raise Protocol0Error("Invalid enum value %s" % search_type)
 
-    return find_func()
+    if not handle:
+        logger.info(
+            f"{name} : Window handle not found")
+
+    return handle
 
 
-def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: Optional[str] = None,
-                                   title: Optional[str] = None) -> int:
-    assert class_name or app_name or title, "You should give a criteria to search a window"
+def _find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: Optional[str] = None) -> int:
+    assert class_name or app_name, "You should give a criteria to search a window"
 
     handle = 0
 
@@ -54,16 +56,7 @@ def find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: O
         ):
             handle = hwnd
 
-    if title:
-        handle = win32gui.FindWindow(None, title)
-    else:
-        win32gui.EnumWindows(winEnumHandler, None)
-
-    if handle:
-        logger.info(f"Window handle found : {handle}, app_name: {_get_app_name(handle)}")
-    else:
-        logger.info(
-            f"Window handle not found. class_name={class_name}, app_name={app_name}, title={title}")
+    win32gui.EnumWindows(winEnumHandler, None)
 
     return handle
 
@@ -110,17 +103,19 @@ def _get_app_name(hwnd: int) -> Optional[str]:
     """Get application base name given hwnd."""
     pid = win32process.GetWindowThreadProcessId(hwnd)
     try:
+        logger.disable(__name__)  # silences warnings about protected processes
         handle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1])
+        logger.enable(__name__)
         return win32process.GetModuleFileNameEx(handle, 0).split("\\")[-1]
     except Exception as e:
         logger.error(e)
         return None
 
 
-def get_pid_by_window_name(name: str) -> int:
-    hwnd = find_window_handle_by_criteria(title=name)
+def get_pid_by_window_title(title: str) -> int:
+    hwnd = find_window_handle_by_enum(name=title, search_type=SearchTypeEnum.WINDOW_TITLE)
     if hwnd == 0:
         return 0
 
-    thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
+    _, pid = win32process.GetWindowThreadProcessId(hwnd)
     return pid

@@ -1,0 +1,11 @@
+# type: ignore
+Iterator  # unused import (C:\Users\thiba\Google Drive\music\dev\protocol0_system\lib\openapi_spec_generation.py:8)
+generate_api_specs  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\lib\openapi_spec_generation.py:18)
+audio_plot_sound  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\audio\utils.py:10)
+send_message_to_script  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\api\midi_app.py:15)
+rx_print  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\rx\rx_utils.py:38)
+frequency  # unused variable (C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\audio\speech_sound.py:54)
+show_hide_plugins  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\api\routes.py:37)
+arrow_up  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\api\routes.py:44)
+arrow_down  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\api\routes.py:47)
+hide_plugins  # unused function (C:\Users\thiba\Google Drive\music\dev\protocol0_system\api\routes.py:40)

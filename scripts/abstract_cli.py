@@ -1,19 +1,12 @@
-import traceback
-
+import asyncclick as click
 from loguru import logger
 
 from lib.log import configure_logging
+from lib.window.terminal import clear_terminal
 
 
-def _exception_handler(_, value, tb):
-    logger.error(f"{value}\n")
-    if tb:
-        format_exception = traceback.format_tb(tb)
-        for line in format_exception:
-            logger.error(repr(line))
-
-
-def setup_cli():
-    # sys.excepthook = _exception_handler
+@click.group()
+async def cli() -> None:
     configure_logging()
-    # configure_logging(filename="cli.log")
+    clear_terminal()
+    logger.info("launching cli command")
