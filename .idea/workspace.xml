@@ -8,7 +8,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +100,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -359,6 +363,8 @@
       <workItem from="1630247343335" duration="19000" />
       <workItem from="1630247379858" duration="28637000" />
       <workItem from="1630673940166" duration="4041000" />
+      <workItem from="1630747660033" duration="8507000" />
+      <workItem from="1630756415913" duration="346000" />
     </task>
     <servers />
   </component>

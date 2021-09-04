@@ -25,6 +25,7 @@ def start_midi_server():
     from api.routes import Routes
 
     with mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False) as midi_port:
+        logger.info(f"Midi server listening on {midi_port}")
         for message in midi_port:
             payload = _make_dict_from_sysex_message(message=message)
             if not payload:

@@ -57,16 +57,15 @@ def command_git_backup() -> None:
     backup_git_repos()
 
 
-@cli.command(name="search_set")
-@click.argument("search")
-def command_search_set(search: str) -> None:
-    p0_script_api_client.search_track(search=search)
-
-
 @cli.command(name="midi")
 def command_midi_server() -> None:
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     start_midi_server()
+
+
+@cli.command(name="test")
+def command_test() -> None:
+    p0_script_api_client.ping()
 
 
 if __name__ == "__main__":

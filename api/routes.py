@@ -14,9 +14,8 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 
 # noinspection PyMethodParameters
 class Routes:
-    def test() -> Dict:
-        p0_script_api_client.test()
-        return {"test": "done"}
+    def ping() -> None:
+        p0_script_api_client.ping()
 
     def click(x: int, y: int) -> None:
         click(x=x, y=y)

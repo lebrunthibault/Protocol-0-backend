@@ -28,7 +28,3 @@ def save_set_as_template():
     send_keys("{Enter}")
     time.sleep(0.2)
     send_keys("	{ESC}")
-
-
-if __name__ == "__main__":
-    reload_ableton()

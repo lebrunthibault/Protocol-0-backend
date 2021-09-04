@@ -32,6 +32,7 @@ class Config:
         "magenta": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
+    BLACK_LIST_KEYWORDS = ["Midi(Out|In)Device"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
@@ -91,7 +92,7 @@ def _filter_line(line: LogLine) -> bool:
         clear_console()
         return False
 
-    return line.has_patterns(Config.FILTER_KEYWORDS)
+    return not line.has_patterns(Config.BLACK_LIST_KEYWORDS) and line.has_patterns(Config.FILTER_KEYWORDS)
 
 
 def _is_error(line: LogLine) -> bool:
