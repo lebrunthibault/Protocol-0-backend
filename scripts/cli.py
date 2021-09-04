@@ -9,6 +9,7 @@ from api.p0_script_api_client import p0_script_api_client
 from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
 from config import SystemConfig
+from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
 from scripts.commands.git_backup import backup_git_repos
@@ -38,13 +39,10 @@ def command_sync_presets() -> None:
 
 
 @cli.command(name="refresh_logs")
-def command_refresh_logs() -> None:
-    cwd = f"{SystemConfig.PROJECT_ROOT}/scripts"
-    p = subprocess.Popen(["powershell.exe",
-                          "invoke-expression",
-                          "'cmd /c start powershell -Command { set-location \"%s\"; py ./tail_protocol0_logs.py }'" % cwd],
-                         stdout=sys.stdout)
-    p.communicate()
+@click.option('--raw', is_flag=True)
+def command_refresh_logs(raw: bool) -> None:
+    args = ["--raw"] if raw else []
+    execute_in_new_window(f"{SystemConfig.PROJECT_ROOT}/scripts/tail_protocol0_logs.py", *args)
 
 
 @cli.command(name="save_set_as_template")

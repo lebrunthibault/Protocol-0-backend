@@ -8,10 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +115,7 @@
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.recorder">
+  <component name="RunManager" selected="Shell Script.reload ahk">
     <configuration name="AbstractAudioSource" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="speech_recognition" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -183,6 +183,16 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sr/audio/recorder.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -190,6 +200,21 @@
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
       <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="reload ahk" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value=".\scripts\ahk\ableton_shortcuts.ahk" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+      <option name="SCRIPT_PATH" value="./scripts/ahk/ableton_shortcuts.ahk" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="false" />
+      <envs />
       <method v="2" />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -258,6 +283,15 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.default" />
+      <item itemvalue="Python.AbstractAudioSource" />
+      <item itemvalue="Python.recorder" />
+      <item itemvalue="Python tests.pytest for sr.tests.test_speech_vs_noise.test_speech_recognition" />
+      <item itemvalue="Python tests.pytest for test_speech_vs_noise.test_speech_recognition" />
+      <item itemvalue="Python tests.pytest for test_speech_vs_noise.test_speech_recognition_all" />
+      <item itemvalue="Shell Script.reload ahk" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.recorder" />
@@ -365,6 +399,7 @@
       <workItem from="1630673940166" duration="4041000" />
       <workItem from="1630747660033" duration="8507000" />
       <workItem from="1630756415913" duration="346000" />
+      <workItem from="1630759773662" duration="6868000" />
     </task>
     <servers />
   </component>
@@ -399,7 +434,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/protocol0_system$AbstractAudioSource.coverage" NAME="AbstractAudioSource Coverage Results" MODIFIED="1626339605456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../speech_recognition/speech_recognition/audio_source" />
     <SUITE FILE_PATH="coverage/protocol0_system$pytest_for_test_speech_vs_noise_test_speech_recognition.coverage" NAME="pytest for test_speech_vs_noise.test_speech_recognition Coverage Results" MODIFIED="1626386933146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/tests" />
-    <SUITE FILE_PATH="coverage/protocol0_system$recorder.coverage" NAME="recorder Coverage Results" MODIFIED="1628010076803" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/audio" />
+    <SUITE FILE_PATH="coverage/protocol0_system$recorder.coverage" NAME="recorder Coverage Results" MODIFIED="1630783061225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/audio" />
     <SUITE FILE_PATH="coverage/protocol0_system$pytest_for_test_speech_vs_noise_test_speech_recognition_all.coverage" NAME="pytest for test_speech_vs_noise.test_speech_recognition_all Coverage Results" MODIFIED="1626386928775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/tests" />
     <SUITE FILE_PATH="coverage/protocol0_system$pytest_for_test_speech_recognition_test_speech_recognition.coverage" NAME="pytest for test_speech_recognition.test_speech_recognition Coverage Results" MODIFIED="1626355804051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/sr/tests" />
   </component>

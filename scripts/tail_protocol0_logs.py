@@ -3,8 +3,10 @@ import re
 import sys
 import time
 from dataclasses import dataclass
+from enum import Enum
 from typing import Optional, List
 
+import click
 import win32con
 import win32gui
 from loguru import logger
@@ -20,28 +22,35 @@ from lib.window.window import focus_window
 logger = logger.opt(colors=True)
 
 
+class LogLevelEnum(Enum):
+    DEBUG = "DEBUG"
+    INFO = "INFO"
+
+
 class Config:
     PROCESS_LOGS = True
     WINDOW_TITLE = "logs terminal"
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 100
     IN_ERROR = False
+    LOG_LEVEL = LogLevelEnum.INFO
     COLOR_SCHEME = {
-        "yellow": ["P0 - dev", "P0 - debug"],
+        "light-yellow": ["P0 - dev", "P0 - debug"],
         "light-blue": ["P0 - notice"],
         "magenta": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
-    BLACK_LIST_KEYWORDS = ["Midi(Out|In)Device"]
+    BLACK_LIST_KEYWORDS = ["Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
-    CLEAR_KEYWORDS = ["clear_logs", "(Protocol0) Initializing", "Check :"]
+    CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing", "Check :"]
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
         "Python: INFO:root:\\d* - ",
         "(info|debug):\\s?",
         "RemoteScriptError: ",
+        "RemoteScriptMessage: ",
         "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{6}\\:",
     ]
 
@@ -136,13 +145,21 @@ def get_line_observable_from_file(file):
     return create(_make_observable)
 
 
-def tail_ableton_log_file():
+@click.command()
+@click.option('--raw', is_flag=True)
+def tail_ableton_log_file(raw: bool):
+    if raw:
+        Config.PROCESS_LOGS = False
+
     _kill_previous_log_window()
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
     ctypes.windll.kernel32.SetConsoleTitleW(Config.WINDOW_TITLE)
 
     # clear_console()
+
+    if Config.LOG_LEVEL == LogLevelEnum.INFO:
+        Config.BLACK_LIST_KEYWORDS.append("P0 - debug")
 
     pipes = [
         op.map(lambda line: line.replace("\n", "")),
