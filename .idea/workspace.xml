@@ -7,13 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -399,7 +393,7 @@
       <workItem from="1630673940166" duration="4041000" />
       <workItem from="1630747660033" duration="8507000" />
       <workItem from="1630756415913" duration="346000" />
-      <workItem from="1630759773662" duration="6868000" />
+      <workItem from="1630759773662" duration="7536000" />
     </task>
     <servers />
   </component>
