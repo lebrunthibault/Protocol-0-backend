@@ -7,15 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/commands/restart_ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/sync_presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/sync_presets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -402,7 +394,8 @@
       <workItem from="1630747660033" duration="8507000" />
       <workItem from="1630756415913" duration="346000" />
       <workItem from="1630759773662" duration="7536000" />
-      <workItem from="1630858207566" duration="8285000" />
+      <workItem from="1630858207566" duration="8884000" />
+      <workItem from="1630958378948" duration="84000" />
     </task>
     <servers />
   </component>
