@@ -3,10 +3,12 @@ from typing import Generator, Any
 
 from loguru import logger
 
+SERUM_PRESET_DIRECTORY = "C:\\Users\\thiba\\OneDrive\\Documents\\Xfer\\Serum Presets\\"
+
 
 class SerumPresetSynchronizer:
-    PRESET_DIRECTORY = "C:\\Users\\thiba\\OneDrive\\Documents\\Xfer\\Serum Presets\\Presets\\"
-    PROGRAM_CHANGE_FILENAME = "C:\\Users\\thiba\\OneDrive\\Documents\\Xfer\\Serum Presets\\System\\ProgramChanges.txt"
+    PRESET_DIRECTORY = f"{SERUM_PRESET_DIRECTORY}\\Presets\\"
+    PROGRAM_CHANGE_FILENAME = f"{SERUM_PRESET_DIRECTORY}\\System\\ProgramChanges.txt"
 
     @classmethod
     def get_preset_names(cls) -> Generator[str, Any, Any]:

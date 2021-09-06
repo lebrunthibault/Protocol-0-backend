@@ -4,19 +4,20 @@ import sys
 import time
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional, List
+from typing import Optional, List, TextIO
 
 import click
 import win32con
 import win32gui
 from loguru import logger
-from psutil import Process, NoSuchProcess
 from rx import operators as op, create
 
 from config import SystemConfig
 from lib.console import clear_console
+from lib.decorators import log_exceptions
+from lib.process import kill_window_by_criteria
 from lib.rx import rx_error
-from lib.window.find_window import get_pid_by_window_title
+from lib.window.find_window import SearchTypeEnum
 from lib.window.window import focus_window
 
 logger = logger.opt(colors=True)
@@ -33,14 +34,14 @@ class Config:
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 100
     IN_ERROR = False
-    LOG_LEVEL = LogLevelEnum.INFO
+    LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
         "light-yellow": ["P0 - dev", "P0 - debug"],
         "light-blue": ["P0 - notice"],
         "magenta": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
-    BLACK_LIST_KEYWORDS = ["Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:"]
+    BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
@@ -74,18 +75,6 @@ class LogLine:
         return any(re.search(pattern.lower(), self.line.lower()) for pattern in patterns)
 
 
-def _kill_previous_log_window():
-    while True:
-        pid = get_pid_by_window_title(Config.WINDOW_TITLE)
-        if pid > 0:
-            try:
-                Process(pid=pid).terminate()
-            except NoSuchProcess:
-                return
-        else:
-            return
-
-
 def _get_clean_line(line: str) -> str:
     for pattern in Config.PATTERNS_TO_REMOVE:
         line = re.sub(pattern, "", line)
@@ -94,6 +83,9 @@ def _get_clean_line(line: str) -> str:
 
 
 def _filter_line(line: LogLine) -> bool:
+    if line.has_patterns(Config.BLACK_LIST_KEYWORDS):
+        return False
+
     if line.is_error:
         return True
 
@@ -101,7 +93,7 @@ def _filter_line(line: LogLine) -> bool:
         clear_console()
         return False
 
-    return not line.has_patterns(Config.BLACK_LIST_KEYWORDS) and line.has_patterns(Config.FILTER_KEYWORDS)
+    return line.has_patterns(Config.FILTER_KEYWORDS)
 
 
 def _is_error(line: LogLine) -> bool:
@@ -122,7 +114,7 @@ def _get_color(line: LogLine) -> str:
             return color
 
 
-def get_line_observable_from_file(file):
+def get_line_observable_from_file(file: TextIO):
     sleep_sec = 0.1
 
     def _make_observable(observer, _):
@@ -147,11 +139,13 @@ def get_line_observable_from_file(file):
 
 @click.command()
 @click.option('--raw', is_flag=True)
+@log_exceptions
 def tail_ableton_log_file(raw: bool):
     if raw:
         Config.PROCESS_LOGS = False
+        Config.START_SIZE = 200
 
-    _kill_previous_log_window()
+    kill_window_by_criteria(name=Config.WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
     ctypes.windll.kernel32.SetConsoleTitleW(Config.WINDOW_TITLE)
@@ -181,7 +175,4 @@ def tail_ableton_log_file(raw: bool):
 
 
 if __name__ == '__main__':
-    try:
-        tail_ableton_log_file()
-    except Exception as e:
-        logger.exception(e)
+    tail_ableton_log_file()

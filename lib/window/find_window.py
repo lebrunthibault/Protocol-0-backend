@@ -110,12 +110,3 @@ def _get_app_name(hwnd: int) -> Optional[str]:
     except Exception as e:
         logger.error(e)
         return None
-
-
-def get_pid_by_window_title(title: str) -> int:
-    hwnd = find_window_handle_by_enum(name=title, search_type=SearchTypeEnum.WINDOW_TITLE)
-    if hwnd == 0:
-        return 0
-
-    _, pid = win32process.GetWindowThreadProcessId(hwnd)
-    return pid
