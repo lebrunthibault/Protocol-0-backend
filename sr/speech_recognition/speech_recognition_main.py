@@ -1,17 +1,17 @@
 import ctypes
 
 from loguru import logger
-from p0_script_api import DefaultApi
 from rx import operators as op, Observable
 
+from api.p0_script_api_client import p0_script_api_client
 from lib.decorators import log_exceptions
+from lib.rx import rx_nop
 from lib.window.window import is_ableton_up
 from sr.audio.source.microphone import Microphone
 from sr.audio.speech_sound import get_speech_sounds_observable
 from sr.enums.speech_command_enum import SpeechCommandEnum
 from sr.recognizer.recognizer import Recognizer
 from sr.recognizer.recognizer_result import export_recognizer_result
-from lib.rx import rx_nop
 from sr.speech_recognition.speech_command_manager import process_speech_command
 from sr.sr_config import SRConfig
 
@@ -44,7 +44,6 @@ class StreamProvider:
 @log_exceptions
 def recognize_speech():
     ctypes.windll.kernel32.SetConsoleTitleW(SRConfig.WINDOW_TITLE)
-    p0_script_api = DefaultApi()
     stream_provider = StreamProvider()
 
     if SRConfig.EXPORT_RESULTS:
@@ -52,7 +51,7 @@ def recognize_speech():
 
     stream_provider.activation_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))  # always active
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
-    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_api.execute_command(str(res)))
+    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_api_client.execute_command(str(res)))
 
     if SRConfig.USE_GUI:
         from sr.display.speech_gui import SpeechGui  # for performance
