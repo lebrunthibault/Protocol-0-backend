@@ -1,6 +1,4 @@
 import ctypes
-import subprocess
-import sys
 
 import asyncclick as click
 
@@ -61,8 +59,8 @@ def command_midi_server() -> None:
     start_midi_server()
 
 
-@cli.command(name="test")
-def command_test() -> None:
+@cli.command(name="ping")
+def command_ping() -> None:
     p0_script_api_client.ping()
 
 

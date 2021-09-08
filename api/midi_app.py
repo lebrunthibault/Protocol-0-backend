@@ -1,15 +1,35 @@
 import json
 from json import JSONDecodeError
+from threading import Timer
 from typing import Dict, Optional
 
 import mido
 from loguru import logger
 
+from api.p0_script_api_client import p0_script_api_client
 from config import SystemConfig
 
 logger = logger.opt(colors=True)
 
 DEBUG = False
+
+
+class MidiCheckState:
+    TIMER: Optional[Timer] = None
+
+
+def ping():
+    p0_script_api_client.ping()
+    if MidiCheckState.TIMER:
+        MidiCheckState.TIMER.cancel()
+    MidiCheckState.TIMER = Timer(1.0, lambda: logger.error("Expected pong, Protocol0Midi is not loaded"))
+    MidiCheckState.TIMER.start()
+
+
+def pong():
+    if MidiCheckState.TIMER:
+        MidiCheckState.TIMER.cancel()
+        MidiCheckState.TIMER = None
 
 
 def send_message_to_script(data: Dict) -> None:
@@ -57,7 +77,7 @@ def get_real_midi_port_name(port_name_prefix: str, ports):
 def _make_sysex_message_from_dict(data: Dict) -> mido.Message:
     assert isinstance(data, Dict)
     message = json.dumps(data)
-    logger.info(f"Sending string to midi output : <magenta>{message}</>")
+    logger.info(f"Sending string to System midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
     b.insert(0, 0xF0)
     b.append(0xF7)

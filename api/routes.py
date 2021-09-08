@@ -1,5 +1,6 @@
 from typing import Dict, List
 
+from api.midi_app import ping, pong
 from api.p0_script_api_client import p0_script_api_client
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
@@ -15,7 +16,10 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 # noinspection PyMethodParameters
 class Routes:
     def ping() -> None:
-        p0_script_api_client.ping()
+        ping()
+
+    def pong() -> None:
+        pong()
 
     def click(x: int, y: int) -> None:
         click(x=x, y=y)

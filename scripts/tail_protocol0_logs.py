@@ -32,7 +32,7 @@ class Config:
     PROCESS_LOGS = True
     WINDOW_TITLE = "logs terminal"
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
-    START_SIZE = 100
+    START_SIZE = 300
     IN_ERROR = False
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
@@ -45,7 +45,7 @@ class Config:
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
-    CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing", "Check :"]
+    CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
         "Python: INFO:root:\\d* - ",
