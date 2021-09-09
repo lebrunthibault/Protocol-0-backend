@@ -1,5 +1,8 @@
 import ctypes
 
+# import sys
+# print(sys.version_info)
+# sys.exit()
 import asyncclick as click
 
 from api.midi_app import start_midi_server
