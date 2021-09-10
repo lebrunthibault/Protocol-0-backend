@@ -8,9 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements_bak.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/languages.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_window.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +93,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ToolWindowProblems.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blog/code_examples" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -401,6 +400,7 @@
       <workItem from="1631055489040" duration="1201000" />
       <workItem from="1631119830877" duration="1326000" />
       <workItem from="1631136477823" duration="4553000" />
+      <workItem from="1631265146685" duration="2662000" />
     </task>
     <servers />
   </component>

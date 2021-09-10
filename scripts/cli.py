@@ -39,9 +39,9 @@ def command_sync_presets() -> None:
     sync_presets()
 
 
-@cli.command(name="refresh_logs")
+@cli.command(name="tail_logs")
 @click.option('--raw', is_flag=True)
-def command_refresh_logs(raw: bool) -> None:
+def command_tail_logs(raw: bool) -> None:
     args = ["--raw"] if raw else []
     execute_in_new_window(f"{SystemConfig.PROJECT_ROOT}/scripts/tail_protocol0_logs.py", *args)
 
