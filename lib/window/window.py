@@ -1,13 +1,12 @@
-import logging
+from ctypes import windll
 from typing import Tuple, Union
 
 import win32com.client
 import win32gui
+from loguru import logger
 
 from config import SystemConfig
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
-
-logger = logging.getLogger(__name__)
 
 
 def get_window_position(handle: int) -> Tuple[int, int, int, int]:
@@ -22,13 +21,15 @@ def get_window_position(handle: int) -> Tuple[int, int, int, int]:
 
 
 def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE,
-                 retry: bool = True) -> bool:
+                 retry: bool = True) -> int:
     handle = find_window_handle_by_enum(name=name, search_type=search_type)
     if not handle:
-        return False
+        return 0
 
     try:
-        return bool(win32gui.SetForegroundWindow(handle))
+        win32gui.SetForegroundWindow(handle)
+        logger.info("Window focused : %s" % name)
+        return handle
     except Exception as e:
         logger.error(e)
         if retry:
@@ -36,7 +37,9 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
             shell = win32com.client.Dispatch("WScript.Shell")
             shell.SendKeys('%')
             return focus_window(name=name, search_type=search_type, retry=False)
-    logger.info("Window focused : %s" % name)
+
+    logger.error("Window not focused : %s" % name)
+    return 0
 
 
 def focus_ableton() -> bool:
@@ -45,3 +48,11 @@ def focus_ableton() -> bool:
 
 def is_ableton_up() -> bool:
     return find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME) != 0
+
+
+def is_ableton_focused() -> bool:
+    ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
+    active_window_handle = windll.user32.GetForegroundWindow()
+    print(ableton_handle)
+    print(active_window_handle)
+    return ableton_handle != 0 and ableton_handle == active_window_handle

@@ -1,11 +1,8 @@
 from typing import Tuple
 
-import win32gui
-from loguru import logger
-
 from lib.click import click
 from lib.window.ableton import show_plugins
-from lib.window.window import get_window_position
+from lib.window.window import get_window_position, focus_window
 
 
 def get_button_middle_position(handle):
@@ -19,10 +16,8 @@ def get_button_middle_position(handle):
 def activate_rev2_editor():
     # type: () -> None
     show_plugins()
-    handle = win32gui.FindWindowEx(None, None, None, "REV2Editor/midi")
-    logger.info("found handle for rev2 editor: %s" % handle)
+    handle = focus_window(name="REV2Editor/midi")
     if not handle:
         return
     (x, y) = get_button_middle_position(handle)
-    win32gui.SetForegroundWindow(handle)
     click(x, y)

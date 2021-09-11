@@ -16,8 +16,8 @@ CoordMode,mouse,screen
 
 ; global hotkeys
 HotkeyCommand("^#+n", "reload_ableton")
-HotkeyCommand("^#+l", "refresh_logs")
-HotkeyCommand("^!+l", "refresh_logs", "--raw")
+HotkeyCommand("^#+l", "tail_logs")
+HotkeyCommand("^!+l", "tail_logs", "--raw")
 
 ; literal hotkeys should be defined *after* the executable code
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe

@@ -1,11 +1,9 @@
 import PySimpleGUI as sg
-import win32gui
 from PySimpleGUI import WIN_CLOSED
 from loguru import logger
 
 from api.p0_script_api_client import p0_script_api_client
-from lib.window.find_window import find_window_handle_by_enum
-from lib.window.window import focus_ableton
+from lib.window.window import focus_ableton, focus_window
 
 WINDOW_TITLE = "search"
 KEEP_WINDOW_IN_BACKGROUND = False
@@ -20,6 +18,7 @@ def send_search(search):
 
 def create_gui():
     # type: () -> None
+    logger.info("creating gui")
     layout = [[sg.Input(key="input")]]
     window = sg.Window(WINDOW_TITLE, layout,
                        return_keyboard_events=True,
@@ -57,12 +56,7 @@ def create_gui():
 def search_set_gui():
     # type: () -> None
     if not RELOAD_ON_STARTUP:
-        search_window_handle = find_window_handle_by_enum(title=WINDOW_TITLE)
-        if search_window_handle:
-            logger.info("found search set window, focusing")
-            win32gui.SetForegroundWindow(search_window_handle)
+        if focus_window(name=WINDOW_TITLE):
             return
-        else:
-            logger.info("didn't find search set window, creating gui")
 
     create_gui()

@@ -13,6 +13,7 @@ from config import SystemConfig
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
+from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.git_backup import backup_git_repos
 from scripts.commands.search_set_gui import search_set_gui
 
@@ -65,6 +66,11 @@ def command_midi_server() -> None:
 @cli.command(name="ping")
 def command_ping() -> None:
     p0_script_api_client.ping()
+
+
+@cli.command(name="test")
+def command_test() -> None:
+    activate_rev2_editor()
 
 
 if __name__ == "__main__":

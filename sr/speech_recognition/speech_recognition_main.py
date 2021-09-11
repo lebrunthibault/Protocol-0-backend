@@ -27,6 +27,7 @@ class StreamProvider:
         rr_stream = speech_stream.pipe(
             op.map(recognizer.process_speech_sound),
             op.filter(lambda r: is_ableton_up()),
+            # op.filter(lambda r: is_ableton_focused()),
             op.share()
         )
         rr_stream.subscribe(rx_nop, logger.exception)  # displays exceptions
