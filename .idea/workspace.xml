@@ -7,14 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements_bak.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/speech_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/speech_sound.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vulture_whitelist.py" beforeDir="false" afterPath="$PROJECT_DIR$/vulture_whitelist.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +71,7 @@
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="8" />
+    <option name="selectedIndex" value="10" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -405,7 +398,7 @@
       <workItem from="1631119830877" duration="1326000" />
       <workItem from="1631136477823" duration="4553000" />
       <workItem from="1631265146685" duration="2662000" />
-      <workItem from="1631310883931" duration="11497000" />
+      <workItem from="1631310883931" duration="12258000" />
     </task>
     <servers />
   </component>
