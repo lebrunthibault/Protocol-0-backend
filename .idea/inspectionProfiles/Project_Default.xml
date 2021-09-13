@@ -138,6 +138,7 @@
           <option value="pytest" />
           <option value="Live" />
           <option value="itertools.*" />
+          <option value="mido.*" />
         </list>
       </option>
     </inspection_tool>

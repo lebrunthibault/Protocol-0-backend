@@ -9,11 +9,11 @@ from pysndfx import AudioEffectsChain
 from rx import operators as op
 from rx.core.typing import Observable
 
+from lib.rx import rx_debug
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.short_sound import get_short_sounds_observable
 from sr.audio.sound_mixin import SoundMixin
 from sr.audio.source.audio_source_interface import AudioSourceInterface
-from lib.rx import rx_debug
 
 logger = logger.opt(colors=True)
 
@@ -24,7 +24,7 @@ class SpeechSound(SoundMixin):
 
 
 def _maximize_audio(audio: AudioSegment) -> AudioSegment:
-    """ See http://sox.sourceforge.net/sox.html """
+    """ See https://sox.sourceforge.net/sox.html """
     fx = AudioEffectsChain()
 
     # noise gate

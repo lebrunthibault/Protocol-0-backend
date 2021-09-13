@@ -8,14 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_window.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements_bak.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/speech_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/speech_sound.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vulture_whitelist.py" beforeDir="false" afterPath="$PROJECT_DIR$/vulture_whitelist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +78,7 @@
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="24" />
+    <option name="selectedIndex" value="8" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -104,7 +102,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -407,7 +405,7 @@
       <workItem from="1631119830877" duration="1326000" />
       <workItem from="1631136477823" duration="4553000" />
       <workItem from="1631265146685" duration="2662000" />
-      <workItem from="1631310883931" duration="5906000" />
+      <workItem from="1631310883931" duration="11497000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,3 @@
-from typing import Dict, List
-
 from api.midi_app import ping, pong
 from api.p0_script_api_client import p0_script_api_client
 from lib.click import pixel_has_color, click
@@ -27,8 +25,8 @@ class Routes:
     def double_click(x: int, y: int) -> None:
         click(x=x, y=y, double_click=True)
 
-    def pixel_has_color(x: int, y: int, color: str) -> bool:
-        return pixel_has_color(x=x, y=y, color=color)
+    def pixel_has_color(x: int, y: int, color: str) -> None:
+        pixel_has_color(x=x, y=y, color=color)
 
     def show_device_view() -> None:
         show_device_view()
@@ -50,8 +48,8 @@ class Routes:
     def arrow_down() -> None:
         send_keys("{DOWN}")
 
-    def focus_window(window_name: str) -> bool:
-        return focus_window(name=window_name)
+    def focus_window(window_name: str) -> None:
+        focus_window(name=window_name)
 
     def reload_ableton():
         reload_ableton()
@@ -62,12 +60,11 @@ class Routes:
     def activate_rev2_editor() -> None:
         activate_rev2_editor()
 
-    def show_windows() -> List[Dict]:
-        return show_windows()
+    def show_windows() -> None:
+        show_windows()
 
-    def search(search: str) -> str:
+    def search(search: str) -> None:
         p0_script_api_client.search_track(search=search)
-        return f"You searched for : {search}"
 
-    def sync_presets() -> str:
-        return sync_presets()
+    def sync_presets() -> None:
+        sync_presets()

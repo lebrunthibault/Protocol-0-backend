@@ -28,7 +28,6 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
 
     try:
         win32gui.SetForegroundWindow(handle)
-        logger.info("Window focused : %s" % name)
         return handle
     except Exception as e:
         logger.error(e)
