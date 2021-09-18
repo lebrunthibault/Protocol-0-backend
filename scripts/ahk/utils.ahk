@@ -8,16 +8,24 @@ executeCliCommand(command, args*)
 
 HotkeyCommand(hk, args*)
 {
-    Hotkey("", hk, "executeCliCommand", args*)
+    Hotkey("", "", hk, "executeCliCommand", args*)
+}
+
+HotkeyCommandNoPycharm(hk, args*)
+{
+    Hotkey("", "ahk_exe pycharm64.exe", hk, "executeCliCommand", args*)
 }
 
 ; Link Hotkey to function
-Hotkey(ifWinActiveCondition, hk, fun, arg*)
+Hotkey(ifWinActiveCondition, ifWinNotActiveCondition, hk, fun, arg*)
 {
     funs[hk] := Func(fun), args[hk] := arg
     if ifWinActiveCondition {
         Hotkey, IfWinActive, %ifWinActiveCondition%
+    } else if ifWinNotActiveCondition {
+        Hotkey, IfWinNotActive, %ifWinNotActiveCondition%
     }
+    ; strange we don't use else but it works like this
     Hotkey, %hk%, Hotkey_Handle
     Return
 

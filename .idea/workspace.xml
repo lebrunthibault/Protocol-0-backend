@@ -7,7 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/utils.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/utils.ahk" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +113,7 @@
       <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\enums" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest for test_window.test_var">
+  <component name="RunManager" selected="Shell Script.reload ahk">
     <configuration name="default" type="PythonConfigurationType" factoryName="Python">
       <module name="vosk-api" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -400,6 +403,7 @@
       <workItem from="1631265146685" duration="2662000" />
       <workItem from="1631310883931" duration="13490000" />
       <workItem from="1631544369159" duration="597000" />
+      <workItem from="1631919689908" duration="1731000" />
     </task>
     <servers />
   </component>
