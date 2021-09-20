@@ -12,7 +12,7 @@ def prepare_model_grammar() -> None:
     with open(SRConfig.KALDI_VOCABULARY_PATH, "w") as f:
         f.write(vocabulary)
 
-    grammar_directory = "/mnt/c/Users/thiba/Google Drive/music/dev/protocol0_system/sr/grammar"
+    grammar_directory = "/mnt/c/Users/thiba/google_drive/music/dev/protocol0_system/sr/grammar"
     subprocess.run(
         [
             "bash",

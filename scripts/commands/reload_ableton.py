@@ -19,11 +19,14 @@ def reload_ableton() -> None:
 
 
 def save_set_as_template():
+    # first possible position
     click(x=703, y=363)  # click on File Folder
     click(x=1032, y=201)  # click on set as new
     time.sleep(0.05)
 
-    click(x=1032, y=228)  # click on set as new (2nd position)
+    # second position possible
+    click(x=703, y=332)  # click on File Folder
+    click(x=1032, y=203)  # click on set as new (2nd position)
     time.sleep(0.05)
     send_keys("{Enter}")
     time.sleep(0.2)
