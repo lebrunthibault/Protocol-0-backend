@@ -51,7 +51,8 @@ def is_ableton_up() -> bool:
 
 def is_ableton_focused() -> bool:
     ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
+    logs_handle = find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
     active_window_handle = windll.user32.GetForegroundWindow()
-    print(ableton_handle)
-    print(active_window_handle)
-    return ableton_handle != 0 and ableton_handle == active_window_handle
+    if active_window_handle == 0:
+        return False
+    return ableton_handle == active_window_handle or logs_handle == active_window_handle

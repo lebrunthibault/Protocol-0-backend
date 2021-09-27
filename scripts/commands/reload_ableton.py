@@ -27,6 +27,7 @@ def save_set_as_template():
     # second position possible
     click(x=703, y=332)  # click on File Folder
     click(x=1032, y=203)  # click on set as new (2nd position)
+    click(x=1032, y=230)  # click on set as new (2nd position)
     time.sleep(0.05)
     send_keys("{Enter}")
     time.sleep(0.2)

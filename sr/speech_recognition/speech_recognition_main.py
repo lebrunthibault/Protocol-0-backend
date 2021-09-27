@@ -6,7 +6,7 @@ from rx import operators as op, Observable
 from api.p0_script_api_client import p0_script_api_client
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
-from lib.window.window import is_ableton_up
+from lib.window.window import is_ableton_up, is_ableton_focused
 from sr.audio.source.microphone import Microphone
 from sr.audio.speech_sound import get_speech_sounds_observable
 from sr.enums.speech_command_enum import SpeechCommandEnum
@@ -26,8 +26,8 @@ class StreamProvider:
         speech_stream = get_speech_sounds_observable(source=source)  # type: Observable
         rr_stream = speech_stream.pipe(
             op.map(recognizer.process_speech_sound),
-            op.filter(lambda r: is_ableton_up()),
-            # op.filter(lambda r: is_ableton_focused()),
+            # op.filter(lambda r: is_ableton_up()),
+            op.filter(lambda r: is_ableton_focused()),
             op.share()
         )
         rr_stream.subscribe(rx_nop, logger.exception)  # displays exceptions

@@ -8,12 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vulture_whitelist.py" beforeDir="false" afterPath="$PROJECT_DIR$/vulture_whitelist.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +100,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ToolWindowProblems.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blog" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -410,7 +413,11 @@
       <workItem from="1631919689908" duration="1731000" />
       <workItem from="1631988580654" duration="627000" />
       <workItem from="1632079117514" duration="3237000" />
-      <workItem from="1632143045075" duration="62000" />
+      <workItem from="1632143045075" duration="362000" />
+      <workItem from="1632143334093" duration="3586000" />
+      <workItem from="1632252379488" duration="2553000" />
+      <workItem from="1632601655444" duration="1616000" />
+      <workItem from="1632669037081" duration="2667000" />
     </task>
     <servers />
   </component>

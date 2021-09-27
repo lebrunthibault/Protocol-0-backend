@@ -30,7 +30,6 @@ class LogLevelEnum(Enum):
 
 class Config:
     PROCESS_LOGS = True
-    WINDOW_TITLE = "logs terminal"
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
     IN_ERROR = False
@@ -99,7 +98,7 @@ def _filter_line(line: LogLine) -> bool:
 def _is_error(line: LogLine) -> bool:
     if line.has_patterns(Config.ERROR_KEYWORDS) and not line.has_patterns(Config.ERROR_NON_KEYWORDS):
         Config.IN_ERROR = True
-        focus_window(Config.WINDOW_TITLE)
+        focus_window(SystemConfig.LOG_WINDOW_TITLE)
         return True
 
     if not _get_clean_line(line.line).startswith(" "):
@@ -145,10 +144,10 @@ def tail_ableton_log_file(raw: bool):
         Config.PROCESS_LOGS = False
         Config.START_SIZE = 200
 
-    kill_window_by_criteria(name=Config.WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
+    kill_window_by_criteria(name=SystemConfig.LOG_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
-    ctypes.windll.kernel32.SetConsoleTitleW(Config.WINDOW_TITLE)
+    ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.LOG_WINDOW_TITLE)
 
     # clear_console()
 
