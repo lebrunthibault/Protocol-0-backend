@@ -7,17 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/git_backup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/recording_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/recording_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -417,7 +407,10 @@
       <workItem from="1632143334093" duration="3586000" />
       <workItem from="1632252379488" duration="2553000" />
       <workItem from="1632601655444" duration="1616000" />
-      <workItem from="1632669037081" duration="2667000" />
+      <workItem from="1632669037081" duration="6573000" />
+      <workItem from="1633039208171" duration="599000" />
+      <workItem from="1633087138959" duration="599000" />
+      <workItem from="1633112461860" duration="7000" />
     </task>
     <servers />
   </component>
