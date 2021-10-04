@@ -38,7 +38,7 @@ def _generate_bare_spec(title):
     return APISpec(
         title=title,
         version="1.0.0",
-        openapi_version="3.1.0",
+        openapi_version="3.0.0",
         info=dict(description=title),
     )
 

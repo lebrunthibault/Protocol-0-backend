@@ -22,7 +22,7 @@ class {{classname}}(object):
         from protocol0 import Protocol0
         midi_manager = Protocol0.SELF.midiManager
         message = json.dumps(dict)
-        midi_manager.parent.log_dev("Sending string to Protocol0 midi output : %s" % message)
+        # midi_manager.parent.log_dev("Sending string to Protocol0 midi output : %s" % message)
 
         b = bytearray(message.encode())
         b.insert(0, 0xF0)

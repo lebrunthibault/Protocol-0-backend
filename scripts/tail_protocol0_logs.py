@@ -32,7 +32,7 @@ class Config:
     PROCESS_LOGS = True
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
-    IN_ERROR = False
+    LAST_ERROR_STARTED_AT = None
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
         "light-yellow": ["P0 - dev", "P0 - debug"],
@@ -42,7 +42,7 @@ class Config:
     }
     BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
-    ERROR_NON_KEYWORDS = ['\.wav. could not be opened']
+    ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
     CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
@@ -53,6 +53,10 @@ class Config:
         "RemoteScriptMessage: ",
         "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{6}\\:",
     ]
+
+    @classmethod
+    def in_error(cls):
+        return cls.LAST_ERROR_STARTED_AT is not None and time.time() - cls.LAST_ERROR_STARTED_AT > 0.01
 
 
 logger.remove()
@@ -97,14 +101,14 @@ def _filter_line(line: LogLine) -> bool:
 
 def _is_error(line: LogLine) -> bool:
     if line.has_patterns(Config.ERROR_KEYWORDS) and not line.has_patterns(Config.ERROR_NON_KEYWORDS):
-        Config.IN_ERROR = True
+        Config.LAST_ERROR_STARTED_AT = time.time()
         focus_window(SystemConfig.LOG_WINDOW_TITLE)
         return True
 
     if not _get_clean_line(line.line).startswith(" "):
-        Config.IN_ERROR = False
+        Config.LAST_ERROR_STARTED_AT = None
 
-    return Config.IN_ERROR
+    return Config.in_error()
 
 
 def _get_color(line: LogLine) -> str:
