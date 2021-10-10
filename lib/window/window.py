@@ -41,6 +41,13 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
     return 0
 
 
+def is_window_focused(handle: int) -> bool:
+    active_window_handle = windll.user32.GetForegroundWindow()
+    if active_window_handle == 0:
+        return False
+    return handle == active_window_handle
+
+
 def focus_ableton() -> bool:
     return focus_window(SystemConfig.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
 
@@ -52,7 +59,4 @@ def is_ableton_up() -> bool:
 def is_ableton_focused() -> bool:
     ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
     logs_handle = find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
-    active_window_handle = windll.user32.GetForegroundWindow()
-    if active_window_handle == 0:
-        return False
-    return ableton_handle == active_window_handle or logs_handle == active_window_handle
+    return is_window_focused(ableton_handle) or is_window_focused(logs_handle)

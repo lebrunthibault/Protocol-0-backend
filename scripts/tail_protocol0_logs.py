@@ -40,7 +40,7 @@ class Config:
         "magenta": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
-    BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:"]
+    BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]

@@ -1,13 +1,17 @@
+import ctypes
 import json
 from json import JSONDecodeError
 from threading import Timer
 from typing import Dict, Optional
 
 import mido
+import pyautogui
 from loguru import logger
 
 from api.p0_script_api_client import p0_script_api_client
 from config import SystemConfig
+from lib.process import kill_window_by_criteria
+from lib.window.find_window import SearchTypeEnum
 
 logger = logger.opt(colors=True)
 
@@ -42,6 +46,10 @@ def send_message_to_script(data: Dict) -> None:
 
 
 def start_midi_server():
+    kill_window_by_criteria(name=SystemConfig.MIDI_SERVER_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
+
+    pyautogui.hotkey('win', 'up')
+    ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     from api.routes import Routes
 
     with mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False) as midi_port:
