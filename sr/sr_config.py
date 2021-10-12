@@ -6,7 +6,6 @@ from os.path import dirname, realpath
 from typing import Dict, List
 
 from protocol0.enums.vocal_command.ActionEnum import ActionEnum
-from protocol0.enums.vocal_command.QuantifierEnum import QuantifierEnum
 from protocol0.enums.vocal_command.TrackSearchKeywordEnum import TrackSearchKeywordEnum
 
 from sr.enums.speech_command_enum import SpeechCommandEnum
@@ -22,7 +21,6 @@ class SRConfig:
     SR_ACTIVE = True
     WORD_ENUM_CLASSES = [
         ActionEnum,
-        QuantifierEnum,
         TrackSearchKeywordEnum,
         SpeechCommandEnum
     ]
