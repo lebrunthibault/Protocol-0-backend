@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 def generate_api_specs(title, methods_dict, out_folder, package_name):
-    # type: (str, Dict, str) -> None
+    # type: (str, Dict, str, str) -> None
     methods = [getattr(cls, method_name) for method_name, cls in methods_dict.items()]
     spec = _generate_bare_spec(title=title)
 
@@ -88,7 +88,7 @@ def _get_parameters_dict_from_method(method):
     if sys.version_info.major == 2:
         inspector = inspect.getargspec
     else:
-        inspector = inspect.getfullargspec
+        inspector = inspect.getfullargspec  # type: ignore[assignment]
 
     s = inspector(method)
     names = s.args
@@ -101,7 +101,7 @@ def _get_parameters_dict_from_method(method):
         total_defaults[-len(s.defaults):] = s.defaults
 
     # noinspection PyUnresolvedReferences
-    zipper = zip if sys.version_info.major == 3 else itertools.izip
+    zipper = zip if sys.version_info.major == 3 else itertools.izip  # type: ignore[attr-defined]
     # noinspection PyUnresolvedReferences
     for name, default in zipper(names, total_defaults):
         param = {
@@ -117,7 +117,7 @@ def _get_parameters_dict_from_method(method):
 
 
 def _write_to_file(folder_name, spec, package_name):
-    # type: (str, APISpec) -> None
+    # type: (str, APISpec, str) -> None
     with open("%s/openapi.yaml" % folder_name, "w") as f:
         f.write(spec.to_yaml())
     with open("%s/openapi_config.json" % folder_name, "w") as f:

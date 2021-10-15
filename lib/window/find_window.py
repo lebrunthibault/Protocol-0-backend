@@ -33,7 +33,7 @@ def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str
     logger.enable(__name__)
     if not handle:
         logger.info(
-            f"{name} : Window handle not found")
+            f"{name} - {search_type} : Window handle not found {handle}")
 
     return handle
 
@@ -71,13 +71,13 @@ def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
 
     result = []
 
-    def winEnumHandler(hwnd, _):
+    def winEnumHandler(handle, _):
         # type: (int, Any) -> None
         nonlocal result
-        if win32gui.IsWindowVisible(hwnd):
-            name = _get_window_title(hwnd)
-            class_name = win32gui.GetClassName(hwnd)
-            app_name = _get_app_name(hwnd)
+        if win32gui.IsWindowVisible(handle):
+            name = _get_window_title(handle)
+            class_name = win32gui.GetClassName(handle)
+            app_name = _get_app_name(handle)
             if not app_name:
                 return
             if "too" in app_name_black_list or class_name in class_name_black_list:
@@ -95,13 +95,13 @@ def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
     return result
 
 
-def _get_window_title(hwnd: int) -> str:
-    return win32gui.GetWindowText(hwnd)
+def _get_window_title(handle: int) -> str:
+    return win32gui.GetWindowText(handle)
 
 
-def _get_app_name(hwnd: int) -> Optional[str]:
-    """Get application base name given hwnd."""
-    pid = win32process.GetWindowThreadProcessId(hwnd)
+def _get_app_name(handle: int) -> Optional[str]:
+    """Get application base name given handle."""
+    pid = win32process.GetWindowThreadProcessId(handle)
     try:
         logger.disable(__name__)  # silences warnings about protected processes
         handle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1])

@@ -8,7 +8,7 @@ class SystemConfig:
     LOGGING_DIRECTORY = os.environ.get("LOGGING_DIRECTORY")
     PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
     ABLETON_VERSION = _ableton_version
-    ABLETON_MAJOR_VERSION = _ableton_major_version
+    ABLETON_WINDOW_CLASS_NAME = "Ableton Live Window Class"
     ABLETON_EXE = f"Ableton Live {_ableton_major_version} Suite.exe"
     REV2_EDITOR_WINDOW_CLASS_NAME = "REV2Editor/midi"
     LOG_WINDOW_TITLE = "logs terminal"
@@ -16,3 +16,4 @@ class SystemConfig:
     P0_OUTPUT_PORT_NAME = 'P0_OUT'
     P0_INPUT_PORT_NAME = 'P0_IN'
     MIDI_SERVER_WINDOW_TITLE = "midi server"
+    SR_WINDOW_TITLE = "speech"

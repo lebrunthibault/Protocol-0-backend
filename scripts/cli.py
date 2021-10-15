@@ -1,19 +1,15 @@
-import ctypes
-
 import asyncclick as click
-import keyboard
-import pyautogui
 
 from api.midi_app import start_midi_server
-from commands.reload_ableton import reload_ableton, save_set_as_template
 from commands.sync_presets import sync_presets
 from config import SystemConfig
-from lib.keys import send_keys
+from lib.ableton import reload_ableton, save_set_as_template
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
 from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
+from scripts.commands.logoff import logoff
 
 
 @cli.command(name="reload_ableton")
@@ -58,6 +54,11 @@ def command_pull_git_repos() -> None:
 @cli.command(name="midi")
 def command_midi_server() -> None:
     start_midi_server()
+
+
+@cli.command(name="logoff")
+def command_logoff() -> None:
+    logoff()
 
 
 @cli.command(name="test")

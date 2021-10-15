@@ -1,8 +1,8 @@
 import win32com.client
 
-shell = win32com.client.Dispatch("WScript.Shell")
-
 from loguru import logger
+
+shell = win32com.client.Dispatch("WScript.Shell")
 
 
 def send_keys(keys: str) -> None:

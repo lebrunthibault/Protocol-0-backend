@@ -2,7 +2,7 @@ import asyncclick as click
 from loguru import logger
 
 from lib.log import configure_logging
-from lib.window.terminal import clear_terminal
+from lib.terminal import clear_terminal
 
 
 @click.group()

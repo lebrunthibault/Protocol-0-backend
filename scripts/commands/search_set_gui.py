@@ -3,7 +3,8 @@ from PySimpleGUI import WIN_CLOSED
 from loguru import logger
 
 from api.p0_script_api_client import p0_script_api_client
-from lib.window.window import focus_ableton, focus_window
+from lib.ableton import focus_ableton
+from lib.window.window import focus_window
 
 WINDOW_TITLE = "search"
 KEEP_WINDOW_IN_BACKGROUND = False

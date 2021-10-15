@@ -8,7 +8,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/terminal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/commands/logoff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/openapi_spec_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/openapi_spec_generation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/terminal.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/abstract_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/abstract_cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/restart_ableton.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/enums/speech_command_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/enums/speech_command_enum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sr/mypy.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/sr_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/sr_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vulture_whitelist.py" beforeDir="false" afterPath="$PROJECT_DIR$/vulture_whitelist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +102,7 @@
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="10" />
+    <option name="selectedIndex" value="2" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -92,24 +121,27 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ToolWindowProblems.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../blog" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="project.scopes" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\lib" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\recognizer" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sdk_generation\p0_script" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\Protocol0 System\sr\enums" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.reload ahk">
@@ -423,6 +455,10 @@
       <workItem from="1633943820709" duration="190000" />
       <workItem from="1633959972800" duration="1248000" />
       <workItem from="1633991108422" duration="847000" />
+      <workItem from="1634216408007" duration="99000" />
+      <workItem from="1634216528697" duration="24000" />
+      <workItem from="1634216565891" duration="6874000" />
+      <workItem from="1634319399132" duration="1108000" />
     </task>
     <servers />
   </component>

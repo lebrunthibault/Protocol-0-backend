@@ -32,7 +32,7 @@ class Config:
     PROCESS_LOGS = True
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
-    LAST_ERROR_STARTED_AT = None
+    LAST_ERROR_STARTED_AT: Optional[float] = None
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
         "light-yellow": ["P0 - dev", "P0 - debug"],
@@ -111,10 +111,11 @@ def _is_error(line: LogLine) -> bool:
     return Config.in_error()
 
 
-def _get_color(line: LogLine) -> str:
+def _get_color(line: LogLine) -> Optional[str]:
     for color, sub_strings in Config.COLOR_SCHEME.items():
         if line.has_patterns(sub_strings):
             return color
+    return None
 
 
 def get_line_observable_from_file(file: TextIO):

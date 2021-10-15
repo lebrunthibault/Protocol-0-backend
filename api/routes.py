@@ -1,12 +1,11 @@
 from api.midi_app import ping, pong
 from api.p0_script_api_client import p0_script_api_client
+from lib.ableton import reload_ableton, show_device_view
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
-from lib.window.ableton import show_device_view
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
-from scripts.commands.reload_ableton import reload_ableton
 from scripts.commands.sync_presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
 

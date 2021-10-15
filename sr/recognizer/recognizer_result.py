@@ -1,6 +1,7 @@
 import json
 from dataclasses import dataclass
 from enum import Enum
+from typing import Optional
 
 from lib.utils import filename_datetime
 from sr.audio.speech_sound import SpeechSound
@@ -12,8 +13,8 @@ from sr.sr_config import SRConfig
 @dataclass(frozen=True, repr=False)
 class RecognizerResult:
     speech_sound: SpeechSound
-    word: str = None
-    word_enum: Enum = None
+    word: Optional[str] = None
+    word_enum: Optional[Enum] = None
     error: AbstractRecognizerNotFoundError = None
 
     def __repr__(self):

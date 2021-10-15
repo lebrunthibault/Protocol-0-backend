@@ -5,7 +5,6 @@ import win32com.client
 import win32gui
 from loguru import logger
 
-from config import SystemConfig
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
 
 
@@ -46,17 +45,3 @@ def is_window_focused(handle: int) -> bool:
     if active_window_handle == 0:
         return False
     return handle == active_window_handle
-
-
-def focus_ableton() -> bool:
-    return focus_window(SystemConfig.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
-
-
-def is_ableton_up() -> bool:
-    return find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME) != 0
-
-
-def is_ableton_focused() -> bool:
-    ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
-    logs_handle = find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
-    return is_window_focused(ableton_handle) or is_window_focused(logs_handle)

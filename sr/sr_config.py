@@ -14,7 +14,6 @@ root = dirname(realpath(__file__))
 
 
 class SRConfig:
-    WINDOW_TITLE = "speech"
     DEBUG = False
     USE_GUI = True
     EXPORT_RESULTS = False

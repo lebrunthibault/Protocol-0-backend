@@ -4,9 +4,10 @@ from loguru import logger
 from rx import operators as op, Observable
 
 from api.p0_script_api_client import p0_script_api_client
+from config import SystemConfig
+from lib.ableton import is_ableton_focused
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
-from lib.window.window import is_ableton_up, is_ableton_focused
 from sr.audio.source.microphone import Microphone
 from sr.audio.speech_sound import get_speech_sounds_observable
 from sr.enums.speech_command_enum import SpeechCommandEnum
@@ -44,7 +45,7 @@ class StreamProvider:
 
 @log_exceptions
 def recognize_speech():
-    ctypes.windll.kernel32.SetConsoleTitleW(SRConfig.WINDOW_TITLE)
+    ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.SR_WINDOW_TITLE)
     stream_provider = StreamProvider()
 
     if SRConfig.EXPORT_RESULTS:

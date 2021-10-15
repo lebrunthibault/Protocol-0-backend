@@ -10,8 +10,7 @@ from loguru import logger
 
 from api.p0_script_api_client import p0_script_api_client
 from config import SystemConfig
-from lib.process import kill_window_by_criteria
-from lib.window.find_window import SearchTypeEnum
+from lib.terminal import kill_system_terminal_windows
 
 logger = logger.opt(colors=True)
 
@@ -46,7 +45,7 @@ def send_message_to_script(data: Dict) -> None:
 
 
 def start_midi_server():
-    kill_window_by_criteria(name=SystemConfig.MIDI_SERVER_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
+    kill_system_terminal_windows()
 
     pyautogui.hotkey('win', 'up')
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)

@@ -1,6 +1,6 @@
 from loguru import logger
 
-from lib.window.window import focus_window, focus_ableton
+from lib.ableton import focus_ableton
 from sr.enums.speech_command_enum import SpeechCommandEnum
 from sr.sr_config import SRConfig
 
@@ -20,7 +20,6 @@ def _pause_sr():
 speech_command_mapping = {
     SpeechCommandEnum.PROTOCOL: _activate_sr,
     SpeechCommandEnum.EXIT: _pause_sr,
-    SpeechCommandEnum.LOG: lambda: focus_window(name=SRConfig.WINDOW_TITLE),
     SpeechCommandEnum.MUSIC: focus_ableton,
 }
 

@@ -30,18 +30,22 @@ sdk_debug:
 	cls
 	cd sdk_generation/p0_script && openapi-generator generate -i openapi.yaml -g python-legacy -o api_client -t ../openapi_templates/via_midi/python_legacy --global-property debugOperations=true
 
-mypy:
+test:
 	cls
-	mypy .
+	pytest -s tests
 
 flake8:
 	cls
 	flake8 .
 
-test:
+mypy:
 	cls
-	pytest -s tests
+	mypy .
 
 vulture:
 	cls
 	vulture . .\vulture_whitelist.py
+
+check:
+	make flake8
+	make mypy

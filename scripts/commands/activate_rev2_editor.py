@@ -2,8 +2,8 @@ from enum import Enum
 from typing import Tuple
 
 from config import SystemConfig
+from lib.ableton import show_plugins
 from lib.click import click
-from lib.window.ableton import show_plugins
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import get_window_position, focus_window, is_window_focused
 

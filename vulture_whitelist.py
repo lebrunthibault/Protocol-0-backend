@@ -17,5 +17,10 @@ arrow_up  # unused function (C:\Users\thiba\google_drive\music\dev\protocol0_sys
 # noinspection PyUnresolvedReferences
 arrow_down  # unused function (C:\Users\thiba\google_drive\music\dev\protocol0_system\api\routes.py:47)
 # noinspection PyUnresolvedReferences
-
 hide_plugins  # unused function (C:\Users\thiba\google_drive\music\dev\protocol0_system\api\routes.py:40)
+# noinspection PyUnresolvedReferences
+restart_ableton  # unused function (C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\ableton.py:116)
+# noinspection PyUnresolvedReferences
+is_ableton_up  # unused function (C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\ableton.py:46)
+# noinspection PyUnresolvedReferences
+search_set_gui  # unused function (C:\Users\thiba\google_drive\music\dev\protocol0_system\scripts\commands\search_set_gui.py:57)
