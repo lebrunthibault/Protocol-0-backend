@@ -8,36 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/terminal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mypy.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/commands/logoff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/commands/logon.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/openapi_spec_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/openapi_spec_generation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/ableton.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/terminal.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/abstract_cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/abstract_cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/reload_ableton.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/restart_ableton.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/enums/speech_command_enum.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/enums/speech_command_enum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/mypy.ini" beforeDir="false" afterPath="$PROJECT_DIR$/sr/mypy.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/sr_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/sr_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vulture_whitelist.py" beforeDir="false" afterPath="$PROJECT_DIR$/vulture_whitelist.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -459,6 +433,8 @@
       <workItem from="1634216528697" duration="24000" />
       <workItem from="1634216565891" duration="6874000" />
       <workItem from="1634319399132" duration="1108000" />
+      <workItem from="1634321739659" duration="1035000" />
+      <workItem from="1634323605701" duration="347000" />
     </task>
     <servers />
   </component>

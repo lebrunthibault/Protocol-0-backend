@@ -10,6 +10,7 @@ from scripts.abstract_cli import cli
 from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
+from scripts.commands.logon import logon
 
 
 @cli.command(name="reload_ableton")
@@ -54,6 +55,11 @@ def command_pull_git_repos() -> None:
 @cli.command(name="midi")
 def command_midi_server() -> None:
     start_midi_server()
+
+
+@cli.command(name="logon")
+def command_logon() -> None:
+    logon()
 
 
 @cli.command(name="logoff")
