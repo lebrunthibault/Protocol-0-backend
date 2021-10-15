@@ -9,6 +9,7 @@ def logoff():
 
     kill_system_terminal_windows()
     kill_ableton()
+    # toto
 
 
 if __name__ == "__main__":
