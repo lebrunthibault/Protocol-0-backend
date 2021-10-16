@@ -3,7 +3,7 @@ import asyncclick as click
 from api.midi_app import start_midi_server
 from commands.sync_presets import sync_presets
 from config import SystemConfig
-from lib.ableton import reload_ableton, save_set_as_template
+from lib.ableton import reload_ableton, save_set_as_template, clear_arrangement
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
@@ -40,6 +40,11 @@ def command_tail_logs(raw: bool) -> None:
 @cli.command(name="save_set_as_template")
 def command_save_set_as_template() -> None:
     save_set_as_template()
+
+
+@cli.command(name="clear_arrangement")
+def command_clear_arrangement() -> None:
+    clear_arrangement()
 
 
 @cli.command(name="git_backup")

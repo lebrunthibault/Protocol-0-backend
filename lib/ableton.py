@@ -99,6 +99,14 @@ def save_set_as_template():
     send_keys("	{ESC}")
 
 
+def clear_arrangement():
+    click(x=968, y=348)  # click on File Folder
+    time.sleep(0.05)
+    send_keys("^a")
+    time.sleep(0.05)
+    send_keys("{BACKSPACE}")
+
+
 def kill_ableton():
     kill_window_by_criteria(name=SystemConfig.ABLETON_WINDOW_CLASS_NAME, search_type=SearchTypeEnum.WINDOW_CLASS_NAME)
 
