@@ -45,8 +45,10 @@ class RecognizerResult:
     def display_color(self) -> str:
         if self.error:
             return "#ea5852"  # red
-        elif self.is_activation_command:
+        elif self.word_enum == SpeechCommandEnum.EXIT:
             return "#8c982d"  # yellow
+        elif self.word_enum == SpeechCommandEnum.PROTOCOL:
+            return "#2d985c"  # green
         else:
             return "#2d985c"  # green
 

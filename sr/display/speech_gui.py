@@ -25,5 +25,5 @@ class SpeechGui(object):
 
     @classmethod
     def display_recognizer_result(cls, recognizer_result: RecognizerResult):
-        cls.display_message(message=str(recognizer_result), auto_close_duration=1 if recognizer_result.error else 0.5,
+        cls.display_message(message=str(recognizer_result), auto_close_duration=1 if recognizer_result.error else 1,
                             background_color=recognizer_result.display_color)

@@ -27,15 +27,16 @@ class StreamProvider:
         speech_stream = get_speech_sounds_observable(source=source)  # type: Observable
         rr_stream = speech_stream.pipe(
             op.map(recognizer.process_speech_sound),
-            # op.filter(lambda r: is_ableton_up()),
-            op.filter(lambda r: is_ableton_focused()),
             op.share()
         )
         rr_stream.subscribe(rx_nop, logger.exception)  # displays exceptions
 
         self.activation_command_stream, self.rr_stream = rr_stream.pipe(op.partition(lambda r: r.is_activation_command))
 
-        active_rr_stream = self.rr_stream.pipe(op.filter(lambda r: SRConfig.SR_ACTIVE))
+        active_rr_stream = self.rr_stream.pipe(
+            op.filter(lambda r: is_ableton_focused()),
+            op.filter(lambda r: SRConfig.SR_ACTIVE),
+        )
 
         self.rr_error_stream, self.command_stream = active_rr_stream.pipe(op.partition(lambda r: r.error))
         self.speech_command_stream, self.ableton_command_stream = self.command_stream.pipe(
@@ -55,6 +56,7 @@ def recognize_speech():
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
     stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_api_client.execute_command(str(res)))
 
+    logger.info("SRConfig.USE_GUI: %s" % SRConfig.USE_GUI)
     if SRConfig.USE_GUI:
         from sr.display.speech_gui import SpeechGui  # for performance
 
