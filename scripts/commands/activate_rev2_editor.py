@@ -12,7 +12,7 @@ class ButtonsRelativeCoordinates(Enum):
     """ These coordinates are relative to the plugin window == Mouse position relative from active_window.ahk """
     ACTIVATION = (784, 504)
     PROGRAM = (1067, 147)
-    PRESET_STAR_CATEGORY = (933, 320)
+    PRESET_STAR_CATEGORY = (861, 335)
 
 
 def _get_absolute_button_position(handle: int, window_coordinates: ButtonsRelativeCoordinates) -> Tuple[int, int]:
