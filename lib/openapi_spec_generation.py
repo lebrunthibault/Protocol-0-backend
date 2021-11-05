@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def generate_api_specs(title, methods_dict, out_folder, package_name):
-    # type: (str, Dict, str, str) -> None
+def generate_api_specs(title, classname, methods_dict, out_folder, package_name):
+    # type: (str, str, Dict, str, str) -> None
     methods = [getattr(cls, method_name) for method_name, cls in methods_dict.items()]
     spec = _generate_bare_spec(title=title)
 
@@ -30,7 +30,7 @@ def generate_api_specs(title, methods_dict, out_folder, package_name):
         logger.error(e)
         return
 
-    _write_to_file(folder_name=out_folder, spec=spec, package_name=package_name)
+    _write_to_file(folder_name=out_folder, spec=spec, package_name=package_name, classname=classname)
 
 
 def _generate_bare_spec(title):
@@ -116,10 +116,10 @@ def _get_parameters_dict_from_method(method):
         yield param
 
 
-def _write_to_file(folder_name, spec, package_name):
-    # type: (str, APISpec, str) -> None
+def _write_to_file(folder_name, spec, package_name, classname):
+    # type: (str, APISpec, str, str) -> None
     with open("%s/openapi.yaml" % folder_name, "w") as f:
         f.write(spec.to_yaml())
     with open("%s/openapi_config.json" % folder_name, "w") as f:
-        f.write(json.dumps({"packageName": package_name}))
+        f.write(json.dumps({"packageName": package_name, "custom_classname": classname}))
     logger.info("wrote spec files %s" % folder_name)

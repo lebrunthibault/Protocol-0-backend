@@ -71,14 +71,15 @@ def show_device_view() -> None:
 
 
 def reload_ableton() -> None:
-    focus_ableton()
-    time.sleep(0.5)
+    if not is_ableton_focused():
+        focus_ableton()
+        time.sleep(0.5)
     send_keys("^n")
-    send_keys("ctrl+n")
     send_keys("{Right}")
     send_keys("{Right}")
     send_keys("{Right}")
     send_keys("{Right}")
+    time.sleep(0.05)  # when clicking too fast, ableton is opening a template set ..
     send_keys("{Enter}")
     send_keys("{Enter}")
 

@@ -44,7 +44,8 @@ class Config:
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
-    CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
+    # CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
+    CLEAR_KEYWORDS = []
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
         "Python: INFO:root:\\d* - ",
