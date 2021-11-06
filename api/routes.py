@@ -1,6 +1,6 @@
 from api.midi_app import ping, pong
 from api.p0_script_api_client import p0_script_api_client
-from lib.ableton import reload_ableton, show_device_view, clear_arrangement
+from lib.ableton import reload_ableton, show_device_view, clear_arrangement, save_set
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
@@ -52,6 +52,9 @@ class Routes:
 
     def reload_ableton():
         reload_ableton()
+
+    def save_set():
+        save_set()
 
     def clear_arrangement():
         clear_arrangement()

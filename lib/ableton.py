@@ -84,6 +84,10 @@ def reload_ableton() -> None:
     send_keys("{Enter}")
 
 
+def save_set():
+    send_keys("^s")
+
+
 def save_set_as_template():
     # first possible position
     click(x=703, y=363)  # click on File Folder
