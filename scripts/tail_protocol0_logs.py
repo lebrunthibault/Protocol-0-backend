@@ -37,7 +37,7 @@ class Config:
     COLOR_SCHEME = {
         "light-yellow": ["P0 - dev", "P0 - debug"],
         "light-blue": ["P0 - notice"],
-        "magenta": ["P0 - warning"],
+        "cyan": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
     BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
@@ -153,8 +153,6 @@ def tail_ableton_log_file(raw: bool):
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.LOG_WINDOW_TITLE)
-
-    # clear_console()
 
     if Config.LOG_LEVEL == LogLevelEnum.INFO:
         Config.BLACK_LIST_KEYWORDS.append("P0 - debug")
