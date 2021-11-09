@@ -32,7 +32,6 @@ class Config:
     PROCESS_LOGS = True
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
-    LAST_ERROR_STARTED_AT: Optional[float] = None
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
         "light-yellow": ["P0 - dev", "P0 - debug"],
@@ -40,9 +39,10 @@ class Config:
         "cyan": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
-    BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript", "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
+    BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript",
+                           "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
-    ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack']
+    ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack', 'Link: Disabled', 'Push2.push2', 'MemoryUsage:']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
     CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
@@ -54,14 +54,22 @@ class Config:
         "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{6}\\:",
     ]
 
-    @classmethod
-    def in_error(cls):
-        return cls.LAST_ERROR_STARTED_AT is not None and time.time() - cls.LAST_ERROR_STARTED_AT > 0.01
-
 
 logger.remove()
 logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SS}</> {message}")
 logger.add(f"{SystemConfig.LOGGING_DIRECTORY}\\logs.log", level="DEBUG")
+
+
+class ErrorState():
+    LAST_ERROR_STARTED_AT: Optional[float] = None
+
+    @classmethod
+    def in_error(cls):
+        return cls.LAST_ERROR_STARTED_AT is not None and time.time() - cls.LAST_ERROR_STARTED_AT > 0.01
+
+    @classmethod
+    def reset(cls):
+        cls.LAST_ERROR_STARTED_AT = None
 
 
 @dataclass(frozen=True)
@@ -101,14 +109,15 @@ def _filter_line(line: LogLine) -> bool:
 
 def _is_error(line: LogLine) -> bool:
     if line.has_patterns(Config.ERROR_KEYWORDS) and not line.has_patterns(Config.ERROR_NON_KEYWORDS):
-        Config.LAST_ERROR_STARTED_AT = time.time()
+        ErrorState.LAST_ERROR_STARTED_AT = time.time()
         focus_window(SystemConfig.LOG_WINDOW_TITLE)
         return True
 
-    if not _get_clean_line(line.line).startswith(" "):
-        Config.LAST_ERROR_STARTED_AT = None
+    if not _get_clean_line(line.line).startswith(" ") or line.has_patterns(Config.ERROR_NON_KEYWORDS):
+        ErrorState.reset()
+        return False
 
-    return Config.in_error()
+    return ErrorState.in_error()
 
 
 def _get_color(line: LogLine) -> Optional[str]:
