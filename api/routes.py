@@ -1,8 +1,11 @@
+from typing import Optional
+
 from api.midi_app import ping, pong
 from api.p0_script_api_client import p0_script_api_client
 from lib.ableton import reload_ableton, show_device_view, clear_arrangement, save_set
 from lib.click import pixel_has_color, click
 from lib.keys import send_keys
+from lib.profiling import AbletonSetProfiler
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
@@ -76,3 +79,9 @@ class Routes:
 
     def sync_presets() -> None:
         sync_presets()
+
+    def store_ableton_set_reloaded_at() -> None:
+        AbletonSetProfiler.store_set_reloaded_at()
+
+    def display_last_ableton_set_duration() -> None:
+        AbletonSetProfiler.display_last_ableton_set_duration()

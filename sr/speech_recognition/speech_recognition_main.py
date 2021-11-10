@@ -54,7 +54,7 @@ def recognize_speech():
 
     stream_provider.activation_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))  # always active
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
-    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_api_client.execute_command(str(res)))
+    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_api_client.execute_vocal_command(str(res)))
 
     logger.info("SRConfig.USE_GUI: %s" % SRConfig.USE_GUI)
     if SRConfig.USE_GUI:
