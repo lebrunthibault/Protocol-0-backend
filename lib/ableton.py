@@ -1,4 +1,3 @@
-import shutil
 import subprocess
 import time
 from dataclasses import dataclass
@@ -13,7 +12,6 @@ from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 from lib.enum.PixelEnum import PixelEnum
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
-from lib.utils import unlink_if_exists
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
 
@@ -50,8 +48,10 @@ def is_ableton_up() -> bool:
 
 def is_ableton_focused() -> bool:
     ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
+    if is_window_focused(ableton_handle):
+        return True
     logs_handle = find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
-    return is_window_focused(ableton_handle) or is_window_focused(logs_handle)
+    return is_window_focused(logs_handle)
 
 
 def show_plugins() -> None:

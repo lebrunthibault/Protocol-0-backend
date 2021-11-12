@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from PySimpleGUI import WIN_CLOSED
 from loguru import logger
 
-from api.p0_script_api_client import p0_script_api_client
+from api.p0_script_api_client import protocol0
 from lib.ableton import focus_ableton
 from lib.window.window import focus_window
 
@@ -14,7 +14,7 @@ RELOAD_ON_STARTUP = False
 def send_search(search):
     # type: (str) -> None
     logger.info(f"sending search {search} to api")
-    p0_script_api_client.search_track(search=search)
+    protocol0.search_track(search=search)
 
 
 def create_gui():

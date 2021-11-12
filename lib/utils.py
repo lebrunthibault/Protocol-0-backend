@@ -1,3 +1,4 @@
+import subprocess
 import time
 from pathlib import Path
 
@@ -14,3 +15,7 @@ def unlink_if_exists(path: Path):
             path.unlink()
         except PermissionError as e:
             logger.error(e)
+
+
+def copy_to_clipboard(data: str):
+    subprocess.run("clip", universal_newlines=True, input=data)

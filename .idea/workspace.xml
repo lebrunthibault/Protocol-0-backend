@@ -7,7 +7,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/profiling.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,11 +120,11 @@
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\ableton_set_profiling" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\lib" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\recognizer" />
       <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sdk_generation\p0_script" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.reload ahk">
@@ -448,6 +462,8 @@
       <workItem from="1636500408769" duration="3000" />
       <workItem from="1636501962122" duration="3134000" />
       <workItem from="1636719871245" duration="599000" />
+      <workItem from="1636728551195" duration="11000" />
+      <workItem from="1636738415407" duration="4729000" />
     </task>
     <servers />
   </component>

@@ -22,11 +22,11 @@ def click(x: int, y: int, double_click: bool = False, back_to_previous_position:
 def get_pixel_color(x: int, y: int) -> Tuple[int, int, int]:
     image = ImageGrab.grab()
     pixel_color = image.getpixel((x, y))
-    logger.info("pixel_color: %s" % InterfaceColorEnum.get_string_from_tuple(pixel_color))
+    logger.debug("pixel_color: %s" % InterfaceColorEnum.get_string_from_tuple(pixel_color))
     return pixel_color
 
 
 def pixel_has_color(x: int, y: int, color: str) -> bool:
     res = InterfaceColorEnum.get_tuple_from_string(color) == get_pixel_color(x, y)
-    logger.info("pixel_has_color -> x: %s, y: %s, color: %s, res: %s" % (x, y, color, res))
+    logger.debug("pixel_has_color -> x: %s, y: %s, color: %s, res: %s" % (x, y, color, res))
     return res

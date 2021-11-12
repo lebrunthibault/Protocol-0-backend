@@ -8,7 +8,7 @@ import mido
 import pyautogui
 from loguru import logger
 
-from api.p0_script_api_client import p0_script_api_client
+from api.p0_script_api_client import protocol0
 from config import SystemConfig
 from lib.terminal import kill_system_terminal_windows
 
@@ -22,7 +22,7 @@ class MidiCheckState:
 
 
 def ping():
-    p0_script_api_client.ping()
+    protocol0.ping()
     if MidiCheckState.TIMER:
         MidiCheckState.TIMER.cancel()
     MidiCheckState.TIMER = Timer(1.0, lambda: logger.error("Expected pong, Protocol0Midi is not loaded"))
@@ -58,7 +58,7 @@ def start_midi_server():
             if not payload:
                 continue
             method_object = getattr(Routes, payload["method"])
-            logger.info(f"calling <green>{method_object.__name__}</> with args {payload['args']}")
+            logger.debug(f"called <green>{method_object.__name__}</> with args {payload['args']}")
             method_object(**payload["args"])
 
 
@@ -84,7 +84,7 @@ def get_real_midi_port_name(port_name_prefix: str, ports):
 def _make_sysex_message_from_dict(data: Dict) -> mido.Message:
     assert isinstance(data, Dict)
     message = json.dumps(data)
-    logger.info(f"Sending string to System midi output : <magenta>{message}</>")
+    logger.debug(f"Sending string to System midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
     b.insert(0, 0xF0)
     b.append(0xF7)
@@ -98,7 +98,7 @@ def _make_dict_from_sysex_message(message: mido.Message) -> Optional[Dict]:
     string = message.bin()[1:-1].decode("utf-8")  # type: str
     if not string.startswith("{"):
         return None
-    logger.info(f"Received string <blue>{string}</>")
+    logger.debug(f"Received string <blue>{string}</>")
     try:
         return json.loads(string)
     except JSONDecodeError:

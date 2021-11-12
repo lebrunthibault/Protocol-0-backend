@@ -32,7 +32,7 @@ def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str
 
     logger.enable(__name__)
     if not handle:
-        logger.info(
+        logger.debug(
             f"{name} - {search_type} : Window handle not found {handle}")
 
     return handle
