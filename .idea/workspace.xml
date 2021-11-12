@@ -7,11 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/profiling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -451,6 +447,7 @@
       <workItem from="1636417142600" duration="21000" />
       <workItem from="1636500408769" duration="3000" />
       <workItem from="1636501962122" duration="3134000" />
+      <workItem from="1636719871245" duration="599000" />
     </task>
     <servers />
   </component>
