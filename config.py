@@ -15,5 +15,6 @@ class SystemConfig:
     # Midi port names are relative to the Protocol0 script and not this midi backend
     P0_OUTPUT_PORT_NAME = 'P0_OUT'
     P0_INPUT_PORT_NAME = 'P0_IN'
+    P0_SYSTEM_LOOPBACK_NAME = 'P0_SYSTEM_LOOPBACK'
     MIDI_SERVER_WINDOW_TITLE = "midi_server"
     SR_WINDOW_TITLE = "speech"

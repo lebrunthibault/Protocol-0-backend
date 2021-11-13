@@ -1,13 +1,14 @@
 import asyncclick as click
 
-from api.midi_app import start_midi_server
+from api.midi_app import start_midi_server, call_system_method
 from commands.sync_presets import sync_presets
 from config import SystemConfig
-from lib.ableton import reload_ableton, save_set_as_template, clear_arrangement
+from lib.ableton import save_set_as_template, clear_arrangement
+# from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
+from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
-from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
@@ -15,7 +16,7 @@ from scripts.commands.logon import logon
 
 @cli.command(name="reload_ableton")
 def command_reload_ableton() -> None:
-    reload_ableton()
+    call_system_method(AbletonSetProfiler.start_profiling_single_measurement)
 
 
 @cli.command(name="focus_window")
@@ -74,7 +75,7 @@ def command_logoff() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    activate_rev2_editor()
+    print("test")
 
 
 if __name__ == "__main__":

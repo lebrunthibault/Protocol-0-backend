@@ -8,10 +8,10 @@ from pyaudio import Stream
 from pydub import AudioSegment
 from rx import Observable
 
-from sr.audio.recording_config import RecordingConfig
-from sr.audio.source.audio_source_interface import AudioSourceInterface
 # noinspection PyBroadException
 from lib.rx import rx_obs_from_async_iterable
+from sr.audio.recording_config import RecordingConfig
+from sr.audio.source.audio_source_interface import AudioSourceInterface
 
 
 class Microphone(AudioSourceInterface):

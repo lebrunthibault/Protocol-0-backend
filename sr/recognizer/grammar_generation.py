@@ -1,6 +1,7 @@
 import subprocess
 
 from loguru import logger
+
 from sr.sr_config import SRConfig
 
 logger = logger.opt(colors=True)

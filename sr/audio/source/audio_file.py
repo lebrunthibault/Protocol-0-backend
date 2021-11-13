@@ -4,6 +4,7 @@ from pydub import AudioSegment
 from rx import create, Observable
 from rx.disposable import Disposable
 from rx.subject import ReplaySubject
+
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.source.audio_source_interface import AudioSourceInterface
 

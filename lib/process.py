@@ -3,9 +3,8 @@ import subprocess
 import sys
 
 import win32process
-from psutil import Process, NoSuchProcess
 from loguru import logger
-
+from psutil import Process, NoSuchProcess
 
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 

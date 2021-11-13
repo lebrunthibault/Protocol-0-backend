@@ -9,10 +9,10 @@ from pydub import AudioSegment
 from rx import operators as op, create
 from rx.core.typing import Observable
 
+from lib.rx import rx_debug
 from sr.audio.recording_config import RecordingConfig
 from sr.audio.sound_mixin import SoundMixin
 from sr.audio.source.audio_source_interface import AudioSourceInterface
-from lib.rx import rx_debug
 
 logger = logger.opt(colors=True)
 

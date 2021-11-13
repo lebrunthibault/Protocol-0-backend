@@ -16,5 +16,5 @@ __version__ = "{{packageVersion}}"
 {{/model}}{{/models}}
 {{#recursionLimit}}
 
-__import__('sys').setrecursionlimit({{{.}}})
+    __import__('sys').setrecursionlimit({{{.}}})
 {{/recursionLimit}}

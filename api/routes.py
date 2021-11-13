@@ -1,9 +1,10 @@
-from api.midi_app import ping, pong
+from api.midi_app import notify_protocol0_midi_up
 from api.p0_script_api_client import protocol0
 from lib.ableton import reload_ableton, show_device_view, clear_arrangement, save_set
-from lib.click import pixel_has_color, click
-from lib.keys import send_keys
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
+from lib.click import pixel_has_color, click
+from lib.decorators import reset_midi_client
+from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
@@ -13,11 +14,15 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 
 # noinspection PyMethodParameters
 class Routes:
-    def ping() -> None:
-        ping()
+    def test() -> None:
+        protocol0.show_message("fast")
 
-    def pong() -> None:
-        pong()
+    @reset_midi_client
+    def ping() -> None:
+        protocol0.ping()
+
+    def notify_protocol0_midi_up() -> None:
+        notify_protocol0_midi_up()
 
     def click(x: int, y: int) -> None:
         click(x=x, y=y)
@@ -84,5 +89,6 @@ class Routes:
     def start_profiling_single_measurement() -> None:
         AbletonSetProfiler.start_profiling_single_measurement()
 
+    @reset_midi_client
     def end_measurement() -> None:
         AbletonSetProfiler.end_measurement()

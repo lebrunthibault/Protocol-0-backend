@@ -1,5 +1,6 @@
 import ctypes
 import json
+import time
 from json import JSONDecodeError
 from threading import Timer
 from typing import Dict, Optional
@@ -7,6 +8,7 @@ from typing import Dict, Optional
 import mido
 import pyautogui
 from loguru import logger
+from mido import Message
 
 from api.p0_script_api_client import protocol0
 from config import SystemConfig
@@ -14,52 +16,70 @@ from lib.terminal import kill_system_terminal_windows
 
 logger = logger.opt(colors=True)
 
-DEBUG = False
+DEBUG = True
 
 
 class MidiCheckState:
     TIMER: Optional[Timer] = None
 
 
-def ping():
-    protocol0.ping()
-    if MidiCheckState.TIMER:
-        MidiCheckState.TIMER.cancel()
-    MidiCheckState.TIMER = Timer(1.0, lambda: logger.error("Expected pong, Protocol0Midi is not loaded"))
-    MidiCheckState.TIMER.start()
-
-
-def pong():
+def notify_protocol0_midi_up():
     if MidiCheckState.TIMER:
         MidiCheckState.TIMER.cancel()
         MidiCheckState.TIMER = None
+    time.sleep(0.05)  # time protocol0Midi is really up for midi
+    protocol0.set_live()
 
 
 def send_message_to_script(data: Dict) -> None:
     # noinspection PyUnresolvedReferences
     with mido.open_output(get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
         msg = _make_sysex_message_from_dict(data=data)
-        midi_port.send(msg)
         if DEBUG:
-            logger.info(f"sent msg to p0: {msg}")
+            logger.info(f"sending msg to p0: {data}")
+        midi_port.send(msg)
+
+
+def call_system_method(func: callable, **args) -> None:
+    # noinspection PyUnresolvedReferences
+    message = {
+        "method": f"{func.__name__}",
+        "args": args
+    }
+    out_port = get_output_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME)
+    with mido.open_output(out_port, autoreset=False) as midi_port:
+        msg = _make_sysex_message_from_dict(data=message)
+        midi_port.send(msg)
+        logger.info(f"sent msg to p0_system via P0_SYSTEM_LOOPBACK: {msg}")
 
 
 def start_midi_server():
     kill_system_terminal_windows()
-
     pyautogui.hotkey('win', 'up')
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
-    from api.routes import Routes
 
-    with mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False) as midi_port:
-        logger.info(f"Midi server listening on {midi_port}")
-        for message in midi_port:
-            payload = _make_dict_from_sysex_message(message=message)
-            if not payload:
-                continue
-            method_object = getattr(Routes, payload["method"])
-            logger.debug(f"called <green>{method_object.__name__}</> with args {payload['args']}")
-            method_object(**payload["args"])
+    midi_port_system_loopback = mido.open_input(get_input_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME), autoreset=False)
+    midi_port_output = mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False)
+
+    logger.info(f"Midi server listening on {midi_port_system_loopback} and {midi_port_output}")
+
+    while True:
+        for msg1 in midi_port_output.iter_pending():
+            _execute_midi_message(message=msg1)
+
+        for msg in midi_port_system_loopback.iter_pending():
+            _execute_midi_message(message=msg)
+
+
+def _execute_midi_message(message: Message):
+    from api.routes import Routes
+    payload = _make_dict_from_sysex_message(message=message)
+    if not payload:
+        return
+    logger.debug(f"got payload {payload}")
+    method_object = getattr(Routes, payload["method"])
+    logger.info(f"received API call <green>{method_object.__name__}</> with args {payload['args']}")
+    method_object(**payload["args"])
 
 
 def get_output_port(port_name_prefix: str):
@@ -74,8 +94,6 @@ def get_real_midi_port_name(port_name_prefix: str, ports):
     # noinspection PyUnresolvedReferences
     for port_name in ports:
         if port_name_prefix in port_name:
-            if DEBUG:
-                logger.info(f"ready to open : {port_name}")
             return port_name
 
     raise Exception(f"couldn't find {port_name_prefix} port")

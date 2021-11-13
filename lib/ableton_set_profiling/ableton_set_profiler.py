@@ -1,10 +1,11 @@
 from typing import Optional
 
+from loguru import logger
+
 from api.p0_script_api_client import protocol0
 from config import SystemConfig
 from lib.ableton_set_profiling.ableton_set_profiling_session import AbletonSetProfilingSession
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
-from loguru import logger
 
 
 class AbletonSetProfiler():
@@ -25,8 +26,8 @@ class AbletonSetProfiler():
         return True
 
     @classmethod
-    def start_set_profiling(cls, number_of_tests=None):
-        if not cls.check_profiling_conditions():
+    def start_set_profiling(cls, number_of_tests=None, check_profiling_conditions=True):
+        if check_profiling_conditions and not cls.check_profiling_conditions():
             return
         cls.current_profiling_session = AbletonSetProfilingSession(
             number_of_tests=number_of_tests or cls.NUMBER_OF_TESTS)
@@ -34,7 +35,7 @@ class AbletonSetProfiler():
 
     @classmethod
     def start_profiling_single_measurement(cls):
-        cls.start_set_profiling(number_of_tests=1)
+        cls.start_set_profiling(number_of_tests=1, check_profiling_conditions=False)
 
     @classmethod
     def end_measurement(cls):
@@ -42,3 +43,5 @@ class AbletonSetProfiler():
             protocol0.show_message("No active profiling session")
             return
         cls.current_profiling_session.end_measurement()
+        if cls.current_profiling_session._is_finished:
+            cls.current_profiling_session = None

@@ -42,7 +42,8 @@ class Config:
     BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript",
                            "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
-    ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack', 'Link: Disabled', 'Push2.push2', 'MemoryUsage:']
+    ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack', 'Link: Disabled', 'Push2.push2',
+                          'MemoryUsage:']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception"]
     CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
