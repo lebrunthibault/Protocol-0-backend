@@ -7,21 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/keys.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/keys.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/profiling.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/find_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/find_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -463,7 +449,8 @@
       <workItem from="1636501962122" duration="3134000" />
       <workItem from="1636719871245" duration="599000" />
       <workItem from="1636728551195" duration="11000" />
-      <workItem from="1636738415407" duration="4729000" />
+      <workItem from="1636738415407" duration="5281000" />
+      <workItem from="1636748279316" duration="2717000" />
     </task>
     <servers />
   </component>
