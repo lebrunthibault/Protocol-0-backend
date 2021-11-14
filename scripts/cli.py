@@ -1,6 +1,8 @@
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
+from api.p0_script_api_client import protocol0
+from api.routes import Routes
 from commands.sync_presets import sync_presets
 from config import SystemConfig
 from lib.ableton import save_set_as_template, clear_arrangement
@@ -40,7 +42,7 @@ def command_tail_logs(raw: bool) -> None:
 
 @cli.command(name="save_set_as_template")
 def command_save_set_as_template() -> None:
-    save_set_as_template()
+    call_system_method(save_set_as_template)
 
 
 @cli.command(name="clear_arrangement")

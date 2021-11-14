@@ -1,8 +1,8 @@
 from api.midi_app import notify_protocol0_midi_up
 from api.p0_script_api_client import protocol0
-from lib.ableton import reload_ableton, clear_arrangement, save_set
+from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
-from lib.click import pixel_has_color, click
+from lib.click import click
 from lib.decorators import reset_midi_client
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
@@ -55,6 +55,9 @@ class Routes:
 
     def save_set():
         save_set()
+
+    def save_set_as_template():
+        save_set_as_template()
 
     def clear_arrangement():
         clear_arrangement()

@@ -12,6 +12,7 @@ from mido import Message
 
 from api.p0_script_api_client import protocol0
 from config import SystemConfig
+from lib.ableton import is_ableton_up
 from lib.terminal import kill_system_terminal_windows
 
 logger = logger.opt(colors=True)
@@ -57,6 +58,9 @@ def start_midi_server():
     kill_system_terminal_windows()
     pyautogui.hotkey('win', 'up')
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
+
+    if is_ableton_up():
+        protocol0.set_live()
 
     midi_port_system_loopback = mido.open_input(get_input_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME), autoreset=False)
     midi_port_output = mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False)
