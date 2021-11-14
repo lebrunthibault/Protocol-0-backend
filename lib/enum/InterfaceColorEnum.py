@@ -11,7 +11,7 @@ class InterfaceColorEnum(Enum):
     @classmethod
     def get_string_from_tuple(cls, color):
         # type: (Tuple[int, int, int]) -> str
-        return "".join(str(hex(code).replace("0x", "")) for code in color)
+        return "".join(str(hex(code).replace("0x", "").upper()) for code in color)
 
     def get_tuple(self):
         # type: () -> Tuple[int, int, int]
@@ -19,4 +19,5 @@ class InterfaceColorEnum(Enum):
 
     ACTIVATED = "FFA608"
     DEACTIVATED = "2D2D2D"
-    SEPARATOR = "5F5F5F"
+    SEPARATOR = "4B4B4B"
+    # SEPARATOR = "5F5F5F"

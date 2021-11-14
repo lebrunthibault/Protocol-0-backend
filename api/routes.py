@@ -1,6 +1,6 @@
 from api.midi_app import notify_protocol0_midi_up
 from api.p0_script_api_client import protocol0
-from lib.ableton import reload_ableton, show_device_view, clear_arrangement, save_set
+from lib.ableton import reload_ableton, clear_arrangement, save_set
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.click import pixel_has_color, click
 from lib.decorators import reset_midi_client
@@ -29,12 +29,6 @@ class Routes:
 
     def double_click(x: int, y: int) -> None:
         click(x=x, y=y, double_click=True)
-
-    def pixel_has_color(x: int, y: int, color: str) -> None:
-        pixel_has_color(x=x, y=y, color=color)
-
-    def show_device_view() -> None:
-        show_device_view()
 
     def show_plugins() -> None:
         if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
