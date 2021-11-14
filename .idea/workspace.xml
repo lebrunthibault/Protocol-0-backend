@@ -8,30 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/__init__package.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/configuration.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/configuration.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/short_sound.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/short_sound.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/source/audio_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/audio_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/audio/source/microphone.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/audio/source/microphone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/grammar_generation.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +69,7 @@
     <setting file="file://$PROJECT_DIR$/.editorconfig" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/p0_script_api/api/default_api.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/sr_config.py" root0="FORCE_HIGHLIGHTING" />
@@ -484,7 +463,8 @@
       <workItem from="1636738415407" duration="5281000" />
       <workItem from="1636748279316" duration="4104000" />
       <workItem from="1636801104780" duration="5347000" />
-      <workItem from="1636808905223" duration="5681000" />
+      <workItem from="1636808905223" duration="5835000" />
+      <workItem from="1636815740975" duration="1836000" />
     </task>
     <servers />
   </component>
