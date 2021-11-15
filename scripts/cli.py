@@ -1,12 +1,9 @@
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
-from api.p0_script_api_client import protocol0
-from api.routes import Routes
 from commands.sync_presets import sync_presets
 from config import SystemConfig
 from lib.ableton import save_set_as_template, clear_arrangement
-# from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window

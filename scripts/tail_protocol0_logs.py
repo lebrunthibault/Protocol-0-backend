@@ -16,11 +16,14 @@ from config import SystemConfig
 from lib.console import clear_console
 from lib.decorators import log_exceptions
 from lib.process import kill_window_by_criteria
-from lib.rx import rx_error
+from lib.rx import rx_error, rx_nop
 from lib.window.find_window import SearchTypeEnum
 from lib.window.window import focus_window
 
 logger = logger.opt(colors=True)
+logger.remove()
+logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SS}</> {message}")
+logger.add(f"{SystemConfig.LOGGING_DIRECTORY}\\logs.log", level="ERROR")
 
 
 class LogLevelEnum(Enum):
@@ -54,11 +57,6 @@ class Config:
         "RemoteScriptMessage: ",
         "\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{6}\\:",
     ]
-
-
-logger.remove()
-logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SS}</> {message}")
-logger.add(f"{SystemConfig.LOGGING_DIRECTORY}\\logs.log", level="DEBUG")
 
 
 class ErrorState():
@@ -184,6 +182,7 @@ def tail_ableton_log_file(raw: bool):
     with open(Config.LOG_FILENAME, 'r') as file:
         log_obs = get_line_observable_from_file(file)
         log_obs.pipe(*pipes).subscribe(logger.info, rx_error)
+        log_obs.pipe(*pipes).subscribe(rx_nop, logger.error)
 
 
 if __name__ == '__main__':
