@@ -22,7 +22,6 @@ class {{custom_classname}}(object):
         b.insert(0, 0xF0)
         b.append(0xF7)
         from protocol0 import Protocol0
-        # Protocol0.SELF.log_dev("Sending string to Protocol0 midi output : %s" % message)
         Protocol0.SELF._send_midi(tuple(b))
 
 {{#operation}}
