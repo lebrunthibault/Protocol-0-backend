@@ -8,6 +8,7 @@ import time
 from typing import Any, List, Dict
 from loguru import logger
 
+
 {{#operations}}
 # noinspection Mypy,DuplicatedCode
 class {{custom_classname}}(object):
@@ -16,18 +17,9 @@ class {{custom_classname}}(object):
 
     Do not edit the class manually.
     """
-    IS_LIVE = False
-    AWAITING_MESSAGES: List[Dict] = []
 
-    def set_live(self):
-        self.IS_LIVE = True
-        from api.midi_app import send_message_to_script
-
-        for message in self.AWAITING_MESSAGES:
-            logger.info(f"sending awaiting message {message}")
-            send_message_to_script(message)
-        self.AWAITING_MESSAGES = []
-
+    def __init__(self, message_sender):
+        self.message_sender = message_sender
 
 {{#operation}}
 
@@ -53,13 +45,7 @@ class {{custom_classname}}(object):
             }
         }
 
-        if not self.IS_LIVE:
-            logger.info(f"client is not live, storing message {message}")
-            self.AWAITING_MESSAGES.append(message)
-            return
-
-        from api.midi_app import send_message_to_script
-        send_message_to_script(message)
+        self.message_sender.send_message(message=message)
 
 
 {{/operation}}

@@ -56,6 +56,7 @@ def show_plugins() -> None:
     if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
         keyboard.press_and_release('ctrl+alt+p')
 
+
 def reload_ableton() -> None:
     if not is_ableton_focused():
         focus_ableton()
