@@ -56,8 +56,6 @@ def recognize_speech():
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
     stream_provider.ableton_command_stream.subscribe(lambda res: protocol0.execute_vocal_command(str(res)))
 
-    logger.info("SRConfig.USE_GUI: %s" % SRConfig.USE_GUI)
     if SRConfig.USE_GUI:
-        from sr.display.speech_gui import SpeechGui  # for performance
-
-        stream_provider.displayable_stream.subscribe(SpeechGui.display_recognizer_result, logger.exception)
+        from sr.display.speech_gui import display_recognizer_result
+        stream_provider.displayable_stream.subscribe(display_recognizer_result, logger.exception)

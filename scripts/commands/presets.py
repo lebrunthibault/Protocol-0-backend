@@ -3,6 +3,9 @@ from typing import Generator, Any
 
 from loguru import logger
 
+from api.p0_script_api_client import protocol0
+from gui.gui import show_dialog
+
 SERUM_PRESET_DIRECTORY = "C:\\Users\\thiba\\OneDrive\\Documents\\Xfer\\Serum Presets\\"
 
 
@@ -36,3 +39,9 @@ class SerumPresetSynchronizer:
 
 def sync_presets() -> str:
     return SerumPresetSynchronizer.synchronize()
+
+
+def show_protected_mode_dialog():
+    def on_success():
+        protocol0.deactivate_protected_mode()
+    show_dialog("Protected mode active", "Disable", on_success)

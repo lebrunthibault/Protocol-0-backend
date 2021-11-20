@@ -46,7 +46,7 @@ class Config:
                            "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack', 'Link: Disabled', 'Push2.push2',
-                          'MemoryUsage:']
+                          'MemoryUsage:', 'VST 2.4']
     ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception", "VST3 presets with unknown device type found"]
     CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
@@ -79,7 +79,7 @@ class LogLine:
 
     def __str__(self):
         color = "red" if self.is_error else (self.color or "white")
-        return f"<{color}>{self.line}</>"
+        return f"<{color}>{self.line}</{color}>"
 
     def has_patterns(self, patterns: List[str]):
         return any(re.search(pattern.lower(), self.line.lower()) for pattern in patterns)
