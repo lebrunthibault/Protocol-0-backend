@@ -7,7 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -471,6 +474,8 @@
       <workItem from="1637338440311" duration="599000" />
       <workItem from="1637421449074" duration="35000" />
       <workItem from="1637421672149" duration="6324000" />
+      <workItem from="1637589843134" duration="105000" />
+      <workItem from="1637603585173" duration="158000" />
     </task>
     <servers />
   </component>

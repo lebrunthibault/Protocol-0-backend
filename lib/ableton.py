@@ -12,6 +12,7 @@ from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
+from loguru import logger
 
 
 @dataclass(frozen=True)
@@ -46,8 +47,10 @@ def is_ableton_up() -> bool:
 
 def is_ableton_focused() -> bool:
     ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
-    if is_window_focused(ableton_handle):
-        return True
+    return is_window_focused(ableton_handle)
+
+
+def are_logs_focused() -> bool:
     logs_handle = find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
     return is_window_focused(logs_handle)
 

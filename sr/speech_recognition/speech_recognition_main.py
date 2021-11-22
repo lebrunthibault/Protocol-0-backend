@@ -5,7 +5,7 @@ from rx import operators as op, Observable
 
 from api.p0_script_api_client import protocol0
 from config import SystemConfig
-from lib.ableton import is_ableton_focused
+from lib.ableton import is_ableton_focused, are_logs_focused
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
 from sr.audio.source.microphone import Microphone
@@ -34,7 +34,7 @@ class StreamProvider:
         self.activation_command_stream, self.rr_stream = rr_stream.pipe(op.partition(lambda r: r.is_activation_command))
 
         active_rr_stream = self.rr_stream.pipe(
-            op.filter(lambda r: is_ableton_focused()),
+            op.filter(lambda r: is_ableton_focused() or are_logs_focused()),
             op.filter(lambda r: SRConfig.SR_ACTIVE),
         )
 
