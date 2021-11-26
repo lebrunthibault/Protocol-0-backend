@@ -1,16 +1,18 @@
 from api.midi_app import notify_protocol0_midi_up
 from api.p0_script_api_client import protocol0
-from gui.gui import show_message
+from gui.gui import show_prompt
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.click import click
 from lib.decorators import reset_midi_client
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
-from scripts.commands.presets import sync_presets, show_protected_mode_dialog
+from scripts.commands.presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
+from loguru import logger
 
 
 # noinspection PyMethodParameters
@@ -91,5 +93,9 @@ class Routes:
     def end_measurement() -> None:
         AbletonSetProfiler.end_measurement()
 
-    def show_protected_mode_dialog() -> None:
-        show_protected_mode_dialog()
+    def prompt(question: str):
+        res = show_prompt(question)
+        if res is None:
+            return
+        else:
+            protocol0.system_response(res)

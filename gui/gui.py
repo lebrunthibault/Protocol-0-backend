@@ -1,4 +1,5 @@
-import time
+from loguru import logger
+from protocol0.errors.Protocol0Error import Protocol0Error
 
 from lib.decorators import throttle
 
@@ -6,8 +7,6 @@ CHAR_DURATION = 0.05
 import PySimpleGUI as sg
 import pyautogui
 from PySimpleGUI import POPUP_BUTTONS_NO_BUTTONS
-
-from loguru import logger
 
 
 class GuiState():
@@ -32,18 +31,17 @@ def show_message(message: str, auto_close_duration=None, background_color=None):
 
 
 @throttle(milliseconds=100)
-def show_dialog(message: str, button_label: str, on_success: callable, background_color=None):
-    print(GuiState.HAS_DIALOG)
-    print(time.time())
+def show_prompt(question: str) -> bool:
+    logger.info(GuiState.HAS_DIALOG)
     if GuiState.HAS_DIALOG:
-        logger.error("a dialog is already shown")
-        return
+        raise Protocol0Error("a dialog is already shown")
 
     GuiState.HAS_DIALOG = True
+    ok = False
     layout = [
-        [sg.Text(message, key="text")],
+        [sg.Text(question, key="question")],
         [sg.Input(key="input", visible=False)],
-        [sg.Button(button_label, key="button")],
+        [sg.Button("ok", key="ok")],
     ]
     window = sg.Window(
         "Dialog Window",
@@ -60,9 +58,10 @@ def show_dialog(message: str, button_label: str, on_success: callable, backgroun
         if event == "Exit" or event == sg.WIN_CLOSED or event.split(":")[0] == "Escape":
             break
 
-        if event == "button" or (len(event) == 1 and ord(event) == 13):
-            on_success()
+        if event == "ok" or (len(event) == 1 and ord(event) == 13):
+            ok = True
             break
 
     window.close()
     GuiState.HAS_DIALOG = False
+    return ok
