@@ -1,8 +1,7 @@
-from time import sleep
 from typing import List, Dict
 
-from p0_script_api import P0ScriptAPI
 from loguru import logger
+from p0_script_api import P0ScriptAPI
 
 
 class APIMessageSender():

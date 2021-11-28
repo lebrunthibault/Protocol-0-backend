@@ -1,3 +1,5 @@
+import time
+
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
@@ -11,6 +13,7 @@ from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
+from scripts.tail_protocol0_logs import tail_ableton_log_file
 
 
 @cli.command(name="reload_ableton")

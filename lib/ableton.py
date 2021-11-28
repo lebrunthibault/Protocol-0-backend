@@ -12,7 +12,6 @@ from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
-from loguru import logger
 
 
 @dataclass(frozen=True)
@@ -78,9 +77,12 @@ def save_set():
     send_keys("^s")
 
 
-def save_set_as_template():
+def save_set_as_template(open_pref=False):
     protocol0.reset_song()
-    time.sleep(0.01)
+    if open_pref:
+        send_keys("^,")
+    else:
+        time.sleep(0.01)
     # first possible position
     click(x=703, y=363)  # click on File Folder
     click(x=1032, y=201)  # click on set as new

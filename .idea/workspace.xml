@@ -8,9 +8,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/presets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/logon.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/logon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -482,6 +492,7 @@
       <workItem from="1637618206176" duration="643000" />
       <workItem from="1637619345454" duration="9000" />
       <workItem from="1637871487212" duration="2528000" />
+      <workItem from="1638111874739" duration="1888000" />
     </task>
     <servers />
   </component>

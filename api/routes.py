@@ -5,14 +5,12 @@ from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.click import click
 from lib.decorators import reset_midi_client
-from lib.errors.Protocol0Error import Protocol0Error
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from scripts.commands.presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
-from loguru import logger
 
 
 # noinspection PyMethodParameters
@@ -60,7 +58,7 @@ class Routes:
         save_set()
 
     def save_set_as_template():
-        save_set_as_template()
+        save_set_as_template(open_pref=True)
 
     def clear_arrangement():
         clear_arrangement()

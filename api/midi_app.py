@@ -3,7 +3,7 @@ import json
 import time
 from json import JSONDecodeError
 from threading import Timer
-from typing import Dict, Optional
+from typing import Dict, Optional, Callable
 
 import mido
 import pyautogui
@@ -41,7 +41,7 @@ def send_message_to_script(data: Dict) -> None:
         midi_port.send(msg)
 
 
-def call_system_method(func: callable, **args) -> None:
+def call_system_method(func: Callable, **args) -> None:
     # noinspection PyUnresolvedReferences
     message = {
         "method": f"{func.__name__}",

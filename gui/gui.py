@@ -1,12 +1,12 @@
-from loguru import logger
-from protocol0.errors.Protocol0Error import Protocol0Error
-
-from lib.decorators import throttle
-
-CHAR_DURATION = 0.05
 import PySimpleGUI as sg
 import pyautogui
 from PySimpleGUI import POPUP_BUTTONS_NO_BUTTONS
+from loguru import logger
+
+from lib.decorators import throttle
+from lib.errors.Protocol0Error import Protocol0Error
+
+CHAR_DURATION = 0.05
 
 
 class GuiState():

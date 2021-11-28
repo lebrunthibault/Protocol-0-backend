@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from functools import wraps
+
 from loguru import logger
 
 from api.p0_script_api_client import APIMessageSender
@@ -14,6 +15,7 @@ def log_exceptions(func):
         except Exception as e:
             logger.exception(e)
             pass
+
     return decorate
 
 
@@ -36,6 +38,7 @@ class throttle(object):
         def my_fun():
             pass
     """
+
     def __init__(self, milliseconds=0):
         self.throttle_period = timedelta(milliseconds=milliseconds)
         self.time_of_last_call = datetime.min

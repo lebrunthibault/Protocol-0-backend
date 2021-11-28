@@ -47,7 +47,8 @@ class Config:
     FILTER_KEYWORDS = ["P0", "Protocol0"]
     ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack', 'Link: Disabled', 'Push2.push2',
                           'MemoryUsage:', 'VST 2.4']
-    ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception", "VST3 presets with unknown device type found"]
+    ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception",
+                      "VST3 presets with unknown device type found"]
     CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
