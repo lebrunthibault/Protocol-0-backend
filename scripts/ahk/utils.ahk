@@ -31,7 +31,6 @@ Hotkey(ifWinActiveCondition, ifWinNotActiveCondition, hk, fun, arg*)
 
     Hotkey_Handle:
         funs[A_ThisHotkey].(args[A_ThisHotkey]*)
-
         Return
 }
 
