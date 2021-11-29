@@ -30,7 +30,7 @@ def show_message(message: str, auto_close_duration=None, background_color=None):
              )
 
 
-@throttle(milliseconds=100)
+@throttle(milliseconds=50)
 def show_prompt(question: str) -> bool:
     logger.info(GuiState.HAS_DIALOG)
     if GuiState.HAS_DIALOG:
