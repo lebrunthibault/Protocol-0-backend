@@ -80,7 +80,8 @@ class LogLine:
 
     def __str__(self):
         color = "red" if self.is_error else (self.color or "white")
-        return f"<{color}>{self.line}</{color}>"
+        line = re.sub('\\\\$', '', self.line)  # remove trailing slash that crashes loguru
+        return f"<{color}>{line}</{color}>"
 
     def has_patterns(self, patterns: List[str]):
         return any(re.search(pattern.lower(), self.line.lower()) for pattern in patterns)
