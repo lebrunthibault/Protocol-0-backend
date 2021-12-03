@@ -28,9 +28,13 @@ HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
 return
 #IfWinActive
 
+; fold / unfold set
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
-^+f::
-    executeCliCommand("speech")
+!f::
+	Send `t
+	Send !u
+	Send !u
+	Send `t
 return
 #IfWinActive
 
