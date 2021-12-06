@@ -22,7 +22,7 @@ from lib.window.window import focus_window
 
 logger = logger.opt(colors=True)
 logger.remove()
-logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SS}</> {message}")
+logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SSS}</> {message}")
 logger.add(f"{SystemConfig.LOGGING_DIRECTORY}\\logs.log", level="ERROR")
 
 

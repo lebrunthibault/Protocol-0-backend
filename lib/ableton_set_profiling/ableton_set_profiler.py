@@ -40,7 +40,6 @@ class AbletonSetProfiler():
     @classmethod
     def end_measurement(cls):
         if not cls.current_profiling_session:
-            protocol0.show_message("No active profiling session")
             return
         cls.current_profiling_session.end_measurement()
         if cls.current_profiling_session._is_finished:
