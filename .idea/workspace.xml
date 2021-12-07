@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -488,6 +485,7 @@
       <workItem from="1638557598570" duration="520000" />
       <workItem from="1638820919698" duration="44000" />
       <workItem from="1638821302544" duration="1246000" />
+      <workItem from="1638915631151" duration="469000" />
     </task>
     <servers />
   </component>
