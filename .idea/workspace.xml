@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,7 +103,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Other File Types" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -498,6 +495,7 @@
       <workItem from="1639136391067" duration="757000" />
       <workItem from="1639137309251" duration="49000" />
       <workItem from="1639138843461" duration="133000" />
+      <workItem from="1639139098367" duration="175000" />
     </task>
     <servers />
   </component>
