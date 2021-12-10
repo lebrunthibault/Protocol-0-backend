@@ -10,6 +10,7 @@ from config import SystemConfig
 from gui.gui import show_prompt
 from lib.ableton_parsing import Clip
 from lib.click import click
+from lib.enum.ColorEnum import ColorEnum
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
@@ -64,27 +65,30 @@ def show_plugins() -> None:
 def analyze_test_audio_clip_jitter(clip_path: str):
     clip_path = f"{clip_path}.asd"
     clip = Clip(clip_path, 44100, 44100)
+    # NB at 44100 the sample rate induced max jitter is 0.023 ms
+    notes_count = 8 - 1
 
-    warp_markers = clip.warp_markers[1:-1]
-    if len(warp_markers) == 8:
-        step = 1
-    elif len(warp_markers) == 16:  # warp markers on note end
-        step = 2
-    else:
-        protocol0.show_message(f"couldn't analyze jitter, got {len(warp_markers)} warp_markers")
+    # skipping start and end markers, excepting notes_count markers
+    warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <= 1.875][0:notes_count]
+    print(warp_markers)
+
+    if len(warp_markers) != notes_count:
+        show_prompt(f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}", background_color=ColorEnum.ERROR)
         return
 
-    i = 0
-    total_jitter = 0
+    beat_offsets = []
     # we ignore warp markers set on note end
-    for warp_marker in warp_markers[::step]:
-        total_jitter += abs(warp_marker.seconds - i * 0.25)
-        i += 1
+    for i, warp_marker in enumerate(warp_markers):  # 1 in case the recording started before 1.1.1
+        beat_offsets.append((warp_marker.seconds - (i + 1) * 0.25) * 1000)
 
-    average_jitter = (total_jitter / 8) * 1000
-    message = f"average jitter {average_jitter:.2f} ms"
-    protocol0.show_message(message)
-    show_prompt(message)
+    average_latency = (sum(beat_offsets) / notes_count)
+    total_jitter = sum(abs(b - average_latency) for b in beat_offsets)
+    average_jitter = (total_jitter / notes_count)
+    message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f}"
+    background_color = ColorEnum.SUCCESS
+    if average_jitter > 1 or average_latency < 0:
+        background_color = ColorEnum.WARNING
+    show_prompt(message, background_color=background_color)
 
 
 def reload_ableton() -> None:
@@ -97,7 +101,10 @@ def reload_ableton() -> None:
     send_keys("{Right}")
     send_keys("{Right}")
     time.sleep(0.05)  # when clicking too fast, ableton is opening a template set ..
+    # don't save set
     send_keys("{Enter}")
+    # but keep recordings
+    send_keys("{Right}")
     send_keys("{Enter}")
 
 

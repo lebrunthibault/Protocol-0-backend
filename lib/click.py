@@ -14,11 +14,9 @@ def click(x: int, y: int) -> None:
 
 
 def click_vertical_zone(x: int, y: int) -> None:
-    logger.info("vertical zone clicking at x: %s, y: %s" % (x, y))
     for i in range(-60, 120, 20):
         start_at = time.time()
         pyautogui.click(x, y + i)
-        logger.info(f"click took {time.time() - start_at}")
 
 
 def right_click(x: int, y: int) -> None:

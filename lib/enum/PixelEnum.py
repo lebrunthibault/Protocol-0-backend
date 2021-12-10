@@ -1,5 +1,5 @@
-from enum import Enum
+from lib.enum.AbstractEnum import AbstractEnum
 
 
-class PixelEnum(Enum):
+class PixelEnum(AbstractEnum):
     SEPARATOR = (15, 869)

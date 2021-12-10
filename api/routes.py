@@ -1,4 +1,4 @@
-from api.midi_app import notify_protocol0_midi_up
+from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import protocol0
 from gui.gui import show_prompt
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
@@ -52,12 +52,6 @@ class Routes:
         if find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
             send_keys('^%p')
 
-    def arrow_up() -> None:
-        send_keys("{UP}")
-
-    def arrow_down() -> None:
-        send_keys("{DOWN}")
-
     def focus_window(window_name: str) -> None:
         focus_window(name=window_name)
 
@@ -100,6 +94,9 @@ class Routes:
     @reset_midi_client
     def end_measurement() -> None:
         AbletonSetProfiler.end_measurement()
+
+    def stop_midi_server() -> None:
+        stop_midi_server()
 
     def prompt(question: str):
         show_prompt(question)

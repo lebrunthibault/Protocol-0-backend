@@ -1,8 +1,9 @@
-from enum import Enum
 from typing import Tuple
 
+from lib.enum.AbstractEnum import AbstractEnum
 
-class InterfaceColorEnum(Enum):
+
+class InterfaceColorEnum(AbstractEnum):
     @classmethod
     def get_tuple_from_string(cls, color):
         # type: (str) -> Tuple[int, int, int]

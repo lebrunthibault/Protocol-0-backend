@@ -4,21 +4,29 @@ import time
 from json import JSONDecodeError
 from threading import Timer
 from typing import Dict, Optional, Callable
+import traceback
 
 import mido
-import pyautogui
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
 from api.p0_script_api_client import APIMessageSender
 from config import SystemConfig
+from gui.gui import show_message
 from lib.ableton import is_ableton_up
+from lib.enum.ColorEnum import ColorEnum
+from lib.enum.MidiServerStateEnum import MidiServerStateEnum
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
 
 logger = logger.opt(colors=True)
 
 DEBUG = True
+
+
+class MidiServerState:
+    STATE = MidiServerStateEnum.UN_STARTED
 
 
 class MidiCheckState:
@@ -42,7 +50,7 @@ def send_message_to_script(data: Dict) -> None:
         midi_port.send(msg)
 
 
-def call_system_method(func: Callable, **args) -> None:
+def call_system_method(func: Callable, log=True, **args) -> None:
     # noinspection PyUnresolvedReferences
     message = {
         "method": f"{func.__name__}",
@@ -52,11 +60,12 @@ def call_system_method(func: Callable, **args) -> None:
     with mido.open_output(out_port, autoreset=False) as midi_port:
         msg = _make_sysex_message_from_dict(data=message)
         midi_port.send(msg)
-        logger.info(f"sent msg to p0_system via P0_SYSTEM_LOOPBACK: {msg}")
+        logger.info(f"sent msg to p0_system via P0_SYSTEM_LOOPBACK: {message}")
 
 
 def start_midi_server():
-    kill_system_terminal_windows()
+    call_system_method(stop_midi_server)  # stop already running server
+    kill_system_terminal_windows()  # in case the server has errored
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     if is_ableton_up():
         APIMessageSender.set_live()
@@ -66,11 +75,19 @@ def start_midi_server():
 
     logger.info(f"Midi server listening on {midi_port_system_loopback} and {midi_port_output}")
 
+    MidiServerState.STATE = MidiServerStateEnum.STARTED
+
     while True:
+        if MidiServerState.STATE == MidiServerStateEnum.TERMINATED:
+            return
         _poll_midi_port(midi_port=midi_port_output)
         _poll_midi_port(midi_port=midi_port_system_loopback)
 
         time.sleep(0.01)  # release cpu
+
+
+def stop_midi_server():
+    MidiServerState.STATE = MidiServerStateEnum.TERMINATED
 
 
 def _poll_midi_port(midi_port: Input):
@@ -78,7 +95,13 @@ def _poll_midi_port(midi_port: Input):
     while True:
         msg_output = midi_port.poll()
         if msg_output:
-            _execute_midi_message(message=msg_output)
+            try:
+                _execute_midi_message(message=msg_output)
+            except Exception as e:
+                message = f"Midi server error\n\n{e}"
+                logger.error(message)
+                logger.error(traceback.format_exc())
+                show_message(message, background_color=ColorEnum.ERROR)
         else:
             break
 
@@ -89,7 +112,9 @@ def _execute_midi_message(message: Message):
     if not payload:
         return
     logger.debug(f"got payload {payload}")
-    method_object = getattr(Routes, payload["method"])
+    method_object = getattr(Routes, payload["method"], None)
+    if method_object is None:
+        raise Protocol0Error(f"You called an unknown system api method: {payload['method']}")
     logger.info(f"received API call <green>{method_object.__name__}</> with args {payload['args']}")
     method_object(**payload["args"])
 

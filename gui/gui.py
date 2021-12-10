@@ -1,10 +1,12 @@
+from typing import Optional
+
 import PySimpleGUI as sg
 import pyautogui
 from PySimpleGUI import POPUP_BUTTONS_NO_BUTTONS
-from loguru import logger
 
 from api.p0_script_api_client import protocol0
 from lib.decorators import throttle
+from lib.enum.ColorEnum import ColorEnum
 from lib.errors.Protocol0Error import Protocol0Error
 
 CHAR_DURATION = 0.05
@@ -14,7 +16,7 @@ class GuiState():
     HAS_DIALOG = False
 
 
-def show_message(message: str, auto_close_duration=None, background_color=None):
+def show_message(message: str, auto_close_duration=None, background_color: Optional[ColorEnum] = None):
     if auto_close_duration is None:
         auto_close_duration = 2 + len(message) * CHAR_DURATION
 
@@ -22,8 +24,8 @@ def show_message(message: str, auto_close_duration=None, background_color=None):
              auto_close=True,
              auto_close_duration=auto_close_duration,
              no_titlebar=True,
-             location=(pyautogui.size()[0] - (80 + 6 * len(message)), 10),
-             background_color=background_color,
+             location=(pyautogui.size()[0] - (80 + 7 * len(message)), 10),
+             background_color=background_color.hex_value if background_color else None,
              keep_on_top=True,
              # non_blocking=True,
              modal=False,
@@ -32,15 +34,15 @@ def show_message(message: str, auto_close_duration=None, background_color=None):
 
 
 @throttle(milliseconds=50)
-def show_prompt(question: str) -> None:
-    logger.info(GuiState.HAS_DIALOG)
+def show_prompt(question: str, background_color: ColorEnum = None) -> None:
+    background_color = background_color.hex_value if background_color else None
     if GuiState.HAS_DIALOG:
         raise Protocol0Error("a dialog is already shown")
 
     GuiState.HAS_DIALOG = True
     ok = False
     layout = [
-        [sg.Text(question, key="question")],
+        [sg.Text(question, key="question", background_color=background_color)],
         [sg.Input(key="input", visible=False)],
         [sg.Button("ok", key="ok")],
     ]
@@ -51,6 +53,7 @@ def show_prompt(question: str) -> None:
         return_keyboard_events=True,
         keep_on_top=True,
         no_titlebar=True,
+        background_color=background_color,
         element_justification='c'
     )
     while True:

@@ -4,7 +4,6 @@ from api.midi_app import start_midi_server, call_system_method
 from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import save_set_as_template, clear_arrangement, analyze_test_audio_clip_jitter
-from lib.ableton_parsing import Clip
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
@@ -76,9 +75,9 @@ def command_logoff() -> None:
 @cli.command(name="test")
 def command_test() -> None:
     # project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-22 Project\\Samples\\Recorded"
-    project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-23 Project\\Samples\\Recorded"
+    project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-35 Project\\Samples\\Recorded"
     # project_path = "D:\\ableton projects\\ableton projects - current\\splurges\\Samples\\Recorded"
-    clip_base_name = "audio 0001 [2021-12-10 014900].wav"
+    clip_base_name = "audio 0006 [2021-12-10 163508].wav"
 
     analyze_test_audio_clip_jitter(clip_path=f"{project_path}\\{clip_base_name}")
 
