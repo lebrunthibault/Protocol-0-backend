@@ -7,9 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -495,6 +493,7 @@
       <workItem from="1639087919705" duration="1671000" />
       <workItem from="1639089714092" duration="9005000" />
       <workItem from="1639136391067" duration="757000" />
+      <workItem from="1639137309251" duration="49000" />
     </task>
     <servers />
   </component>
