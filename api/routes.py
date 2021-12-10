@@ -1,9 +1,10 @@
 from api.midi_app import notify_protocol0_midi_up
 from api.p0_script_api_client import protocol0
 from gui.gui import show_prompt
-from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
+from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
+    analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
-from lib.click import click
+from lib.click import click, right_click, double_click, click_vertical_zone
 from lib.decorators import reset_midi_client
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
@@ -16,7 +17,7 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 # noinspection PyMethodParameters
 class Routes:
     def test() -> None:
-        protocol0.show_message("fast")
+        pass
 
     @reset_midi_client
     def ping() -> None:
@@ -28,8 +29,17 @@ class Routes:
     def click(x: int, y: int) -> None:
         click(x=x, y=y)
 
+    def click_vertical_zone(x: int, y: int) -> None:
+        click_vertical_zone(x=x, y=y)
+
+    def right_click(x: int, y: int) -> None:
+        right_click(x=x, y=y)
+
     def double_click(x: int, y: int) -> None:
-        click(x=x, y=y, double_click=True)
+        double_click(x=x, y=y)
+
+    def analyze_test_audio_clip_jitter(clip_path: str):
+        analyze_test_audio_clip_jitter(clip_path=clip_path)
 
     def show_plugins() -> None:
         if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
@@ -92,8 +102,4 @@ class Routes:
         AbletonSetProfiler.end_measurement()
 
     def prompt(question: str):
-        res = show_prompt(question)
-        if res is None:
-            return
-        else:
-            protocol0.system_response(res)
+        show_prompt(question)

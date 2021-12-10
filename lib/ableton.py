@@ -7,6 +7,8 @@ import keyboard
 
 from api.p0_script_api_client import protocol0
 from config import SystemConfig
+from gui.gui import show_prompt
+from lib.ableton_parsing import Clip
 from lib.click import click
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
@@ -57,6 +59,32 @@ def are_logs_focused() -> bool:
 def show_plugins() -> None:
     if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
         keyboard.press_and_release('ctrl+alt+p')
+
+
+def analyze_test_audio_clip_jitter(clip_path: str):
+    clip_path = f"{clip_path}.asd"
+    clip = Clip(clip_path, 44100, 44100)
+
+    warp_markers = clip.warp_markers[1:-1]
+    if len(warp_markers) == 8:
+        step = 1
+    elif len(warp_markers) == 16:  # warp markers on note end
+        step = 2
+    else:
+        protocol0.show_message(f"couldn't analyze jitter, got {len(warp_markers)} warp_markers")
+        return
+
+    i = 0
+    total_jitter = 0
+    # we ignore warp markers set on note end
+    for warp_marker in warp_markers[::step]:
+        total_jitter += abs(warp_marker.seconds - i * 0.25)
+        i += 1
+
+    average_jitter = (total_jitter / 8) * 1000
+    message = f"average jitter {average_jitter:.2f} ms"
+    protocol0.show_message(message)
+    show_prompt(message)
 
 
 def reload_ableton() -> None:

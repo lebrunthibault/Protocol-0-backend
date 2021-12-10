@@ -1,11 +1,10 @@
-import time
-
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
 from commands.presets import sync_presets
 from config import SystemConfig
-from lib.ableton import save_set_as_template, clear_arrangement
+from lib.ableton import save_set_as_template, clear_arrangement, analyze_test_audio_clip_jitter
+from lib.ableton_parsing import Clip
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
@@ -13,7 +12,6 @@ from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
-from scripts.tail_protocol0_logs import tail_ableton_log_file
 
 
 @cli.command(name="reload_ableton")
@@ -77,7 +75,12 @@ def command_logoff() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    print("test")
+    # project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-22 Project\\Samples\\Recorded"
+    project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-23 Project\\Samples\\Recorded"
+    # project_path = "D:\\ableton projects\\ableton projects - current\\splurges\\Samples\\Recorded"
+    clip_base_name = "audio 0001 [2021-12-10 014900].wav"
+
+    analyze_test_audio_clip_jitter(clip_path=f"{project_path}\\{clip_base_name}")
 
 
 if __name__ == "__main__":

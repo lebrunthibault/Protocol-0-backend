@@ -9,6 +9,7 @@ import mido
 import pyautogui
 from loguru import logger
 from mido import Message
+from mido.backends.rtmidi import Input
 
 from api.p0_script_api_client import APIMessageSender
 from config import SystemConfig
@@ -34,7 +35,7 @@ def notify_protocol0_midi_up():
 
 def send_message_to_script(data: Dict) -> None:
     # noinspection PyUnresolvedReferences
-    with mido.open_output(get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
+    with mido.open_output(_get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
         msg = _make_sysex_message_from_dict(data=data)
         if DEBUG:
             logger.info(f"sending msg to p0: {data}")
@@ -47,7 +48,7 @@ def call_system_method(func: Callable, **args) -> None:
         "method": f"{func.__name__}",
         "args": args
     }
-    out_port = get_output_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME)
+    out_port = _get_output_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME)
     with mido.open_output(out_port, autoreset=False) as midi_port:
         msg = _make_sysex_message_from_dict(data=message)
         midi_port.send(msg)
@@ -61,17 +62,26 @@ def start_midi_server():
     if is_ableton_up():
         APIMessageSender.set_live()
 
-    midi_port_system_loopback = mido.open_input(get_input_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME), autoreset=False)
-    midi_port_output = mido.open_input(get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False)
+    midi_port_system_loopback = mido.open_input(_get_input_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME), autoreset=False)
+    midi_port_output = mido.open_input(_get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False)
 
     logger.info(f"Midi server listening on {midi_port_system_loopback} and {midi_port_output}")
 
     while True:
-        for msg1 in midi_port_output.iter_pending():
-            _execute_midi_message(message=msg1)
+        _poll_midi_port(midi_port=midi_port_output)
+        _poll_midi_port(midi_port=midi_port_system_loopback)
 
-        for msg in midi_port_system_loopback.iter_pending():
-            _execute_midi_message(message=msg)
+        time.sleep(0.01)  # release cpu
+
+
+def _poll_midi_port(midi_port: Input):
+    """ non blocking poll """
+    while True:
+        msg_output = midi_port.poll()
+        if msg_output:
+            _execute_midi_message(message=msg_output)
+        else:
+            break
 
 
 def _execute_midi_message(message: Message):
@@ -85,15 +95,15 @@ def _execute_midi_message(message: Message):
     method_object(**payload["args"])
 
 
-def get_output_port(port_name_prefix: str):
-    return get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_output_names())
+def _get_output_port(port_name_prefix: str):
+    return _get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_output_names())
 
 
-def get_input_port(port_name_prefix: str):
-    return get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_input_names())
+def _get_input_port(port_name_prefix: str):
+    return _get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_input_names())
 
 
-def get_real_midi_port_name(port_name_prefix: str, ports):
+def _get_real_midi_port_name(port_name_prefix: str, ports):
     # noinspection PyUnresolvedReferences
     for port_name in ports:
         if port_name_prefix in port_name:

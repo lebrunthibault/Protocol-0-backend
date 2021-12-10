@@ -3,6 +3,7 @@ import pyautogui
 from PySimpleGUI import POPUP_BUTTONS_NO_BUTTONS
 from loguru import logger
 
+from api.p0_script_api_client import protocol0
 from lib.decorators import throttle
 from lib.errors.Protocol0Error import Protocol0Error
 
@@ -31,7 +32,7 @@ def show_message(message: str, auto_close_duration=None, background_color=None):
 
 
 @throttle(milliseconds=50)
-def show_prompt(question: str) -> bool:
+def show_prompt(question: str) -> None:
     logger.info(GuiState.HAS_DIALOG)
     if GuiState.HAS_DIALOG:
         raise Protocol0Error("a dialog is already shown")
@@ -64,4 +65,5 @@ def show_prompt(question: str) -> bool:
 
     window.close()
     GuiState.HAS_DIALOG = False
-    return ok
+
+    protocol0.system_response(ok)

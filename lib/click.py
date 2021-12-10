@@ -1,22 +1,34 @@
+import time
 from typing import Tuple
 
 import pyautogui
-import win32api
 from PIL import ImageGrab
 from loguru import logger
 
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 
-def click(x: int, y: int, double_click: bool = False, back_to_previous_position: bool = False) -> None:
-    (orig_x, orig_y) = win32api.GetCursorPos()
+def click(x: int, y: int) -> None:
     logger.info("clicking at x: %s, y: %s" % (x, y))
-    if double_click:
-        pyautogui.doubleClick(x, y)
-    else:
-        pyautogui.click(x, y)
-    if back_to_previous_position:
-        win32api.SetCursorPos((orig_x, orig_y))
+    pyautogui.click(x, y)
+
+
+def click_vertical_zone(x: int, y: int) -> None:
+    logger.info("vertical zone clicking at x: %s, y: %s" % (x, y))
+    for i in range(-60, 120, 20):
+        start_at = time.time()
+        pyautogui.click(x, y + i)
+        logger.info(f"click took {time.time() - start_at}")
+
+
+def right_click(x: int, y: int) -> None:
+    logger.info("right clicking at x: %s, y: %s" % (x, y))
+    pyautogui.rightClick(x, y)
+
+
+def double_click(x: int, y: int) -> None:
+    logger.info("double clicking at x: %s, y: %s" % (x, y))
+    pyautogui.doubleClick(x, y)
 
 
 def get_pixel_color(x: int, y: int) -> Tuple[int, int, int]:
