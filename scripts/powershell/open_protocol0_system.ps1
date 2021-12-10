@@ -8,7 +8,7 @@ Start-Sleep 10  # waiting for loop midi
 
 vdesk on:4 run:C:\Users\thiba\AppData\Local\Microsoft\WindowsApps\wt.exe -p "Protocol0 System midi server"
 
-Start-Sleep 3
+Start-Sleep 5
 
 Get-Desktop 1 | Switch-Desktop
 #invoke-item 'C:\\Users\\thiba\\OneDrive\\Bureau\\midi_server.lnk'
