@@ -57,7 +57,6 @@ def call_system_method(func: Callable, **args) -> None:
 
 def start_midi_server():
     kill_system_terminal_windows()
-    pyautogui.hotkey('win', 'up')
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     if is_ableton_up():
         APIMessageSender.set_live()
