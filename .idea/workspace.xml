@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -507,6 +504,7 @@
       <workItem from="1639145412441" duration="207000" />
       <workItem from="1639145714474" duration="6546000" />
       <workItem from="1639224708208" duration="1247000" />
+      <workItem from="1639251439544" duration="599000" />
     </task>
     <servers />
   </component>
