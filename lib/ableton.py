@@ -84,7 +84,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     average_latency = (sum(beat_offsets) / notes_count)
     total_jitter = sum(abs(b - average_latency) for b in beat_offsets)
     average_jitter = (total_jitter / notes_count)
-    message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f}"
+    message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f} ms"
     background_color = ColorEnum.SUCCESS
     if average_jitter > 1 or average_latency < 0:
         background_color = ColorEnum.WARNING
