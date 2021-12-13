@@ -4,6 +4,6 @@ Start-Sleep 10  # waiting for loop midi & pycharm launch
 
 vdesk on:4 run:C:\Users\thiba\AppData\Local\Microsoft\WindowsApps\wt.exe --maximized -p "Protocol0 System midi server"
 
-Start-Sleep 5
+Start-Sleep 3
 
 Get-Desktop 1 | Switch-Desktop
