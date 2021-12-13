@@ -7,7 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/configuration.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/configuration.mustache" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -83,6 +89,9 @@
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="NamedScopeManager">
+    <scope name="mustache" pattern="!file[Protocol0 System]:sdk_generation/p0_system/openapi_templates//*&amp;&amp;!file[Protocol0 System]:sdk_generation/p0_script/openapi_templates//*" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="2" />
     <option name="showToolbar" value="false" />
@@ -98,6 +107,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
+    <property name="HbShouldOpenHtmlAsHb" value="disabled" />
     <property name="NewWatcherDialog.advanced.open" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -108,7 +118,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -505,6 +515,7 @@
       <workItem from="1639145714474" duration="6546000" />
       <workItem from="1639224708208" duration="1247000" />
       <workItem from="1639251439544" duration="599000" />
+      <workItem from="1639409673119" duration="1373000" />
     </task>
     <servers />
   </component>
