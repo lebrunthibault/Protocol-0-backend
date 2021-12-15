@@ -1,6 +1,6 @@
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import protocol0
-from gui.gui import show_prompt, show_message
+from gui.gui import show_prompt, show_message, close_current_window
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -104,3 +104,6 @@ class Routes:
 
     def show_warning(message: str):
         show_message(message=message, background_color=ColorEnum.WARNING)
+
+    def close_current_window():
+        close_current_window()

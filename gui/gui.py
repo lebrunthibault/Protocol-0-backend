@@ -1,8 +1,9 @@
+from functools import partial
+from threading import Timer
 from typing import Optional
 
 import PySimpleGUI as sg
 import pyautogui
-from PySimpleGUI import POPUP_BUTTONS_NO_BUTTONS
 
 from api.p0_script_api_client import protocol0
 from lib.decorators import throttle
@@ -14,23 +15,40 @@ CHAR_DURATION = 0.05
 
 class GuiState():
     HAS_DIALOG = False
+    CURRENT_WINDOW = None
+    CURRENT_TIMER: Optional[Timer] = None
+
+
+def close_current_window():
+    if GuiState.CURRENT_WINDOW:
+        GuiState.CURRENT_WINDOW.close()
+        GuiState.CURRENT_WINDOW = None
 
 
 def show_message(message: str, auto_close_duration=None, background_color: Optional[ColorEnum] = None):
+    close_current_window()
     if auto_close_duration is None:
         auto_close_duration = 2 + len(message) * CHAR_DURATION
+    background_color = background_color.hex_value if background_color else None
+    window = sg.Window("Message window",
+                       layout=[[sg.Text(message, background_color=background_color)]],
+                       no_titlebar=True,
+                       location=(pyautogui.size()[0] - (80 + 7 * len(message)), 10),
+                       background_color=background_color,
+                       keep_on_top=True,
+                       modal=False,
+                       )
 
-    sg.popup(message,
-             auto_close=True,
-             auto_close_duration=auto_close_duration,
-             no_titlebar=True,
-             location=(pyautogui.size()[0] - (80 + 7 * len(message)), 10),
-             background_color=background_color.hex_value if background_color else None,
-             keep_on_top=True,
-             # non_blocking=True,
-             modal=False,
-             button_type=POPUP_BUTTONS_NO_BUTTONS,
-             )
+    window.read(timeout=0)
+    GuiState.CURRENT_WINDOW = window
+
+    from api.midi_app import call_system_method
+
+    t = Timer(auto_close_duration, partial(call_system_method, close_current_window))
+    if GuiState.CURRENT_TIMER:
+        GuiState.CURRENT_TIMER.cancel()
+    GuiState.CURRENT_TIMER = t
+    t.start()
 
 
 @throttle(milliseconds=50)
