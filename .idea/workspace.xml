@@ -8,9 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -515,6 +513,7 @@
       <workItem from="1639251439544" duration="599000" />
       <workItem from="1639409673119" duration="1373000" />
       <workItem from="1639521993546" duration="2106000" />
+      <workItem from="1639744528756" duration="1194000" />
     </task>
     <servers />
   </component>

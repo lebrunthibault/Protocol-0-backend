@@ -35,10 +35,13 @@ return
 	Send !u
 	Send !u
 	Send `t
-return
+; pass through save
+; ~^s::
+;	MsgBox, "saving !"
 #IfWinActive
 
 ; closes clink terminal window
 #IfWinActive, ahk_class ConsoleWindowClass
     !F4::WinClose, A
 #IfWinActive
+
