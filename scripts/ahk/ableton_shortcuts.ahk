@@ -35,9 +35,11 @@ return
 	Send !u
 	Send !u
 	Send `t
+return
 ; pass through save
 ; ~^s::
 ;	MsgBox, "saving !"
+; return
 #IfWinActive
 
 ; closes clink terminal window
