@@ -1,10 +1,13 @@
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
+from api.p0_script_api_client import protocol0
+from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import save_set_as_template, clear_arrangement, analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
+from lib.console import clear_console
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
@@ -35,6 +38,11 @@ def command_sync_presets() -> None:
 def command_tail_logs(raw: bool) -> None:
     args = ["--raw"] if raw else []
     execute_in_new_window(f"{SystemConfig.PROJECT_ROOT}/scripts/tail_protocol0_logs.py", *args)
+
+
+@cli.command(name="clear_logs")
+def command_tail_logs() -> None:
+    call_system_method(Routes.clear_logs)
 
 
 @cli.command(name="save_set_as_template")

@@ -19,6 +19,7 @@ HotkeyCommand("^#+n", "reload_ableton")
 HotkeyCommand("^#+t", "test")
 HotkeyCommandNoPycharm("^#+l", "tail_logs")
 HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
+HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
 
 ; literal hotkeys should be defined *after* the executable code
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
@@ -26,11 +27,7 @@ HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
     Send ^,  ; works best from ahk
     executeCliCommand("save_set_as_template")
 return
-#IfWinActive
-
-; fold / unfold set
-#IfWinActive, ahk_exe Ableton Live 10 Suite.exe
-!f::
+!f:: ; fold / unfold set
 	Send `t
 	Send !u
 	Send !u
@@ -42,8 +39,8 @@ return
 ; return
 #IfWinActive
 
-; closes clink terminal window
-#IfWinActive, ahk_class ConsoleWindowClass
-    !F4::WinClose, A
-#IfWinActive
-
+#IfWinActive, ahk_exe powershell.exe
+!l::
+    executeCliCommand("clear_logs")
+return
+#IfWinExist

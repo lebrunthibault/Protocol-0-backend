@@ -65,6 +65,9 @@ class Routes:
     def save_set_as_template():
         save_set_as_template(open_pref=True)
 
+    def clear_logs():
+        protocol0.clear_logs()
+
     def clear_arrangement():
         clear_arrangement()
 
