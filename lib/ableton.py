@@ -132,6 +132,8 @@ def save_set_as_template(open_pref=False):
     time.sleep(0.2)
     send_keys("	{ESC}")
 
+    reload_ableton()
+
 
 def clear_arrangement():
     click(x=968, y=348)  # click on File Folder
