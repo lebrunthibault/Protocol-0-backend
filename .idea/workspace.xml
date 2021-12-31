@@ -7,9 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -517,6 +515,7 @@
       <workItem from="1640045938540" duration="783000" />
       <workItem from="1640696387305" duration="1907000" />
       <workItem from="1640889579791" duration="152000" />
+      <workItem from="1640895350788" duration="48000" />
     </task>
     <servers />
   </component>
