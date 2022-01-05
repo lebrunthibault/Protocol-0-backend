@@ -8,14 +8,14 @@ from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import get_window_position, focus_window, is_window_focused
 
 
-class ButtonsRelativeCoordinates(Enum):
+class Rev2ButtonsRelativeCoordinates(Enum):
     """ These coordinates are relative to the plugin window == Mouse position relative from active_window.ahk """
-    ACTIVATION = (784, 504)
+    ACTIVATION_MIDDLE_BUTTON = (784, 504)
     PROGRAM = (1067, 147)
     PRESET_STAR_CATEGORY = (861, 335)
 
 
-def _get_absolute_button_position(handle: int, window_coordinates: ButtonsRelativeCoordinates) -> Tuple[int, int]:
+def _get_absolute_button_position(handle: int, window_coordinates: Rev2ButtonsRelativeCoordinates) -> Tuple[int, int]:
     (x, y, w, h) = get_window_position(handle)
     (x_button, y_button) = window_coordinates.value
     return (x + x_button, y + y_button)
@@ -30,7 +30,7 @@ def activate_rev2_editor():
     handle = focus_window(name="REV2Editor/midi")
     if not handle:
         return
-    click(*_get_absolute_button_position(handle, ButtonsRelativeCoordinates.ACTIVATION))
+    click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON))
 
 
 def post_activate_rev2_editor():
@@ -41,5 +41,5 @@ def post_activate_rev2_editor():
         handle = focus_window(name="REV2Editor/midi")
     if not handle:
         return
-    click(*_get_absolute_button_position(handle, ButtonsRelativeCoordinates.PROGRAM))
-    click(*_get_absolute_button_position(handle, ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY))
+    click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM))
+    click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY))

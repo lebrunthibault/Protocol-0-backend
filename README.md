@@ -17,7 +17,7 @@ It is composed of the following packages:
 - api : backend API for the script. Using openAPI as API contract
 - lib : common backend library used by backend components
 - scripts : globally accessible (via cli / ahk hotkeys and api) scripts for tasks related to ableton / speech
-  recognition
+  recognition. Also a useful script to tail and format the ableton log file.
 - sdk_generation : SDK code generation scripts to build 2 clients for backend / surface script bidirectional
   communication via midi (why 2 and not 1 ? because midi protocol is much simpler than http and unidirectional. Also
   typing gets stronger).
