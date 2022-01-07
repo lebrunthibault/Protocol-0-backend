@@ -7,10 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -521,6 +518,7 @@
       <workItem from="1640895350788" duration="48000" />
       <workItem from="1641420629003" duration="75000" />
       <workItem from="1641421022703" duration="96000" />
+      <workItem from="1641583275391" duration="743000" />
     </task>
     <servers />
   </component>
