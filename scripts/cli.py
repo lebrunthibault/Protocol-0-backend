@@ -1,13 +1,12 @@
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
-from api.p0_script_api_client import protocol0
 from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
-from lib.ableton import save_set_as_template, clear_arrangement, analyze_test_audio_clip_jitter
+from gui.gui import show_select
+from lib.ableton import save_set_as_template, clear_arrangement
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
-from lib.console import clear_console
 from lib.process import execute_in_new_window
 from lib.window.window import focus_window
 from scripts.abstract_cli import cli
@@ -82,12 +81,7 @@ def command_logoff() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    # project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-22 Project\\Samples\\Recorded"
-    project_path = "C:\\Users\\thiba\\OneDrive\\Documents\\Ableton\\Live Recordings\\Temp-35 Project\\Samples\\Recorded"
-    # project_path = "D:\\ableton projects\\ableton projects - current\\splurges\\Samples\\Recorded"
-    clip_base_name = "audio 0006 [2021-12-10 163508].wav"
-
-    analyze_test_audio_clip_jitter(clip_path=f"{project_path}\\{clip_base_name}")
+    show_select("hello", ["1", "2", "3"])
 
 
 if __name__ == "__main__":
