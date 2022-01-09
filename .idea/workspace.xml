@@ -7,12 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,6 +52,7 @@
     <setting file="file://$PROJECT_DIR$/lib/enum/ColorEnum.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PySimpleGUI/PySimpleGUI.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/components/MidiManager.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/decorators.py" root0="FORCE_HIGHLIGHTING" />
@@ -526,6 +522,7 @@
       <workItem from="1641583275391" duration="743000" />
       <workItem from="1641643416559" duration="1198000" />
       <workItem from="1641672947063" duration="6447000" />
+      <workItem from="1641726881322" duration="1326000" />
     </task>
     <servers />
   </component>
