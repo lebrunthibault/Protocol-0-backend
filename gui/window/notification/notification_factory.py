@@ -4,11 +4,11 @@ from gui.window.notification.notification_error import NotificationError
 from gui.window.notification.notification_info import NotificationInfo
 from gui.window.notification.notification_warning import NotificationWarning
 from gui.window.window import Window
-from gui.window.window_builder import WindowBuilder
+from gui.window.window_factory import WindowFactory
 from lib.enum.NotificationEnum import NotificationEnum
 
 
-class NotificationBuilder(WindowBuilder):
+class NotificationFactory(WindowFactory):
     @classmethod
     def createWindow(cls, message: str, notification_enum: NotificationEnum) -> Window:
         if notification_enum == NotificationEnum.INFO:

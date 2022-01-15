@@ -1,2 +1,3 @@
 class Observer():
-    pass
+    def update(self, data):
+        raise NotImplementedError

@@ -7,7 +7,7 @@ import keyboard
 
 from api.p0_script_api_client import protocol0
 from config import SystemConfig
-from gui.window.prompt.prompt_builder import PromptBuilder
+from gui.window.prompt.prompt_factory import PromptFactory
 from lib.ableton_parsing import Clip
 from lib.click import click
 from lib.enum.ColorEnum import ColorEnum
@@ -75,7 +75,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
     if len(warp_markers) != notes_count:
         message = f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"
-        PromptBuilder.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
+        PromptFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
         return
 
     beat_offsets = []
@@ -91,7 +91,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     if average_jitter > 1 or average_latency < 0:
         background_color = ColorEnum.WARNING
 
-    PromptBuilder.createWindow(message=message, notification_enum=NotificationEnum.INFO).display()
+    PromptFactory.createWindow(message=message, notification_enum=NotificationEnum.INFO).display()
 
 
 def reload_ableton() -> None:

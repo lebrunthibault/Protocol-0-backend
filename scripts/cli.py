@@ -1,10 +1,12 @@
+from time import sleep
+
 import asyncclick as click
 
 from api.midi_app import start_midi_server, call_system_method
 from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
-from gui.window.prompt.prompt_builder import PromptBuilder
+from gui.window.notification.notification_factory import NotificationFactory
 from lib.ableton import save_set_as_template, clear_arrangement
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.enum.NotificationEnum import NotificationEnum
@@ -83,10 +85,11 @@ def command_logoff() -> None:
 @cli.command(name="test")
 def command_test() -> None:
     # Routes.test()
-    PromptBuilder.createWindow(message="so ?", notification_enum=NotificationEnum.INFO).display()
+    # SelectFactory.createWindow(message="so ?", options=["toto", "titi", "tutu"], vertical=False).display()
     # call_system_method(Routes.test)
     # call_system_method(WindowRegistry.close_current_window)
-    # NotificationBuilder.createWindow(message="hello", notification_enum=NotificationEnum.INFO).display()
+    NotificationFactory.createWindow(message="hello\n agina\nagain", notification_enum=NotificationEnum.ERROR).display()
+    sleep(10)
 
 
 if __name__ == "__main__":

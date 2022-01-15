@@ -2,7 +2,6 @@ from typing import Optional
 
 import PySimpleGUI as sg
 
-from api.p0_script_api_client import protocol0
 from gui.window.window import Window
 from lib.enum.ColorEnum import ColorEnum
 
@@ -15,7 +14,6 @@ class Prompt(Window):
         no_titlebar=True
     ):
         background_color = background_color.hex_value if background_color else None
-        ok = False
         layout = [
             [sg.Text(message, key="question", background_color=background_color)],
             [sg.Input(key="input", visible=False)],
@@ -35,13 +33,10 @@ class Prompt(Window):
     def display(self):
         while True:
             event, values = self.sg_window.read()
-            print(event, type(event), values)
             if event == "Exit" or event == sg.WIN_CLOSED or event.split(":")[0] == "Escape":
+                self.notify(False)
                 break
 
             if event == "ok" or (len(event) == 1 and ord(event) == 13):
-                ok = True
+                self.notify(True)
                 break
-
-        self.sg_window.close()
-        protocol0.system_response(ok)

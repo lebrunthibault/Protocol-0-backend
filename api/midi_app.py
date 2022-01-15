@@ -14,7 +14,7 @@ from mido.backends.rtmidi import Input
 
 from api.p0_script_api_client import APIMessageSender
 from config import SystemConfig
-from gui.window.notification.notification_builder import NotificationBuilder
+from gui.window.notification.notification_factory import NotificationFactory
 from lib.ableton import is_ableton_up
 from lib.enum.MidiServerStateEnum import MidiServerStateEnum
 from lib.enum.NotificationEnum import NotificationEnum
@@ -109,7 +109,7 @@ def _poll_midi_port(midi_port: Input):
                 message = f"Midi server error\n\n{e}"
                 logger.error(message)
                 logger.error(traceback.format_exc())
-                NotificationBuilder.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
+                NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
         else:
             break
 

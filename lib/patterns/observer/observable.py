@@ -1,14 +1,19 @@
-from typing import Any
+from typing import Any, List
 
 from lib.patterns.observer.Observer import Observer
 
 
 class Observable():
+    observers: List[Observer] = []
+
     def attach(self, observer: Observer):
-        pass
+        if observer not in self.observers:
+            self.observers.append(observer)
 
     def detach(self, observer: Observer):
-        pass
+        if observer in self.observers:
+            self.observers.remove(observer)
 
     def notify(self, data: Any):
-        pass
+        for observer in self.observers:
+            observer.update(data)

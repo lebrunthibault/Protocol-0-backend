@@ -2,7 +2,7 @@ from gui.window.window import Window
 from lib.enum.NotificationEnum import NotificationEnum
 
 
-class WindowBuilder():
+class WindowFactory():
     @classmethod
-    def createWindow(cls, message: str, notification_enum: NotificationEnum) -> Window:
+    def createWindow(cls, message: str, notification_enum: NotificationEnum, **k) -> Window:
         raise NotImplementedError

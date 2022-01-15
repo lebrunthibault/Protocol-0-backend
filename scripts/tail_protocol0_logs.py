@@ -18,7 +18,6 @@ from lib.decorators import log_exceptions
 from lib.process import kill_window_by_criteria
 from lib.rx import rx_error, rx_nop
 from lib.window.find_window import SearchTypeEnum
-from lib.window.window import focus_window
 
 logger = logger.opt(colors=True)
 logger.remove()
@@ -111,7 +110,6 @@ def _filter_line(line: LogLine) -> bool:
 def _is_error(line: LogLine) -> bool:
     if line.has_patterns(Config.ERROR_KEYWORDS) and not line.has_patterns(Config.ERROR_NON_KEYWORDS):
         ErrorState.LAST_ERROR_STARTED_AT = time.time()
-        focus_window(SystemConfig.LOG_WINDOW_TITLE)
         return True
 
     if not _get_clean_line(line.line).startswith(" ") or line.has_patterns(Config.ERROR_NON_KEYWORDS):

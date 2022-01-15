@@ -29,21 +29,6 @@ def reset_midi_client(func):
     return decorate
 
 
-def gui_unique_window(func):
-    @wraps(func)
-    def decorate(*a, **k):
-        from gui.gui import GuiState
-        from gui.gui import close_current_window
-        close_current_window
-        window = func(*a, **k)
-
-        GuiState.CURRENT_WINDOW = window
-
-        return window
-
-    return decorate
-
-
 class throttle(object):
     """
     Decorator that prevents a function from being called more than once every

@@ -2,9 +2,9 @@ from typing import List
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import protocol0
-from gui.gui import show_select
-from gui.window.notification.notification_builder import NotificationBuilder
-from gui.window.prompt.prompt_builder import PromptBuilder
+from gui.window.notification.notification_factory import NotificationFactory
+from gui.window.prompt.prompt_factory import PromptFactory
+from gui.window.select.select_factory import SelectFactory
 from gui.window.window_registry import WindowRegistry
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
@@ -108,16 +108,16 @@ class Routes:
         stop_midi_server()
 
     def prompt(question: str):
-        PromptBuilder.createWindow(message=question, notification_enum=NotificationEnum.INFO).display()
+        PromptFactory.createWindow(message=question, notification_enum=NotificationEnum.INFO).display()
 
     def select(question: str, options: List[str], vertical=True):
-        show_select(question=question, options=options, vertical=vertical)
+        SelectFactory.createWindow(message=question, options=options, vertical=vertical).display()
 
     def show_warning(message: str):
-        NotificationBuilder.createWindow(message=message, notification_enum=NotificationEnum.WARNING).display()
+        NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.WARNING).display()
 
     def show_error(message: str):
-        NotificationBuilder.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
+        NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
 
     def close_current_window():
         WindowRegistry.close_current_window()
