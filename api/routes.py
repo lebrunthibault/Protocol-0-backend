@@ -2,13 +2,16 @@ from typing import List
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import protocol0
-from gui.gui import show_prompt, show_message, close_current_window, show_select
+from gui.gui import show_select
+from gui.window.notification.notification_builder import NotificationBuilder
+from gui.window.prompt.prompt_builder import PromptBuilder
+from gui.window.window_registry import WindowRegistry
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.click import click, right_click, double_click, click_vertical_zone
 from lib.decorators import reset_midi_client
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
@@ -105,13 +108,16 @@ class Routes:
         stop_midi_server()
 
     def prompt(question: str):
-        show_prompt(question)
+        PromptBuilder.createWindow(message=question, notification_enum=NotificationEnum.INFO).display()
 
     def select(question: str, options: List[str], vertical=True):
         show_select(question=question, options=options, vertical=vertical)
 
     def show_warning(message: str):
-        show_message(message=message, background_color=ColorEnum.WARNING)
+        NotificationBuilder.createWindow(message=message, notification_enum=NotificationEnum.WARNING).display()
+
+    def show_error(message: str):
+        NotificationBuilder.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
 
     def close_current_window():
-        close_current_window()
+        WindowRegistry.close_current_window()

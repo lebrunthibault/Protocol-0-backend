@@ -7,7 +7,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/gui/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/decorators/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/decorators/auto_close_window_decorator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/decorators/unique_window_decorator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/decorators/window_decorator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification_builder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification_error.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification_warning.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/prompt/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/prompt/prompt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/prompt/prompt_builder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/prompt/prompt_error.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/prompt/prompt_info.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/window_builder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/window_registry.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/enum/NotificationEnum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/patterns/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/patterns/observer/Observer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/patterns/observer/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/patterns/observer/observable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/enum/ColorEnum.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/enum/ColorEnum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/recognizer/recognizer_result.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,48 +82,48 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/sr/sr_config.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/tail_protocol0_logs.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/lib/enum/ColorEnum.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PySimpleGUI/PySimpleGUI.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/components/MidiManager.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/lib/decorators.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/gui/gui.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/__init__.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/recognizer/grammar_generation.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/lib/ableton.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/.editorconfig" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer_result.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/lib/terminal.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/api/p0_script_api_client.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/p0_script_api/api/default_api.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sr/enums/speech_command_enum.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/p0_script_api/api/default_api.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/display/speech_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/api/routes.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/tail_protocol0_logs.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/api/routes.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/enum/ColorEnum.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/decorators.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/gui/gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/enums/speech_command_enum.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PySimpleGUI/PySimpleGUI.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.editorconfig" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/sr_config.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/recognizer/grammar_generation.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/ableton.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/__init__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer_result.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/lib/terminal.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/components/MidiManager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/api/p0_script_api_client.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="NamedScopeManager">
     <scope name="mustache" pattern="!file[Protocol0 System]:sdk_generation/p0_system/openapi_templates//*&amp;&amp;!file[Protocol0 System]:sdk_generation/p0_script/openapi_templates//*" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
+    <option name="selectedIndex" value="3" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -124,11 +159,11 @@
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\decorators" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\prompt" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\notification" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\notification" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\ableton_set_profiling" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\lib" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sr\recognizer" />
-      <recent name="C:\Users\thiba\Google Drive\music\dev\protocol0_system\sdk_generation\p0_script" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.reload ahk">
@@ -523,6 +558,7 @@
       <workItem from="1641643416559" duration="1198000" />
       <workItem from="1641672947063" duration="6447000" />
       <workItem from="1641726881322" duration="1326000" />
+      <workItem from="1642188397784" duration="11920000" />
     </task>
     <servers />
   </component>

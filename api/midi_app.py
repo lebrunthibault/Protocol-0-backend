@@ -1,10 +1,11 @@
 import ctypes
 import json
 import time
+import traceback
 from json import JSONDecodeError
+from pydoc import classname, locate
 from threading import Timer
 from typing import Dict, Optional, Callable
-import traceback
 
 import mido
 from loguru import logger
@@ -13,12 +14,13 @@ from mido.backends.rtmidi import Input
 
 from api.p0_script_api_client import APIMessageSender
 from config import SystemConfig
-from gui.gui import show_message
+from gui.window.notification.notification_builder import NotificationBuilder
 from lib.ableton import is_ableton_up
-from lib.enum.ColorEnum import ColorEnum
 from lib.enum.MidiServerStateEnum import MidiServerStateEnum
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
+from lib.utils import get_class_that_defined_method
 
 logger = logger.opt(colors=True)
 
@@ -50,12 +52,18 @@ def send_message_to_script(data: Dict) -> None:
         midi_port.send(msg)
 
 
-def call_system_method(func: Callable, log=True, **args) -> None:
-    # noinspection PyUnresolvedReferences
+def call_system_method(callable: Callable, log=True, **args) -> None:
     message = {
-        "method": f"{func.__name__}",
         "args": args
     }
+
+    cls = get_class_that_defined_method(callable)
+    if cls:
+        message["class"] = classname(cls, "")
+        message["method"] = callable.__name__
+    else:
+        message["function"] = classname(callable, "")
+
     out_port = _get_output_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME)
     with mido.open_output(out_port, autoreset=False) as midi_port:
         msg = _make_sysex_message_from_dict(data=message)
@@ -101,22 +109,35 @@ def _poll_midi_port(midi_port: Input):
                 message = f"Midi server error\n\n{e}"
                 logger.error(message)
                 logger.error(traceback.format_exc())
-                show_message(message, background_color=ColorEnum.ERROR)
+                NotificationBuilder.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
         else:
             break
 
 
 def _execute_midi_message(message: Message):
-    from api.routes import Routes
     payload = _make_dict_from_sysex_message(message=message)
     if not payload:
         return
-    logger.debug(f"got payload {payload}")
-    method_object = getattr(Routes, payload["method"], None)
-    if method_object is None:
-        raise Protocol0Error(f"You called an unknown system api method: {payload['method']}")
-    logger.info(f"received API call <green>{method_object.__name__}</> with args {payload['args']}")
-    method_object(**payload["args"])
+
+    logger.info(f"got payload {payload}")
+
+    # call can be either explicit by giving a fqdn off a class.method or function (system loopback)
+    # or it can exploit the routes public API by passing an operation name
+    if payload.get("class", None):
+        cls = locate(payload.get("class"))
+        callable = getattr(cls, payload["method"], None)
+    else:
+        try:
+            callable = locate(payload.get("function"))
+        except AttributeError:
+            from api.routes import Routes
+            callable = getattr(Routes, payload["method"], None)
+
+    if callable is None:
+        raise Protocol0Error(f"You called an unknown system api method: {payload}")
+
+    logger.info(f"received API call <green>{callable.__name__}</> with args {payload['args']}")
+    callable(**payload["args"])
 
 
 def _get_output_port(port_name_prefix: str):

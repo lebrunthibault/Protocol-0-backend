@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Optional
 
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.utils import filename_datetime
 from sr.audio.speech_sound import SpeechSound
 from sr.enums.speech_command_enum import SpeechCommandEnum
@@ -43,13 +43,13 @@ class RecognizerResult:
         return self.word_enum in [SpeechCommandEnum.PROTOCOL, SpeechCommandEnum.EXIT]
 
     @property
-    def display_color(self) -> ColorEnum:
+    def notification_type(self) -> NotificationEnum:
         if self.error:
-            return ColorEnum.ERROR  # red
+            return NotificationEnum.ERROR
         elif self.word_enum == SpeechCommandEnum.EXIT:
-            return ColorEnum.WARNING  # yellow
+            return NotificationEnum.WARNING
         else:
-            return ColorEnum.SUCCESS  # green
+            return NotificationEnum.SUCCESS
 
 
 def export_recognizer_result(recognizer_result: RecognizerResult) -> None:
