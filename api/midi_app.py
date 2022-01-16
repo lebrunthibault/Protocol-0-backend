@@ -107,8 +107,8 @@ def _poll_midi_port(midi_port: Input):
                 _execute_midi_message(message=msg_output)
             except Exception as e:
                 message = f"Midi server error\n\n{e}"
-                logger.error(message)
-                logger.error(traceback.format_exc())
+                logger.error(message.replace("<", ""))
+                logger.error(traceback.format_exc().replace("<", ""))
                 NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
         else:
             break

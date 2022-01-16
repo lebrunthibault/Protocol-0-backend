@@ -8,32 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/gui/window/decorators/close_window_on_end_decorator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/window/select/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/window/select/select.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/window/select/select_factory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/window/select/select_horizontal.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gui/window/select/select_vertical.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/gui.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_error.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/prompt/prompt.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/prompt/prompt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/prompt/prompt_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/prompt/prompt_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/window_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/window_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/window_registry.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/window_registry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/patterns/observer/Observer.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/patterns/observer/Observer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/patterns/observer/observable.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/patterns/observer/observable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/display/speech_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/display/speech_gui.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -550,7 +525,8 @@
       <workItem from="1641672947063" duration="6447000" />
       <workItem from="1641726881322" duration="1326000" />
       <workItem from="1642188397784" duration="11920000" />
-      <workItem from="1642269363065" duration="5456000" />
+      <workItem from="1642269363065" duration="6122000" />
+      <workItem from="1642294089917" duration="323000" />
     </task>
     <servers />
   </component>
