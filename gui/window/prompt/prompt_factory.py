@@ -10,7 +10,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 
 class PromptFactory(WindowFactory):
     @classmethod
-    def createWindow(cls, message: str, notification_enum: NotificationEnum) -> Window:
+    def createWindow(cls, message: str, notification_enum: NotificationEnum = NotificationEnum.INFO) -> Window:
         if notification_enum == NotificationEnum.INFO:
             prompt = PromptInfo(message=message)
         elif notification_enum == NotificationEnum.ERROR:
@@ -18,8 +18,9 @@ class PromptFactory(WindowFactory):
         else:
             raise NotImplementedError
 
-        prompt = UniqueWindowDecorator(prompt)
-        prompt = CloseWindowOnEndDecorator(prompt)
-        prompt = NotifyProtocol0Decorator(prompt)
+        window = UniqueWindowDecorator(prompt)
+        window = CloseWindowOnEndDecorator(window)
+        window = NotifyProtocol0Decorator(window)
+        prompt.attach(window)
 
-        return prompt
+        return window

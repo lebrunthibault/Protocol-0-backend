@@ -11,13 +11,12 @@ class AutoCloseNotificationDecorator(WindowDecorator, Notification):
     CHAR_SECOND_DURATION = 0.05
 
     def __init__(self, notification: Notification):
-        self.notification = notification
-        self.sg_window = notification.sg_window
+        self.window = notification
 
     def display(self):
-        auto_close_duration = self.BASE_SECOND_DURATION + len(self.notification.message) * self.CHAR_SECOND_DURATION
+        auto_close_duration = self.BASE_SECOND_DURATION + len(self.window.message) * self.CHAR_SECOND_DURATION
 
-        self.notification.display()
+        self.window.display()
 
         from api.midi_app import call_system_method
 

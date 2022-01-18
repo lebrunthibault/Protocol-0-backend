@@ -8,6 +8,7 @@ from gui.window.window import Window
 
 class Select(Window):
     def __init__(self, message: str, options: List[str], buttons: List[List[Button]], arrow_keys: Tuple[str]):
+        super(Select, self).__init__()
         layout = [
             [sg.Text(message, key="question")],
             [sg.Input(key="input", visible=False)],
@@ -41,6 +42,7 @@ class Select(Window):
                 elif key in self.arrow_keys:
                     self._scroll_selected_option(go_next=key == self.arrow_keys[1])
                 elif event in self.options:
+                    self.selected_option = event
                     break
                 elif len(event) == 1 and ord(event) == 13:
                     break

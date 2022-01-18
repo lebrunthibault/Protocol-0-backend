@@ -1,3 +1,3 @@
-class Observer():
+class ObserverMixin():
     def update(self, data):
         raise NotImplementedError

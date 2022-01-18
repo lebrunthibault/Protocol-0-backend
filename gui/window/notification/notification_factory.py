@@ -10,7 +10,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 
 class NotificationFactory(WindowFactory):
     @classmethod
-    def createWindow(cls, message: str, notification_enum: NotificationEnum) -> Window:
+    def createWindow(cls, message: str, notification_enum: NotificationEnum = NotificationEnum.INFO) -> Window:
         if notification_enum == NotificationEnum.INFO:
             notification = NotificationInfo(message=message)
             notification = AutoCloseNotificationDecorator(notification)

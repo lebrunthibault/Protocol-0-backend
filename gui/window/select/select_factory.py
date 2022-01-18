@@ -21,10 +21,11 @@ class SelectFactory(WindowFactory):
         else:
             select = SelectHorizontal(message=message, options=options, buttons=buttons, arrow_keys=["Left", "Right"])
 
-        select = UniqueWindowDecorator(select)
-        select = CloseWindowOnEndDecorator(select)
-        select = NotifyProtocol0Decorator(select)
-        return select
+        window = UniqueWindowDecorator(select)
+        window = CloseWindowOnEndDecorator(window)
+        window = NotifyProtocol0Decorator(window)
+        select.attach(window)
+        return window
 
     @classmethod
     def _create_buttons(self, options: List[str]) -> List[Button]:

@@ -13,6 +13,7 @@ class Prompt(Window):
         background_color: Optional[ColorEnum],
         no_titlebar=True
     ):
+        super(Prompt, self).__init__()
         background_color = background_color.hex_value if background_color else None
         layout = [
             [sg.Text(message, key="question", background_color=background_color)],

@@ -19,7 +19,6 @@ def debug_sounds(speech_sounds: List[SoundMixin]):
     rmtree(SRConfig.TEST_DEBUG_DATA_DIRECTORY)
     os.mkdir(SRConfig.TEST_DEBUG_DATA_DIRECTORY)
     for i, speech_sound in enumerate(speech_sounds):
-        print(speech_sound.to_dict())
         speech_sound.export(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\speech_sound_{i}.wav")
         with open(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\speech_sound_{i}.json", "w") as f:
             f.write(json.dumps(speech_sound.to_dict()))

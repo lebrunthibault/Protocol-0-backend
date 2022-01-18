@@ -71,7 +71,6 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
     # skipping start and end markers, excepting notes_count markers
     warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <= 1.875][0:notes_count]
-    print(warp_markers)
 
     if len(warp_markers) != notes_count:
         message = f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"

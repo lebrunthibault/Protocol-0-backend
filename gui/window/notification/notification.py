@@ -11,6 +11,7 @@ class Notification(Window):
         message: str,
         background_color: ColorEnum
     ):
+        super(Notification, self).__init__()
         background_color = background_color.hex_value
         self.message = message
 

@@ -7,6 +7,8 @@ from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
 from gui.window.notification.notification_factory import NotificationFactory
+from gui.window.prompt.prompt_factory import PromptFactory
+from gui.window.select.select_factory import SelectFactory
 from lib.ableton import save_set_as_template, clear_arrangement
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.enum.NotificationEnum import NotificationEnum
@@ -85,10 +87,9 @@ def command_logoff() -> None:
 @cli.command(name="test")
 def command_test() -> None:
     # Routes.test()
-    # SelectFactory.createWindow(message="so ?", options=["toto", "titi", "tutu"], vertical=False).display()
-    # call_system_method(Routes.test)
-    # call_system_method(WindowRegistry.close_current_window)
-    NotificationFactory.createWindow(message="hello\n agina\nagain", notification_enum=NotificationEnum.ERROR).display()
+    SelectFactory.createWindow(message="so ?", options=["toto", "titi", "tutu"], vertical=False).display()
+    # PromptFactory.createWindow(message="so ?").display()
+    # NotificationFactory.createWindow(message="hello\n agina\nagain", notification_enum=NotificationEnum.ERROR).display()
     sleep(10)
 
 
