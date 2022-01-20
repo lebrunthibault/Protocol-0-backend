@@ -7,24 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/gui/window/decorators/auto_close_window_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/auto_close_window_decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/decorators/close_window_on_end_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/close_window_on_end_decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/decorators/window_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/window_decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/prompt/prompt.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/prompt/prompt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/prompt/prompt_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/prompt/prompt_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/select/select.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/select/select.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/select/select_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/select/select_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/patterns/observer/Observer.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/patterns/observer/observer_mixin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/patterns/observer/observable.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/patterns/observer/subject_mixin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/tests/test_speech_vs_noise.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -544,6 +527,7 @@
       <workItem from="1642294089917" duration="323000" />
       <workItem from="1642341898650" duration="2857000" />
       <workItem from="1642424373030" duration="8506000" />
+      <workItem from="1642627690348" duration="607000" />
     </task>
     <servers />
   </component>
