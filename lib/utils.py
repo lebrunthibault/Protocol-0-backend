@@ -35,3 +35,7 @@ def get_class_that_defined_method(meth):
         if isinstance(cls, type):
             return cls
     return None
+
+
+def log_string(string) -> str:
+    return str(string).replace("<", "\\<")

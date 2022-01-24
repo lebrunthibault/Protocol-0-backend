@@ -20,7 +20,7 @@ from lib.enum.MidiServerStateEnum import MidiServerStateEnum
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
-from lib.utils import get_class_that_defined_method
+from lib.utils import get_class_that_defined_method, log_string
 
 logger = logger.opt(colors=True)
 
@@ -107,8 +107,8 @@ def _poll_midi_port(midi_port: Input):
                 _execute_midi_message(message=msg_output)
             except Exception as e:
                 message = f"Midi server error\n\n{e}"
-                logger.error(message.replace("<", ""))
-                logger.error(traceback.format_exc().replace("<", ""))
+                logger.error(log_string(message))
+                logger.error(log_string(traceback.format_exc()))
                 NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
         else:
             break
@@ -119,7 +119,7 @@ def _execute_midi_message(message: Message):
     if not payload:
         return
 
-    logger.info(f"got payload {payload}")
+    logger.info(f"got payload {log_string(payload)}")
 
     # call can be either explicit by giving a fqdn off a class.method or function (system loopback)
     # or it can exploit the routes public API by passing an operation name
@@ -136,7 +136,7 @@ def _execute_midi_message(message: Message):
     if callable is None:
         raise Protocol0Error(f"You called an unknown system api method: {payload}")
 
-    logger.info(f"received API call <green>{callable.__name__}</> with args {payload['args']}")
+    logger.info(f"received API call <green>{callable.__name__}</> with args {log_string(payload['args'])}")
     callable(**payload["args"])
 
 

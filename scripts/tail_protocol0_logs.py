@@ -17,6 +17,7 @@ from lib.console import clear_console
 from lib.decorators import log_exceptions
 from lib.process import kill_window_by_criteria
 from lib.rx import rx_error, rx_nop
+from lib.utils import log_string
 from lib.window.find_window import SearchTypeEnum
 
 logger = logger.opt(colors=True)
@@ -167,7 +168,7 @@ def tail_ableton_log_file(raw: bool):
 
     pipes = [
         op.map(lambda line: line.replace("\n", "")),
-        op.map(lambda line: line.replace("<", "\\<")),
+        op.map(log_string),
     ]
 
     if Config.PROCESS_LOGS:
