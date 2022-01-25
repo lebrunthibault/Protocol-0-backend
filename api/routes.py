@@ -1,11 +1,7 @@
 from typing import List
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
-from api.p0_script_api_client import protocol0
-from gui.window.notification.notification_factory import NotificationFactory
-from gui.window.prompt.prompt_factory import PromptFactory
-from gui.window.select.select_factory import SelectFactory
-from gui.window.window_registry import WindowRegistry
+from api.p0_script_api_client import p0_client
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -15,6 +11,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
+from message_queue.celery import prompt, select, notification
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from scripts.commands.presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
@@ -27,7 +24,7 @@ class Routes:
 
     @reset_midi_client
     def ping() -> None:
-        protocol0.ping()
+        p0_client.ping()
 
     def notify_protocol0_midi_up() -> None:
         notify_protocol0_midi_up()
@@ -62,6 +59,7 @@ class Routes:
         focus_window(name=window_name)
 
     def reload_ableton():
+        AbletonSetProfiler.start_profiling_single_measurement()
         reload_ableton()
 
     def save_set():
@@ -71,7 +69,7 @@ class Routes:
         save_set_as_template(open_pref=True)
 
     def clear_logs():
-        protocol0.clear_logs()
+        p0_client.clear_logs()
 
     def clear_arrangement():
         clear_arrangement()
@@ -89,7 +87,7 @@ class Routes:
         show_windows()
 
     def search(search: str) -> None:
-        protocol0.search_track(search=search)
+        p0_client.search_track(search=search)
 
     def sync_presets() -> None:
         sync_presets()
@@ -107,17 +105,17 @@ class Routes:
     def stop_midi_server() -> None:
         stop_midi_server()
 
+    def send_system_response(res) -> None:
+        p0_client.system_response(res)
+
     def prompt(question: str):
-        PromptFactory.createWindow(message=question, notification_enum=NotificationEnum.INFO).display()
+        prompt.delay(question)
 
     def select(question: str, options: List[str], vertical=True):
-        SelectFactory.createWindow(message=question, options=options, vertical=vertical).display()
+        select.delay(question, options)
 
     def show_warning(message: str):
-        NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.WARNING).display()
+        notification.delay(message, NotificationEnum.WARNING.value)
 
     def show_error(message: str):
-        NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
-
-    def close_current_window():
-        WindowRegistry.close_current_window()
+        notification.delay(message, NotificationEnum.ERROR.value)

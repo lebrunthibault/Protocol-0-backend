@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from loguru import logger
 
-from api.p0_script_api_client import protocol0
+from api.p0_script_api_client import p0_client
 from lib.ableton import reload_ableton
 from lib.utils import copy_to_clipboard
 
@@ -21,7 +21,7 @@ class AbletonSetProfilingSession():
 
     def show_message(self, message: str):
         logger.info(message)
-        protocol0.show_message(message)
+        p0_client.show_message(message)
 
     @property
     def _single_test(self):
@@ -45,7 +45,7 @@ class AbletonSetProfilingSession():
 
     def end_measurement(self):
         reload_duration = time.time() - self.last_set_reloaded_at
-        protocol0.show_message("set reloaded in %.2f s" % reload_duration)
+        p0_client.show_message("set reloaded in %.2f s" % reload_duration)
 
         if self._single_test:
             return
@@ -55,9 +55,9 @@ class AbletonSetProfilingSession():
         if self._is_finished:
             copy_to_clipboard(self._to_google_sheet_formula)
             logger.info(f"{self._to_google_sheet_formula} copied to clipboard")
-            protocol0.show_message(f"set profiling over : {self._to_csv}")
+            p0_client.show_message(f"set profiling over : {self._to_csv}")
         else:
             logger.info(
                 f"Measurement {len(self.measurements) + 1}/{self.number_of_tests} finished, got %.2f s" % reload_duration)
-            protocol0.show_message("set reloaded in %.2f s" % reload_duration)
+            p0_client.show_message("set reloaded in %.2f s" % reload_duration)
             self.start_measurement()

@@ -9,6 +9,6 @@ from lib.openapi_spec_generation import generate_api_specs
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    generate_api_specs(title="P0 script API", classname="P0ScriptAPI", methods_dict=EXPOSED_P0_METHODS,
+    generate_api_specs(title="P0 script Client", classname="P0ScriptClient", methods_dict=EXPOSED_P0_METHODS,
                        out_folder=os.path.dirname(__file__),
-                       package_name="p0_script_api")
+                       package_name="p0_script_client")

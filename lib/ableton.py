@@ -5,17 +5,16 @@ from pathlib import Path
 
 import keyboard
 
-from api.p0_script_api_client import protocol0
+from api.p0_script_api_client import p0_client
 from config import SystemConfig
-from gui.window.prompt.prompt_factory import PromptFactory
 from lib.ableton_parsing import Clip
 from lib.click import click
 from lib.enum.ColorEnum import ColorEnum
-from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
+from message_queue.celery import notification
 
 
 @dataclass(frozen=True)
@@ -74,7 +73,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
     if len(warp_markers) != notes_count:
         message = f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"
-        PromptFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
+        notification.delay(message)
         return
 
     beat_offsets = []
@@ -90,7 +89,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     if average_jitter > 1 or average_latency < 0:
         background_color = ColorEnum.WARNING
 
-    PromptFactory.createWindow(message=message, notification_enum=NotificationEnum.INFO).display()
+    notification.delay(message)
 
 
 def reload_ableton() -> None:
@@ -115,7 +114,7 @@ def save_set():
 
 
 def save_set_as_template(open_pref=False):
-    protocol0.reset_song()
+    p0_client.reset_song()
     if open_pref:
         send_keys("^,")
     else:

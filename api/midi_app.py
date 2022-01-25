@@ -1,30 +1,27 @@
 import ctypes
-import json
 import time
 import traceback
-from json import JSONDecodeError
-from pydoc import classname, locate
+from pydoc import locate
 from threading import Timer
-from typing import Dict, Optional, Callable
+from typing import Optional
 
 import mido
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
-from api.p0_script_api_client import APIMessageSender
+from api.p0_script_api_client import ScriptClientMessageSender
+from api.p0_system_api_client import system_client
 from config import SystemConfig
-from gui.window.notification.notification_factory import NotificationFactory
 from lib.ableton import is_ableton_up
 from lib.enum.MidiServerStateEnum import MidiServerStateEnum
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
-from lib.utils import get_class_that_defined_method, log_string
+from lib.utils import log_string, make_dict_from_sysex_message
+from message_queue.celery import notification
 
 logger = logger.opt(colors=True)
-
-DEBUG = True
 
 
 class MidiServerState:
@@ -40,43 +37,15 @@ def notify_protocol0_midi_up():
         MidiCheckState.TIMER.cancel()
         MidiCheckState.TIMER = None
     time.sleep(0.2)  # time protocol0Midi is really up for midi
-    APIMessageSender.set_live()
-
-
-def send_message_to_script(data: Dict) -> None:
-    # noinspection PyUnresolvedReferences
-    with mido.open_output(_get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
-        msg = _make_sysex_message_from_dict(data=data)
-        if DEBUG:
-            logger.info(f"sending msg to p0: {data}")
-        midi_port.send(msg)
-
-
-def call_system_method(callable: Callable, log=True, **args) -> None:
-    message = {
-        "args": args
-    }
-
-    cls = get_class_that_defined_method(callable)
-    if cls:
-        message["class"] = classname(cls, "")
-        message["method"] = callable.__name__
-    else:
-        message["function"] = classname(callable, "")
-
-    out_port = _get_output_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME)
-    with mido.open_output(out_port, autoreset=False) as midi_port:
-        msg = _make_sysex_message_from_dict(data=message)
-        midi_port.send(msg)
-        logger.info(f"sent msg to p0_system via P0_SYSTEM_LOOPBACK: {message}")
+    ScriptClientMessageSender.set_live()
 
 
 def start_midi_server():
-    call_system_method(stop_midi_server)  # stop already running server
+    system_client.stop_midi_server()
     kill_system_terminal_windows()  # in case the server has errored
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     if is_ableton_up():
-        APIMessageSender.set_live()
+        ScriptClientMessageSender.set_live()
 
     midi_port_system_loopback = mido.open_input(_get_input_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME), autoreset=False)
     midi_port_output = mido.open_input(_get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False)
@@ -109,13 +78,13 @@ def _poll_midi_port(midi_port: Input):
                 message = f"Midi server error\n\n{e}"
                 logger.error(log_string(message))
                 logger.error(log_string(traceback.format_exc()))
-                NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
+                notification.delay(message, NotificationEnum.ERROR.value)
         else:
             break
 
 
 def _execute_midi_message(message: Message):
-    payload = _make_dict_from_sysex_message(message=message)
+    payload = make_dict_from_sysex_message(message=message)
     if not payload:
         return
 
@@ -140,7 +109,7 @@ def _execute_midi_message(message: Message):
     callable(**payload["args"])
 
 
-def _get_output_port(port_name_prefix: str):
+def get_output_port(port_name_prefix: str):
     return _get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_output_names())
 
 
@@ -155,28 +124,3 @@ def _get_real_midi_port_name(port_name_prefix: str, ports):
             return port_name
 
     raise Exception(f"couldn't find {port_name_prefix} port")
-
-
-def _make_sysex_message_from_dict(data: Dict) -> mido.Message:
-    assert isinstance(data, Dict)
-    message = json.dumps(data)
-    logger.debug(f"Sending string to System midi output : <magenta>{message}</>")
-    b = bytearray(message.encode())
-    b.insert(0, 0xF0)
-    b.append(0xF7)
-    return mido.Message.from_bytes(b)
-
-
-def _make_dict_from_sysex_message(message: mido.Message) -> Optional[Dict]:
-    if message.is_cc(121) or message.is_cc(123):
-        logger.debug("-")
-        return None
-    string = message.bin()[1:-1].decode("utf-8")  # type: str
-    if not string.startswith("{"):
-        return None
-    logger.debug(f"Received string <blue>{string}</>")
-    try:
-        return json.loads(string)
-    except JSONDecodeError:
-        logger.error(f"json decode error on string : {string}, message: {message}")
-        return None

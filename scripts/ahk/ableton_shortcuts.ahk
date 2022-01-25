@@ -19,7 +19,6 @@ HotkeyCommand("^#+n", "reload_ableton")
 HotkeyCommand("^#+t", "test")
 HotkeyCommandNoPycharm("^#+l", "tail_logs")
 HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
-HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
 
 ; literal hotkeys should be defined *after* the executable code
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
@@ -33,10 +32,6 @@ return
 	Send !u
 	Send `t
 return
-; pass through save
-; ~^s::
-;	MsgBox, "saving !"
-; return
 #IfWinActive
 
 #IfWinActive, ahk_exe powershell.exe

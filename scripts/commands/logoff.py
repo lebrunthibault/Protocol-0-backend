@@ -1,4 +1,4 @@
-from api.midi_app import call_system_method, stop_midi_server
+from api.p0_system_api_client import system_client
 from lib.ableton import kill_ableton
 from scripts.commands.git_backup import push_git_repos
 
@@ -7,7 +7,7 @@ def logoff():
     """ on logoff / hibernation kill processes that would otherwise not work on unhibernate """
     push_git_repos()
 
-    call_system_method(stop_midi_server)  # stop already running server
+    system_client.stop_midi_server()
     kill_ableton()
 
 

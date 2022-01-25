@@ -8,9 +8,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/api/p0_system_api_client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/message_queue/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/message_queue/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/decorators/auto_close_window_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/auto_close_window_decorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/decorators/unique_window_decorator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/prompt/prompt_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/prompt/prompt_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/select/select_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/select/select_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/window_registry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ahk/ableton_shortcuts.ahk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/logoff.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/logoff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +82,6 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/p0_script_api/api/default_api.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/display/speech_gui.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/routes.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
@@ -61,9 +90,7 @@
     <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/enum/ColorEnum.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/__init__package.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_system/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/decorators.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
@@ -532,7 +559,9 @@
       <workItem from="1642341898650" duration="2857000" />
       <workItem from="1642424373030" duration="8506000" />
       <workItem from="1642627690348" duration="607000" />
-      <workItem from="1643047549364" duration="897000" />
+      <workItem from="1643047549364" duration="1501000" />
+      <workItem from="1643060357357" duration="4679000" />
+      <workItem from="1643065683576" duration="6859000" />
     </task>
     <servers />
   </component>

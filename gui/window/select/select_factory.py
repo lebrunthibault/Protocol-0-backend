@@ -5,7 +5,6 @@ from PySimpleGUI import Button, BLUES
 
 from gui.window.decorators.close_window_on_end_decorator import CloseWindowOnEndDecorator
 from gui.window.decorators.notify_protocol0_decorator import NotifyProtocol0Decorator
-from gui.window.decorators.unique_window_decorator import UniqueWindowDecorator
 from gui.window.select.select_horizontal import SelectHorizontal
 from gui.window.select.select_vertical import SelectVertical
 from gui.window.window import Window
@@ -21,8 +20,7 @@ class SelectFactory(WindowFactory):
         else:
             select = SelectHorizontal(message=message, options=options, buttons=buttons, arrow_keys=["Left", "Right"])
 
-        window = UniqueWindowDecorator(select)
-        window = CloseWindowOnEndDecorator(window)
+        window = CloseWindowOnEndDecorator(select)
         window = NotifyProtocol0Decorator(window)
         select.attach(window)
         return window

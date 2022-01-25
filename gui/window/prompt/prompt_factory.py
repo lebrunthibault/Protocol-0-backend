@@ -1,6 +1,5 @@
 from gui.window.decorators.close_window_on_end_decorator import CloseWindowOnEndDecorator
 from gui.window.decorators.notify_protocol0_decorator import NotifyProtocol0Decorator
-from gui.window.decorators.unique_window_decorator import UniqueWindowDecorator
 from gui.window.prompt.prompt_error import PromptError
 from gui.window.prompt.prompt_info import PromptInfo
 from gui.window.window import Window
@@ -18,8 +17,7 @@ class PromptFactory(WindowFactory):
         else:
             raise NotImplementedError
 
-        window = UniqueWindowDecorator(prompt)
-        window = CloseWindowOnEndDecorator(window)
+        window = CloseWindowOnEndDecorator(prompt)
         window = NotifyProtocol0Decorator(window)
         prompt.attach(window)
 

@@ -1,9 +1,7 @@
-from functools import partial
-from threading import Timer
+from time import sleep
 
 from gui.window.decorators.window_decorator import WindowDecorator
 from gui.window.notification.notification import Notification
-from gui.window.window_registry import WindowRegistry
 
 
 class AutoCloseNotificationDecorator(WindowDecorator, Notification):
@@ -18,7 +16,5 @@ class AutoCloseNotificationDecorator(WindowDecorator, Notification):
 
         self.window.display()
 
-        from api.midi_app import call_system_method
-
-        t = Timer(auto_close_duration, partial(call_system_method, WindowRegistry.close_current_window))
-        t.start()
+        sleep(auto_close_duration)
+        self.window.sg_window.close()

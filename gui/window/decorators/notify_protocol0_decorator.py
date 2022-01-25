@@ -1,4 +1,6 @@
-from api.p0_script_api_client import protocol0
+from loguru import logger
+
+from api.p0_system_api_client import system_client
 from gui.window.decorators.window_decorator import WindowDecorator
 from lib.patterns.observer.observer_mixin import ObserverMixin
 
@@ -9,4 +11,6 @@ class NotifyProtocol0Decorator(WindowDecorator, ObserverMixin):
         self.sg_window.close()
 
     def update(self, data):
-        protocol0.system_response(data)
+        logger.info(f"sending {data}")
+
+        system_client.send_system_response(data)

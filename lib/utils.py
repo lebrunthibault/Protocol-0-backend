@@ -1,8 +1,12 @@
 import inspect
+import json
 import subprocess
 import time
+from json import JSONDecodeError
 from pathlib import Path
+from typing import Optional, Dict
 
+import mido
 from loguru import logger
 
 
@@ -39,3 +43,28 @@ def get_class_that_defined_method(meth):
 
 def log_string(string) -> str:
     return str(string).replace("<", "\\<")
+
+
+def make_sysex_message_from_dict(data: Dict) -> mido.Message:
+    assert isinstance(data, Dict)
+    message = json.dumps(data, default=str)
+    logger.debug(f"Sending string to System midi output : <magenta>{message}</>")
+    b = bytearray(message.encode())
+    b.insert(0, 0xF0)
+    b.append(0xF7)
+    return mido.Message.from_bytes(b)
+
+
+def make_dict_from_sysex_message(message: mido.Message) -> Optional[Dict]:
+    if message.is_cc(121) or message.is_cc(123):
+        logger.debug("-")
+        return None
+    string = message.bin()[1:-1].decode("utf-8")  # type: str
+    if not string.startswith("{"):
+        return None
+    logger.debug(f"Received string <blue>{string}</>")
+    try:
+        return json.loads(string)
+    except JSONDecodeError:
+        logger.error(f"json decode error on string : {string}, message: {message}")
+        return None
