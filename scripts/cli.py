@@ -4,8 +4,10 @@ from api.midi_app import start_midi_server
 from api.p0_system_api_client import system_client
 from commands.presets import sync_presets
 from config import SystemConfig
+from gui.window.notification.notification_factory import NotificationFactory
 from lib.ableton import clear_arrangement
 from lib.process import execute_in_new_window
+from message_queue.celery import check_celery_worker_status
 from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
@@ -71,7 +73,7 @@ def command_logoff() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    system_client.show_error("err ")
+    NotificationFactory.show_error("toto")
 
 
 if __name__ == "__main__":

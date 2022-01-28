@@ -13,9 +13,12 @@ os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')
 app = Celery('tasks', broker='redis://localhost')
 
 
-@app.task
-def test():
-    logger.info("hello")
+def check_celery_worker_status() -> bool:
+    """ from https://stackoverflow.com/questions/8506914/detect-whether-celery-is-available-running """
+    i = app.control.inspect()
+    availability = i.ping()
+
+    return availability is not None
 
 
 @app.task

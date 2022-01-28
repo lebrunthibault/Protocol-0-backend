@@ -23,3 +23,8 @@ class NotificationFactory(WindowFactory):
             notification = AutoCloseNotificationDecorator(notification)
 
         return notification
+
+    @classmethod
+    def show_error(cls, message: str):
+        cls.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
+

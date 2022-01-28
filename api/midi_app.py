@@ -1,9 +1,9 @@
 import ctypes
+import sys
 import time
 import traceback
 from pydoc import locate
 from threading import Timer
-from typing import Optional
 
 import mido
 from loguru import logger
@@ -13,35 +13,25 @@ from mido.backends.rtmidi import Input
 from api.p0_script_api_client import ScriptClientMessageSender
 from api.p0_system_api_client import system_client
 from config import SystemConfig
+from gui.window.notification.notification_factory import NotificationFactory
 from lib.ableton import is_ableton_up
-from lib.enum.MidiServerStateEnum import MidiServerStateEnum
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
 from lib.utils import log_string, make_dict_from_sysex_message
-from message_queue.celery import notification
+from message_queue.celery import notification, check_celery_worker_status
 
 logger = logger.opt(colors=True)
 
 
-class MidiServerState:
-    STATE = MidiServerStateEnum.UN_STARTED
-
-
-class MidiCheckState:
-    TIMER: Optional[Timer] = None
-
-
 def notify_protocol0_midi_up():
-    if MidiCheckState.TIMER:
-        MidiCheckState.TIMER.cancel()
-        MidiCheckState.TIMER = None
     time.sleep(0.2)  # time protocol0Midi is really up for midi
     ScriptClientMessageSender.set_live()
 
 
 def start_midi_server():
     system_client.stop_midi_server()
+    Timer(5, check_celery_is_up).start()
     kill_system_terminal_windows()  # in case the server has errored
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     if is_ableton_up():
@@ -52,19 +42,24 @@ def start_midi_server():
 
     logger.info(f"Midi server listening on {midi_port_system_loopback} and {midi_port_output}")
 
-    MidiServerState.STATE = MidiServerStateEnum.STARTED
-
     while True:
-        if MidiServerState.STATE == MidiServerStateEnum.TERMINATED:
-            return
         _poll_midi_port(midi_port=midi_port_output)
         _poll_midi_port(midi_port=midi_port_system_loopback)
 
         time.sleep(0.01)  # release cpu
 
 
+def check_celery_is_up():
+    if not check_celery_worker_status():
+        NotificationFactory.show_error("Celery broker is not up, closing midi server")
+        system_client.stop_midi_server()
+    else:
+        logger.info("Celery is up")
+
+
 def stop_midi_server():
-    MidiServerState.STATE = MidiServerStateEnum.TERMINATED
+    logger.info("stopping midi server")
+    sys.exit()
 
 
 def _poll_midi_port(midi_port: Input):
