@@ -76,7 +76,7 @@
     <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/terminal.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/components/MidiManager.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/infra/MidiManager.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/p0_script_api_client.py" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -529,6 +529,7 @@
       <workItem from="1643060357357" duration="4679000" />
       <workItem from="1643065683576" duration="6859000" />
       <workItem from="1643373503533" duration="4366000" />
+      <workItem from="1643648080726" duration="594000" />
     </task>
     <servers />
   </component>
