@@ -1,7 +1,6 @@
 import threading
 
 from PySimpleGUI import Window
-from loguru import logger
 
 from gui.window.notification.notification import Notification
 from lib.enum.ColorEnum import ColorEnum

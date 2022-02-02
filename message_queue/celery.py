@@ -2,7 +2,6 @@ import os
 from typing import List
 
 from celery import Celery
-from loguru import logger
 
 from gui.window.notification.notification_factory import NotificationFactory
 from gui.window.prompt.prompt_factory import PromptFactory

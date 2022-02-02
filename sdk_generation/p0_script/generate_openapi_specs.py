@@ -2,7 +2,7 @@
 import logging
 import os
 
-from protocol0.utils.decorators import EXPOSED_P0_METHODS
+from protocol0.application.midi_api.decorators import EXPOSED_P0_METHODS
 
 from lib.openapi_spec_generation import generate_api_specs
 

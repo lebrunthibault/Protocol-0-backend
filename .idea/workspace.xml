@@ -7,7 +7,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_error.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_queue/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_queue/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/sr_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/sr_config.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -530,6 +536,7 @@
       <workItem from="1643065683576" duration="6859000" />
       <workItem from="1643373503533" duration="4366000" />
       <workItem from="1643648080726" duration="594000" />
+      <workItem from="1643814853381" duration="2633000" />
     </task>
     <servers />
   </component>

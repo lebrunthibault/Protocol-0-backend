@@ -5,8 +5,8 @@ from functools import reduce
 from os.path import dirname, realpath
 from typing import Dict, List
 
-from protocol0.enums.vocal_command.ActionEnum import ActionEnum
-from protocol0.enums.vocal_command.TrackSearchKeywordEnum import TrackSearchKeywordEnum
+from protocol0.application.vocal_command.VocalActionEnum import VocalActionEnum
+from protocol0.application.vocal_command.TrackSearchKeywordEnum import TrackSearchKeywordEnum
 
 from sr.enums.speech_command_enum import SpeechCommandEnum
 
@@ -19,7 +19,7 @@ class SRConfig:
     EXPORT_RESULTS = False
     SR_ACTIVE = True
     WORD_ENUM_CLASSES = [
-        ActionEnum,
+        VocalActionEnum,
         TrackSearchKeywordEnum,
         SpeechCommandEnum
     ]
