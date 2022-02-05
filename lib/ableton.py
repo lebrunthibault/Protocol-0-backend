@@ -4,8 +4,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import keyboard
+from protocol0.application.system_command.ResetSongCommand import ResetSongCommand
 
-from api.p0_script_api_client import p0_client
+from api.p0_script_api_client import p0_script_client
 from config import SystemConfig
 from lib.ableton_parsing import Clip
 from lib.click import click
@@ -114,7 +115,7 @@ def save_set():
 
 
 def save_set_as_template(open_pref=False):
-    p0_client.reset_song()
+    p0_script_client.dispatch(ResetSongCommand())
     if open_pref:
         send_keys("^,")
     else:

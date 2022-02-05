@@ -7,7 +7,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/__init__api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/__init__package.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/generate_openapi_specs.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/openapi_config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_script_client/openapi_templates/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_script_client/openapi_templates/__init__api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_script_client/openapi_templates/__init__package.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_script_client/openapi_templates/api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_system_client/openapi_templates/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_system_client/openapi_templates/__init__api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_system_client/openapi_templates/__init__package.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system/p0_system_client/openapi_templates/api.mustache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +82,6 @@
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/tail_protocol0_logs.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/openapi_templates/api.mustache" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/enum/ColorEnum.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
@@ -66,10 +94,8 @@
     <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PySimpleGUI/PySimpleGUI.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/.editorconfig" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/sr_config.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/generate_openapi_specs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/recognizer/grammar_generation.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/ableton.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/sdk_generation/p0_script/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/recognizer/recognizer_result.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_command_manager.py" root0="FORCE_HIGHLIGHTING" />
@@ -81,10 +107,10 @@
     <setting file="file://$PROJECT_DIR$/api/p0_script_api_client.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="NamedScopeManager">
-    <scope name="mustache" pattern="!file[Protocol0 System]:sdk_generation/p0_system/openapi_templates//*&amp;&amp;!file[Protocol0 System]:sdk_generation/p0_script/openapi_templates//*" />
+    <scope name="mustache" pattern="!file[Protocol0 System]:sdk_generation/p0_script_client//*&amp;&amp;!file[Protocol0 System]:sdk_generation/p0_system_client//*" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="3" />
+    <option name="selectedIndex" value="6" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -109,7 +135,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
     <property name="typescript.add.unambiguous.imports.on.the.fly" value="true" />
   </component>
   <component name="ReaderModeSettings">
@@ -531,7 +557,7 @@
       <workItem from="1643373503533" duration="4366000" />
       <workItem from="1643648080726" duration="594000" />
       <workItem from="1643814853381" duration="2633000" />
-      <workItem from="1644072257751" duration="1751000" />
+      <workItem from="1644072257751" duration="5989000" />
     </task>
     <servers />
   </component>

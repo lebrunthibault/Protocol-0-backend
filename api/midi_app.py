@@ -10,7 +10,7 @@ from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
-from api.p0_script_api_client import ScriptClientMessageSender
+from api.p0_script_api_client import p0_script_client
 from api.p0_system_api_client import system_client
 from config import SystemConfig
 from gui.window.notification.notification_factory import NotificationFactory
@@ -26,7 +26,7 @@ logger = logger.opt(colors=True)
 
 def notify_protocol0_midi_up():
     time.sleep(0.2)  # time protocol0Midi is really up for midi
-    ScriptClientMessageSender.set_live()
+    p0_script_client.set_live()
 
 
 def start_midi_server():
@@ -35,7 +35,7 @@ def start_midi_server():
     kill_system_terminal_windows()  # in case the server has errored
     ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.MIDI_SERVER_WINDOW_TITLE)
     if is_ableton_up():
-        ScriptClientMessageSender.set_live()
+        p0_script_client.set_live()
 
     midi_port_system_loopback = mido.open_input(_get_input_port(SystemConfig.P0_SYSTEM_LOOPBACK_NAME), autoreset=False)
     midi_port_output = mido.open_input(_get_input_port(SystemConfig.P0_OUTPUT_PORT_NAME), autoreset=False)

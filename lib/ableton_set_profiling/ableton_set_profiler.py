@@ -1,8 +1,9 @@
 from typing import Optional
 
 from loguru import logger
+from protocol0.application.system_command.ShowMessageCommand import ShowMessageCommand
 
-from api.p0_script_api_client import p0_client
+from api.p0_script_api_client import p0_script_client
 from config import SystemConfig
 from lib.ableton_set_profiling.ableton_set_profiling_session import AbletonSetProfilingSession
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
@@ -16,7 +17,7 @@ class AbletonSetProfiler():
     @classmethod
     def handle_profiling_error(cls, message: str):
         logger.error(message)
-        p0_client.show_message(message)
+        p0_script_client.dispatch(ShowMessageCommand(message))
 
     @classmethod
     def check_profiling_conditions(cls):

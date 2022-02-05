@@ -1,7 +1,11 @@
 from typing import List
 
+from protocol0.application.system_command.ClearLogsCommand import ClearLogsCommand
+from protocol0.application.system_command.PingCommand import PingCommand
+from protocol0.application.system_command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
+
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
-from api.p0_script_api_client import p0_client
+from api.p0_script_api_client import p0_script_client
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -20,11 +24,11 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 # noinspection PyMethodParameters
 class Routes:
     def test() -> None:
-        pass
+        p0_script_client.dispatch(ClearLogsCommand())
 
     @reset_midi_client
     def ping() -> None:
-        p0_client.ping()
+        p0_script_client.dispatch(PingCommand())
 
     def notify_protocol0_midi_up() -> None:
         notify_protocol0_midi_up()
@@ -69,7 +73,7 @@ class Routes:
         save_set_as_template(open_pref=True)
 
     def clear_logs():
-        p0_client.clear_logs()
+        p0_script_client.dispatch(ClearLogsCommand())
 
     def clear_arrangement():
         clear_arrangement()
@@ -85,9 +89,6 @@ class Routes:
 
     def show_windows() -> None:
         show_windows()
-
-    def search(search: str) -> None:
-        p0_client.search_track(search=search)
 
     def sync_presets() -> None:
         sync_presets()
@@ -106,7 +107,7 @@ class Routes:
         stop_midi_server()
 
     def send_system_response(res) -> None:
-        p0_client.system_response(res)
+        p0_script_client.dispatch(ProcessSystemResponseCommand(res))
 
     def prompt(question: str):
         prompt.delay(question)
