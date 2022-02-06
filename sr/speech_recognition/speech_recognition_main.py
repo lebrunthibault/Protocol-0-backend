@@ -3,7 +3,7 @@ import ctypes
 from loguru import logger
 from rx import operators as op, Observable
 
-from api.p0_script_api_client import p0_script_client
+from api.p0_system_api_client import system_client
 from config import SystemConfig
 from lib.ableton import is_ableton_focused, are_logs_focused
 from lib.decorators import log_exceptions
@@ -34,9 +34,12 @@ class StreamProvider:
         self.activation_command_stream, self.rr_stream = rr_stream.pipe(op.partition(lambda r: r.is_activation_command))
 
         active_rr_stream = self.rr_stream.pipe(
-            op.filter(lambda r: is_ableton_focused() or are_logs_focused()),
             op.filter(lambda r: SRConfig.SR_ACTIVE),
         )
+        if not SRConfig.DEBUG:
+            active_rr_stream = active_rr_stream.pipe(
+                op.filter(lambda r: is_ableton_focused() or are_logs_focused()),
+            )
 
         self.rr_error_stream, self.command_stream = active_rr_stream.pipe(op.partition(lambda r: r.error))
         self.speech_command_stream, self.ableton_command_stream = self.command_stream.pipe(
@@ -54,7 +57,7 @@ def recognize_speech():
 
     stream_provider.activation_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))  # always active
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
-    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_client.execute_vocal_command(str(res)))
+    stream_provider.ableton_command_stream.subscribe(lambda res: system_client.execute_vocal_command(str(res)))
 
     if SRConfig.USE_GUI:
         from sr.display.speech_gui import display_recognizer_result

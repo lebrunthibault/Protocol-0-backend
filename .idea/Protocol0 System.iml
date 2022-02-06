@@ -13,7 +13,6 @@
       <excludeFolder url="file://$MODULE_DIR$/sdk_generation/p0_system/api_client" />
       <excludeFolder url="file://$MODULE_DIR$/sdk_generation/p0_system/p0_system_client" />
       <excludeFolder url="file://$MODULE_DIR$/sdk_generation/p0_system/p0_script_client" />
-      <excludeFolder url="file://$MODULE_DIR$/sdk_generation/p0_script_client" />
       <excludeFolder url="file://$MODULE_DIR$/sdk_generation/p0_system_client" />
     </content>
     <content url="file://$MODULE_DIR$/sdk_generation/p0_system/p0_script_client/openapi_templates" />

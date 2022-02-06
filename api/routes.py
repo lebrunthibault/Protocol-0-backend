@@ -1,8 +1,9 @@
 from typing import List
 
-from protocol0.application.system_command.ClearLogsCommand import ClearLogsCommand
-from protocol0.application.system_command.PingCommand import PingCommand
-from protocol0.application.system_command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
+from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
+from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
+from protocol0.application.command.PingCommand import PingCommand
+from protocol0.application.command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import p0_script_client
@@ -120,3 +121,6 @@ class Routes:
 
     def show_error(message: str):
         notification.delay(message, NotificationEnum.ERROR.value)
+
+    def execute_vocal_command(command: str):
+        p0_script_client.dispatch(ExecuteVocalCommandCommand(command))

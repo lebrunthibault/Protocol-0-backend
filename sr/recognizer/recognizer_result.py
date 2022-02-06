@@ -20,7 +20,7 @@ class RecognizerResult:
 
     def __repr__(self):
         if self.word_enum:
-            return self.word_enum.value
+            return self.word_enum.name
         elif self.word:
             return self.word
         elif self.error:

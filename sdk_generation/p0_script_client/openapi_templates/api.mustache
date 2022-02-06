@@ -22,7 +22,7 @@ class {{custom_classname}}(object):
         b.insert(0, 0xF0)
         b.append(0xF7)
         from protocol0 import Protocol0
-        Protocol0.SELF._send_midi(tuple(b))
+        Protocol0.CONTAINER.midi_manager._send_midi(tuple(b))
 {{#operation}}
 
     def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{paramName}}={{{defaultValue}}}{{^-last}}, {{/-last}}{{/optionalParams}}):  # noqa: E501

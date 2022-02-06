@@ -14,7 +14,7 @@ root = dirname(realpath(__file__))
 
 
 class SRConfig:
-    DEBUG = False
+    DEBUG = True
     USE_GUI = True
     EXPORT_RESULTS = False
     SR_ACTIVE = True
