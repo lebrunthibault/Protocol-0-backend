@@ -1,7 +1,7 @@
 from typing import Optional
 
 from loguru import logger
-from protocol0.domain.command.ShowMessageCommand import ShowMessageCommand
+from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 
 from api.p0_script_api_client import p0_script_client
 from config import SystemConfig

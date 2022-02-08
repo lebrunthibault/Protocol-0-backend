@@ -8,7 +8,7 @@ from typing import Optional, Dict
 
 import mido
 from loguru import logger
-from protocol0.domain.command.SerializableCommand import SerializableCommand
+from protocol0.application.command.SerializableCommand import SerializableCommand
 
 
 def filename_datetime() -> str:

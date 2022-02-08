@@ -7,7 +7,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +80,7 @@
     <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/terminal.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/infra/MidiService.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/infra/midi/MidiService.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/p0_script_api_client.py" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -535,7 +542,8 @@
       <workItem from="1644173744915" duration="961000" />
       <workItem from="1644180438268" duration="1270000" />
       <workItem from="1644225998028" duration="3182000" />
-      <workItem from="1644324103997" duration="1261000" />
+      <workItem from="1644324103997" duration="1379000" />
+      <workItem from="1644339447336" duration="603000" />
     </task>
     <servers />
   </component>
