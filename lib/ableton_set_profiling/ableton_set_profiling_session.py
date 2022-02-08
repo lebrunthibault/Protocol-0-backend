@@ -2,7 +2,7 @@ import time
 from typing import Optional, List
 
 from loguru import logger
-from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
+from protocol0.domain.command.ShowMessageCommand import ShowMessageCommand
 
 from api.p0_script_api_client import p0_script_client
 from lib.ableton import reload_ableton

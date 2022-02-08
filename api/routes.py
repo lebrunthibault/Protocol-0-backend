@@ -1,9 +1,9 @@
 from typing import List
 
-from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
-from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
-from protocol0.application.command.PingCommand import PingCommand
-from protocol0.application.command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
+from protocol0.domain.command.ClearLogsCommand import ClearLogsCommand
+from protocol0.domain.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
+from protocol0.domain.command.PingCommand import PingCommand
+from protocol0.domain.command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import p0_script_client

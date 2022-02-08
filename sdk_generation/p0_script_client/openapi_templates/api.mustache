@@ -15,14 +15,17 @@ class {{custom_classname}}(object):
 
     Do not edit the class manually.
     """
+
+    def __init__(self, send_midi):
+        self._send_midi = send_midi
+
     def _send_dict_as_midi(self, dict):
         # type: (dict) -> None
         message = json.dumps(dict)
         b = bytearray(message.encode())
         b.insert(0, 0xF0)
         b.append(0xF7)
-        from protocol0.application.Protocol0 import Protocol0
-        Protocol0.CONTAINER.midi_manager._send_midi(tuple(b))
+        self._send_midi(tuple(b))
 {{#operation}}
 
     def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{paramName}}={{{defaultValue}}}{{^-last}}, {{/-last}}{{/optionalParams}}):  # noqa: E501

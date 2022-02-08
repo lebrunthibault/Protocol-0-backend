@@ -3,7 +3,7 @@ from typing import List
 import mido
 
 from loguru import logger
-from protocol0.application.command.SerializableCommand import SerializableCommand
+from protocol0.domain.command.SerializableCommand import SerializableCommand
 
 from config import SystemConfig
 from lib.utils import make_sysex_message_from_command

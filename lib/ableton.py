@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import keyboard
-from protocol0.application.command.ResetSongCommand import ResetSongCommand
+from protocol0.domain.command.ResetSongCommand import ResetSongCommand
 
 from api.p0_script_api_client import p0_script_client
 from config import SystemConfig

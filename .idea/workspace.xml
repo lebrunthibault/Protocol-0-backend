@@ -8,6 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiling_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,9 +87,10 @@
   </component>
   <component name="NamedScopeManager">
     <scope name="mustache" pattern="!file[Protocol0 System]:sdk_generation/p0_script_client//*&amp;&amp;!file[Protocol0 System]:sdk_generation/p0_system_client//*" />
+    <scope name="requirements.txt" pattern="file:requirements.txt" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="6" />
+    <option name="selectedIndex" value="4" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -535,6 +542,8 @@
       <workItem from="1644171136132" duration="551000" />
       <workItem from="1644173744915" duration="961000" />
       <workItem from="1644180438268" duration="1270000" />
+      <workItem from="1644225998028" duration="3182000" />
+      <workItem from="1644324103997" duration="599000" />
     </task>
     <servers />
   </component>

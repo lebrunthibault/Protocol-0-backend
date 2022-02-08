@@ -8,7 +8,7 @@ from typing import Optional, Dict
 
 import mido
 from loguru import logger
-from protocol0.application.command.SerializableCommand import SerializableCommand
+from protocol0.domain.command.SerializableCommand import SerializableCommand
 
 
 def filename_datetime() -> str:
@@ -57,7 +57,7 @@ def make_sysex_message_from_dict(data: Dict) -> mido.Message:
 
 
 def make_sysex_message_from_command(command: SerializableCommand) -> mido.Message:
-    assert isinstance(command, SerializableCommand)
+    assert isinstance(command, SerializableCommand), "expected SerializableCommand, got %s" % command
     message = command.serialize()
     logger.debug(f"Sending string to System midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
