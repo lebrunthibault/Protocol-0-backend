@@ -71,10 +71,6 @@ def command_logoff() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    # print(json.dumps(ClearLogsCommand(), default=lambda o: o.__dict__,
-    #                                 sort_keys=True, indent=4))
-    # print(ProcessSystemResponseCommand(res="toto").serialize())
-    # print(json.dumps(ClearLogsCommand()))
     system_client.test()
 
 

@@ -25,10 +25,12 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 # noinspection PyMethodParameters
 class Routes:
     def test() -> None:
-        p0_script_client.dispatch(ClearLogsCommand())
+        p0_script_client.dispatch(PingCommand())
 
     @reset_midi_client
     def ping() -> None:
+        from loguru import logger
+        logger.info("Sending ping to script !")
         p0_script_client.dispatch(PingCommand())
 
     def notify_protocol0_midi_up() -> None:
