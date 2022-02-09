@@ -19,7 +19,7 @@ class NotificationFactory(WindowFactory):
         else:
             raise NotImplementedError
 
-        if notification_enum != NotificationEnum.INFO:
+        if notification_enum != NotificationEnum.ERROR:
             notification = AutoCloseNotificationDecorator(notification)
 
         return notification

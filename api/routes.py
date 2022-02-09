@@ -11,7 +11,7 @@ from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.click import click, right_click, double_click, click_vertical_zone
-from lib.decorators import reset_midi_client
+from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
@@ -121,6 +121,7 @@ class Routes:
     def show_warning(message: str):
         notification.delay(message, NotificationEnum.WARNING.value)
 
+    @throttle(milliseconds=5000)
     def show_error(message: str):
         notification.delay(message, NotificationEnum.ERROR.value)
 

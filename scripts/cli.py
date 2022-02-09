@@ -1,10 +1,14 @@
+import time
+
 import asyncclick as click
 
 from api.midi_app import start_midi_server
 from api.p0_system_api_client import system_client
+from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import clear_arrangement
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.process import execute_in_new_window
 from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
@@ -71,7 +75,11 @@ def command_logoff() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    system_client.test()
+    from message_queue.celery import notification
+    for i in range(10):
+        Routes.show_error(f"test {i}")
+        time.sleep(0.5)
+    # system_client.test()
 
 
 if __name__ == "__main__":

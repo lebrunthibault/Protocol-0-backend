@@ -9,6 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_queue/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_queue/celery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -541,6 +543,7 @@
       <workItem from="1644324103997" duration="1379000" />
       <workItem from="1644339447336" duration="603000" />
       <workItem from="1644345317844" duration="1441000" />
+      <workItem from="1644366378411" duration="3160000" />
     </task>
     <servers />
   </component>
