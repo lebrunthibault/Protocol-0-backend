@@ -21,7 +21,7 @@ class Notification(Window):
                                    location=(pyautogui.size()[0] - (80 + 7 * len(message)), 10),
                                    background_color=background_color,
                                    keep_on_top=True,
-                                   modal=False,
+                                   modal=True,
                                    )
 
     def display(self):
