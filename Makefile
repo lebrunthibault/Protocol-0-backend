@@ -1,6 +1,6 @@
 #!make
 
-.PHONY: dev sdk sdk_system sdk_script sdk_debug mypy test flake8 vulture
+.PHONY: dev sdk_system sdk_debug mypy test flake8 vulture
 
 include .env
 export $(shell sed 's/=.*//' .env)
@@ -10,7 +10,8 @@ dev:
 
 sdk_system:
 	cls
-	py sdk_generation/generate_openapi_specs.py
+	py scripts/cli.py generate_openapi_specs
+
 	cd sdk_generation/p0_script_client && rm -rf api_client
 	cd sdk_generation && openapi-generator generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_script_client\api_client -t p0_script_client\openapi_templates
 	cd "C:\ProgramData\Ableton\Live 10 Suite\Resources\MIDI Remote Scripts\protocol0" && .\venv\Scripts\activate.ps1 && venv\Scripts\pip.exe install "C:\Users\thiba\google_drive\music\dev\protocol0_system\sdk_generation\p0_script_client\api_client"

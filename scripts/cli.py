@@ -8,12 +8,12 @@ from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import clear_arrangement
-from lib.enum.NotificationEnum import NotificationEnum
 from lib.process import execute_in_new_window
 from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
+from sdk_generation.generate_openapi_specs import generate_openapi_specs, _get_parameters_dict_from_method
 
 
 @cli.command(name="reload_ableton")
@@ -73,13 +73,14 @@ def command_logoff() -> None:
     logoff()
 
 
+@cli.command(name="generate_openapi_specs")
+def command_generate_openapi_specs() -> None:
+    generate_openapi_specs()
+
+
 @cli.command(name="test")
 def command_test() -> None:
-    from message_queue.celery import notification
-    for i in range(10):
-        Routes.show_error(f"test {i}")
-        time.sleep(0.5)
-    # system_client.test()
+    print(list(_get_parameters_dict_from_method(Routes.toggle_ableton_button)))
 
 
 if __name__ == "__main__":

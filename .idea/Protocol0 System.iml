@@ -18,6 +18,7 @@
     </content>
     <content url="file://$MODULE_DIR$/sdk_generation/p0_system/p0_script_client/openapi_templates" />
     <content url="file://$MODULE_DIR$/sdk_generation/p0_system/p0_system_client/openapi_templates" />
+    <content url="file://$MODULE_DIR$/sdk_generation/p0_system_client/openapi_templates" />
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

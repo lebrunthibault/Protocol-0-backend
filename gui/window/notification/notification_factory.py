@@ -1,6 +1,7 @@
 from gui.window.decorators.auto_close_window_decorator import AutoCloseNotificationDecorator
 from gui.window.notification.notification_error import NotificationError
 from gui.window.notification.notification_info import NotificationInfo
+from gui.window.notification.notification_success import NotificationSuccess
 from gui.window.notification.notification_warning import NotificationWarning
 from gui.window.window import Window
 from gui.window.window_factory import WindowFactory
@@ -12,6 +13,8 @@ class NotificationFactory(WindowFactory):
     def createWindow(cls, message: str, notification_enum: NotificationEnum = NotificationEnum.INFO) -> Window:
         if notification_enum == NotificationEnum.INFO:
             notification = NotificationInfo(message=message)
+        if notification_enum == NotificationEnum.SUCCESS:
+            notification = NotificationSuccess(message=message)
         elif notification_enum == NotificationEnum.WARNING:
             notification = NotificationWarning(message=message)
         elif notification_enum == NotificationEnum.ERROR:
@@ -27,4 +30,3 @@ class NotificationFactory(WindowFactory):
     @classmethod
     def show_error(cls, message: str):
         cls.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
-

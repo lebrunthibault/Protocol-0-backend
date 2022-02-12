@@ -8,7 +8,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification_success.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/openapi_spec_generation.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/api.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,11 +130,11 @@
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\sdk_generation" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\decorators" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\prompt" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\notification" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\notification" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\ableton_set_profiling" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.reload ahk">
@@ -547,6 +557,8 @@
       <workItem from="1644517951360" duration="585000" />
       <workItem from="1644524744493" duration="599000" />
       <workItem from="1644585562154" duration="1593000" />
+      <workItem from="1644660662732" duration="905000" />
+      <workItem from="1644668946778" duration="8297000" />
     </task>
     <servers />
   </component>

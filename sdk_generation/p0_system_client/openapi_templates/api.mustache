@@ -21,8 +21,8 @@ class {{custom_classname}}(object):
         self.message_sender = message_sender
     {{#operation}}
 
-    def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{paramName}}={{{defaultValue}}}{{^-last}}, {{/-last}}{{/optionalParams}}):  # noqa: E501
-        # type: ({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{dataType}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}Any) -> None
+    def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{paramName}}={{{defaultValue}}}{{^-description}}, {{/-description}}{{/optionalParams}}):  # noqa: E501
+        # type: (Any{{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}, {{dataType}}{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}) -> None
         """
             {{#summary}}{{{.}}}{{/summary}}{{^summary}}{{operationId}}{{/summary}}  # noqa: E501
         {{#allParams}}

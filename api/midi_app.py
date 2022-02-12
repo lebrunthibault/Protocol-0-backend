@@ -87,21 +87,15 @@ def _execute_midi_message(message: Message):
 
     # call can be either explicit by giving a fqdn off a class.method or function (system loopback)
     # or it can exploit the routes public API by passing an operation name
-    if payload.get("class", None):
-        cls = locate(payload.get("class"))
-        callable = getattr(cls, payload["method"], None)
-    else:
-        try:
-            callable = locate(payload.get("function"))
-        except AttributeError:
-            from api.routes import Routes
-            callable = getattr(Routes, payload["method"], None)
+    from api.routes import Routes
+    route = Routes()
+    method = getattr(route, payload["method"], None)
 
-    if callable is None:
+    if method is None:
         raise Protocol0Error(f"You called an unknown system api method: {payload}")
 
     logger.info(f"received API call <green>{callable.__name__}</> with args {log_string(payload['args'])}")
-    callable(**payload["args"])
+    method(**payload["args"])
 
 
 def get_output_port(port_name_prefix: str):

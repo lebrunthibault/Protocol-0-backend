@@ -24,106 +24,109 @@ from scripts.commands.toggle_ableton_button import toggle_ableton_button
 
 # noinspection PyMethodParameters
 class Routes:
-    def test() -> None:
+    def test(self) -> None:
         p0_script_client.dispatch(PingCommand())
 
     @reset_midi_client
-    def ping() -> None:
+    def ping(self) -> None:
         from loguru import logger
         logger.info("Sending ping to script !")
         p0_script_client.dispatch(PingCommand())
 
-    def notify_protocol0_midi_up() -> None:
+    def notify_protocol0_midi_up(self) -> None:
         notify_protocol0_midi_up()
 
-    def click(x: int, y: int) -> None:
+    def click(self, x: int, y: int) -> None:
         click(x=x, y=y)
 
-    def click_vertical_zone(x: int, y: int) -> None:
+    def click_vertical_zone(self, x: int, y: int) -> None:
         click_vertical_zone(x=x, y=y)
 
-    def right_click(x: int, y: int) -> None:
+    def right_click(self, x: int, y: int) -> None:
         right_click(x=x, y=y)
 
-    def double_click(x: int, y: int) -> None:
+    def double_click(self, x: int, y: int) -> None:
         double_click(x=x, y=y)
 
-    def analyze_test_audio_clip_jitter(clip_path: str):
+    def analyze_test_audio_clip_jitter(self, clip_path: str):
         analyze_test_audio_clip_jitter(clip_path=clip_path)
 
-    def show_plugins() -> None:
+    def show_plugins(self) -> None:
         if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
             send_keys('^%p')
 
-    def show_hide_plugins() -> None:
+    def show_hide_plugins(self) -> None:
         send_keys('^%p')
 
-    def hide_plugins() -> None:
+    def hide_plugins(self) -> None:
         if find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
             send_keys('^%p')
 
-    def focus_window(window_name: str) -> None:
+    def focus_window(self, window_name: str) -> None:
         focus_window(name=window_name)
 
-    def reload_ableton():
+    def reload_ableton(self):
         AbletonSetProfiler.start_profiling_single_measurement()
         reload_ableton()
 
-    def save_set():
+    def save_set(self):
         save_set()
 
-    def save_set_as_template():
+    def save_set_as_template(self):
         save_set_as_template(open_pref=True)
 
-    def clear_logs():
+    def clear_logs(self):
         p0_script_client.dispatch(ClearLogsCommand())
 
-    def clear_arrangement():
+    def clear_arrangement(self):
         clear_arrangement()
 
-    def toggle_ableton_button(x: int, y: int, activate: bool = False) -> None:
+    def toggle_ableton_button(self, x: int, y: int, activate: bool = False) -> None:
         toggle_ableton_button(x=x, y=y, activate=activate)
 
-    def activate_rev2_editor() -> None:
+    def activate_rev2_editor(self) -> None:
         activate_rev2_editor()
 
-    def post_activate_rev2_editor() -> None:
+    def post_activate_rev2_editor(self) -> None:
         post_activate_rev2_editor()
 
-    def show_windows() -> None:
+    def show_windows(self) -> None:
         show_windows()
 
-    def sync_presets() -> None:
+    def sync_presets(self) -> None:
         sync_presets()
 
-    def start_set_profiling() -> None:
+    def start_set_profiling(self) -> None:
         AbletonSetProfiler.start_set_profiling()
 
-    def start_profiling_single_measurement() -> None:
+    def start_profiling_single_measurement(self) -> None:
         AbletonSetProfiler.start_profiling_single_measurement()
 
     @reset_midi_client
-    def end_measurement() -> None:
+    def end_measurement(self) -> None:
         AbletonSetProfiler.end_measurement()
 
-    def stop_midi_server() -> None:
+    def stop_midi_server(self) -> None:
         stop_midi_server()
 
-    def send_system_response(res) -> None:
+    def send_system_response(self, res) -> None:
         p0_script_client.dispatch(ProcessSystemResponseCommand(res))
 
-    def prompt(question: str):
+    def prompt(self, question: str):
         prompt.delay(question)
 
-    def select(question: str, options: List[str], vertical=True):
-        select.delay(question, options)
+    def show_success(self, message: str):
+        notification.delay(message, NotificationEnum.SUCCESS.value)
 
-    def show_warning(message: str):
+    def show_warning(self, message: str):
         notification.delay(message, NotificationEnum.WARNING.value)
 
     @throttle(milliseconds=5000)
-    def show_error(message: str):
+    def show_error(self, message: str):
         notification.delay(message, NotificationEnum.ERROR.value)
 
-    def execute_vocal_command(command: str):
+    def select(self, question: str, options: List[str], vertical: bool =True):
+        select.delay(question, options)
+
+    def execute_vocal_command(self, command: str):
         p0_script_client.dispatch(ExecuteVocalCommandCommand(command))

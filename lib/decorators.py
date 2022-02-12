@@ -45,14 +45,14 @@ class throttle(object):
 
     def __call__(self, fn):
         @wraps(fn)
-        def wrapper(*args, **kwargs):
+        def wrapper(*a, **k):
             time_since_last_call = datetime.now() - self.time_of_last_call
 
             if time_since_last_call <= self.throttle_period:
                 logger.info(f"time_since_last_call: {time_since_last_call}: NOK")
                 return
 
-            res = fn(*args, **kwargs)
+            res = fn(*a, **k)
             self.time_of_last_call = datetime.now()
             return res
 
