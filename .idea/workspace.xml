@@ -7,19 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/gui/window/notification/notification_success.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/notification/notification_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/decorators.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/decorators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/openapi_spec_generation.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/generate_openapi_specs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/api.mustache" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
