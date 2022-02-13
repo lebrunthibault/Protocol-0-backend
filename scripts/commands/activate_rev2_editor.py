@@ -27,9 +27,10 @@ def activate_rev2_editor():
     if is_window_focused(handle):
         return
     show_plugins()
-    handle = focus_window(name="REV2Editor/midi")
+    handle = find_window_handle_by_enum(name=SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME)
     if not handle:
         return
+    focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON))
 
 
@@ -38,7 +39,7 @@ def post_activate_rev2_editor():
     handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME, SearchTypeEnum.WINDOW_CLASS_NAME)
     if not is_window_focused(handle):
         show_plugins()
-        handle = focus_window(name="REV2Editor/midi")
+        focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME)
     if not handle:
         return
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM))

@@ -2,7 +2,6 @@ import ctypes
 import sys
 import time
 import traceback
-from pydoc import locate
 from threading import Timer
 
 import mido

@@ -18,10 +18,10 @@ class Notification(Window):
         self.sg_window = sg.Window("Message window",
                                    layout=[[sg.Text(message, background_color=background_color)]],
                                    no_titlebar=True,
+                                   use_default_focus=False,
                                    location=(pyautogui.size()[0] - (80 + 7 * len(message)), 10),
                                    background_color=background_color,
                                    keep_on_top=True,
-                                   modal=True,
                                    )
 
     def display(self):

@@ -4,6 +4,7 @@ from loguru import logger
 
 from api.p0_script_api_client import p0_script_client
 from lib.ableton import focus_ableton
+from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import focus_window
 
 WINDOW_TITLE = "search"
@@ -57,7 +58,9 @@ def create_gui():
 def search_set_gui():
     # type: () -> None
     if not RELOAD_ON_STARTUP:
-        if focus_window(name=WINDOW_TITLE):
+        handle = find_window_handle_by_enum(name=WINDOW_TITLE)
+        if handle:
+            focus_window(name=WINDOW_TITLE)
             return
 
     create_gui()

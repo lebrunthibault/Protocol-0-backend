@@ -20,24 +20,25 @@ def get_window_position(handle: int) -> Tuple[int, int, int, int]:
 
 
 def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE,
-                 retry: bool = True) -> int:
+                 retry: bool = True) -> None:
     handle = find_window_handle_by_enum(name=name, search_type=search_type)
+    logger.info(f"handle: {handle}")
     if not handle:
-        return 0
+        logger.info(f"handle not found for {name}")
 
     try:
         win32gui.SetForegroundWindow(handle)
-        return handle
+        return
     except Exception as e:
         logger.error(e)
         if retry:
             # needed for SetForegroundWindow to be allowed
             shell = win32com.client.Dispatch("WScript.Shell")
             shell.SendKeys('%')
-            return focus_window(name=name, search_type=search_type, retry=False)
+            focus_window(name=name, search_type=search_type, retry=False)
+            return
 
     logger.error("Window not focused : %s" % name)
-    return 0
 
 
 def is_window_focused(handle: int) -> bool:

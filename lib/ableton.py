@@ -40,8 +40,8 @@ class AbletonInfos():
             f"C:\\ProgramData\\Ableton\\Live {self.ableton_major_version}\\Program\\Ableton Live {self.ableton_major_version} Suite.exe")
 
 
-def focus_ableton() -> bool:
-    return focus_window(SystemConfig.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
+def focus_ableton() -> None:
+    focus_window(SystemConfig.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
 
 
 def is_ableton_up() -> bool:

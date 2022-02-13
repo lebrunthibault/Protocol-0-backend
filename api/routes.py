@@ -1,3 +1,5 @@
+from functools import partial
+from threading import Timer
 from typing import List
 
 from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
@@ -7,6 +9,7 @@ from protocol0.application.command.ProcessSystemResponseCommand import ProcessSy
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import p0_script_client
+from gui.window.notification.notification_error import NotificationError
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -124,6 +127,7 @@ class Routes:
     @throttle(milliseconds=5000)
     def show_error(self, message: str):
         notification.delay(message, NotificationEnum.ERROR.value)
+        Timer(0.5, partial(focus_window, NotificationError.WINDOW_NAME)).start()
 
     def select(self, question: str, options: List[str], vertical: bool =True):
         select.delay(question, options)

@@ -1,5 +1,4 @@
 import os
-import threading
 from typing import List
 
 from celery import Celery
@@ -34,7 +33,6 @@ def select(question: str, options: List[str], vertical=True):
 
 
 @app.task()
-# @app.task(rate_limit='5/m')
 def notification(message: str, notification_enum=NotificationEnum.INFO.value):
     NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
 
