@@ -9,7 +9,6 @@ from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 
 def click(x: int, y: int) -> None:
-    logger.info("clicking at x: %s, y: %s" % (x, y))
     pyautogui.click(x, y)
 
 
@@ -20,12 +19,10 @@ def click_vertical_zone(x: int, y: int) -> None:
 
 
 def right_click(x: int, y: int) -> None:
-    logger.info("right clicking at x: %s, y: %s" % (x, y))
     pyautogui.rightClick(x, y)
 
 
 def double_click(x: int, y: int) -> None:
-    logger.info("double clicking at x: %s, y: %s" % (x, y))
     pyautogui.doubleClick(x, y)
 
 

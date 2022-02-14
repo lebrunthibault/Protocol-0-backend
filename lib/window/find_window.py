@@ -87,7 +87,7 @@ def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
                 "class_name": class_name,
                 "app_name": app_name
             }
-            logger.info(line)
+            logger.debug(line)
             result.append(line)
 
     win32gui.EnumWindows(winEnumHandler, None)

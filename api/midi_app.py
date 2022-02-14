@@ -82,7 +82,7 @@ def _execute_midi_message(message: Message):
     if not payload:
         return
 
-    logger.info(f"got payload {log_string(payload)}")
+    logger.info(f"received midi payload {log_string(payload)}")
 
     # call can be either explicit by giving a fqdn off a class.method or function (system loopback)
     # or it can exploit the routes public API by passing an operation name
@@ -93,7 +93,6 @@ def _execute_midi_message(message: Message):
     if method is None:
         raise Protocol0Error(f"You called an unknown system api method: {payload}")
 
-    logger.info(f"received API call <green>{callable.__name__}</> with args {log_string(payload['args'])}")
     method(**payload["args"])
 
 

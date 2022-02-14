@@ -10,7 +10,7 @@ class SystemConfig:
     ABLETON_VERSION = _ableton_version
     ABLETON_WINDOW_CLASS_NAME = "Ableton Live Window Class"
     ABLETON_EXE = f"Ableton Live {_ableton_major_version} Suite.exe"
-    REV2_EDITOR_WINDOW_CLASS_NAME = "REV2Editor/midi"
+    REV2_EDITOR_WINDOW_TITLE = "REV2Editor/midi"
     LOG_WINDOW_TITLE = "logs terminal"
     # Midi port names are relative to the Protocol0 script and not this midi backend
     P0_OUTPUT_PORT_NAME = 'P0_OUT'

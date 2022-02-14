@@ -20,7 +20,6 @@ def send_search(search):
 
 def create_gui():
     # type: () -> None
-    logger.info("creating gui")
     layout = [[sg.Input(key="input")]]
     window = sg.Window(WINDOW_TITLE, layout,
                        return_keyboard_events=True,
@@ -34,17 +33,17 @@ def create_gui():
             return
 
         if not event or event == WIN_CLOSED or event.split(":")[0] == "Escape":
-            logger.info("Escape pressed, exiting")
+            logger.debug("Escape pressed, exiting")
             break
 
         if len(event) == 1 and ord(event) == 13:
             if KEEP_WINDOW_IN_BACKGROUND:
-                logger.info("Enter pressed, clearing and focusing ableton")
+                logger.debug("Enter pressed, clearing and focusing ableton")
                 window["input"].update("")
                 focus_ableton()
                 continue
             else:
-                logger.info("Enter pressed, closing")
+                logger.debug("Enter pressed, closing")
                 break
 
         if len(event) == 1:

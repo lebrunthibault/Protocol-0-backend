@@ -21,11 +21,11 @@ def _get_closest_color_at_pixel(x, y):
 
 def toggle_ableton_button(x: int, y: int, activate: bool) -> None:
     closest_color = _get_closest_color_at_pixel(x, y)
-    logger.info("closest_color: %s" % closest_color)
+    logger.debug("closest_color: %s" % closest_color)
     if (activate and closest_color != InterfaceColorEnum.ACTIVATED) or (
         not activate and closest_color == InterfaceColorEnum.ACTIVATED
     ):
-        logger.info("color matching expectation, dispatching click")
+        logger.debug("color matching expectation, dispatching click")
         click(x, y)
     else:
         logger.info("color %s not matching expectation, skipping" % closest_color)

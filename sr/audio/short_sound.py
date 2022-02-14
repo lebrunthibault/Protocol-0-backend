@@ -31,7 +31,7 @@ def get_short_sounds_observable(source: AudioSourceInterface) -> Observable[Shor
         Then applies energy detection change to create List[List[AudioSegment]] chunks via an operator
         Which then maps the chunks to ShortSound
     """
-    logger.info(f"making speech stream from source {source}")
+    logger.debug(f"making speech stream from source {source}")
 
     # windowing the audio source with overlapping windows
     windows = source.make_observable().pipe(

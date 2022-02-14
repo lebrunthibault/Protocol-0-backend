@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import keyboard
+from loguru import logger
 from protocol0.application.command.ResetSongCommand import ResetSongCommand
 
 from api.p0_script_api_client import p0_script_client
@@ -86,6 +87,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     total_jitter = sum(abs(b - average_latency) for b in beat_offsets)
     average_jitter = (total_jitter / notes_count)
     message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f} ms"
+    logger.info(message)
     background_color = ColorEnum.SUCCESS
     if average_jitter > 1 or average_latency < 0:
         background_color = ColorEnum.WARNING
@@ -96,18 +98,18 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 def reload_ableton() -> None:
     if not is_ableton_focused():
         focus_ableton()
-        time.sleep(0.5)
+        time.sleep(0.2)
     send_keys("^n")
     send_keys("{Right}")
-    send_keys("{Right}")
-    send_keys("{Right}")
-    send_keys("{Right}")
-    time.sleep(0.05)  # when clicking too fast, ableton is opening a template set ..
+    # send_keys("{Right}")
+    # send_keys("{Right}")
+    # send_keys("{Right}")
+    # time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
     # don't save set
-    send_keys("{Enter}")
-    # but keep recordings
-    send_keys("{Right}")
-    send_keys("{Enter}")
+    # send_keys("{Enter}")
+    # # but keep recordings
+    # send_keys("{Right}")
+    # send_keys("{Enter}")
 
 
 def save_set():

@@ -13,14 +13,14 @@ class NotificationFactory(WindowFactory):
     def createWindow(cls, message: str, notification_enum: NotificationEnum = NotificationEnum.INFO) -> Window:
         if notification_enum == NotificationEnum.INFO:
             notification = NotificationInfo(message=message)
-        if notification_enum == NotificationEnum.SUCCESS:
+        elif notification_enum == NotificationEnum.SUCCESS:
             notification = NotificationSuccess(message=message)
         elif notification_enum == NotificationEnum.WARNING:
             notification = NotificationWarning(message=message)
         elif notification_enum == NotificationEnum.ERROR:
             notification = NotificationError(message=message)
         else:
-            raise NotImplementedError
+            raise NotImplementedError("cannot find notification class for enum %s" % notification_enum)
 
         if notification_enum != NotificationEnum.ERROR:
             notification = AutoCloseNotificationDecorator(notification)

@@ -19,7 +19,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
-from message_queue.celery import prompt, select, notification
+from message_queue.celery import prompt, select, notification, kill_all_running_workers
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from scripts.commands.presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
@@ -32,8 +32,6 @@ class Routes:
 
     @reset_midi_client
     def ping(self) -> None:
-        from loguru import logger
-        logger.info("Sending ping to script !")
         p0_script_client.dispatch(PingCommand())
 
     def notify_protocol0_midi_up(self) -> None:
@@ -69,8 +67,9 @@ class Routes:
         focus_window(name=window_name)
 
     def reload_ableton(self):
-        AbletonSetProfiler.start_profiling_single_measurement()
         reload_ableton()
+        AbletonSetProfiler.start_profiling_single_measurement()
+        kill_all_running_workers()
 
     def save_set(self):
         save_set()
@@ -107,6 +106,7 @@ class Routes:
 
     @reset_midi_client
     def end_measurement(self) -> None:
+        return
         AbletonSetProfiler.end_measurement()
 
     def stop_midi_server(self) -> None:
@@ -117,6 +117,9 @@ class Routes:
 
     def prompt(self, question: str):
         prompt.delay(question)
+
+    def show_info(self, message: str):
+        notification.delay(message, NotificationEnum.INFO.value)
 
     def show_success(self, message: str):
         notification.delay(message, NotificationEnum.SUCCESS.value)
@@ -129,7 +132,7 @@ class Routes:
         notification.delay(message, NotificationEnum.ERROR.value)
         Timer(0.5, partial(focus_window, NotificationError.WINDOW_NAME)).start()
 
-    def select(self, question: str, options: List[str], vertical: bool =True):
+    def select(self, question: str, options: List[str], vertical: bool = True):
         select.delay(question, options)
 
     def execute_vocal_command(self, command: str):

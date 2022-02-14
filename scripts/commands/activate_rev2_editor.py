@@ -1,11 +1,13 @@
 from enum import Enum
 from typing import Tuple
 
+from loguru import logger
+
 from config import SystemConfig
 from lib.ableton import show_plugins
 from lib.click import click
-from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
-from lib.window.window import get_window_position, focus_window, is_window_focused
+from lib.window.find_window import find_window_handle_by_enum
+from lib.window.window import get_window_position, focus_window
 
 
 class Rev2ButtonsRelativeCoordinates(Enum):
@@ -23,24 +25,22 @@ def _get_absolute_button_position(handle: int, window_coordinates: Rev2ButtonsRe
 
 def activate_rev2_editor():
     # type: () -> None
-    handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME, SearchTypeEnum.WINDOW_CLASS_NAME)
-    if is_window_focused(handle):
-        return
     show_plugins()
-    handle = find_window_handle_by_enum(name=SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME)
+    handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
+        logger.warning("Couldn't find rev2 editor window")
         return
-    focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME)
+    focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON))
 
 
 def post_activate_rev2_editor():
     # type: () -> None
-    handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME, SearchTypeEnum.WINDOW_CLASS_NAME)
-    if not is_window_focused(handle):
-        show_plugins()
-        focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_CLASS_NAME)
+    show_plugins()
+    handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
+        logger.warning("Couldn't find rev2 editor window")
         return
+    focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM))
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY))

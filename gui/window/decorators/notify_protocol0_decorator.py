@@ -11,6 +11,6 @@ class NotifyProtocol0Decorator(WindowDecorator, ObserverMixin):
         self.sg_window.close()
 
     def update(self, data):
-        logger.info(f"sending {data}")
+        logger.info(f"sending system response {data}")
 
         system_client.send_system_response(data)

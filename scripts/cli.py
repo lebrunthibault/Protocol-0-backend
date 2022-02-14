@@ -2,13 +2,12 @@ import asyncclick as click
 
 from api.midi_app import start_midi_server
 from api.p0_system_api_client import system_client
-from api.routes import Routes
 from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import clear_arrangement
 from lib.process import execute_in_new_window
-from lib.window.window import focus_window
 from scripts.abstract_cli import cli
+from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
@@ -79,12 +78,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    Routes().show_error("hello")
-
-
-@cli.command(name="test2")
-def command_test2() -> None:
-    focus_window("P0 Error")
+    activate_rev2_editor()
 
 
 if __name__ == "__main__":
