@@ -62,6 +62,7 @@
     <setting file="file://$PROJECT_DIR$/lib/decorators.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/enums/speech_command_enum.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/infra/midi/MidiService.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37/Lib/site-packages/PySimpleGUI/PySimpleGUI.py" root0="FORCE_HIGHLIGHTING" />
@@ -75,7 +76,6 @@
     <setting file="file://$PROJECT_DIR$/sr/Makefile" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/scripts/cli.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/terminal.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../../../../../../ProgramData/Ableton/Live 10 Suite/Resources/MIDI Remote Scripts/protocol0/infra/midi/MidiService.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/midi_app.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/api/p0_script_api_client.py" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -553,6 +553,7 @@
       <workItem from="1644840891181" duration="2720000" />
       <workItem from="1644847773013" duration="5394000" />
       <workItem from="1644874511090" duration="329000" />
+      <workItem from="1644878779283" duration="806000" />
     </task>
     <servers />
   </component>

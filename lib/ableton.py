@@ -105,9 +105,9 @@ def reload_ableton() -> None:
     # send_keys("{Right}")
     # send_keys("{Right}")
     # send_keys("{Right}")
-    # time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
+    time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
     # don't save set
-    # send_keys("{Enter}")
+    send_keys("{Enter}")
     # # but keep recordings
     # send_keys("{Right}")
     # send_keys("{Enter}")
