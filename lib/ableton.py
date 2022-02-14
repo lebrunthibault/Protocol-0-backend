@@ -101,6 +101,7 @@ def reload_ableton() -> None:
         time.sleep(0.2)
     send_keys("^n")
     send_keys("{Right}")
+    # NB : we have a problem of double set load when doing it programmatically
     # send_keys("{Right}")
     # send_keys("{Right}")
     # send_keys("{Right}")
