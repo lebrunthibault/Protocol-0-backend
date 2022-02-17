@@ -18,7 +18,7 @@ class Prompt(Window):
         layout = [
             [sg.Text(message, key="question", background_color=background_color)],
             [sg.Input(key="input", visible=False)],
-            [sg.Button("ok", key="ok")],
+            [sg.Button("yes", key="yes"), sg.Button("no", key="no")]
         ]
         self.sg_window = sg.Window(
             "Dialog Window",
@@ -34,10 +34,10 @@ class Prompt(Window):
     def display(self):
         while True:
             event, values = self.sg_window.read()
-            if event == "Exit" or event == sg.WIN_CLOSED or event.split(":")[0] == "Escape":
+            if event == "no" or event == "Exit" or event == sg.WIN_CLOSED or event.split(":")[0] == "Escape":
                 self.notify(False)
                 break
 
-            if event == "ok" or (len(event) == 1 and ord(event) == 13):
+            if event == "yes" or (len(event) == 1 and ord(event) == 13):
                 self.notify(True)
                 break
