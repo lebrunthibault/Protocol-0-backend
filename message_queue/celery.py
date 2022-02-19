@@ -18,8 +18,15 @@ celery_app.conf.result_expires = 1
 
 
 def kill_all_running_workers():
-    for worker in celery_app.control.inspect().active()[f"celery@{socket.gethostname()}"]:
-        os.kill(worker["worker_pid"], 9)
+    for task in celery_app.control.inspect().active()[f"celery@{socket.gethostname()}"]:
+        celery_app.control.revoke(task_id=task["id"], terminate=True)
+
+
+def revoke_tasks(type: str, current_task_id):
+    for task in celery_app.control.inspect().active()[f"celery@{socket.gethostname()}"]:
+        if task["type"] == type and task["id"] != current_task_id:
+            logger.info(f"revoking {task}")
+            celery_app.control.revoke(task_id=task["id"], terminate=True)
 
 
 def check_celery_worker_status() -> bool:
@@ -38,7 +45,7 @@ def handle_error(func):
             func(*a, **k)
         except Exception as e:
             logger.exception(e)
-            notification.delay(str(e), NotificationEnum.ERROR.value)
+            notification_error.delay(str(e))
 
     return decorate
 
@@ -55,10 +62,17 @@ def select(question: str, options: List[str], vertical=True):
     SelectFactory.createWindow(message=question, options=options, vertical=vertical).display()
 
 
+@celery_app.task(bind=True)
+@handle_error
+def notification(self, message: str, notification_enum=NotificationEnum.INFO.value):
+    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
+    revoke_tasks("message_queue.celery.notification", self.request.id)
+
+
 @celery_app.task()
 @handle_error
-def notification(message: str, notification_enum=NotificationEnum.INFO.value):
-    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
+def notification_error(message: str):
+    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
 
 
-celery_app.control.rate_limit('message_queue.celery.notification', '50/m')
+celery_app.control.rate_limit('message_queue.celery.notification_error', '50/m')

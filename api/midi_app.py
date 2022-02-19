@@ -18,7 +18,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
 from lib.utils import log_string, make_dict_from_sysex_message
-from message_queue.celery import notification, check_celery_worker_status
+from message_queue.celery import notification, check_celery_worker_status, notification_error
 
 logger = logger.opt(colors=True)
 
@@ -72,7 +72,7 @@ def _poll_midi_port(midi_port: Input):
                 message = f"Midi server error\n\n{e}"
                 logger.error(log_string(message))
                 logger.error(log_string(traceback.format_exc()))
-                notification.delay(message, NotificationEnum.ERROR.value)
+                notification_error.delay(message)
         else:
             break
 

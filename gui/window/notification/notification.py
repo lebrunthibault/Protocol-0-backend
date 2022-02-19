@@ -19,7 +19,7 @@ class Notification(Window):
                                    layout=[[sg.Text(message, background_color=background_color)]],
                                    no_titlebar=True,
                                    use_default_focus=False,
-                                   location=(pyautogui.size()[0] - (80 + 7 * len(message)), 10),
+                                   location=(pyautogui.size()[0] - (100 + 7 * len(message)), 10),
                                    background_color=background_color,
                                    keep_on_top=True,
                                    )

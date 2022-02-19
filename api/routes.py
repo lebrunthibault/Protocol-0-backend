@@ -19,7 +19,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
-from message_queue.celery import prompt, select, notification, kill_all_running_workers
+from message_queue.celery import prompt, select, notification, kill_all_running_workers, notification_error
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from scripts.commands.presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
@@ -129,7 +129,7 @@ class Routes:
 
     @throttle(milliseconds=5000)
     def show_error(self, message: str):
-        notification.delay(message, NotificationEnum.ERROR.value)
+        notification_error.delay(message)
         Timer(0.5, partial(focus_window, NotificationError.WINDOW_NAME)).start()
 
     def select(self, question: str, options: List[str], vertical: bool = True):
