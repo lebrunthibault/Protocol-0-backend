@@ -16,7 +16,7 @@ CoordMode,mouse,screen
 
 ; global hotkeys
 HotkeyCommand("^#+n", "reload_ableton")
-HotkeyCommand("^#+t", "test")
+HotkeyCommandAbleton("^l", "toggle_scene_loop")
 HotkeyCommandNoPycharm("^#+l", "tail_logs")
 HotkeyCommandNoPycharm("^!+l", "tail_logs", "--raw")
 

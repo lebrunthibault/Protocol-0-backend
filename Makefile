@@ -1,6 +1,6 @@
 #!make
 
-.PHONY: dev sdk_system sdk_debug mypy test flake8 vulture
+.PHONY: dev sdk sdk_debug mypy test flake8 vulture
 
 include .env
 export $(shell sed 's/=.*//' .env)
@@ -8,7 +8,7 @@ export $(shell sed 's/=.*//' .env)
 dev:
 	python -m uvicorn api.main:app --host ${API_HOST} --port ${API_PORT} --reload
 
-sdk_system:
+sdk:
 	cls
 	py scripts/cli.py generate_openapi_specs
 

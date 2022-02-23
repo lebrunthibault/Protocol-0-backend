@@ -11,6 +11,11 @@ HotkeyCommand(hk, args*)
     Hotkey("", "", hk, "executeCliCommand", args*)
 }
 
+HotkeyCommandAbleton(hk, args*)
+{
+    Hotkey("ahk_exe Ableton Live 10 Suite.exe", "", hk, "executeCliCommand", args*)
+}
+
 HotkeyCommandNoPycharm(hk, args*)
 {
     Hotkey("", "ahk_exe pycharm64.exe", hk, "executeCliCommand", args*)

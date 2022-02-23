@@ -1,16 +1,14 @@
-import time
-
 import asyncclick as click
+from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
+from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 
 from api.midi_app import start_midi_server
-from api.p0_system_api_client import system_client
+from api.p0_system_api_client import system_client, dispatch_to_script
 from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import clear_arrangement
 from lib.process import execute_in_new_window
-from message_queue.celery import notification
 from scripts.abstract_cli import cli
-from scripts.commands.activate_rev2_editor import activate_rev2_editor
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
@@ -36,7 +34,12 @@ def command_tail_logs(raw: bool) -> None:
 
 @cli.command(name="clear_logs")
 def command_clear_logs() -> None:
-    system_client.clear_logs()
+    dispatch_to_script(ClearLogsCommand())
+
+
+@cli.command(name="toggle_scene_loop")
+def command_toggle_scene_loop() -> None:
+    dispatch_to_script(ToggleSceneLoopCommand())
 
 
 @cli.command(name="save_set_as_template")
@@ -81,7 +84,8 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    notification.delay(f"{time.time()}" * int(time.time() % 10))
+    dispatch_to_script(ToggleSceneLoopCommand())
+    # notification.delay(f"{time.time()}" * int(time.time() % 10))
 
 
 if __name__ == "__main__":

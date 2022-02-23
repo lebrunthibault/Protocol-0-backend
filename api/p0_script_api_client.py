@@ -10,35 +10,34 @@ from lib.utils import make_sysex_message_from_command
 
 
 class P0ScriptClient(object):
-    IS_LIVE = False
     DEBUG = False
-    AWAITING_COMMANDS: List[SerializableCommand] = []
 
-    @classmethod
-    def _send_command_to_script(cls, command: SerializableCommand) -> None:
+    def __init__(self):
+        self._is_live = False
+        self._awaiting_commands: List[SerializableCommand] = []
+
+    def _send_command_to_script(self, command: SerializableCommand) -> None:
         from api.midi_app import get_output_port
         with mido.open_output(get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
-            if cls.DEBUG:
+            if self.DEBUG:
                 logger.info(f"sending command to p0: {command}")
             msg = make_sysex_message_from_command(command=command)
             midi_port.send(msg)
 
-    @classmethod
-    def set_live(cls):
-        cls.IS_LIVE = True
-        for command in cls.AWAITING_COMMANDS:
+    def set_live(self):
+        self._is_live = True
+        for command in self._awaiting_commands:
             logger.info(f"sending awaiting message {command}")
-            cls._send_command_to_script(command)
-        cls.AWAITING_COMMANDS = []
+            self._send_command_to_script(command)
+        self._awaiting_commands = []
 
-    @classmethod
-    def dispatch(cls, command: SerializableCommand):
-        if not cls.IS_LIVE:
+    def dispatch(self, command: SerializableCommand):
+        if not self._is_live:
             logger.info(f"client is not live, storing message {command}")
-            cls.AWAITING_COMMANDS.append(command)
+            self._awaiting_commands.append(command)
             return
 
-        cls._send_command_to_script(command)
+        self._send_command_to_script(command)
 
 
 p0_script_client = P0ScriptClient()

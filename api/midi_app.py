@@ -8,17 +8,17 @@ import mido
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
+from protocol0.application.command.SerializableCommand import SerializableCommand
 
 from api.p0_script_api_client import p0_script_client
 from api.p0_system_api_client import system_client
 from config import SystemConfig
 from gui.window.notification.notification_factory import NotificationFactory
 from lib.ableton import is_ableton_up
-from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
-from lib.utils import log_string, make_dict_from_sysex_message
-from message_queue.celery import notification, check_celery_worker_status, notification_error
+from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
+from message_queue.celery import check_celery_worker_status, notification_error
 
 logger = logger.opt(colors=True)
 
@@ -78,15 +78,22 @@ def _poll_midi_port(midi_port: Input):
 
 
 def _execute_midi_message(message: Message):
+    from api.routes import Routes
+
+    # shortcut to call directly the script api
+    command = make_script_command_from_sysex_message(message=message)
+    if command:
+        logger.info(f"received script command {command}")
+        p0_script_client.dispatch(command)
+        return
+
     payload = make_dict_from_sysex_message(message=message)
     if not payload:
         return
 
     logger.info(f"received midi payload {log_string(payload)}")
 
-    # call can be either explicit by giving a fqdn off a class.method or function (system loopback)
     # or it can exploit the routes public API by passing an operation name
-    from api.routes import Routes
     route = Routes()
     method = getattr(route, payload["method"], None)
 

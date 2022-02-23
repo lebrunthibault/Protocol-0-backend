@@ -6,6 +6,7 @@ from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
 from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
 from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
+from protocol0.application.command.SerializableCommand import SerializableCommand
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import p0_script_client
@@ -76,9 +77,6 @@ class Routes:
 
     def save_set_as_template(self):
         save_set_as_template(open_pref=True)
-
-    def clear_logs(self):
-        p0_script_client.dispatch(ClearLogsCommand())
 
     def clear_arrangement(self):
         clear_arrangement()

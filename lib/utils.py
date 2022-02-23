@@ -9,6 +9,7 @@ from typing import Optional, Dict
 import mido
 from loguru import logger
 from protocol0.application.command.SerializableCommand import SerializableCommand
+from protocol0.domain.shared.errors.Protocol0Error import Protocol0Error
 
 
 def filename_datetime() -> str:
@@ -46,9 +47,9 @@ def log_string(string) -> str:
     return str(string).replace("<", "\\<")
 
 
-def make_sysex_message_from_dict(data: Dict) -> mido.Message:
-    assert isinstance(data, Dict)
-    message = json.dumps(data, default=str)
+def make_sysex_message_from_command(command: SerializableCommand) -> mido.Message:
+    assert isinstance(command, SerializableCommand), "expected SerializableCommand, got %s" % command
+    message = command.serialize()
     logger.debug(f"Sending string to System midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
     b.insert(0, 0xF0)
@@ -56,9 +57,19 @@ def make_sysex_message_from_dict(data: Dict) -> mido.Message:
     return mido.Message.from_bytes(b)
 
 
-def make_sysex_message_from_command(command: SerializableCommand) -> mido.Message:
-    assert isinstance(command, SerializableCommand), "expected SerializableCommand, got %s" % command
-    message = command.serialize()
+def make_script_command_from_sysex_message(message: mido.Message) -> Optional[SerializableCommand]:
+    dict = make_dict_from_sysex_message(message)
+    if dict is None:
+        return None
+    try:
+        return SerializableCommand.unserialize(json.dumps(dict))
+    except (AssertionError, Protocol0Error):
+        return None
+
+
+def make_sysex_message_from_dict(data: Dict) -> mido.Message:
+    assert isinstance(data, Dict)
+    message = json.dumps(data, default=str)
     logger.debug(f"Sending string to System midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
     b.insert(0, 0xF0)
