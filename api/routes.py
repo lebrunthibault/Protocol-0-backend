@@ -125,7 +125,7 @@ class Routes:
     def show_error(self, message: str):
         message_window.delay(message, NotificationEnum.ERROR.value)
 
-    def select(self, question: str, options: List[str], vertical: bool = True):
+    def select(self, question: str, options: List, vertical: bool = True):
         select_window.delay(question, options)
 
     def execute_vocal_command(self, command: str):

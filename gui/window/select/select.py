@@ -7,7 +7,7 @@ from gui.window.window import Window
 
 
 class Select(Window):
-    def __init__(self, message: str, options: List[str], buttons: List[List[Button]], arrow_keys: Tuple[str, str]):
+    def __init__(self, message: str, options: List, buttons: List[List[Button]], arrow_keys: Tuple[str, str]):
         super(Select, self).__init__()
         layout = [
             [sg.Text(message, key="question")],

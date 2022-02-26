@@ -74,5 +74,5 @@ def prompt_window(question: str):
 
 @celery_app.task
 @handle_error
-def select_window(question: str, options: List[str], vertical=True):
+def select_window(question: str, options: List, vertical=True):
     SelectFactory.createWindow(message=question, options=options, vertical=vertical).display()

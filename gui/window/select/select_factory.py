@@ -12,7 +12,7 @@ from gui.window.window_factory import WindowFactory
 
 class SelectFactory(WindowFactory):
     @classmethod
-    def createWindow(cls, message: str, options: List[str], vertical=True) -> Window:
+    def createWindow(cls, message: str, options: List, vertical=True) -> Window:
         buttons = cls._create_buttons(options=options)
         if vertical:
             select = Select(message=message, options=options, buttons=[[button] for button in buttons], arrow_keys=("Up", "Down"))
