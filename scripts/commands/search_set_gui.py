@@ -2,7 +2,6 @@ import PySimpleGUI as sg
 from PySimpleGUI import WIN_CLOSED
 from loguru import logger
 
-from api.p0_script_api_client import p0_script_client
 from lib.ableton import focus_ableton
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import focus_window
@@ -15,16 +14,14 @@ RELOAD_ON_STARTUP = False
 def send_search(search):
     # type: (str) -> None
     logger.info(f"sending search {search} to api")
-    p0_script_client.search_track(search=search)
+    # connect to script
 
 
 def create_gui():
     # type: () -> None
     layout = [[sg.Input(key="input")]]
     window = sg.Window(WINDOW_TITLE, layout,
-                       return_keyboard_events=True,
-                       # no_titlebar=True,
-                       )
+                       return_keyboard_events=True)
 
     while True:
         event, values = window.read()
