@@ -11,7 +11,6 @@ class Prompt(Window):
         self,
         message: str,
         background_color: Optional[ColorEnum],
-        no_titlebar=True
     ):
         super(Prompt, self).__init__()
         background_color = background_color.hex_value if background_color else None
@@ -32,12 +31,13 @@ class Prompt(Window):
         )
 
     def display(self):
+        self.focus()
         while True:
             event, values = self.sg_window.read()
-            if event == "no" or event == "Exit" or event == sg.WIN_CLOSED or event.split(":")[0] == "Escape":
+            if event == "no" or event == sg.WIN_CLOSED or self.is_event_escape(event):
                 self.notify(False)
                 break
 
-            if event == "yes" or (len(event) == 1 and ord(event) == 13):
+            if event == "yes" or self.is_event_enter(event):
                 self.notify(True)
                 break

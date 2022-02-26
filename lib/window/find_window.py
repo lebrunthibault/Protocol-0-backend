@@ -39,7 +39,7 @@ def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str
 
 
 def _find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: Optional[str] = None) -> int:
-    assert class_name or app_name, "You should give a criteria to search a window"
+    assert class_name or app_name, "You should give a criteria to search a message"
 
     handle = 0
 

@@ -7,7 +7,7 @@ from gui.window.window import Window
 
 
 class Select(Window):
-    def __init__(self, message: str, options: List[str], buttons: List[List[Button]], arrow_keys: Tuple[str]):
+    def __init__(self, message: str, options: List[str], buttons: List[List[Button]], arrow_keys: Tuple[str, str]):
         super(Select, self).__init__()
         layout = [
             [sg.Text(message, key="question")],
@@ -29,24 +29,22 @@ class Select(Window):
         self.selected_option = options[0]
 
     def display(self):
+        self.focus()
         while True:
             event, values = self.sg_window.read()
 
-            if event == "Exit" or event == sg.WIN_CLOSED:
+            if self.is_event_escape(event) or self.is_event_enter(event):
                 break
 
             if isinstance(event, str):
                 key = event.split(":")[0]
-                if key == "Escape":
-                    break
-                elif key in self.arrow_keys:
+                if key in self.arrow_keys:
                     self._scroll_selected_option(go_next=key == self.arrow_keys[1])
                 elif event in self.options:
                     self.selected_option = event
                     break
-                elif len(event) == 1 and ord(event) == 13:
-                    break
 
+        self.sg_window.close()
         self.notify(self.selected_option)
 
     def _scroll_selected_option(self, go_next=True):

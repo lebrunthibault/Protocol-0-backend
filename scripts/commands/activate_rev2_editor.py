@@ -11,7 +11,7 @@ from lib.window.window import get_window_position, focus_window
 
 
 class Rev2ButtonsRelativeCoordinates(Enum):
-    """ These coordinates are relative to the plugin window == Mouse position relative from active_window.ahk """
+    """ These coordinates are relative to the plugin message == Mouse position relative from active_window.ahk """
     ACTIVATION_MIDDLE_BUTTON = (784, 504)
     PROGRAM = (1067, 147)
     PRESET_STAR_CATEGORY = (861, 335)
@@ -28,7 +28,7 @@ def activate_rev2_editor():
     show_plugins()
     handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
-        logger.warning("Couldn't find rev2 editor window")
+        logger.warning("Couldn't find rev2 editor message")
         return
     focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON))
@@ -39,7 +39,7 @@ def post_activate_rev2_editor():
     show_plugins()
     handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
-        logger.warning("Couldn't find rev2 editor window")
+        logger.warning("Couldn't find rev2 editor message")
         return
     focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_TITLE)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM))

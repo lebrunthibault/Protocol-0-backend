@@ -11,12 +11,12 @@ from api.p0_script_api_client import p0_script_client
 from config import SystemConfig
 from lib.ableton_parsing import Clip
 from lib.click import click
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
-from message_queue.celery import notification
+from message_queue.celery import notification_window, message_window
 
 
 @dataclass(frozen=True)
@@ -75,7 +75,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
     if len(warp_markers) != notes_count:
         message = f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"
-        notification.delay(message)
+        notification_window.delay(message)
         return
 
     beat_offsets = []
@@ -88,11 +88,11 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     average_jitter = (total_jitter / notes_count)
     message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f} ms"
     logger.info(message)
-    background_color = ColorEnum.SUCCESS
+    notification_type = NotificationEnum.SUCCESS
     if average_jitter > 1 or average_latency < 0:
-        background_color = ColorEnum.WARNING
+        background_color = NotificationEnum.WARNING
 
-    notification.delay(message)
+    message_window.delay(message, notification_type.value)
 
 
 def reload_ableton() -> None:

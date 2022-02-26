@@ -1,28 +1,34 @@
 import PySimpleGUI as sg
-import pyautogui
 
 from gui.window.window import Window
 from lib.enum.ColorEnum import ColorEnum
 
 
-class Notification(Window):
+# centered notification
+class Message(Window):
     def __init__(
         self,
         message: str,
-        background_color: ColorEnum
+        background_color: ColorEnum,
+        title="P0 Message"
     ):
-        super(Notification, self).__init__()
+        super(Message, self).__init__()
         background_color = background_color.hex_value
-        self.message = message
-
-        self.sg_window = sg.Window("Notification message",
+        self.sg_window = sg.Window(title,
                                    layout=[[sg.Text(message, background_color=background_color)]],
+                                   return_keyboard_events=True,
                                    no_titlebar=True,
                                    use_default_focus=False,
-                                   location=(pyautogui.size()[0] - (100 + 7 * len(message)), 10),
+                                   element_justification="c",
                                    background_color=background_color,
                                    keep_on_top=True,
                                    )
 
     def display(self):
-        self.sg_window.read(timeout=0)
+        self.focus()
+        while True:
+            event, values = self.sg_window.read()
+            if self.is_event_escape(event) or self.is_event_enter(event):
+                break
+
+        self.sg_window.close()

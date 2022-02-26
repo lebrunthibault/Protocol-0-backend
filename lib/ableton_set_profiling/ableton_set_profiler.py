@@ -22,7 +22,7 @@ class AbletonSetProfiler():
     @classmethod
     def check_profiling_conditions(cls):
         if find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE) != 0:
-            cls.handle_profiling_error("Close the log window to start profiling")
+            cls.handle_profiling_error("Close the log message to start profiling")
             return False
         return True
 

@@ -8,17 +8,17 @@ import mido
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
-from protocol0.application.command.SerializableCommand import SerializableCommand
 
 from api.p0_script_api_client import p0_script_client
 from api.p0_system_api_client import system_client
 from config import SystemConfig
-from gui.window.notification.notification_factory import NotificationFactory
+from gui.window.message.message_factory import MessageFactory
 from lib.ableton import is_ableton_up
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
-from message_queue.celery import check_celery_worker_status, notification_error
+from message_queue.celery import check_celery_worker_status, message_window
 
 logger = logger.opt(colors=True)
 
@@ -50,7 +50,7 @@ def start_midi_server():
 
 def check_celery_is_up():
     if not check_celery_worker_status():
-        NotificationFactory.show_error("Celery broker is not up, closing midi server")
+        MessageFactory.show_error("Celery broker is not up, closing midi server")
         system_client.stop_midi_server()
     else:
         logger.info("Celery is up")
@@ -72,7 +72,7 @@ def _poll_midi_port(midi_port: Input):
                 message = f"Midi server error\n\n{e}"
                 logger.error(log_string(message))
                 logger.error(log_string(traceback.format_exc()))
-                notification_error.delay(message)
+                message_window.delay(message, NotificationEnum.ERROR.value)
         else:
             break
 

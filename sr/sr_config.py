@@ -5,8 +5,8 @@ from functools import reduce
 from os.path import dirname, realpath
 from typing import Dict, List
 
-from protocol0.application.vocal_command.VocalActionEnum import VocalActionEnum
 from protocol0.application.vocal_command.TrackSearchKeywordEnum import TrackSearchKeywordEnum
+from protocol0.application.vocal_command.VocalActionEnum import VocalActionEnum
 
 from sr.enums.speech_command_enum import SpeechCommandEnum
 

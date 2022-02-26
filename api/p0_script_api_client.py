@@ -1,7 +1,6 @@
 from typing import List
 
 import mido
-
 from loguru import logger
 from protocol0.application.command.SerializableCommand import SerializableCommand
 

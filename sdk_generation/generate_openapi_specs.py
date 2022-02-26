@@ -1,7 +1,7 @@
 import inspect
 import json
 import os
-from typing import Callable, Dict, Iterator, List
+from typing import Callable, Dict, Iterator
 
 from apispec import APISpec
 from loguru import logger

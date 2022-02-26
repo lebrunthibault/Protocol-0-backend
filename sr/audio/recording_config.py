@@ -1,6 +1,6 @@
 class RecordingConfig:
     BUFFER_MS = 20
-    # buffer window to consider for identifying phrase start and end
+    # buffer message to consider for identifying phrase start and end
     WINDOW_MS = 300  # ms
     WINDOW_SIZE = WINDOW_MS / BUFFER_MS
     HIGH_ENERGY_THRESHOLD_DBFS = -40  # minimum dbfs volume to consider high energy

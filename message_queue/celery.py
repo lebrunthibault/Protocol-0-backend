@@ -6,6 +6,7 @@ from typing import List
 from celery import Celery
 from loguru import logger
 
+from gui.window.message.message_factory import MessageFactory
 from gui.window.notification.notification_factory import NotificationFactory
 from gui.window.prompt.prompt_factory import PromptFactory
 from gui.window.select.select_factory import SelectFactory
@@ -45,34 +46,33 @@ def handle_error(func):
             func(*a, **k)
         except Exception as e:
             logger.exception(e)
-            notification_error.delay(str(e))
+            message_window.delay(str(e), NotificationEnum.ERROR.value)
 
     return decorate
 
 
+@celery_app.task(bind=True)
+@handle_error
+def notification_window(self, message: str, notification_enum=NotificationEnum.INFO.value):
+    logger.info(message)
+    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
+    revoke_tasks("message_queue.celery.notification", self.request.id)
+
+
+@celery_app.task(bind=True)
+@handle_error
+def message_window(self, message: str, notification_enum=NotificationEnum.INFO.value):
+    logger.info(message)
+    MessageFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
+
+
 @celery_app.task
 @handle_error
-def prompt(question: str):
+def prompt_window(question: str):
     PromptFactory.createWindow(message=question, notification_enum=NotificationEnum.INFO).display()
 
 
 @celery_app.task
 @handle_error
-def select(question: str, options: List[str], vertical=True):
+def select_window(question: str, options: List[str], vertical=True):
     SelectFactory.createWindow(message=question, options=options, vertical=vertical).display()
-
-
-@celery_app.task(bind=True)
-@handle_error
-def notification(self, message: str, notification_enum=NotificationEnum.INFO.value):
-    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
-    revoke_tasks("message_queue.celery.notification", self.request.id)
-
-
-@celery_app.task()
-@handle_error
-def notification_error(message: str):
-    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()
-
-
-celery_app.control.rate_limit('message_queue.celery.notification_error', '50/m')

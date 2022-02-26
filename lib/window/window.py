@@ -32,7 +32,7 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
         win32gui.SetForegroundWindow(handle)
         return
     except Exception:
-        logger.warning(f"couldn't focus window : {name}")
+        logger.warning(f"couldn't focus {name}")
         if retry:
             # needed for SetForegroundWindow to be allowed
             shell = win32com.client.Dispatch("WScript.Shell")

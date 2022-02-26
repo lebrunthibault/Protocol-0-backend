@@ -1,16 +1,11 @@
-from functools import partial
-from threading import Timer
 from typing import List
 
-from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
 from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
 from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
-from protocol0.application.command.SerializableCommand import SerializableCommand
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import p0_script_client
-from gui.window.notification.notification_error import NotificationError
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -20,7 +15,8 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
-from message_queue.celery import prompt, select, notification, kill_all_running_workers, notification_error
+from message_queue.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
+    message_window
 from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from scripts.commands.presets import sync_presets
 from scripts.commands.toggle_ableton_button import toggle_ableton_button
@@ -114,24 +110,23 @@ class Routes:
         p0_script_client.dispatch(ProcessSystemResponseCommand(res))
 
     def prompt(self, question: str):
-        prompt.delay(question)
+        prompt_window.delay(question)
 
     def show_info(self, message: str):
-        notification.delay(message, NotificationEnum.INFO.value)
+        notification_window.delay(message, NotificationEnum.INFO.value)
 
     def show_success(self, message: str):
-        notification.delay(message, NotificationEnum.SUCCESS.value)
+        notification_window.delay(message, NotificationEnum.SUCCESS.value)
 
     def show_warning(self, message: str):
-        notification.delay(message, NotificationEnum.WARNING.value)
+        notification_window.delay(message, NotificationEnum.WARNING.value)
 
     @throttle(milliseconds=5000)
     def show_error(self, message: str):
-        notification_error.delay(message)
-        Timer(0.5, partial(focus_window, NotificationError.WINDOW_NAME)).start()
+        message_window.delay(message, NotificationEnum.ERROR.value)
 
     def select(self, question: str, options: List[str], vertical: bool = True):
-        select.delay(question, options)
+        select_window.delay(question, options)
 
     def execute_vocal_command(self, command: str):
         p0_script_client.dispatch(ExecuteVocalCommandCommand(command))
