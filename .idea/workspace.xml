@@ -7,12 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/select/select.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/select/select.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/select/select_factory.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/select/select_factory.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_queue/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_queue/celery.py" afterDir="false" />
-    </list>
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -565,6 +560,7 @@
       <workItem from="1645824117463" duration="614000" />
       <workItem from="1645868882606" duration="5000" />
       <workItem from="1645871445835" duration="8984000" />
+      <workItem from="1646049439750" duration="605000" />
     </task>
     <servers />
   </component>
