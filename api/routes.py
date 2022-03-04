@@ -100,7 +100,6 @@ class Routes:
 
     @reset_midi_client
     def end_measurement(self) -> None:
-        return
         AbletonSetProfiler.end_measurement()
 
     def stop_midi_server(self) -> None:

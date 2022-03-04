@@ -1,5 +1,3 @@
-import time
-
 import asyncclick as click
 from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
@@ -10,7 +8,7 @@ from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import clear_arrangement
 from lib.process import execute_in_new_window
-from message_queue.celery import notification_window, message_window, prompt_window, select_window
+from message_queue.celery import select_window
 from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff

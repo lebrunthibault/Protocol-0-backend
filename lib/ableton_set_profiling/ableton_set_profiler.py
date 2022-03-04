@@ -28,10 +28,12 @@ class AbletonSetProfiler():
 
     @classmethod
     def start_set_profiling(cls, number_of_tests=None, check_profiling_conditions=True):
+        number_of_tests = number_of_tests or cls.NUMBER_OF_TESTS
         if check_profiling_conditions and not cls.check_profiling_conditions():
             return
-        cls.current_profiling_session = AbletonSetProfilingSession(
-            number_of_tests=number_of_tests or cls.NUMBER_OF_TESTS)
+
+        logger.info(f"Starting profiling, number of measures : {number_of_tests}")
+        cls.current_profiling_session = AbletonSetProfilingSession(number_of_tests)
         cls.current_profiling_session.start_measurement()
 
     @classmethod
@@ -40,6 +42,7 @@ class AbletonSetProfiler():
 
     @classmethod
     def end_measurement(cls):
+        logger.info(cls.current_profiling_session)
         if not cls.current_profiling_session:
             return
         cls.current_profiling_session.end_measurement()
