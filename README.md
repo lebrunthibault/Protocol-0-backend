@@ -2,9 +2,11 @@
 
 This monolithic repo is the backend of my ableton control surface
 script ([protocol0 repo](https://github.com/lebrunthibault/Protocol-0-Surface-Script))
+
 I created it because the python environment in the control surface script executes in ableton and is limited in several
 ways
 (cannot use threading, asyncio, python3, a bunch of system libraries etc ...)
+
 This repo has none of these limitations and exposes an API to the protocol0 script while also being able to do the opposite : 
 calling the script by dispatching script commands.
 
@@ -27,7 +29,7 @@ MIDI server exposing the backend API for the script. Also includes client code f
 - Calling the script from the backend
   
 NB : the backend API is not exposed in the same way as the script API (this should be fixed)
-- The backend clients are generated using open API tools. They generate a python client that has a method per exposed backend `Route` method
+- The backend clients are generated using open API tools. They generate a python client that has a method per exposed backend `Route` method.
   It's nice to do code generation but replacing the `Route` class by Command objects would be simpler
 - The script client just dispatches script Command objects over MIDI. It's simpler (even though it creates a hard dependency on the script. but it's ok they are both on the same machine)
   
@@ -48,7 +50,7 @@ but then it allows them to be executed from ahk. That's more interesting, see be
 In this package, we have the following sub packages :
 
 ### ahk
-I've setup a few ahk hotkeys. Mostly they are a way to forward them to the backend.
+I've setup a few [Auto Hotkey](https://www.autohotkey.com/) (AHK) hotkeys. Mostly they are a way to call the backend.
 Even though some will simply execute a python script (e.g. display the log window)
 
 Doing hotkey detection in python didn't work as well, that's why I kept this (windows) dependency.
@@ -79,9 +81,9 @@ Sidekick project : control ableton via vocal commands.
   but having to talk to the software is a bit boring in the end + it really works only with headphones etc ..
 - I set this up using kaldi offline recognition (fastest solution)
 - It works by generating before hand a kaldi dictionary 
-- On identifying a dictionary word it sends them to the script that would match it to a specific action (like arm, solo ..)
+- On identifying a dictionary word it sends it to the script that matches it to a specific action (like arm, solo ..)
 - Been working with rxpy with some success on this. It's great to process a stream of sound / words and filter / process it.
-- It's not linked to the script anymore but could be put back quite easily
+- It's not connected to the script anymore but could be put back quite easily
 
 ## Installation
 
@@ -95,6 +97,7 @@ Sidekick project : control ableton via vocal commands.
 - [Celery](https://docs.celeryproject.org/en/stable/getting-started/first-steps-with-celery.html)
 - [Open Api generator](https://openapi-generator.tech/docs/installation/) to generate the sdk for the backend api
 - make
+- [AHK](https://www.autohotkey.com/) if you're on windows 
 - `pip install -r ./requirements.txt`
   
 ### Generate the backend api client
