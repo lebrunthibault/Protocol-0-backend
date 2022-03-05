@@ -33,6 +33,15 @@ NB : the backend API is not exposed in the same way as the script API (this shou
   It's nice to do code generation but replacing the `Route` class by Command objects would be simpler
 - The script client just dispatches script Command objects over MIDI. It's simpler (even though it creates a hard dependency on the script. but it's ok they are both on the same machine)
   
+## http_server
+I've also setup a minimal http server using FastAPI.
+This server is there as a gateway to the midi server 
+and its only goal is to be hit by requests from ahk hotkeys.
+
+I've been using scripts as a gateway but doing http requests is considerably faster.
+
+It's run independently from the midi server. 
+
 ## ./gui
 Code used to create notifications and dialog boxes that are displayed on top of ableton interface.
 - I'm using [PySimpleGui](https://pysimplegui.readthedocs.io/) based on Tkinter
@@ -44,8 +53,11 @@ This is the 'monolithic' common backend library used by most backend components.
 
 
 ## ./scripts
-Entrypoint for direct script execution via cli. scripts can be executed via the command line directly (not really useful except for testing)
-but then it allows them to be executed from ahk. That's more interesting, see below.
+cli interface. some scripts can be executed via the command line directly.
+
+Mainly used from the windows system (logon / logoff) or as a way to start the components.
+
+Spawning processes is slow so I'm usually using the http server when I want to hit the backend.
 
 In this package, we have the following sub packages :
 
@@ -55,12 +67,13 @@ Even though some will simply execute a python script (e.g. display the log windo
 
 Doing hotkey detection in python didn't work as well, that's why I kept this (windows) dependency.
 
-In the 'standard' way of executing cli commands via ahk, we usually follow these steps :
+In the 'standard' way of executing backend code via ahk, we usually follow these steps :
 - hotkey pressed
-- ahk executes a python script using the `cli.py` command line (using [click](https://click.palletsprojects.com/en/8.0.x/))
-- the click cli command calls the backend (over MIDI)
+- ahk dispatches a GET request to the gateway http server
+- the gateway route calls the backend (over MIDI)
 - the backend code executes, potentially forwarding the command to the script
-- In this last case the ahk will in the end trigger a script command (like 'loop the current scene') (a bit complex but it's the only way really 
+- In this last case the ahk will in the end trigger a script command (like 'ToggleSceneLoopCommand')
+  (a bit complex but fast) 
 
 ### commands
 body of the click commands

@@ -10,7 +10,7 @@ from protocol0.application.command.ResetSongCommand import ResetSongCommand
 from api.p0_script_api_client import p0_script_client
 from config import SystemConfig
 from lib.ableton_parsing import Clip
-from lib.click import click
+from lib.click.click import click
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria

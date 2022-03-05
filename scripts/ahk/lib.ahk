@@ -6,21 +6,6 @@ executeCliCommand(command, args*)
     Run py cli.py %command% %arg_string%, %A_ScriptDir%\.., hide
 }
 
-HotkeyCommand(hk, args*)
-{
-    Hotkey("", "", hk, "executeCliCommand", args*)
-}
-
-HotkeyCommandAbleton(hk, args*)
-{
-    Hotkey("ahk_exe Ableton Live 10 Suite.exe", "", hk, "executeCliCommand", args*)
-}
-
-HotkeyCommandNoPycharm(hk, args*)
-{
-    Hotkey("", "ahk_exe pycharm64.exe", hk, "executeCliCommand", args*)
-}
-
 ; Link Hotkey to function
 Hotkey(ifWinActiveCondition, ifWinNotActiveCondition, hk, fun, arg*)
 {
@@ -44,4 +29,10 @@ Join(sep, params*) {
     for index,param in params
         str .= param . sep
     return SubStr(str, 1, -StrLen(sep))
+}
+
+callBackend(command) {
+	oHttp := ComObjCreate("WinHttp.Winhttprequest.5.1")
+    oHttp.open("GET","http://127.0.0.1:8000/"command)
+    oHttp.send()
 }

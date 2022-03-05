@@ -45,7 +45,7 @@ def start_midi_server():
         _poll_midi_port(midi_port=midi_port_output)
         _poll_midi_port(midi_port=midi_port_system_loopback)
 
-        time.sleep(0.01)  # release cpu
+        time.sleep(0.005)  # release cpu
 
 
 def check_celery_is_up():
