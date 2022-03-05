@@ -1,3 +1,5 @@
+import subprocess
+
 import asyncclick as click
 from protocol0.application.command.ClearLogsCommand import ClearLogsCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
@@ -8,12 +10,12 @@ from commands.presets import sync_presets
 from config import SystemConfig
 from lib.ableton import clear_arrangement
 from lib.process import execute_in_new_window
-from message_queue.celery import select_window
+from gui.celery import select_window
 from scripts.abstract_cli import cli
 from scripts.commands.git_backup import push_git_repos, pull_git_repos
 from scripts.commands.logoff import logoff
 from scripts.commands.logon import logon
-from sdk_generation.generate_openapi_specs import generate_openapi_specs
+from api.sdk_generation.generate_openapi_specs import generate_openapi_specs
 
 
 @cli.command(name="reload_ableton")
@@ -66,6 +68,11 @@ def command_pull_git_repos() -> None:
 @cli.command(name="midi")
 def command_midi_server() -> None:
     start_midi_server()
+
+
+@cli.command(name="celery")
+def command_celery() -> None:
+    subprocess.run(["celery", "-A", "celery", "worker", "-l", "info"])
 
 
 @cli.command(name="logon")

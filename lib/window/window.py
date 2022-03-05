@@ -38,7 +38,7 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
             shell = win32com.client.Dispatch("WScript.Shell")
             shell.SendKeys('%')
             focus_window(name=name, search_type=search_type, retry=False)
-        return
+            return
 
     logger.error("Window not focused : %s" % name)
 

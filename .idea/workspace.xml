@@ -8,9 +8,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.dir" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/click.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_queue/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_queue/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/celery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/activate_rev2_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/search_set_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/toggle_ableton_button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/generate_openapi_specs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/__init__api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/__init__api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/__init__package.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/__init__api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/__init__api.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/__init__package.mustache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/api.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +83,7 @@
     <setting file="file://$PROJECT_DIR$/scripts/tail_protocol0_logs.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/grammar/vocabulary_orig.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/enum/ColorEnum.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/scripts/commands/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/gui/search_set_gui.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/lib/decorators.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/sr/audio/source/microphone.py" root0="FORCE_HIGHLIGHTING" />
@@ -86,7 +110,7 @@
     <scope name="requirements.txt" pattern="file:requirements.txt" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="5" />
+    <option name="selectedIndex" value="2" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -122,11 +146,11 @@
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\click" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\window" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\api" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\message" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\sdk_generation" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\decorators" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\prompt" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\notification" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.reload ahk">
@@ -566,6 +590,7 @@
       <workItem from="1645871445835" duration="8984000" />
       <workItem from="1646049439750" duration="607000" />
       <workItem from="1646409900791" duration="2221000" />
+      <workItem from="1646477566461" duration="5436000" />
     </task>
     <servers />
   </component>

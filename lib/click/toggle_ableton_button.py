@@ -3,7 +3,7 @@ from typing import Tuple
 
 from loguru import logger
 
-from lib.click import click, get_pixel_color
+from lib.click.click import click, get_pixel_color
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 

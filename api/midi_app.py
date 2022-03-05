@@ -18,7 +18,7 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.terminal import kill_system_terminal_windows
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
-from message_queue.celery import check_celery_worker_status, message_window
+from gui.celery import check_celery_worker_status, message_window
 
 logger = logger.opt(colors=True)
 

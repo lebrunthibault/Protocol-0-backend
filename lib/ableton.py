@@ -16,7 +16,7 @@ from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
-from message_queue.celery import notification_window, message_window
+from gui.celery import notification_window, message_window
 
 
 @dataclass(frozen=True)
@@ -90,7 +90,7 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     logger.info(message)
     notification_type = NotificationEnum.SUCCESS
     if average_jitter > 1 or average_latency < 0:
-        background_color = NotificationEnum.WARNING
+        notification_type = NotificationEnum.WARNING
 
     message_window.delay(message, notification_type.value)
 

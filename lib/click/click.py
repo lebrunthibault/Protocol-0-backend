@@ -1,4 +1,3 @@
-import time
 from typing import Tuple
 
 import pyautogui
@@ -14,7 +13,6 @@ def click(x: int, y: int) -> None:
 
 def click_vertical_zone(x: int, y: int) -> None:
     for i in range(-60, 120, 20):
-        start_at = time.time()
         pyautogui.click(x, y + i)
 
 

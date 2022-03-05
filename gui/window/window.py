@@ -28,4 +28,3 @@ class Window(SubjectMixin):
 
     def is_event_enter(self, event):
         return len(event) == 1 and ord(event) == 13
-

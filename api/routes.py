@@ -9,17 +9,17 @@ from api.p0_script_api_client import p0_script_client
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
-from lib.click import click, right_click, double_click, click_vertical_zone
+from lib.click.click import click, right_click, double_click, click_vertical_zone
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum, show_windows
 from lib.window.window import focus_window
-from message_queue.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
+from gui.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
     message_window
-from scripts.commands.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
+from lib.click.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from scripts.commands.presets import sync_presets
-from scripts.commands.toggle_ableton_button import toggle_ableton_button
+from lib.click.toggle_ableton_button import toggle_ableton_button
 
 
 # noinspection PyMethodParameters

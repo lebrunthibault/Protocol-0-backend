@@ -56,7 +56,7 @@ def handle_error(func):
 def notification_window(self, message: str, notification_enum=NotificationEnum.INFO.value):
     logger.info(message)
     NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
-    revoke_tasks("message_queue.celery.notification", self.request.id)
+    revoke_tasks("gui.celery.notification", self.request.id)
 
 
 @celery_app.task(bind=True)
