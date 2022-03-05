@@ -8,33 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.dat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/celerybeat-schedule.dir" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/click.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/click.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window/window.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/window/window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_queue/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_queue/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/activate_rev2_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/search_set_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/search_set_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/toggle_ableton_button.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/toggle_ableton_button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/generate_openapi_specs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/__init__api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/__init__api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/__init__package.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_script_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_script_client/openapi_templates/api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/__init__api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/__init__api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/__init__package.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sdk_generation/p0_system_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/api.mustache" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -591,6 +567,7 @@
       <workItem from="1646049439750" duration="607000" />
       <workItem from="1646409900791" duration="2221000" />
       <workItem from="1646477566461" duration="5436000" />
+      <workItem from="1646487741796" duration="1739000" />
     </task>
     <servers />
   </component>

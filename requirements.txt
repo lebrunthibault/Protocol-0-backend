@@ -1,6 +1,7 @@
 abletonparsing==0.1.2
 alabaster==0.7.12
 algoliasearch==2.5.0
+amqp==5.0.9
 anyio==3.3.1
 apispec==5.1.0
 argcomplete==1.12.3
@@ -14,15 +15,23 @@ backcall==0.2.0
 backports.entry-points-selectable==1.1.0
 backports.zoneinfo==0.2.1
 beautifulsoup4==4.10.0
+billiard==3.6.4.0
+cached-property==1.5.2
+celery==5.2.3
 certifi==2021.5.30
 cffi==1.14.6
 charset-normalizer==2.0.4
-click==8.0.1
+click==8.0.3
+click-didyoumean==0.3.0
+click-plugins==1.1.1
+click-repl==0.2.0
 colorama==0.4.4
 cycler==0.10.0
 dataclasses==0.6
 debugpy==1.5.0
 decorator==5.1.0
+dependency-injector==4.38.0
+Deprecated==1.2.13
 distlib==0.3.2
 Django==3.2.11
 docopt==0.6.2
@@ -45,6 +54,7 @@ jupyter-console==5.2.0
 jupyter-core==4.8.1
 keyboard==0.13.5
 kiwisolver==1.3.2
+kombu==5.2.3
 loguru==0.5.3
 Markdown==3.3.4
 matplotlib==3.4.3
@@ -52,13 +62,14 @@ matplotlib-inline==0.1.3
 mido==1.2.10
 more-itertools==8.9.0
 MouseInfo==0.1.3
-mypy==0.910
+mypy==0.931
 mypy-extensions==0.4.3
 nest-asyncio==1.5.1
 numpy==1.21.2
 openapi-schema-validator==0.1.5
 openapi-spec-validator==0.3.1
-p0-script-api==1.0.0
+p0-script-client==1.0.0
+p0-system-client==1.0.0
 packaging==21.0
 parso==0.8.2
 pickleshare==0.7.5
@@ -97,6 +108,7 @@ pytz==2021.3
 pywin32==228
 PyYAML==5.1
 pyzmq==22.3.0
+redis==4.1.1
 requests==2.26.0
 rtmidi-python @ file:///C:/Users/thiba/pipwin/rtmidi_python-0.2.2-cp37-cp37m-win_amd64.whl
 Rx==3.2.0
@@ -106,6 +118,7 @@ sniffio==1.2.0
 soupsieve==2.2.1
 sqlparse==0.4.2
 toml==0.10.2
+tomli==2.0.0
 tornado==6.1
 traitlets==5.1.0
 typed-ast==1.4.3
@@ -114,6 +127,7 @@ typing-extensions==3.10.0.2
 tzdata==2021.1
 tzlocal==3.0
 urllib3==1.26.6
+vine==5.0.0
 virtualenv==20.7.2
 virtualenv-clone==0.5.7
 vosk==0.3.31
@@ -121,5 +135,6 @@ vulture==2.3
 wcwidth==0.2.5
 win32-setctime==1.0.3
 WMI==1.5.1
+wrapt==1.13.3
 yarg==0.1.9
 zipp==3.5.0
