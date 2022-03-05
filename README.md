@@ -111,3 +111,5 @@ Sidekick project : control ableton via vocal commands.
 - `cli server` to start the midi server
   
 
+## Development
+- `make check` 
