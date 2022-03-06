@@ -30,7 +30,7 @@ def notify_protocol0_midi_up():
 
 def start_midi_server():
     if not check_celery_worker_status():
-        Timer(5, check_celery_is_up).start()
+        Timer(10, check_celery_is_up).start()
     if is_ableton_up():
         p0_script_client.set_live()
 
@@ -55,8 +55,6 @@ def check_celery_is_up():
     if not check_celery_worker_status():
         MessageFactory.show_error("Celery broker is not up, closing midi server")
         backend_client.stop_midi_server()
-    else:
-        logger.info("Celery is up")
 
 
 def _poll_midi_port(midi_port: Input):
@@ -96,10 +94,6 @@ def _execute_midi_message(message: Message):
     method = getattr(route, payload["method"], None)
 
     if method is None:
-        print(method)
-        print(dir(Routes))
-        r = Routes()
-        print(getattr(r, "move_to", None))
         raise Protocol0Error(f"You called an unknown backend api method: {payload} in pid {os.getpid()}")
 
     method(**payload["args"])

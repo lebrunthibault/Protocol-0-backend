@@ -1,5 +1,6 @@
 import ctypes
 
+from api.p0_backend_api_client import backend_client
 from api.sdk_generation.generate_openapi_specs import generate_openapi_specs
 from lib.git import push_git_repos
 from scripts.abstract_cli import cli
@@ -29,8 +30,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    virtual_desktop_accessor = ctypes.WinDLL("VirtualDesktopAccessor.dll")
-    virtual_desktop_accessor.GoToDesktopNumber(0)
+    backend_client.move_to(1000, 1000)
 
 
 if __name__ == "__main__":

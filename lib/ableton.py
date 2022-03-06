@@ -97,8 +97,8 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
 def reload_ableton() -> None:
     if not is_ableton_focused():
-        # focus_ableton()
-        time.sleep(0.5)
+        focus_ableton()
+    time.sleep(0.2)
     send_keys("^n")
     send_keys("{Right}")
     # NB : we have a problem of double set load when doing it programmatically
