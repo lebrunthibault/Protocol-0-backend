@@ -9,16 +9,16 @@
       <excludeFolder url="file://$MODULE_DIR$/sr/tests/data" />
       <excludeFolder url="file://$MODULE_DIR$/sr/tests/debug_data" />
       <excludeFolder url="file://$MODULE_DIR$/sr/training" />
-      <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_system_client" />
       <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_system/p0_system_client" />
       <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_system/p0_script_client" />
       <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_system/api_client" />
       <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_script_client/api_client" />
       <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_script/api_client" />
+      <excludeFolder url="file://$MODULE_DIR$/api/sdk_generation/p0_backend_client/api_client" />
     </content>
+    <content url="file://$MODULE_DIR$/api/sdk_generation/p0_backend_client/openapi_templates" />
     <content url="file://$MODULE_DIR$/api/sdk_generation/p0_system/p0_script_client/openapi_templates" />
     <content url="file://$MODULE_DIR$/api/sdk_generation/p0_system/p0_system_client/openapi_templates" />
-    <content url="file://$MODULE_DIR$/api/sdk_generation/p0_system_client/openapi_templates" />
     <orderEntry type="jdk" jdkName="Python 3.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

@@ -3,8 +3,8 @@ import ctypes
 from loguru import logger
 from rx import operators as op, Observable
 
-from api.p0_system_api_client import system_client
-from config import SystemConfig
+from api.p0_backend_api_client import backend_client
+from config import Config
 from lib.ableton import is_ableton_focused, are_logs_focused
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
@@ -49,7 +49,7 @@ class StreamProvider:
 
 @log_exceptions
 def recognize_speech():
-    ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.SR_WINDOW_TITLE)
+    ctypes.windll.kernel32.SetConsoleTitleW(Config.SR_WINDOW_TITLE)
     stream_provider = StreamProvider()
 
     if SRConfig.EXPORT_RESULTS:
@@ -57,7 +57,7 @@ def recognize_speech():
 
     stream_provider.activation_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))  # always active
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
-    stream_provider.ableton_command_stream.subscribe(lambda res: system_client.execute_vocal_command(str(res)))
+    stream_provider.ableton_command_stream.subscribe(lambda res: backend_client.execute_vocal_command(str(res)))
 
     if SRConfig.USE_GUI:
         from sr.display.speech_gui import display_recognizer_result

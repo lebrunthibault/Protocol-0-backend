@@ -12,7 +12,7 @@ import win32gui
 from loguru import logger
 from rx import operators as op, create
 
-from config import SystemConfig
+from config import Config
 from lib.console import clear_console
 from lib.decorators import log_exceptions
 from lib.process import kill_window_by_criteria
@@ -23,7 +23,7 @@ from lib.window.find_window import SearchTypeEnum
 logger = logger.opt(colors=True)
 logger.remove()
 logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SSS}</> {message}")
-logger.add(f"{SystemConfig.LOGGING_DIRECTORY}\\logs.log", level="ERROR")
+logger.add(f"{Config.LOGGING_DIRECTORY}\\logs.log", level="ERROR")
 
 
 class LogLevelEnum(Enum):
@@ -33,7 +33,7 @@ class LogLevelEnum(Enum):
 
 class Config:
     PROCESS_LOGS = True
-    LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {SystemConfig.ABLETON_VERSION}\\Preferences\\Log.txt"
+    LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {Config.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
@@ -158,10 +158,10 @@ def tail_ableton_log_file(raw: bool):
         Config.PROCESS_LOGS = False
         Config.START_SIZE = 200
 
-    kill_window_by_criteria(name=SystemConfig.LOG_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
+    kill_window_by_criteria(name=Config.LOG_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
-    ctypes.windll.kernel32.SetConsoleTitleW(SystemConfig.LOG_WINDOW_TITLE)
+    ctypes.windll.kernel32.SetConsoleTitleW(Config.LOG_WINDOW_TITLE)
 
     if Config.LOG_LEVEL == LogLevelEnum.INFO:
         Config.BLACK_LIST_KEYWORDS.append("P0 - debug")

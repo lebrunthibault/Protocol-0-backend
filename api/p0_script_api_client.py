@@ -4,7 +4,7 @@ import mido
 from loguru import logger
 from protocol0.application.command.SerializableCommand import SerializableCommand
 
-from config import SystemConfig
+from config import Config
 from lib.utils import make_sysex_message_from_command
 
 
@@ -17,7 +17,7 @@ class P0ScriptClient(object):
 
     def _send_command_to_script(self, command: SerializableCommand) -> None:
         from api.midi_app import get_output_port
-        with mido.open_output(get_output_port(SystemConfig.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
+        with mido.open_output(get_output_port(Config.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
             if self.DEBUG:
                 logger.info(f"sending command to p0: {command}")
             msg = make_sysex_message_from_command(command=command)

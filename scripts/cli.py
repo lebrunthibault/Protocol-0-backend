@@ -1,6 +1,10 @@
 import subprocess
 
+import p0_backend_client
+
 from api.midi_app import start_midi_server
+from api.p0_backend_api_client import backend_client
+from api.sdk_generation.generate_openapi_specs import generate_openapi_specs
 from commands.presets import sync_presets
 from scripts.abstract_cli import cli
 from scripts.commands.logoff import logoff
@@ -37,9 +41,14 @@ def command_logoff() -> None:
     logoff()
 
 
+@cli.command(name="generate_openapi_specs")
+def command_generate_openapi_specs() -> None:
+    generate_openapi_specs()
+
+
 @cli.command(name="test")
 def command_test() -> None:
-    pass
+    backend_client.select_and_paste()
 
 
 if __name__ == "__main__":

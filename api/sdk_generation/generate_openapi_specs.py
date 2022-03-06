@@ -10,10 +10,10 @@ from openapi_spec_validator.exceptions import OpenAPIValidationError
 
 from api.routes import Routes
 
-title = "P0 system Client"
-classname = "P0SystemClient"
+title = "P0 backend Client"
+classname = "P0BackendClient"
 out_folder = os.path.dirname(__file__)
-package_name = "p0_system_client"
+package_name = "p0_backend_client"
 
 
 def generate_openapi_specs():

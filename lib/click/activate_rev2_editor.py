@@ -3,7 +3,7 @@ from typing import Tuple
 
 from loguru import logger
 
-from config import SystemConfig
+from config import Config
 from lib.ableton import show_plugins
 from lib.click.click import click
 from lib.window.find_window import find_window_handle_by_enum
@@ -26,21 +26,21 @@ def _get_absolute_button_position(handle: int, window_coordinates: Rev2ButtonsRe
 def activate_rev2_editor():
     # type: () -> None
     show_plugins()
-    handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_TITLE)
+    handle = find_window_handle_by_enum(Config.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
         logger.warning("Couldn't find rev2 editor message")
         return
-    focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_TITLE)
+    focus_window(name=Config.REV2_EDITOR_WINDOW_TITLE)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON))
 
 
 def post_activate_rev2_editor():
     # type: () -> None
     show_plugins()
-    handle = find_window_handle_by_enum(SystemConfig.REV2_EDITOR_WINDOW_TITLE)
+    handle = find_window_handle_by_enum(Config.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
         logger.warning("Couldn't find rev2 editor message")
         return
-    focus_window(name=SystemConfig.REV2_EDITOR_WINDOW_TITLE)
+    focus_window(name=Config.REV2_EDITOR_WINDOW_TITLE)
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM))
     click(*_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY))

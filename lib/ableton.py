@@ -8,7 +8,7 @@ from loguru import logger
 from protocol0.application.command.ResetSongCommand import ResetSongCommand
 
 from api.p0_script_api_client import p0_script_client
-from config import SystemConfig
+from config import Config
 from lib.ableton_parsing import Clip
 from lib.click.click import click
 from lib.enum.NotificationEnum import NotificationEnum
@@ -42,20 +42,20 @@ class AbletonInfos():
 
 
 def focus_ableton() -> None:
-    focus_window(SystemConfig.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
+    focus_window(Config.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
 
 
 def is_ableton_up() -> bool:
-    return find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME) != 0
+    return find_window_handle_by_enum(Config.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME) != 0
 
 
 def is_ableton_focused() -> bool:
-    ableton_handle = find_window_handle_by_enum(SystemConfig.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
+    ableton_handle = find_window_handle_by_enum(Config.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
     return is_window_focused(ableton_handle)
 
 
 def are_logs_focused() -> bool:
-    logs_handle = find_window_handle_by_enum(SystemConfig.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
+    logs_handle = find_window_handle_by_enum(Config.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE)
     return is_window_focused(logs_handle)
 
 
@@ -149,7 +149,7 @@ def clear_arrangement():
 
 
 def kill_ableton():
-    kill_window_by_criteria(name=SystemConfig.ABLETON_WINDOW_CLASS_NAME, search_type=SearchTypeEnum.WINDOW_CLASS_NAME)
+    kill_window_by_criteria(name=Config.ABLETON_WINDOW_CLASS_NAME, search_type=SearchTypeEnum.WINDOW_CLASS_NAME)
 
     # # remove crash files
     # crash_folder = ableton_locations.preferences_location / "Crash"
@@ -164,5 +164,5 @@ def restart_ableton():
     kill_ableton()
 
     # restart
-    ableton_locations = AbletonInfos(ableton_version=SystemConfig.ABLETON_VERSION)
+    ableton_locations = AbletonInfos(ableton_version=Config.ABLETON_VERSION)
     subprocess.run([ableton_locations.exe_location])

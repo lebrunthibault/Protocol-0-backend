@@ -2,7 +2,7 @@ from typing import List
 
 from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
 from protocol0.application.command.PingCommand import PingCommand
-from protocol0.application.command.ProcessSystemResponseCommand import ProcessSystemResponseCommand
+from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
 
 from api.midi_app import notify_protocol0_midi_up, stop_midi_server
 from api.p0_script_api_client import p0_script_client
@@ -45,6 +45,14 @@ class Routes:
 
     def double_click(self, x: int, y: int) -> None:
         double_click(x=x, y=y)
+
+    def select_and_copy(self) -> None:
+        send_keys('^a')
+        send_keys('^c')
+
+    def select_and_paste(self) -> None:
+        send_keys('^a')
+        send_keys('^v')
 
     def analyze_test_audio_clip_jitter(self, clip_path: str):
         analyze_test_audio_clip_jitter(clip_path=clip_path)
@@ -102,8 +110,8 @@ class Routes:
     def stop_midi_server(self) -> None:
         stop_midi_server()
 
-    def send_system_response(self, res) -> None:
-        p0_script_client.dispatch(ProcessSystemResponseCommand(res))
+    def send_backend_response(self, res) -> None:
+        p0_script_client.dispatch(ProcessBackendResponseCommand(res))
 
     def prompt(self, question: str):
         prompt_window.delay(question)

@@ -10,9 +10,9 @@ sdk:
 	cd api/sdk_generation && openapi-generator generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_script_client\api_client -t p0_script_client\openapi_templates
 	cd "C:\ProgramData\Ableton\Live 10 Suite\Resources\MIDI Remote Scripts\protocol0" && .\venv\Scripts\activate.ps1 && venv\Scripts\pip.exe install "C:\Users\thiba\google_drive\music\dev\protocol0_system\api\sdk_generation\p0_script_client\api_client"
 
-	cd api/sdk_generation/p0_system_client && rm -rf api_client
-	cd api/sdk_generation && openapi-generator generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_system_client\api_client -t p0_system_client\openapi_templates
-	pip install ".\api\sdk_generation\p0_system_client\api_client"
+	cd api/sdk_generation/p0_backend_client && rm -rf api_client
+	cd api/sdk_generation && openapi-generator generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_backend_client\api_client -t p0_backend_client\openapi_templates
+	pip install ".\api\sdk_generation\p0_backend_client\api_client"
 
 sdk_debug:
 	cls
