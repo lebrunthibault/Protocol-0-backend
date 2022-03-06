@@ -1,10 +1,7 @@
-import ctypes
-
 from loguru import logger
 from rx import operators as op, Observable
 
 from api.p0_backend_api_client import backend_client
-from config import Config
 from lib.ableton import is_ableton_focused, are_logs_focused
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
@@ -49,7 +46,6 @@ class StreamProvider:
 
 @log_exceptions
 def recognize_speech():
-    ctypes.windll.kernel32.SetConsoleTitleW(Config.SR_WINDOW_TITLE)
     stream_provider = StreamProvider()
 
     if SRConfig.EXPORT_RESULTS:

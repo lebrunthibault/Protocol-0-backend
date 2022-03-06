@@ -19,13 +19,12 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
-from scripts.commands.presets import sync_presets
+from scripts.presets import sync_presets
 
 
-# noinspection PyMethodParameters
 class Routes:
     def test(self) -> None:
-        p0_script_client.dispatch(PingCommand())
+        notification_window.delay("hello boy")
 
     @reset_midi_client
     def ping(self) -> None:

@@ -1,6 +1,6 @@
 from api.p0_backend_api_client import backend_client
 from lib.ableton import kill_ableton
-from scripts.commands.git_backup import push_git_repos
+from lib.git import push_git_repos
 
 
 def logoff():
@@ -9,7 +9,3 @@ def logoff():
 
     backend_client.stop_midi_server()
     kill_ableton()
-
-
-if __name__ == "__main__":
-    logoff()

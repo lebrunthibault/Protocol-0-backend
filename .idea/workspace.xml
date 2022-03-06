@@ -8,29 +8,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/api/watch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/start_midi_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/http_server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/http_server/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/p0_script_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_script_api_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/p0_system_api_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/p0_backend_api_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/sdk_generation/generate_openapi_specs.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/generate_openapi_specs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_backend_client/openapi_templates/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/__init__api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_backend_client/openapi_templates/__init__api.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/__init__package.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_backend_client/openapi_templates/__init__package.mustache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/sdk_generation/p0_system_client/openapi_templates/api.mustache" beforeDir="false" afterPath="$PROJECT_DIR$/api/sdk_generation/p0_backend_client/openapi_templates/api.mustache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/window/decorators/notify_protocol0_decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ableton_set_profiling/ableton_set_profiler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/click/activate_rev2_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/click/activate_rev2_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/log.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/celery.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/terminal.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/terminal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/git.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/commands/logoff.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/logoff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/powershell/open_protocol0_system.ps1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/logon.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/logon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/commands/presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/presets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -143,11 +135,11 @@
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\scripts" />
+      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\click" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\lib\window" />
       <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\api" />
-      <recent name="C:\Users\thiba\google_drive\music\dev\protocol0_system\gui\window\message" />
     </key>
   </component>
   <component name="RunManager" selected="Shell Script.reload ahk">
@@ -592,6 +584,7 @@
       <workItem from="1646506477113" duration="18000" />
       <workItem from="1646518496568" duration="5596000" />
       <workItem from="1646524613241" duration="2999000" />
+      <workItem from="1646559093847" duration="8137000" />
     </task>
     <servers />
   </component>

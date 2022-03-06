@@ -53,8 +53,6 @@ This is the 'monolithic' common backend library used by most backend components.
 
 
 ## ./scripts
-cli interface. some scripts can be executed via the command line directly.
-
 Mainly used from the windows system (logon / logoff) or as a way to start the components.
 
 Spawning processes is slow so I'm usually using the http server when I want to hit the backend.
@@ -79,13 +77,14 @@ In the 'standard' way of executing backend code via ahk, we usually follow these
 body of the click commands
 
 ### powershell
-Startup command for the midi server and celery
+Startup command for my terminal
 
 ### cli.py
-The main cli interface for the backend, using click
+A few cli commands that I run from the terminal / windows task scheduler
 
 ### tail_protocol0_logs.py
-A script tailing the ableton log file and applying filtering / formatting / colouring to show only the script information.
+A script tailing the ableton log file and applying filtering / formatting / colouring
+to show only the script information.
 
 ## ./sr
 Sidekick project : control ableton via vocal commands.
@@ -107,11 +106,12 @@ Sidekick project : control ableton via vocal commands.
 - Some commands / libraries are specific to windows, adapt to mac if necessary
 
 ### Install dependencies
+- `pip install -r ./requirements.txt`
 - [Celery](https://docs.celeryproject.org/en/stable/getting-started/first-steps-with-celery.html)
 - [Open Api generator](https://openapi-generator.tech/docs/installation/) to generate the sdk for the backend api
 - make
 - [AHK](https://www.autohotkey.com/) if you're on windows 
-- `pip install -r ./requirements.txt`
+- [pm2](https://pm2.io/blog/2018/09/19/Manage-Python-Processes) to monitor the midi server
   
 ### Generate the backend api client
 - `make sdk`
@@ -122,9 +122,16 @@ Sidekick project : control ableton via vocal commands.
     <img width="260px" src="https://raw.githubusercontent.com/lebrunthibault/Protocol-0-backend/master/doc/img/ableton_midi_config.PNG?sanitize=true" alt="ableton screenshot">
 
   
+### Makefile
+- most commands I run from the terminal are gathered here (starting processes, sdk generation, tests and lint)
+
 ### Start the backend server
-- `cli celery` to start the celery worker
-- `cli server` to start the midi server
+- `make celery`
+- `make midi_server`
+- `make http_server`
+
+I'm using pm2 and watchdemo to watch file changes for the midi server and celery.
+The http server is watched by fastAPI itself.
   
 
 ## Development

@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from scripts.commands.git_backup import pull_git_repos
+from lib.git import pull_git_repos
 
 
 def logon():
@@ -11,7 +11,3 @@ def logon():
                       startup_script],
                      stdout=sys.stdout)
     pull_git_repos()
-
-
-if __name__ == "__main__":
-    logon()

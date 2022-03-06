@@ -1,4 +1,3 @@
-import ctypes
 import sys
 import time
 import traceback
@@ -9,16 +8,15 @@ from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
-from api.p0_script_api_client import p0_script_client
 from api.p0_backend_api_client import backend_client
+from api.p0_script_api_client import p0_script_client
 from config import Config
+from gui.celery import check_celery_worker_status, message_window
 from gui.window.message.message_factory import MessageFactory
 from lib.ableton import is_ableton_up
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
-from lib.terminal import kill_backend_terminal_windows
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
-from gui.celery import check_celery_worker_status, message_window
 
 logger = logger.opt(colors=True)
 
@@ -29,10 +27,8 @@ def notify_protocol0_midi_up():
 
 
 def start_midi_server():
-    backend_client.stop_midi_server()
-    Timer(5, check_celery_is_up).start()
-    kill_backend_terminal_windows()  # in case the server has errored
-    ctypes.windll.kernel32.SetConsoleTitleW(Config.MIDI_SERVER_WINDOW_TITLE)
+    if not check_celery_worker_status():
+        Timer(5, check_celery_is_up).start()
     if is_ableton_up():
         p0_script_client.set_live()
 
@@ -48,17 +44,17 @@ def start_midi_server():
         time.sleep(0.005)  # release cpu
 
 
+def stop_midi_server():
+    logger.info("stopping midi server")
+    sys.exit()
+
+
 def check_celery_is_up():
     if not check_celery_worker_status():
         MessageFactory.show_error("Celery broker is not up, closing midi server")
         backend_client.stop_midi_server()
     else:
         logger.info("Celery is up")
-
-
-def stop_midi_server():
-    logger.info("stopping midi server")
-    sys.exit()
 
 
 def _poll_midi_port(midi_port: Input):
