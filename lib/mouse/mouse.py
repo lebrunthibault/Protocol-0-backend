@@ -7,6 +7,10 @@ from loguru import logger
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 
+def move_to(x: int, y: int) -> None:
+    pyautogui.moveTo(x, y)
+
+
 def click(x: int, y: int) -> None:
     pyautogui.click(x, y)
 
@@ -24,7 +28,7 @@ def double_click(x: int, y: int) -> None:
     pyautogui.doubleClick(x, y)
 
 
-def get_pixel_color(x: int, y: int) -> Tuple[int, int, int]:
+def get_pixel_color_at(x: int, y: int) -> Tuple[int, int, int]:
     image = ImageGrab.grab()
     pixel_color = image.getpixel((x, y))
     logger.debug("pixel_color: %s" % InterfaceColorEnum.get_string_from_tuple(pixel_color))

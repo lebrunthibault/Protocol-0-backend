@@ -11,9 +11,9 @@ from gui.celery import prompt_window, select_window, notification_window, kill_a
 from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
-from lib.click.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
-from lib.click.click import click, right_click, double_click, click_vertical_zone
-from lib.click.toggle_ableton_button import toggle_ableton_button
+from lib.mouse.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
+from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
+from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
@@ -24,7 +24,7 @@ from scripts.presets import sync_presets
 
 class Routes:
     def test(self) -> None:
-        notification_window.delay("hello boy")
+        pass
 
     @reset_midi_client
     def ping(self) -> None:
@@ -32,6 +32,9 @@ class Routes:
 
     def notify_protocol0_midi_up(self) -> None:
         notify_protocol0_midi_up()
+
+    def move_to(self, x: int, y: int) -> None:
+        move_to(x=x, y=y)
 
     def click(self, x: int, y: int) -> None:
         click(x=x, y=y)
@@ -72,7 +75,7 @@ class Routes:
 
     def reload_ableton(self):
         reload_ableton()
-        AbletonSetProfiler.start_profiling_single_measurement()
+        # AbletonSetProfiler.start_profiling_single_measurement()
         kill_all_running_workers()
 
     def save_set(self):

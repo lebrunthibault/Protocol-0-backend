@@ -79,7 +79,7 @@ def make_sysex_message_from_dict(data: Dict) -> mido.Message:
 
 def make_dict_from_sysex_message(message: mido.Message) -> Optional[Dict]:
     if message.is_cc(121) or message.is_cc(123):
-        logger.debug("-")
+        # logger.debug("skipping cc 121 or 123")
         return None
     string = message.bin()[1:-1].decode("utf-8")  # type: str
     if not string.startswith("{"):

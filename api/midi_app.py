@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 import traceback
@@ -22,6 +23,7 @@ logger = logger.opt(colors=True)
 
 
 def notify_protocol0_midi_up():
+    return
     time.sleep(0.2)  # time protocol0Midi is really up for midi
     p0_script_client.set_live()
 
@@ -35,7 +37,7 @@ def start_midi_server():
     midi_port_backend_loopback = mido.open_input(_get_input_port(Config.P0_BACKEND_LOOPBACK_NAME), autoreset=False)
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
-    logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
+    logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}. Pid {os.getpid()}")
 
     while True:
         _poll_midi_port(midi_port=midi_port_output)
@@ -66,6 +68,7 @@ def _poll_midi_port(midi_port: Input):
                 _execute_midi_message(message=msg_output)
             except Exception as e:
                 message = f"Midi server error\n\n{e}"
+                message += traceback.format_exc()
                 logger.error(log_string(message))
                 logger.error(log_string(traceback.format_exc()))
                 message_window.delay(message, NotificationEnum.ERROR.value)
@@ -74,8 +77,6 @@ def _poll_midi_port(midi_port: Input):
 
 
 def _execute_midi_message(message: Message):
-    from api.routes import Routes
-
     # shortcut to call directly the script api
     command = make_script_command_from_sysex_message(message=message)
     if command:
@@ -90,11 +91,16 @@ def _execute_midi_message(message: Message):
     logger.info(f"received midi payload {log_string(payload)}")
 
     # or it can exploit the routes public API by passing an operation name
+    from api.routes import Routes
     route = Routes()
     method = getattr(route, payload["method"], None)
 
     if method is None:
-        raise Protocol0Error(f"You called an unknown backend api method: {payload}")
+        print(method)
+        print(dir(Routes))
+        r = Routes()
+        print(getattr(r, "move_to", None))
+        raise Protocol0Error(f"You called an unknown backend api method: {payload} in pid {os.getpid()}")
 
     method(**payload["args"])
 

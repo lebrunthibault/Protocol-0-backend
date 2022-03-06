@@ -5,6 +5,6 @@ module.exports = {
     watch: ["./api", "./lib"],
     // Delay between restart
     watch_delay: 1000,
-    // ignore_watch : ["api\\sdk_generation"],
+    ignore_watch : ["./api/sdk_generation", "*\\__pycache__\\*", "*\\.mypy_cache\\*"],
   }]
 }

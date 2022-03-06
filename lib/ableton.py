@@ -10,7 +10,7 @@ from protocol0.application.command.ResetSongCommand import ResetSongCommand
 from api.p0_script_api_client import p0_script_client
 from config import Config
 from lib.ableton_parsing import Clip
-from lib.click.click import click
+from lib.mouse.mouse import click
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.process import kill_window_by_criteria
@@ -97,8 +97,8 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
 def reload_ableton() -> None:
     if not is_ableton_focused():
-        focus_ableton()
-        time.sleep(0.2)
+        # focus_ableton()
+        time.sleep(0.5)
     send_keys("^n")
     send_keys("{Right}")
     # NB : we have a problem of double set load when doing it programmatically

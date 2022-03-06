@@ -19,15 +19,19 @@ celery_app.conf.result_expires = 1
 
 
 def kill_all_running_workers():
-    for task in celery_app.control.inspect().active()[f"celery@{socket.gethostname()}"]:
-        celery_app.control.revoke(task_id=task["id"], terminate=True)
+    active_tasks = celery_app.control.inspect().active()
+    if active_tasks:
+        for task in active_tasks[f"celery@{socket.gethostname()}"]:
+            celery_app.control.revoke(task_id=task["id"], terminate=True)
 
 
 def revoke_tasks(type: str, current_task_id):
-    for task in celery_app.control.inspect().active()[f"celery@{socket.gethostname()}"]:
-        if task["type"] == type and task["id"] != current_task_id:
-            logger.info(f"revoking {task}")
-            celery_app.control.revoke(task_id=task["id"], terminate=True)
+    active_tasks = celery_app.control.inspect().active()
+    if active_tasks:
+        for task in active_tasks[f"celery@{socket.gethostname()}"]:
+            if task["type"] == type and task["id"] != current_task_id:
+                logger.info(f"revoking {task}")
+                celery_app.control.revoke(task_id=task["id"], terminate=True)
 
 
 def check_celery_worker_status() -> bool:

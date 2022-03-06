@@ -10,7 +10,8 @@ ways
 This repo has none of these limitations and exposes an API to the protocol0 script while also being able to do the opposite : 
 calling the script by dispatching script commands.
 
-I used python 3.7
+- I used python 3.7
+- I'm on windows 10 (So a some library code is relative to windows (in particular windows and keyboard management))
 
 > legend:
 >- script: the ableton control surface script

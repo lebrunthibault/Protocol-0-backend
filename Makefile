@@ -3,7 +3,7 @@
 .PHONY: midi_server, http_server, celery, kill, sdk, sdk_debug, test, flake8, mypy, vulture, check
 
 midi_server:
-	pm2 restart ecosystem.config.js && pm2 log
+	pm2 restart ecosystem.config.js --no-daemon
 
 http_server:
 	uvicorn api.http_server.main:app --reload
@@ -12,7 +12,7 @@ celery:
 	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- celery -A gui worker -l info --concurrency=1 --loglevel=INFO
 
 kill:
-	pm2 delete ecosystem.config.js
+	pm2 kill
 
 sdk:
 	cls
