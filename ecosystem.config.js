@@ -1,3 +1,4 @@
+// noinspection JSUnresolvedVariable
 module.exports = {
   apps: [{
     script: ".\\scripts\\start_midi_server.py",

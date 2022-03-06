@@ -8,22 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/api/watch.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/start_midi_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/midi_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/midi_app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/gui/celery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/terminal.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/terminal.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/git_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/git.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/logoff.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/logoff.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/logon.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/commands/logon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/commands/presets.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/presets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/sr/speech_recognition/speech_recognition_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ecosystem.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ecosystem.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/tail_protocol0_logs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +85,6 @@
     <scope name="requirements.txt" pattern="file:requirements.txt" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
     <option name="showToolbar" value="false" />
   </component>
   <component name="ProjectId" id="1taXWwEmgBiqAKGoJA6owhjomsi" />
@@ -584,7 +569,7 @@
       <workItem from="1646506477113" duration="18000" />
       <workItem from="1646518496568" duration="5596000" />
       <workItem from="1646524613241" duration="2999000" />
-      <workItem from="1646559093847" duration="8137000" />
+      <workItem from="1646559093847" duration="8242000" />
     </task>
     <servers />
   </component>

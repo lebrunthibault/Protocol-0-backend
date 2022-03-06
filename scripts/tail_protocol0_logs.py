@@ -31,7 +31,7 @@ class LogLevelEnum(Enum):
     INFO = "INFO"
 
 
-class Config:
+class LogConfig:
     PROCESS_LOGS = True
     LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {Config.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
@@ -88,32 +88,32 @@ class LogLine:
 
 
 def _get_clean_line(line: str) -> str:
-    for pattern in Config.PATTERNS_TO_REMOVE:
+    for pattern in LogConfig.PATTERNS_TO_REMOVE:
         line = re.sub(pattern, "", line)
 
     return line[2:] if line.startswith("  ") else line
 
 
 def _filter_line(line: LogLine) -> bool:
-    if line.has_patterns(Config.BLACK_LIST_KEYWORDS):
+    if line.has_patterns(LogConfig.BLACK_LIST_KEYWORDS):
         return False
 
     if line.is_error:
         return True
 
-    if line.has_patterns(Config.CLEAR_KEYWORDS):
+    if line.has_patterns(LogConfig.CLEAR_KEYWORDS):
         clear_console()
         return False
 
-    return line.has_patterns(Config.FILTER_KEYWORDS)
+    return line.has_patterns(LogConfig.FILTER_KEYWORDS)
 
 
 def _is_error(line: LogLine) -> bool:
-    if line.has_patterns(Config.ERROR_KEYWORDS) and not line.has_patterns(Config.ERROR_NON_KEYWORDS):
+    if line.has_patterns(LogConfig.ERROR_KEYWORDS) and not line.has_patterns(LogConfig.ERROR_NON_KEYWORDS):
         ErrorState.LAST_ERROR_STARTED_AT = time.time()
         return True
 
-    if not _get_clean_line(line.line).startswith(" ") or line.has_patterns(Config.ERROR_NON_KEYWORDS):
+    if not _get_clean_line(line.line).startswith(" ") or line.has_patterns(LogConfig.ERROR_NON_KEYWORDS):
         ErrorState.reset()
         return False
 
@@ -121,7 +121,7 @@ def _is_error(line: LogLine) -> bool:
 
 
 def _get_color(line: LogLine) -> Optional[str]:
-    for color, sub_strings in Config.COLOR_SCHEME.items():
+    for color, sub_strings in LogConfig.COLOR_SCHEME.items():
         if line.has_patterns(sub_strings):
             return color
     return None
@@ -134,7 +134,7 @@ def get_line_observable_from_file(file: TextIO):
         """ Yield each line from a file as they are written.
          `sleep_sec` is the time to sleep after empty reads. """
         line = ''
-        for line in file.readlines()[-Config.START_SIZE:]:
+        for line in file.readlines()[-LogConfig.START_SIZE:]:
             observer.on_next(line)
         while True:
             tmp = file.readline()
@@ -155,23 +155,23 @@ def get_line_observable_from_file(file: TextIO):
 @log_exceptions
 def tail_ableton_log_file(raw: bool):
     if raw:
-        Config.PROCESS_LOGS = False
-        Config.START_SIZE = 200
+        LogConfig.PROCESS_LOGS = False
+        LogConfig.START_SIZE = 200
 
     kill_window_by_criteria(name=Config.LOG_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
     ctypes.windll.kernel32.SetConsoleTitleW(Config.LOG_WINDOW_TITLE)
 
-    if Config.LOG_LEVEL == LogLevelEnum.INFO:
-        Config.BLACK_LIST_KEYWORDS.append("P0 - debug")
+    if LogConfig.LOG_LEVEL == LogLevelEnum.INFO:
+        LogConfig.BLACK_LIST_KEYWORDS.append("P0 - debug")
 
     pipes = [
         op.map(lambda line: line.replace("\n", "")),
         op.map(log_string),
     ]
 
-    if Config.PROCESS_LOGS:
+    if LogConfig.PROCESS_LOGS:
         pipes += [
             op.map(lambda line: LogLine(line=line)),
             op.map(lambda line: LogLine(line=line.line, is_error=_is_error(line))),
@@ -180,7 +180,7 @@ def tail_ableton_log_file(raw: bool):
             op.map(lambda line: LogLine(line=_get_clean_line(line.line), is_error=line.is_error, color=line.color)),
         ]
 
-    with open(Config.LOG_FILENAME, 'r') as file:
+    with open(LogConfig.LOG_FILENAME, 'r') as file:
         log_obs = get_line_observable_from_file(file)
         log_obs.pipe(*pipes).subscribe(logger.info, rx_error)
         log_obs.pipe(*pipes).subscribe(rx_nop, logger.error)
