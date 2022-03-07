@@ -3,7 +3,7 @@
 .PHONY: midi_server, http_server, celery, kill, sdk, sdk_debug, test, flake8, mypy, vulture, check
 
 midi_server:
-	pm2 restart ecosystem.config.js --no-daemon
+	make kill && pm2 restart ecosystem.config.js --no-daemon
 
 http_server:
 	uvicorn api.http_server.main:app --reload
