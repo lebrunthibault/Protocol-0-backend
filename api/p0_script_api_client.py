@@ -25,9 +25,7 @@ class P0ScriptClient(object):
 
     def set_live(self):
         self._is_live = True
-        logger.info(self._awaiting_commands)
         for command in self._awaiting_commands:
-            logger.info(f"sending awaiting message {command}")
             self._send_command_to_script(command)
         self._awaiting_commands = []
 
