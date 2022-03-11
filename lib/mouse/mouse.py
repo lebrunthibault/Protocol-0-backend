@@ -12,7 +12,10 @@ def move_to(x: int, y: int) -> None:
 
 
 def click(x: int, y: int) -> None:
-    pyautogui.click(x, y)
+    try:
+        pyautogui.click(x, y)
+    except pyautogui.FailSafeException as e:
+        logger.warning(e)
 
 
 def click_vertical_zone(x: int, y: int) -> None:

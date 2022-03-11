@@ -7,7 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="" />
+    <list default="true" id="7fd20058-9803-4588-b646-76daeea45a19" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/scripts/elgado_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/http_server/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/http_server/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mouse/mouse.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mouse/mouse.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -572,6 +576,7 @@
       <workItem from="1646580150968" duration="1544000" />
       <workItem from="1646650537046" duration="2627000" />
       <workItem from="1646725200928" duration="599000" />
+      <workItem from="1647024021746" duration="4346000" />
     </task>
     <servers />
   </component>
