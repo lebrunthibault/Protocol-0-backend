@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.PlayPauseCommand import PlayPauseCommand
+from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
 
@@ -62,3 +63,8 @@ async def fire_scene_to_position():
 @app.get("/toggle_track/{name}")
 async def toggle_track(name: str):
     dispatch_to_script(ToggleTrackCommand(name))
+
+
+@app.get("/toggle_drums")
+async def toggle_drums():
+    dispatch_to_script(ToggleDrumsCommand())
