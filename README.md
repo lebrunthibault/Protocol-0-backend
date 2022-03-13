@@ -112,7 +112,6 @@ Sidekick project : control ableton via vocal commands.
 - [Open Api generator](https://openapi-generator.tech/docs/installation/) to generate the sdk for the backend api
 - make
 - [AHK](https://www.autohotkey.com/) if you're on windows 
-- [pm2](https://pm2.io/blog/2018/09/19/Manage-Python-Processes) to monitor the midi server
   
 ### Generate the backend api client
 - `make sdk`
@@ -131,7 +130,7 @@ Sidekick project : control ableton via vocal commands.
 - `make midi_server`
 - `make http_server`
 
-I'm using pm2 and watchdemo to watch file changes for the midi server and celery.
+I'm using [watchmedo](https://github.com/gorakhargosh/watchdog) to watch file changes for the midi server and celery.
 The http server is watched by fastAPI itself.
   
 

@@ -149,3 +149,5 @@ sr/training
 openapi.json
 openapi.yaml
 openapi_config.json
+
+.idea/

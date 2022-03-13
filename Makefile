@@ -3,7 +3,7 @@
 .PHONY: midi_server, http_server, celery, kill, sdk, sdk_debug, test, flake8, mypy, vulture, check
 
 midi_server:
-	make kill && pm2 restart ecosystem.config.js --no-daemon
+	watchmedo auto-restart --directory=. --pattern="api/*.py;api/**/*.py;lib/*.py;lib/**/*.py" --recursive --ignore-directories -- python .\scripts\start_midi_server.py
 
 http_server:
 	uvicorn api.http_server.main:app --reload
