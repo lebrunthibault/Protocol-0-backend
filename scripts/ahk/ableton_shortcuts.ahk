@@ -36,6 +36,9 @@ return
 ^!+l::
 	callBackend("tail_logs_raw")
 return
+^+a::
+	callBackend("arm")
+return
 ^l::
 	callBackend("toggle_scene_loop")
 return
