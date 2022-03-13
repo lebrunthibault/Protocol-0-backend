@@ -1,10 +1,10 @@
-from typing import List
-
 import mido
 from loguru import logger
 from protocol0.application.command.SerializableCommand import SerializableCommand
 
 from config import Config
+from gui.celery import notification_window
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.utils import make_sysex_message_from_command
 
 
@@ -13,7 +13,6 @@ class P0ScriptClient(object):
 
     def __init__(self):
         self._is_live = False
-        self._awaiting_commands: List[SerializableCommand] = []
 
     def _send_command_to_script(self, command: SerializableCommand) -> None:
         from api.midi_app import get_output_port
@@ -25,15 +24,10 @@ class P0ScriptClient(object):
 
     def set_live(self):
         self._is_live = True
-        for command in self._awaiting_commands:
-            self._send_command_to_script(command)
-        self._awaiting_commands = []
 
     def dispatch(self, command: SerializableCommand):
         if not self._is_live:
-            logger.info(f"client is not live, storing message {command}")
-            self._awaiting_commands.append(command)
-            return
+            notification_window.delay("client is not live", NotificationEnum.WARNING)
 
         self._send_command_to_script(command)
 

@@ -1,15 +1,14 @@
 import os
+import signal
 import sys
 import time
 import traceback
-from threading import Timer
 
 import mido
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
-from api.p0_backend_api_client import backend_client
 from api.p0_script_api_client import p0_script_client
 from config import Config
 from gui.celery import check_celery_worker_status, message_window
@@ -17,20 +16,19 @@ from gui.window.message.message_factory import MessageFactory
 from lib.ableton import is_ableton_up
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
+from lib.timer import start_timer
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
 
 logger = logger.opt(colors=True)
 
 
 def notify_protocol0_midi_up():
-    return
-    time.sleep(0.2)  # time protocol0Midi is really up for midi
     p0_script_client.set_live()
 
 
 def start_midi_server():
     if not check_celery_worker_status():
-        Timer(10, check_celery_is_up).start()
+        start_timer(10, check_celery_is_up)
     if is_ableton_up():
         p0_script_client.set_live()
 
@@ -53,8 +51,15 @@ def stop_midi_server():
 
 def check_celery_is_up():
     if not check_celery_worker_status():
-        MessageFactory.show_error("Celery broker is not up, closing midi server")
-        backend_client.stop_midi_server()
+        MessageFactory.show_error("Celery broker is not up")
+
+
+def signal_handler(sig, frame):
+    logger.warning("exiting after SIGINT")
+    sys.exit()
+
+
+signal.signal(signal.SIGINT, signal_handler)
 
 
 def _poll_midi_port(midi_port: Input):
