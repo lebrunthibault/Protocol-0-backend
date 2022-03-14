@@ -1,5 +1,5 @@
-from api.p0_backend_api_client import backend_client
-from lib.ableton import kill_ableton
+from api.midi_server.p0_backend_api_client import backend_client
+from lib.ableton.ableton import kill_ableton
 from lib.git import push_git_repos
 
 

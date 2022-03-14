@@ -1,16 +1,17 @@
-from typing import List
+from typing import List, Dict
 
 from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
+from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
 
-from api.midi_app import notify_protocol0_midi_up, stop_midi_server
-from api.p0_script_api_client import p0_script_client
+from api.midi_server.midi_app import notify_protocol0_midi_up, stop_midi_server, song_state
+from api.midi_server.p0_script_api_client import p0_script_client
 from gui.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
     message_window
-from lib.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
+from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
-from lib.ableton_set_profiling.ableton_set_profiler import AbletonSetProfiler
+from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.mouse.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
@@ -32,6 +33,13 @@ class Routes:
 
     def notify_protocol0_midi_up(self) -> None:
         notify_protocol0_midi_up()
+
+    def get_song_state(self) -> None:
+        print("get song state")
+        p0_script_client.dispatch(GetSongStateCommand())
+
+    def notify_song_state(self, state: Dict) -> None:
+        song_state.update(state)
 
     def move_to(self, x: int, y: int) -> None:
         move_to(x=x, y=y)

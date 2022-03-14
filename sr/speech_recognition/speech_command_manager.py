@@ -1,6 +1,6 @@
 from loguru import logger
 
-from lib.ableton import focus_ableton
+from lib.ableton.ableton import focus_ableton
 from sr.enums.speech_command_enum import SpeechCommandEnum
 from sr.sr_config import SRConfig
 

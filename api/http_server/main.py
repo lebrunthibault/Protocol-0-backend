@@ -1,4 +1,5 @@
 """ http gateway server to the midi server. Hit by ahk only. """
+from typing import Dict, Optional, List
 
 from fastapi import FastAPI
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
@@ -8,12 +9,24 @@ from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
+from pydantic import BaseModel
 
-from api.p0_backend_api_client import dispatch_to_script, backend_client
+from api.midi_server.p0_backend_api_client import dispatch_to_script, backend_client
 from config import Config
 from lib.process import execute_in_new_window
 
 app = FastAPI()
+
+
+class SongState(BaseModel):
+    track_names: List[str]
+
+
+class DB:
+    SONG_STATE: Optional[Dict] = None
+
+
+backend_client.get_song_state()
 
 
 @app.get("/")
@@ -24,6 +37,17 @@ async def main():
 @app.get("/reload_ableton")
 async def reload_ableton():
     backend_client.reload_ableton()
+
+
+@app.get("/song_state")
+async def song_state():
+    return DB.SONG_STATE
+
+
+@app.post("/song_state")
+async def push_song_state(song_state: SongState):
+    print(f"got song state {song_state}")
+    DB.SONG_STATE = song_state
 
 
 @app.get("/save_set_as_template")

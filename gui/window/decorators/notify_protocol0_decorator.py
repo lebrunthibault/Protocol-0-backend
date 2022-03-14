@@ -1,6 +1,6 @@
 from loguru import logger
 
-from api.p0_backend_api_client import backend_client
+from api.midi_server.p0_backend_api_client import backend_client
 from gui.window.decorators.window_decorator import WindowDecorator
 from lib.patterns.observer.observer_mixin import ObserverMixin
 

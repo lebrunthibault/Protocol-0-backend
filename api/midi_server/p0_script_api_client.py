@@ -15,7 +15,7 @@ class P0ScriptClient(object):
         self._is_live = False
 
     def _send_command_to_script(self, command: SerializableCommand) -> None:
-        from api.midi_app import get_output_port
+        from api.midi_server.midi_app import get_output_port
         with mido.open_output(get_output_port(Config.P0_INPUT_PORT_NAME), autoreset=False) as midi_port:
             if self.DEBUG:
                 logger.info(f"sending command to p0: {command}")

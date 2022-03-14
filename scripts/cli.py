@@ -1,7 +1,7 @@
-import ctypes
+import requests
 
-from api.p0_backend_api_client import backend_client
-from api.sdk_generation.generate_openapi_specs import generate_openapi_specs
+from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
+from config import Config
 from lib.git import push_git_repos
 from scripts.abstract_cli import cli
 from scripts.commands.logoff import logoff
@@ -30,7 +30,10 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    backend_client.move_to(1000, 1000)
+    try:
+        r = requests.get(f"{Config.HTTP_API_URL}/")
+    except requests.exceptions.ConnectionError:
+        print("error")
 
 
 if __name__ == "__main__":

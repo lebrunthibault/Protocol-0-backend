@@ -14,7 +14,7 @@ class MessageFactory(WindowFactory):
         elif notification_enum == NotificationEnum.WARNING:
             return Message(message=message, background_color=ColorEnum.WARNING)
         elif notification_enum == NotificationEnum.ERROR:
-            return Message(message=message, background_color=ColorEnum.WARNING, title="P0 Error Message")
+            return Message(message=message, background_color=ColorEnum.ERROR, title="P0 Error Message")
         else:
             raise NotImplementedError("cannot find Message class for enum %s" % notification_enum)
 

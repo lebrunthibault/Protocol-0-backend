@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from PySimpleGUI import WIN_CLOSED
 from loguru import logger
 
-from lib.ableton import focus_ableton
+from lib.ableton.ableton import focus_ableton
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import focus_window
 

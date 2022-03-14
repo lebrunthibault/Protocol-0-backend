@@ -5,21 +5,24 @@ import time
 import traceback
 
 import mido
+import requests
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
-from api.p0_script_api_client import p0_script_client
+from api.midi_server.p0_script_api_client import p0_script_client
 from config import Config
-from gui.celery import check_celery_worker_status, message_window
+from gui.celery import check_celery_worker_status, message_window, notification_window
 from gui.window.message.message_factory import MessageFactory
-from lib.ableton import is_ableton_up
+from lib.ableton.ableton import is_ableton_up
+from lib.ableton.song_state import SongState
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.timer import start_timer
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
 
 logger = logger.opt(colors=True)
+song_state = SongState()
 
 
 def notify_protocol0_midi_up():
@@ -27,8 +30,7 @@ def notify_protocol0_midi_up():
 
 
 def start_midi_server():
-    if not check_celery_worker_status():
-        start_timer(10, check_celery_is_up)
+    system_check()
     if is_ableton_up():
         p0_script_client.set_live()
 
@@ -36,6 +38,7 @@ def start_midi_server():
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}. Pid {os.getpid()}")
+    notification_window.delay("Midi server started")
 
     while True:
         _poll_midi_port(midi_port=midi_port_output)
@@ -49,9 +52,27 @@ def stop_midi_server():
     sys.exit()
 
 
-def check_celery_is_up():
+def system_check():
+    system_up = True
+
     if not check_celery_worker_status():
-        MessageFactory.show_error("Celery broker is not up")
+        start_timer(8, check_celery)
+
+    try:
+        requests.get(f"{Config.HTTP_API_URL}/")
+    except requests.exceptions.ConnectionError:
+        MessageFactory.show_error("HTTP server is not up")
+        system_up = False
+
+    if system_up:
+        logger.info("System is up")
+
+
+def check_celery():
+    system_up = True
+    if not check_celery_worker_status():
+        MessageFactory.show_error("Celery is not up")
+        system_up = False
 
 
 def signal_handler(sig, frame):
@@ -94,7 +115,7 @@ def _execute_midi_message(message: Message):
     logger.info(f"received midi payload {log_string(payload)}")
 
     # or it can exploit the routes public API by passing an operation name
-    from api.routes import Routes
+    from api.midi_server.routes import Routes
     route = Routes()
     method = getattr(route, payload["method"], None)
 

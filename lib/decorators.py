@@ -3,7 +3,7 @@ from functools import wraps
 
 from loguru import logger
 
-from api.p0_script_api_client import p0_script_client
+from api.midi_server.p0_script_api_client import p0_script_client
 
 
 def log_exceptions(func):

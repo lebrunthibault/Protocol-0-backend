@@ -7,9 +7,9 @@ import keyboard
 from loguru import logger
 from protocol0.application.command.ResetSongCommand import ResetSongCommand
 
-from api.p0_script_api_client import p0_script_client
+from api.midi_server.p0_script_api_client import p0_script_client
 from config import Config
-from lib.ableton_parsing import Clip
+from lib.ableton.clip_parsing import Clip
 from lib.mouse.mouse import click
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys

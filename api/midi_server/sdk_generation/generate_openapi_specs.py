@@ -8,7 +8,7 @@ from loguru import logger
 from openapi_spec_validator import validate_spec
 from openapi_spec_validator.exceptions import OpenAPIValidationError
 
-from api.routes import Routes
+from api.midi_server.routes import Routes
 
 title = "P0 backend Client"
 classname = "P0BackendClient"

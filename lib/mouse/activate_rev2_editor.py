@@ -4,7 +4,7 @@ from typing import Tuple
 from loguru import logger
 
 from config import Config
-from lib.ableton import show_plugins
+from lib.ableton.ableton import show_plugins
 from lib.mouse.mouse import click
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import get_window_position, focus_window

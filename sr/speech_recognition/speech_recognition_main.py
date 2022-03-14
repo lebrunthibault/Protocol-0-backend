@@ -1,8 +1,8 @@
 from loguru import logger
 from rx import operators as op, Observable
 
-from api.p0_backend_api_client import backend_client
-from lib.ableton import is_ableton_focused, are_logs_focused
+from api.midi_server.p0_backend_api_client import backend_client
+from lib.ableton.ableton import is_ableton_focused, are_logs_focused
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
 from sr.audio.source.microphone import Microphone
