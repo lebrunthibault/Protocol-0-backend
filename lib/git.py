@@ -11,7 +11,8 @@ git_repositories = [
     # "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\protocol0",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\protocol0_midi",
-    "C:\\Users\\thiba\\google_drive\\music\\dev\\protocol0_system",
+    "C:\\Users\\thiba\\google_drive\\music\\dev\\protocol0_backend",
+    "C:\\Users\\thiba\\google_drive\\music\\dev\\protocol0_stream_deck",
 ]
 
 git_repositories_to_pull = [

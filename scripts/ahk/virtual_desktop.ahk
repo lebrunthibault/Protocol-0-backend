@@ -2,7 +2,7 @@ DetectHiddenWindows, On
 hwnd:=WinExist("ahk_pid " . DllCall("GetCurrentProcessId","Uint"))
 hwnd+=0x1000<<32
 
-hVirtualDesktopAccessor := DllCall("LoadLibrary", Str, "C:\Users\thiba\google_drive\music\dev\protocol0_system\scripts\ahk\VirtualDesktopAccessor.dll", "Ptr")
+hVirtualDesktopAccessor := DllCall("LoadLibrary", Str, "C:\Users\thiba\google_drive\music\dev\protocol0_backend\scripts\ahk\VirtualDesktopAccessor.dll", "Ptr")
 GoToDesktopNumberProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "GoToDesktopNumber", "Ptr")
 GetCurrentDesktopNumberProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "GetCurrentDesktopNumber", "Ptr")
 IsWindowOnCurrentVirtualDesktopProc := DllCall("GetProcAddress", Ptr, hVirtualDesktopAccessor, AStr, "IsWindowOnCurrentVirtualDesktop", "Ptr")
