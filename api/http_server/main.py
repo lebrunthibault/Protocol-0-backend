@@ -46,7 +46,6 @@ async def song_state():
 
 @app.post("/song_state")
 async def push_song_state(song_state: SongState):
-    print(f"got song state {song_state}")
     DB.SONG_STATE = song_state
 
 
