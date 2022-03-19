@@ -13,7 +13,7 @@ class BackendClientMessageSender():
     AWAITING_MESSAGES: List[Dict] = []
 
     def send_message(self, message: Dict):
-        from api.midi_server.midi_app import get_output_port
+        from api.midi_server.main import get_output_port
         out_port = get_output_port(Config.P0_BACKEND_LOOPBACK_NAME)
         with mido.open_output(out_port, autoreset=False) as midi_port:
             msg = make_sysex_message_from_dict(message)
@@ -25,7 +25,7 @@ backend_client = P0BackendClient(BackendClientMessageSender())
 
 
 def dispatch_to_script(command: SerializableCommand):
-    from api.midi_server.midi_app import get_output_port
+    from api.midi_server.main import get_output_port
     out_port = get_output_port(Config.P0_BACKEND_LOOPBACK_NAME)
     with mido.open_output(out_port, autoreset=False) as midi_port:
         msg = make_sysex_message_from_command(command)

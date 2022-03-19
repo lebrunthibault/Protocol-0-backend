@@ -5,7 +5,7 @@ from protocol0.application.command.GetSongStateCommand import GetSongStateComman
 from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
 
-from api.midi_server.midi_app import notify_protocol0_midi_up, stop_midi_server, song_state
+from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server, song_state
 from api.midi_server.p0_script_api_client import p0_script_client
 from gui.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
     message_window
@@ -35,7 +35,6 @@ class Routes:
         notify_protocol0_midi_up()
 
     def get_song_state(self) -> None:
-        print("get song state")
         p0_script_client.dispatch(GetSongStateCommand())
 
     def notify_song_state(self, state: Dict) -> None:
