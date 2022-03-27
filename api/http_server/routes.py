@@ -1,6 +1,7 @@
 from typing import Optional
 
 from fastapi import APIRouter
+from loguru import logger
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
@@ -20,7 +21,8 @@ router = APIRouter()
 
 
 @router.get("/")
-async def main():
+async def index():
+    logger.info("in index")
     return {"message": "Hello World"}
 
 
@@ -36,7 +38,7 @@ async def song_state() -> Optional[SongState]:
 
 @router.post("/song_state")
 async def push_song_state(song_state: SongState):
-    print(f"received http {song_state}")
+    logger.info(f"received http {song_state}")
     DB.SONG_STATE = song_state
     await ws_manager.broadcast_song_state(song_state)
 

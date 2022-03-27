@@ -5,7 +5,7 @@ from lib.git import pull_git_repos
 
 
 def logon():
-    startup_script = "C:\\Users\\thiba\\google_drive\\music\\dev\\scripts\\startup.ps1"
+    startup_script = "C:\\Users\\thiba\\dev\\scripts\\startup.ps1"
     subprocess.Popen(["powershell.exe",
                       "invoke-expression",
                       startup_script],

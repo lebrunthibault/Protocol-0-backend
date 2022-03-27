@@ -6,7 +6,9 @@ from api.http_server.routes import router
 from api.http_server.ws import ws_router
 from api.midi_server.p0_backend_api_client import backend_client
 
-app = FastAPI()
+app = FastAPI(debug=True)
+
+
 app.include_router(router)
 app.include_router(ws_router)
 

@@ -8,9 +8,6 @@ midi_server:
 http_server:
 	uvicorn api.http_server.main:app --port 8000 --reload --reload-include "api/http_server/`*.py"
 
-ws_server:
-	watchmedo auto-restart --directory=./api/ws_server --pattern *.py --recursive --signal SIGTERM -- python api/ws_server/main.py
-
 celery:
 	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- celery -A gui worker -l info --concurrency=1 --loglevel=INFO
 

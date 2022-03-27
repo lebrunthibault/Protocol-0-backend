@@ -3,7 +3,7 @@ from typing import List
 
 from fastapi import APIRouter
 from loguru import logger
-from starlette.websockets import WebSocket
+from starlette.websockets import WebSocket, WebSocketDisconnect
 
 from api.http_server.db import SongState, DB
 
@@ -16,6 +16,10 @@ class ConnectionManager:
 
     def __repr__(self) -> str:
         return f"{len(self._active_connections)} active connections"
+
+    @property
+    def active_connections(self) -> List[WebSocket]:
+        return self._active_connections
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
@@ -34,12 +38,22 @@ class ConnectionManager:
 ws_manager = ConnectionManager()
 
 
+@ws_router.get("/ws/connections")
+async def get_connections():
+    return [ws.client for ws in ws_manager.active_connections]
+
+
 @ws_router.websocket("/song_state")
 async def websocket_endpoint(websocket: WebSocket):
     await ws_manager.connect(websocket)
     if DB.SONG_STATE:
-        websocket.send_text(DB.SONG_STATE.json())
+        await websocket.send_text(DB.SONG_STATE.json())
 
-    while True:
-        data = await websocket.receive_text()
-        logger.info(f"Received {data}")
+    try:
+        while True:
+            data = await websocket.receive_text()
+            logger.info(f"sReceived {data}")
+    except WebSocketDisconnect:
+        pass
+
+    ws_manager.disconnect(websocket)

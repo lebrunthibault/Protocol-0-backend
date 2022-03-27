@@ -3,16 +3,16 @@ import subprocess
 
 from loguru import logger
 
-blog_repo = "C:\\Users\\thiba\\google_drive\\music\\dev\\blog"
+blog_repo = "C:\\Users\\thiba\\dev\\blog"
 
 git_repositories = [
-    "C:\\Users\\thiba\\google_drive\\music\\dev\\scripts",
+    "C:\\Users\\thiba\\dev\\scripts",
     blog_repo,
     # "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\protocol0",
     "C:\\ProgramData\\Ableton\\Live 10 Suite\\Resources\\MIDI Remote Scripts\\protocol0_midi",
-    "C:\\Users\\thiba\\google_drive\\music\\dev\\protocol0_backend",
-    "C:\\Users\\thiba\\google_drive\\music\\dev\\protocol0_stream_deck",
+    "C:\\Users\\thiba\\dev\\protocol0_backend",
+    "C:\\Users\\thiba\\dev\\protocol0_stream_deck",
 ]
 
 git_repositories_to_pull = [
