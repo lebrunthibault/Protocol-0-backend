@@ -21,4 +21,3 @@ class SongState():
     def _notify_http(self):
         logger.info(f"notifying {self.to_json()}")
         requests.post(f"{Config.HTTP_API_URL}/song_state", data=self.to_json())
-

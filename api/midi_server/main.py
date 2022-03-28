@@ -69,10 +69,8 @@ def system_check():
 
 
 def check_celery():
-    system_up = True
     if not check_celery_worker_status():
         MessageFactory.show_error("Celery is not up")
-        system_up = False
 
 
 def signal_handler(sig, frame):

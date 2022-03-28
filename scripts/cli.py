@@ -1,7 +1,4 @@
-import requests
-
 from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
-from config import Config
 from lib.git import push_git_repos
 from scripts.abstract_cli import cli
 from scripts.commands.logoff import logoff
@@ -30,10 +27,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    try:
-        r = requests.get(f"{Config.HTTP_API_URL}/")
-    except requests.exceptions.ConnectionError:
-        print("error")
+    pass
 
 
 if __name__ == "__main__":

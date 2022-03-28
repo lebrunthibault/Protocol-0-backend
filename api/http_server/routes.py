@@ -69,7 +69,7 @@ async def load_device(name: str):
 
 
 @router.get("/load_drum_track/{name}")
-async def load_device(name: str):
+async def load_drum_track(name: str):
     dispatch_to_script(LoadDrumTrackCommand(name))
 
 

@@ -33,11 +33,11 @@ test:
 
 flake8:
 	cls
-	flake8 .
+	py -3.7 -m flake8 .
 
 mypy:
 	cls
-	mypy .
+	py -3.7 -m mypy .
 
 vulture:
 	cls
