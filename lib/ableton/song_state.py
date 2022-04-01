@@ -8,6 +8,8 @@ from config import Config
 
 
 class SongState():
+    """Song state as seen from the midi server"""
+
     def __init__(self):
         self._state: Dict = {}
 

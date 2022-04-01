@@ -37,7 +37,7 @@ async def song_state() -> Optional[SongState]:
 
 
 @router.post("/song_state")
-async def push_song_state(song_state: SongState):
+async def post_song_state(song_state: SongState):
     logger.info(f"received http {song_state}")
     DB.SONG_STATE = song_state
     await ws_manager.broadcast_song_state(song_state)
