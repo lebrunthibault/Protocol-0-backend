@@ -9,8 +9,7 @@ from lib.window.window import focus_window
 
 
 class Window(SubjectMixin):
-    def __init__(self):
-        self.sg_window: Optional[SgWindow] = None
+    sg_window: Optional[SgWindow] = None
 
     def display(self):
         raise NotImplementedError

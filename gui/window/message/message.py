@@ -12,7 +12,6 @@ class Message(Window):
         background_color: ColorEnum,
         title="P0 Message"
     ):
-        super(Message, self).__init__()
         background_color = background_color.hex_value
         self.sg_window = sg.Window(title,
                                    layout=[[sg.Text(message, background_color=background_color)]],

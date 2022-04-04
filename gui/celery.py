@@ -6,6 +6,7 @@ from typing import List
 from celery import Celery
 from loguru import logger
 
+from gui.task_cache import TaskCache, TaskCacheKey
 from gui.window.message.message_factory import MessageFactory
 from gui.window.notification.notification_factory import NotificationFactory
 from gui.window.prompt.prompt_factory import PromptFactory
@@ -17,21 +18,21 @@ celery_app = Celery('tasks', broker='redis://localhost')
 celery_app.control.purge()
 celery_app.conf.result_expires = 1
 
+task_cache = TaskCache()
+
 
 def kill_all_running_workers():
     active_tasks = celery_app.control.inspect().active()
+
     if active_tasks:
         for task in active_tasks[f"celery@{socket.gethostname()}"]:
             celery_app.control.revoke(task_id=task["id"], terminate=True)
 
 
-def revoke_tasks(type: str, current_task_id):
-    active_tasks = celery_app.control.inspect().active()
-    if active_tasks:
-        for task in active_tasks[f"celery@{socket.gethostname()}"]:
-            if task["type"] == type and task["id"] != current_task_id:
-                logger.info(f"revoking {task}")
-                celery_app.control.revoke(task_id=task["id"], terminate=True)
+def revoke_tasks(task_type: TaskCacheKey):
+    for task_id in task_cache.get_tasks(task_type):
+        task_cache.add_revoke_task(task_id)
+    task_cache.clear_tasks(task_type)
 
 
 def check_celery_worker_status() -> bool:
@@ -58,9 +59,9 @@ def handle_error(func):
 @celery_app.task(bind=True)
 @handle_error
 def notification_window(self, message: str, notification_enum: str = NotificationEnum.INFO.value):
-    logger.info(message)
-    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
-    revoke_tasks("gui.celery.notification", self.request.id)
+    revoke_tasks(TaskCacheKey.NOTIFICATION)
+    task_cache.add_task(TaskCacheKey.NOTIFICATION, self.request.id)
+    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display(self.request.id)
 
 
 @celery_app.task()

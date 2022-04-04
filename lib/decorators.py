@@ -1,9 +1,8 @@
+import time
 from datetime import datetime, timedelta
 from functools import wraps
 
 from loguru import logger
-
-from api.midi_server.p0_script_api_client import p0_script_client
 
 
 def log_exceptions(func):
@@ -22,7 +21,8 @@ def log_exceptions(func):
 def reset_midi_client(func):
     @wraps(func)
     def decorate(*a, **k):
-        # noinspection PyBroadException
+        from api.midi_server.p0_script_api_client import p0_script_client
+
         p0_script_client.IS_LIVE = False
         func(*a, **k)
 
@@ -33,10 +33,6 @@ class throttle(object):
     """
     Decorator that prevents a function from being called more than once every
     time period.
-    To create a function that cannot be called more than once a minute:
-        @throttle(minutes=1)
-        def my_fun():
-            pass
     """
 
     def __init__(self, milliseconds=0):
@@ -57,3 +53,14 @@ class throttle(object):
             return res
 
         return wrapper
+
+
+def timing(f):
+    @wraps(f)
+    def wrap(*a, **k):
+        start_at = time.time()
+        res = f(*a, **k)
+        end_at = time.time()
+        logger.info(f"func: {f.__name__} took: {end_at - start_at:.3f} sec")
+        return res
+    return wrap

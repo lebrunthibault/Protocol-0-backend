@@ -13,6 +13,7 @@ from mido.backends.rtmidi import Input
 from api.midi_server.p0_script_api_client import p0_script_client
 from config import Config
 from gui.celery import check_celery_worker_status, message_window, notification_window
+from gui.task_cache import TaskCache
 from gui.window.message.message_factory import MessageFactory
 from lib.ableton.ableton import is_ableton_up
 from lib.ableton.song_state import SongState
@@ -69,6 +70,7 @@ def system_check():
 
 
 def check_celery():
+    TaskCache().clear()
     if not check_celery_worker_status():
         MessageFactory.show_error("Celery is not up")
 
