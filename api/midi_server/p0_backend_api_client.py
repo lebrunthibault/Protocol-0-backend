@@ -18,7 +18,7 @@ class BackendClientMessageSender():
         with mido.open_output(out_port, autoreset=False) as midi_port:
             msg = make_sysex_message_from_dict(message)
             midi_port.send(msg)
-            logger.info(f"sent msg to p0_backend via P0_BACKEND_LOOPBACK: {message}")
+            logger.info(f"Sent midi server loopback : {message.__class__.__name__}")
 
 
 backend_client = P0BackendClient(BackendClientMessageSender())
@@ -30,4 +30,4 @@ def dispatch_to_script(command: SerializableCommand):
     with mido.open_output(out_port, autoreset=False) as midi_port:
         msg = make_sysex_message_from_command(command)
         midi_port.send(msg)
-        logger.info(f"sent script command to p0_backend via P0_BACKEND_LOOPBACK: {command}")
+        logger.info(f"Sent script command from midi server: {command.__class__.__name__}")

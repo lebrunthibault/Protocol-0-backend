@@ -50,7 +50,6 @@ def log_string(string) -> str:
 def make_sysex_message_from_command(command: SerializableCommand) -> mido.Message:
     assert isinstance(command, SerializableCommand), "expected SerializableCommand, got %s" % command
     message = command.serialize()
-    logger.debug(f"Sending string to Backend midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
     b.insert(0, 0xF0)
     b.append(0xF7)
@@ -70,7 +69,6 @@ def make_script_command_from_sysex_message(message: mido.Message) -> Optional[Se
 def make_sysex_message_from_dict(data: Dict) -> mido.Message:
     assert isinstance(data, Dict)
     message = json.dumps(data, default=str)
-    logger.debug(f"Sending string to Backend midi output : <magenta>{message}</>")
     b = bytearray(message.encode())
     b.insert(0, 0xF0)
     b.append(0xF7)
@@ -84,7 +82,6 @@ def make_dict_from_sysex_message(message: mido.Message) -> Optional[Dict]:
     string = message.bin()[1:-1].decode("utf-8")  # type: str
     if not string.startswith("{"):
         return None
-    logger.debug(f"Received string <blue>{string}</>")
     try:
         return json.loads(string)
     except JSONDecodeError:

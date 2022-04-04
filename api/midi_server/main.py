@@ -102,7 +102,6 @@ def _execute_midi_message(message: Message):
     # shortcut to call directly the script api
     command = make_script_command_from_sysex_message(message=message)
     if command:
-        logger.info(f"received script command {command}")
         p0_script_client.dispatch(command)
         return
 
@@ -110,15 +109,15 @@ def _execute_midi_message(message: Message):
     if not payload:
         return
 
-    logger.info(f"received midi payload {log_string(payload)}")
-
     # or it can exploit the routes public API by passing an operation name
     from api.midi_server.routes import Routes
     route = Routes()
     method = getattr(route, payload["method"], None)
 
     if method is None:
-        raise Protocol0Error(f"You called an unknown backend api method: {payload} in pid {os.getpid()}")
+        raise Protocol0Error(f"Unknown Route: {payload} (pid {os.getpid()})")
+
+    logger.info(f"GET: Route.{method.__name__} (pid: {os.getpid()})")
 
     method(**payload["args"])
 

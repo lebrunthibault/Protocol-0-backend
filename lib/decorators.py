@@ -49,7 +49,7 @@ class throttle(object):
             time_since_last_call = datetime.now() - self.time_of_last_call
 
             if time_since_last_call <= self.throttle_period:
-                logger.info(f"time_since_last_call: {time_since_last_call}: NOK")
+                logger.info(f"{fn} throttled. time_since_last_call: {time_since_last_call}")
                 return
 
             res = fn(*a, **k)

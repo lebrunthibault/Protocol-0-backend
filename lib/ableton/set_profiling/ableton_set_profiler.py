@@ -42,7 +42,6 @@ class AbletonSetProfiler():
 
     @classmethod
     def end_measurement(cls):
-        logger.info(cls.current_profiling_session)
         if not cls.current_profiling_session:
             return
         cls.current_profiling_session.end_measurement()
