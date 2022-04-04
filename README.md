@@ -1,7 +1,6 @@
 # Protocol0 script backend and audio libraries
 
-This monolithic repo is the backend of my ableton control surface
-script ([protocol0 repo](https://github.com/lebrunthibault/Protocol-0-Surface-Script))
+This monolithic repo is the backend of my ([Ableton control surface script](https://github.com/lebrunthibault/Protocol0-Ableton-Surface-Script))
 
 I created it because the python environment in the control surface script executes in ableton and is limited in several
 ways
@@ -22,24 +21,32 @@ I didn't work on a real architecture for the backend so it's not as clean as the
 It is composed of the following packages:
 
 ## ./api
-MIDI server exposing the backend API for the script. Also includes client code for
+
+The user facing APIs for the backend
+
+### ./api/midi_server
+A MIDI server exposing the backend API for consumption by the the [control surface script](https://github.com/lebrunthibault/Protocol0-Ableton-Surface-Script)
+(the script communicates only via MIDI)
+
+Also includes client code for
 - accessing the backend API from the script (python2)
-- accessing the backend API from python3 (for example when executing a backend script from AHK)
+- accessing the backend API from python3 (needed to access the Backend from outside the MIDI server, see http_server below)
   - NB : due to windows limitations on MIDI ports (only one connection possible), "talking" to the script is only possible from the midi server
   - That means that sending a command to the script from outside the server, we first need to call the server that will forward the command to the script.
-- Calling the script from the backend
+- Calling the script from the backend (server push)
   
 NB : the backend API is not exposed in the same way as the script API (this should be fixed)
 - The backend clients are generated using open API tools. They generate a python client that has a method per exposed backend `Route` method.
   It's nice to do code generation but replacing the `Route` class by Command objects would be simpler
-- The script client just dispatches script Command objects over MIDI. It's simpler (even though it creates a hard dependency on the script. but it's ok they are both on the same machine)
+- The script client just dispatches script Command objects over MIDI. 
+  It's simpler (even though it creates a hard dependency on the script. but it's ok they are both on the same machine)
   
-## http_server
+### ./api/http_server
 I've also setup a minimal http server using FastAPI.
-This server is there as a gateway to the midi server 
-and its only goal is to be hit by requests from ahk hotkeys.
-
-I've been using scripts as a gateway but doing http requests is considerably faster.
+This server is there as a gateway to the midi server, for clients that cannot use MIDI
+It serves two clients :
+- ahk hotkeys : that's because hitting an API is considerably faster than executing scripts with python.
+- my stream deck. The server pushes song state changes to the stream deck via a websocket endpoint
 
 It's run independently from the midi server. 
 

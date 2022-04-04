@@ -3,7 +3,7 @@
 .PHONY: midi_server, http_server, celery, sdk, sdk_debug, test, flake8, mypy, vulture, check
 
 midi_server:
-	watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;lib/*.py;lib/**/*.py" --ignore-patterns="api/ws_server/*" --recursive --ignore-directories -- python .\scripts\start_midi_server.py
+	watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;lib/*.py;lib/**/*.py" --recursive --ignore-directories -- python .\scripts\start_midi_server.py
 
 http_server:
 	uvicorn api.http_server.main:app --port 8000 --reload --reload-include "api/http_server/`*.py"
