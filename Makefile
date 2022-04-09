@@ -9,7 +9,7 @@ http_server:
 	uvicorn api.http_server.main:app --port 8000 --reload --reload-include "api/http_server/`*.py"
 
 celery:
-	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- celery -A gui worker -l info --loglevel=INFO
+	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- celery -A gui worker --without-heartbeat --without-gossip --without-mingle -l info --loglevel=INFO
 
 sdk:
 	cls
