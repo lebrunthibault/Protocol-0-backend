@@ -1,23 +1,5 @@
 from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
-from lib.git import push_git_repos
 from scripts.abstract_cli import cli
-from scripts.commands.logoff import logoff
-from scripts.commands.logon import logon
-
-
-@cli.command(name="logon")
-def command_logon() -> None:
-    logon()
-
-
-@cli.command(name="logoff")
-def command_logoff() -> None:
-    logoff()
-
-
-@cli.command(name="git_backup")
-def command_git_backup() -> None:
-    push_git_repos()
 
 
 @cli.command(name="generate_openapi_specs")

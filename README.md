@@ -81,9 +81,6 @@ In the 'standard' way of executing backend code via ahk, we usually follow these
 - In this last case the ahk will in the end trigger a script command (like 'ToggleSceneLoopCommand')
   (a bit complex but fast) 
 
-### commands
-body of the click commands
-
 ### powershell
 Startup command for my terminal
 
