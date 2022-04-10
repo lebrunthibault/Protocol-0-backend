@@ -20,7 +20,6 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
-from scripts.presets import sync_presets
 
 
 class Routes:
@@ -102,9 +101,6 @@ class Routes:
 
     def post_activate_rev2_editor(self) -> None:
         post_activate_rev2_editor()
-
-    def sync_presets(self) -> None:
-        sync_presets()
 
     def start_set_profiling(self) -> None:
         AbletonSetProfiler.start_set_profiling()

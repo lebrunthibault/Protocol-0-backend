@@ -1,10 +1,9 @@
 import json
+import redis
 from enum import Enum
 from typing import List
 
 TaskIds = List[str]
-
-import redis
 
 
 class TaskCacheKey(Enum):
