@@ -16,14 +16,12 @@ from gui.celery import check_celery_worker_status, message_window, notification_
 from gui.task_cache import TaskCache
 from gui.window.message.message_factory import MessageFactory
 from lib.ableton.ableton import is_ableton_up
-from lib.ableton.song_state import SongState
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.timer import start_timer
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
 
 logger = logger.opt(colors=True)
-song_state = SongState()
 
 
 def notify_protocol0_midi_up():

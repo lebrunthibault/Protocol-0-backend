@@ -1,23 +1,26 @@
+import json
 from typing import List, Dict
 
+import requests
 from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
 from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
 
-from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server, song_state
+from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from api.midi_server.p0_script_api_client import p0_script_client
+from config import Config
 from gui.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
     message_window
 from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
-from lib.mouse.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
-from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
-from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
+from lib.mouse.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
+from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
+from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
 
@@ -37,7 +40,8 @@ class Routes:
         p0_script_client.dispatch(GetSongStateCommand())
 
     def notify_song_state(self, state: Dict) -> None:
-        song_state.update(state)
+        """Forward to http server"""
+        requests.post(f"{Config.HTTP_API_URL}/song_state", data=json.dumps(state))
 
     def move_to(self, x: int, y: int) -> None:
         move_to(x=x, y=y)
