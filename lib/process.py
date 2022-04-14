@@ -9,7 +9,7 @@ from psutil import Process, NoSuchProcess
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
 
-def execute_in_new_window(path: str, *args):
+def execute_python_script_in_new_window(path: str, *args):
     assert path.endswith(".py")
     cwd = os.path.dirname(path)
     basename = os.path.basename(path)

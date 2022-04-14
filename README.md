@@ -6,8 +6,9 @@ I created it because the python environment in the control surface script execut
 ways
 (cannot use threading, asyncio, python3, a bunch of system libraries etc ...)
 
-This repo has none of these limitations and exposes an API to the protocol0 script while also being able to do the opposite : 
-calling the script by dispatching script commands.
+This repo has none of these limitations and exposes an API to the protocol0 script 
+while also being able to do the opposite : 
+calling the script by dispatching script RPC commands.
 
 - I used python 3.7
 - I'm on windows 10 (So a some library code is relative to windows (in particular windows and keyboard management))
@@ -38,7 +39,7 @@ Also includes client code for
 NB : the backend API is not exposed in the same way as the script API (this should be fixed)
 - The backend clients are generated using open API tools. They generate a python client that has a method per exposed backend `Route` method.
   It's nice to do code generation but replacing the `Route` class by Command objects would be simpler
-- The script client just dispatches script Command objects over MIDI. 
+- The script client uses RPC and dispatches script Command objects over MIDI. 
   It's simpler (even though it creates a hard dependency on the script. but it's ok they are both on the same machine)
   
 ### ./api/http_server

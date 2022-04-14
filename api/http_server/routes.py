@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from loguru import logger
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
+from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
 from protocol0.application.command.PlayPauseCommand import PlayPauseCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
@@ -15,7 +16,7 @@ from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from api.midi_server.p0_backend_api_client import dispatch_to_script, backend_client
 from config import Config
-from lib.process import execute_in_new_window
+from lib.process import execute_python_script_in_new_window
 
 router = APIRouter()
 
@@ -50,12 +51,12 @@ async def save_set_as_template():
 
 @router.get("/tail_logs")
 async def tail_logs():
-    execute_in_new_window(f"{Config.PROJECT_ROOT}/scripts/tail_protocol0_logs.py")
+    execute_python_script_in_new_window(f"{Config.PROJECT_ROOT}/scripts/tail_protocol0_logs.py")
 
 
 @router.get("/tail_logs_raw")
 async def tail_logs_raw():
-    execute_in_new_window(f"{Config.PROJECT_ROOT}/scripts/tail_protocol0_logs.py", "--raw")
+    execute_python_script_in_new_window(f"{Config.PROJECT_ROOT}/scripts/tail_protocol0_logs.py", "--raw")
 
 
 @router.get("/play_pause")
@@ -66,6 +67,11 @@ async def play_pause():
 @router.get("/load_device/{name}")
 async def load_device(name: str):
     dispatch_to_script(LoadDeviceCommand(name))
+
+
+@router.get("/select_or_load_device/{name}")
+async def select_or_load_device(name: str):
+    dispatch_to_script(SelectOrLoadDeviceCommand(name))
 
 
 @router.get("/load_drum_track/{name}")
