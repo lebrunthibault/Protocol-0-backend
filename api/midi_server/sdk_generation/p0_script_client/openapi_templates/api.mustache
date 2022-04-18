@@ -29,14 +29,9 @@ class {{custom_classname}}(object):
 {{#operation}}
 
     def {{operationId}}(self, {{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{paramName}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{paramName}}={{{defaultValue}}}{{^-last}}, {{/-last}}{{/optionalParams}}):  # noqa: E501
-        # type: (Any{{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}, {{dataType}}{{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}) -> None
+        # type: ({{#sortParamsByRequiredFlag}}{{#allParams}}{{#required}}{{dataType}}, {{/required}}{{/allParams}}{{/sortParamsByRequiredFlag}}{{#optionalParams}}{{dataType}}, {{/optionalParams}}) -> None
         """
             {{#summary}}{{{.}}}{{/summary}}{{^summary}}{{operationId}}{{/summary}}  # noqa: E501
-            {{#allParams}}
-            :param {{paramName}}:{{#description}} {{{description}}}{{/description}}{{#required}} (required){{/required}}{{#optional}}(optional){{/optional}}
-            :type {{paramName}}: {{dataType}}{{#optional}}, optional{{/optional}}
-            {{/allParams}}
-            :rtype: {{#returnType}}{{returnType}}{{/returnType}}{{^returnType}}None{{/returnType}}
         """
 
         dict = {

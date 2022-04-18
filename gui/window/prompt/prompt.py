@@ -12,9 +12,9 @@ class Prompt(Window):
         message: str,
         background_color: Optional[ColorEnum],
     ):
-        background_color = background_color.hex_value if background_color else None
+        background_color_hex = background_color.hex_value if background_color else None
         layout = [
-            [sg.Text(message, key="question", background_color=background_color)],
+            [sg.Text(message, key="question", background_color=background_color_hex)],
             [sg.Input(key="input", visible=False)],
             [sg.Button("yes", key="yes"), sg.Button("no", key="no")]
         ]
@@ -25,7 +25,7 @@ class Prompt(Window):
             return_keyboard_events=True,
             keep_on_top=True,
             no_titlebar=True,
-            background_color=background_color,
+            background_color=background_color_hex,
             element_justification='c'
         )
 

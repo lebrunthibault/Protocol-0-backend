@@ -16,7 +16,7 @@ class RecognizerResult:
     speech_sound: SpeechSound
     word: Optional[str] = None
     word_enum: Optional[Enum] = None
-    error: AbstractRecognizerNotFoundError = None
+    error: Optional[AbstractRecognizerNotFoundError] = None
 
     def __repr__(self):
         if self.word_enum:

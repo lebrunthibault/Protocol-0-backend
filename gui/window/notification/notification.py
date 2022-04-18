@@ -14,22 +14,27 @@ class Notification(Window):
         self,
         message: str,
         background_color: ColorEnum,
+        centered: bool,
         timeout: float = 0
     ):
         self._message = message
-        background_color = background_color.hex_value
+        background_color_hex = background_color.hex_value
         self._timeout = timeout
 
         self._start_at = time.time()
         self._task_cache = TaskCache()
 
+        kw = {}
+        if not centered:
+            kw["location"] = (pyautogui.size()[0] - (100 + 7 * len(message)), 10)
+
         self.sg_window = sg.Window("Notification message",
-                                   layout=[[sg.Text(message, background_color=background_color)]],
+                                   layout=[[sg.Text(message, background_color=background_color_hex)]],
                                    no_titlebar=True,
                                    use_default_focus=False,
-                                   location=(pyautogui.size()[0] - (100 + 7 * len(message)), 10),
-                                   background_color=background_color,
+                                   background_color=background_color_hex,
                                    keep_on_top=True,
+                                   **kw
                                    )
 
     def display(self, task_id: str):

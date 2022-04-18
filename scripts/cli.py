@@ -1,5 +1,8 @@
 import make_path  # noqa
 from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
+from gui.celery import notification_window
+
+from lib.enum.NotificationEnum import NotificationEnum
 from scripts.abstract_cli import cli
 
 
@@ -10,7 +13,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    pass
+    notification_window.delay("Saving the drum rack", NotificationEnum.WARNING.value)
 
 
 if __name__ == "__main__":

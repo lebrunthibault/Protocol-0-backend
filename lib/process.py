@@ -15,7 +15,7 @@ def execute_python_script_in_new_window(path: str, *args):
     basename = os.path.basename(path)
     p = subprocess.Popen(["powershell.exe",
                           "invoke-expression",
-                          f"'cmd /c start powershell -Command {{ set-location \"%s\"; py {basename} {' '.join(args)} }}'" % cwd],
+                          f"'cmd /c start powershell -Command {{ set-location \"%s\"; py -3.7 {basename} {' '.join(args)} }}'" % cwd],
                          stdout=sys.stdout)
     p.communicate()
 

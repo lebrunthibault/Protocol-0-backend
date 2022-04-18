@@ -25,14 +25,16 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
         logger.info(f"handle not found for {name}")
         return
 
+    logger.warning(f"ableton handle: {handle}")
+
     # noinspection PyUnresolvedReferences
     pythoncom.CoInitialize()  # needed
     # noinspection PyBroadException
     try:
         win32gui.SetForegroundWindow(handle)
         return
-    except Exception:
-        logger.warning(f"couldn't focus {name}")
+    except Exception as e:
+        logger.warning(f"couldn't focus {name} : {e}")
         if retry:
             # needed for SetForegroundWindow to be allowed
             shell = win32com.client.Dispatch("WScript.Shell")
@@ -45,6 +47,4 @@ def focus_window(name: str, search_type: Union[SearchTypeEnum, str] = SearchType
 
 def is_window_focused(handle: int) -> bool:
     active_window_handle = windll.user32.GetForegroundWindow()
-    if active_window_handle == 0:
-        return False
-    return handle == active_window_handle
+    return active_window_handle != 0 and handle == active_window_handle

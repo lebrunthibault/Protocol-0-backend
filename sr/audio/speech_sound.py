@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from functools import lru_cache
 
 import numpy as np
 import scipy.fftpack as scp
@@ -72,7 +71,6 @@ def _is_speech(sound: SoundMixin) -> bool:
     return True
 
 
-@lru_cache()
 def _strongest_frequency(sound: SoundMixin) -> FrequencyInfo:
     # then normalize and convert to numpy array:
     samples = np.double(list(sound.samples)) / (2 ** 15)

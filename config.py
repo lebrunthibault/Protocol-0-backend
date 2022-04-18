@@ -6,7 +6,8 @@ _ableton_major_version = _ableton_version.split('.')[0]
 
 class Config:
     LOGGING_DIRECTORY = os.environ.get("LOGGING_DIRECTORY")
-    PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
+    PROJECT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
+    SAMPLE_DIRECTORY = "C:\\Users\\thiba\\google_drive\\music\\software presets\\Ableton User Library\\Samples\\Imported"
 
     HTTP_API_URL = "http://127.0.0.1:8000"
     WS_PORT = 8080

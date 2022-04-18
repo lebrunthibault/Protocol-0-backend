@@ -28,7 +28,7 @@ class SoundMixin(Protocol):
         self.audio.export(filename, format="wav")
 
     @property
-    def duration_seconds(self) -> array.array:
+    def duration_seconds(self) -> float:
         return self.audio.duration_seconds
 
     @property

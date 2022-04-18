@@ -10,8 +10,7 @@ from protocol0.application.command.ProcessBackendResponseCommand import ProcessB
 from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from api.midi_server.p0_script_api_client import p0_script_client
 from config import Config
-from gui.celery import prompt_window, select_window, notification_window, kill_all_running_workers, \
-    message_window
+from gui.celery import prompt_window, select_window, notification_window, message_window
 from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
     analyze_test_audio_clip_jitter
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -19,6 +18,7 @@ from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.mouse.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
+from lib.mouse.drum_rack import save_drum_rack
 from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
@@ -58,6 +58,9 @@ class Routes:
     def double_click(self, x: int, y: int) -> None:
         double_click(x=x, y=y)
 
+    def send_keys(self, keys: str) -> None:
+        send_keys(keys)
+
     def select_and_copy(self) -> None:
         send_keys('^a')
         send_keys('^c')
@@ -86,7 +89,6 @@ class Routes:
     def reload_ableton(self):
         reload_ableton()
         # AbletonSetProfiler.start_profiling_single_measurement()
-        kill_all_running_workers()
 
     def save_set(self):
         save_set()
@@ -99,6 +101,9 @@ class Routes:
 
     def toggle_ableton_button(self, x: int, y: int, activate: bool = False) -> None:
         toggle_ableton_button(x=x, y=y, activate=activate)
+
+    def save_drum_rack(self, drum_rack_name) -> None:
+        save_drum_rack(drum_rack_name)
 
     def activate_rev2_editor(self) -> None:
         activate_rev2_editor()
@@ -125,14 +130,14 @@ class Routes:
     def prompt(self, question: str):
         prompt_window.delay(question)
 
-    def show_info(self, message: str):
-        notification_window.delay(message, NotificationEnum.INFO.value)
+    def show_info(self, message: str, centered: bool = False):
+        notification_window.delay(message, NotificationEnum.INFO.value, centered)
 
-    def show_success(self, message: str):
-        notification_window.delay(message, NotificationEnum.SUCCESS.value)
+    def show_success(self, message: str, centered: bool = False):
+        notification_window.delay(message, NotificationEnum.SUCCESS.value, centered)
 
-    def show_warning(self, message: str):
-        notification_window.delay(message, NotificationEnum.WARNING.value)
+    def show_warning(self, message: str, centered: bool = False):
+        notification_window.delay(message, NotificationEnum.WARNING.value, centered)
 
     @throttle(milliseconds=5000)
     def show_error(self, message: str):

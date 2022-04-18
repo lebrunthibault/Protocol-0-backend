@@ -13,11 +13,11 @@ celery:
 
 sdk:
 	cls
-	py scripts/cli.py generate_openapi_specs
+	py -3.7 scripts/cli.py generate_openapi_specs
 
 	cd api/midi_server/sdk_generation/p0_script_client && rm -rf api_client
 	cd api/midi_server/sdk_generation && openapi-generator generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_script_client\api_client -t p0_script_client\openapi_templates
-	cd "C:\ProgramData\Ableton\Live 10 Suite\Resources\MIDI Remote Scripts\protocol0" && .\venv\Scripts\activate.ps1 && venv\Scripts\pip.exe install "C:\Users\thiba\google_drive\music\dev\protocol0_backend\api\midi_server\sdk_generation\p0_script_client\api_client"
+	cd "C:\ProgramData\Ableton\Live 10 Suite\Resources\MIDI Remote Scripts\protocol0" && .\venv\Scripts\activate.ps1 && venv\Scripts\pip.exe install "C:\Users\thiba\dev\protocol0_backend\api\midi_server\sdk_generation\p0_script_client\api_client"
 
 	cd api/midi_server/sdk_generation/p0_backend_client && rm -rf api_client
 	cd api/midi_server/sdk_generation && openapi-generator generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_backend_client\api_client -t p0_backend_client\openapi_templates
@@ -26,6 +26,10 @@ sdk:
 sdk_debug:
 	cls
 	cd api/midi_server/sdk_generation/p0_script && openapi-generator generate -i openapi.yaml -g python-legacy -o api_client -t ../openapi_templates/via_midi/python_legacy --global-property debugOperations=true
+
+cli-test:
+	cls
+	py -3.7 scripts/cli.py test
 
 test:
 	cls

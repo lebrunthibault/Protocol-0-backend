@@ -6,10 +6,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SetTitleMatchMode, 2
 CoordMode,mouse,screen
 
-
 #Include %A_ScriptDir%/lib.ahk
-; this https://github.com/Ciantic/VirtualDesktopAccessor for switching desktops
-#Include %A_ScriptDir%/virtual_desktop.ahk
 
 ; Control: ^
 ; Alt: !
@@ -19,7 +16,6 @@ CoordMode,mouse,screen
 
 ; global hotkeys
 ^#+n::
-	GoToDesktopNumber(0) ; doing this from ahk, it's faster and works every time
 	callBackend("reload_ableton")
 return
 

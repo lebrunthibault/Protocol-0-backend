@@ -20,9 +20,9 @@ class SelectFactory(WindowFactory):
             select = Select(message=message, options=options, buttons=[buttons], arrow_keys=("Left", "Right"))
 
         window = CloseWindowOnEndDecorator(select)
-        window = NotifyProtocol0Decorator(window)
-        select.attach(window)
-        return window
+        window_2 = NotifyProtocol0Decorator(window)
+        select.attach(window_2)
+        return window_2
 
     @classmethod
     def _create_buttons(self, options: List[str]) -> List[Button]:

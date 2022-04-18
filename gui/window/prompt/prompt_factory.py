@@ -18,7 +18,7 @@ class PromptFactory(WindowFactory):
             raise NotImplementedError
 
         window = CloseWindowOnEndDecorator(prompt)
-        window = NotifyProtocol0Decorator(window)
-        prompt.attach(window)
+        window_2 = NotifyProtocol0Decorator(window)
+        prompt.attach(window_2)
 
-        return window
+        return window_2

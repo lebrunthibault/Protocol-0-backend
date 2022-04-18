@@ -8,7 +8,7 @@ from config import Config
 
 
 def configure_logging(filename: Optional[str] = None) -> None:
-    with open(f"{Config.PROJECT_ROOT}/lib/logging_config.json") as config_file:
+    with open(f"{Config.PROJECT_DIRECTORY}/lib/logging_config.json") as config_file:
         logging_config = json.load(config_file)
 
     logger.remove()

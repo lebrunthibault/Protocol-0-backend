@@ -1,5 +1,4 @@
 import os
-import socket
 from functools import wraps
 from typing import List
 
@@ -19,14 +18,6 @@ celery_app.control.purge()
 celery_app.conf.result_expires = 1
 
 task_cache = TaskCache()
-
-
-def kill_all_running_workers():
-    active_tasks = celery_app.control.inspect().active()
-
-    if active_tasks:
-        for task in active_tasks[f"celery@{socket.gethostname()}"]:
-            celery_app.control.revoke(task_id=task["id"], terminate=True)
 
 
 def revoke_tasks(task_type: TaskCacheKey):
@@ -58,10 +49,14 @@ def handle_error(func):
 
 @celery_app.task(bind=True)
 @handle_error
-def notification_window(self, message: str, notification_enum: str = NotificationEnum.INFO.value):
+def notification_window(self, message: str, notification_enum: str = NotificationEnum.INFO.value, centered=False):
     revoke_tasks(TaskCacheKey.NOTIFICATION)
     task_cache.add_task(TaskCacheKey.NOTIFICATION, self.request.id)
-    NotificationFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display(self.request.id)
+    NotificationFactory.createWindow(
+        message=message,
+        notification_enum=NotificationEnum[notification_enum],
+        centered=centered)\
+        .display(self.request.id)
 
 
 @celery_app.task()

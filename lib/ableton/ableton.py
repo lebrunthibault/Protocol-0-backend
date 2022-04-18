@@ -9,14 +9,15 @@ from protocol0.application.command.ResetSongCommand import ResetSongCommand
 
 from api.midi_server.p0_script_api_client import p0_script_client
 from config import Config
+from gui.celery import notification_window, message_window
 from lib.ableton.clip_parsing import Clip
-from lib.mouse.mouse import click
+from lib.desktop.desktop import go_to_desktop
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
+from lib.mouse.mouse import click
 from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
-from gui.celery import notification_window, message_window
 
 
 @dataclass(frozen=True)
@@ -96,21 +97,19 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
 
 def reload_ableton() -> None:
-    if not is_ableton_focused():
-        focus_ableton()
-    time.sleep(0.2)
+    """ Not easy to have this work every time """
+    p0_script_client.dispatch(ResetSongCommand())
+    go_to_desktop(0)
+
+    time.sleep(0.5)
+    focus_ableton()
+    send_keys("^w")  # close the microsoft office popup ..
+    time.sleep(0.5)
+
     send_keys("^n")
     send_keys("{Right}")
-    # NB : we have a problem of double set load when doing it programmatically
-    # send_keys("{Right}")
-    # send_keys("{Right}")
-    # send_keys("{Right}")
     time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
-    # don't save set
     send_keys("{Enter}")
-    # # but keep recordings
-    # send_keys("{Right}")
-    # send_keys("{Enter}")
 
 
 def save_set():

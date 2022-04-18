@@ -2,11 +2,13 @@ from typing import Optional
 
 from fastapi import APIRouter
 from loguru import logger
+from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
-from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
+from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
 from protocol0.application.command.PlayPauseCommand import PlayPauseCommand
+from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
@@ -51,12 +53,12 @@ async def save_set_as_template():
 
 @router.get("/tail_logs")
 async def tail_logs():
-    execute_python_script_in_new_window(f"{Config.PROJECT_ROOT}/scripts/tail_protocol0_logs.py")
+    execute_python_script_in_new_window(f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py")
 
 
 @router.get("/tail_logs_raw")
 async def tail_logs_raw():
-    execute_python_script_in_new_window(f"{Config.PROJECT_ROOT}/scripts/tail_protocol0_logs.py", "--raw")
+    execute_python_script_in_new_window(f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw")
 
 
 @router.get("/play_pause")
@@ -77,6 +79,16 @@ async def select_or_load_device(name: str):
 @router.get("/load_drum_track/{name}")
 async def load_drum_track(name: str):
     dispatch_to_script(LoadDrumTrackCommand(name))
+
+
+@router.get("/load_drum_rack/{name}")
+async def load_drum_rack(name: str):
+    dispatch_to_script(LoadDrumRackCommand(name))
+
+
+@router.get("/drum_rack_to_simpler")
+async def drum_rack_to_simpler():
+    dispatch_to_script(DrumRackToSimplerCommand())
 
 
 @router.get("/arm")
