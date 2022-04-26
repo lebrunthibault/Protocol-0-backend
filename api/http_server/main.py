@@ -8,7 +8,6 @@ from api.midi_server.p0_backend_api_client import backend_client
 
 app = FastAPI(debug=True)
 
-
 app.include_router(router)
 app.include_router(ws_router)
 

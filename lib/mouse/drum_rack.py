@@ -12,7 +12,7 @@ DRUM_RACK_SAVE_BUTTON_HEIGHT = 803
 def save_drum_rack(drum_rack_name: str):
     notification_window.delay("Saving the drum rack", NotificationEnum.WARNING.value)
     click(DRUM_RACK_SAVE_BUTTON_WIDTH, DRUM_RACK_SAVE_BUTTON_HEIGHT)
-    sleep(0.100)
+    sleep(0.5)
     send_keys(drum_rack_name)
-    sleep(0.005)
+    sleep(0.5)
     send_keys("{Enter}")
