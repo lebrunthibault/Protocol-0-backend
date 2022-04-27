@@ -10,7 +10,7 @@ from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
 
 class AbletonSetProfiler():
-    NUMBER_OF_TESTS = 5
+    NUMBER_OF_TESTS = 3
     last_set_reloaded_at: Optional[float] = None
     current_profiling_session: Optional[AbletonSetProfilingSession] = None
 

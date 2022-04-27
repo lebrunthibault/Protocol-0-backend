@@ -1,7 +1,5 @@
-import os.path
 import subprocess
 import sys
-from typing import List
 
 import win32process
 from loguru import logger
