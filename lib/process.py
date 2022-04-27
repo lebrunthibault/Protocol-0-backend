@@ -1,6 +1,7 @@
 import os.path
 import subprocess
 import sys
+from typing import List
 
 import win32process
 from loguru import logger
@@ -9,15 +10,18 @@ from psutil import Process, NoSuchProcess
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
 
-def execute_python_script_in_new_window(path: str, *args):
-    assert path.endswith(".py")
-    cwd = os.path.dirname(path)
-    basename = os.path.basename(path)
-    p = subprocess.Popen(["powershell.exe",
-                          "invoke-expression",
-                          f"'cmd /c start powershell -Command {{ set-location \"%s\"; py -3.7 {basename} {' '.join(args)} }}'" % cwd],
-                         stdout=sys.stdout)
-    p.communicate()
+def execute_process_in_new_window(*args: str):
+    powershell_command_line = f"'cmd /c start powershell -Command {{ {' '.join(args)} }}'"
+    logger.info(powershell_command_line)
+    subprocess.run(["powershell.exe",
+                    "invoke-expression",
+                    powershell_command_line
+                    ],
+                   stdout=sys.stdout)
+
+
+def execute_python_script_in_new_window(*args: str):
+    execute_process_in_new_window("py -3.7", *args)
 
 
 def _get_window_pid_by_criteria(name: str, search_type: SearchTypeEnum = SearchTypeEnum.WINDOW_TITLE) -> int:

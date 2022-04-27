@@ -43,15 +43,15 @@ class AbletonInfos():
 
 
 def focus_ableton() -> None:
-    focus_window(Config.ABLETON_EXE, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
+    focus_window(Config.ABLETON_PROCESS_NAME, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
 
 
 def is_ableton_up() -> bool:
-    return find_window_handle_by_enum(Config.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME) != 0
+    return find_window_handle_by_enum(Config.ABLETON_PROCESS_NAME, SearchTypeEnum.PROGRAM_NAME) != 0
 
 
 def is_ableton_focused() -> bool:
-    ableton_handle = find_window_handle_by_enum(Config.ABLETON_EXE, SearchTypeEnum.PROGRAM_NAME)
+    ableton_handle = find_window_handle_by_enum(Config.ABLETON_PROCESS_NAME, SearchTypeEnum.PROGRAM_NAME)
     return is_window_focused(ableton_handle)
 
 

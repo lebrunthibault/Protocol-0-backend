@@ -23,7 +23,7 @@ def debug_sounds(speech_sounds: List[SoundMixin]):
         with open(f"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\speech_sound_{i}.json", "w") as f:
             f.write(json.dumps(speech_sound.to_dict()))
 
-    subprocess.Popen(f'explorer /select,"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\speech_sound_0.wav"')
+    subprocess.run(f'explorer /select,"{SRConfig.TEST_DEBUG_DATA_DIRECTORY}\\speech_sound_0.wav"')
 
 
 def _test_audio_file(filename: str, assert_callable: Callable):
