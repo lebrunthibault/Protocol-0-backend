@@ -18,6 +18,7 @@ from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from api.midi_server.p0_backend_api_client import dispatch_to_script, backend_client
 from config import Config
+from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 
 router = APIRouter()
@@ -61,13 +62,21 @@ async def tail_logs_raw():
     execute_python_script_in_new_window(f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw")
 
 
+@router.get("/open_ableton")
+async def open_ableton():
+    go_to_desktop(0)
+    execute_process_in_new_window(f"& \"{Config.ABLETON_EXE}\"")
+
+
 @router.get("/open_current_set")
 async def open_current_set():
+    go_to_desktop(0)
     execute_process_in_new_window(f"& \"{Config.ABLETON_CURRENT_SET}\"")
 
 
 @router.get("/open_default_set")
 async def open_default_set():
+    go_to_desktop(0)
     execute_process_in_new_window(f"& \"{Config.ABLETON_DEFAULT_SET}\"")
 
 
