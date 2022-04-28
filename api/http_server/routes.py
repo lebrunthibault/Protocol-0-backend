@@ -8,6 +8,7 @@ from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
 from protocol0.application.command.PlayPauseCommand import PlayPauseCommand
+from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
@@ -123,6 +124,16 @@ async def toggle_scene_loop():
 @router.get("/fire_scene_to_position")
 async def fire_scene_to_position():
     dispatch_to_script(FireSceneToPositionCommand())
+
+
+@router.get("/scroll_scene_tracks_left")
+async def scroll_scene_tracks_left():
+    dispatch_to_script(ScrollSceneTracksCommand())
+
+
+@router.get("/scroll_scene_tracks_right")
+async def scroll_scene_tracks_right():
+    dispatch_to_script(ScrollSceneTracksCommand(go_next=True))
 
 
 @router.get("/toggle_track/{name}")

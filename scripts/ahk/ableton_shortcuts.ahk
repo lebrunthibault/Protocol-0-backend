@@ -41,6 +41,12 @@ return
 ^space::
 	callBackend("fire_scene_to_position")
 return
+^Left::
+	callBackend("scroll_scene_tracks_left")
+return
+^Right::
+	callBackend("scroll_scene_tracks_right")
+return
 
 !f:: ; fold / unfold set
 	Send `t
