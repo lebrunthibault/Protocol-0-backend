@@ -13,6 +13,11 @@ CoordMode,mouse,screen
 ; Shift: +
 ; Win: #
 
+; loop must be before any return
+Loop, 8 {
+    HotKey, ^NumPad%A_Index%, FireSceneToPosition
+}
+Return
 
 ; global hotkeys
 ^#+n::
@@ -21,7 +26,6 @@ return
 
 ; ableton hotkeys
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
-
 ^#+s::
     Send ^,  ; works best from ahk
     callBackend("save_set_as_template")
@@ -41,11 +45,23 @@ return
 ^space::
 	callBackend("fire_scene_to_position")
 return
+FireSceneToPosition:
+if WinActive("ahk_exe Ableton Live 10 Suite.exe") {
+    barLength:=SubStr(A_ThisHotkey,"^NumPad") - 1
+	callBackend("fire_scene_to_position", barLength)
+}
+Return
 ^Left::
-	callBackend("scroll_scene_tracks_left")
+	callBackend("scroll_scene_position", "left")
 return
 ^Right::
-	callBackend("scroll_scene_tracks_right")
+	callBackend("scroll_scene_position", "right")
+return
+^+Left::
+	callBackend("scroll_scene_tracks", "left")
+return
+^+Right::
+	callBackend("scroll_scene_tracks", "right")
 return
 
 !f:: ; fold / unfold set

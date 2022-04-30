@@ -7,7 +7,7 @@ from protocol0.application.command.FireSceneToPositionCommand import FireSceneTo
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
-from protocol0.application.command.PlayPauseCommand import PlayPauseCommand
+from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
@@ -27,7 +27,6 @@ router = APIRouter()
 
 @router.get("/")
 async def index():
-    logger.info("in index")
     return {"message": "Hello World"}
 
 
@@ -81,11 +80,6 @@ async def open_default_set():
     execute_process_in_new_window(f"& \"{Config.ABLETON_DEFAULT_SET}\"")
 
 
-@router.get("/play_pause")
-async def play_pause():
-    dispatch_to_script(PlayPauseCommand())
-
-
 @router.get("/load_device/{name}")
 async def load_device(name: str):
     dispatch_to_script(LoadDeviceCommand(name))
@@ -121,19 +115,20 @@ async def toggle_scene_loop():
     dispatch_to_script(ToggleSceneLoopCommand())
 
 
+@router.get("/fire_scene_to_position/{bar_length}")
 @router.get("/fire_scene_to_position")
-async def fire_scene_to_position():
-    dispatch_to_script(FireSceneToPositionCommand())
+async def fire_scene_to_position(bar_length: Optional[int] = None):
+    dispatch_to_script(FireSceneToPositionCommand(bar_length))
 
 
-@router.get("/scroll_scene_tracks_left")
-async def scroll_scene_tracks_left():
-    dispatch_to_script(ScrollSceneTracksCommand())
+@router.get("/scroll_scene_position/{direction}")
+async def scroll_scene_position(direction: str):
+    dispatch_to_script(ScrollScenePositionCommand(go_next=direction == "right"))
 
 
-@router.get("/scroll_scene_tracks_right")
-async def scroll_scene_tracks_right():
-    dispatch_to_script(ScrollSceneTracksCommand(go_next=True))
+@router.get("/scroll_scene_tracks/{direction}")
+async def scroll_scene_tracks(direction: str):
+    dispatch_to_script(ScrollSceneTracksCommand(go_next=direction == "right"))
 
 
 @router.get("/toggle_track/{name}")
