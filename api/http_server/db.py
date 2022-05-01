@@ -1,13 +1,6 @@
-from typing import Optional, List
+from typing import Optional
 
-from pydantic import BaseModel
-
-
-class SongState(BaseModel):
-    drum_track_names: List[str]
-    drum_categories: List[str]
-    favorite_device_names: List[List[str]]
-    drum_rack_visible: bool
+from api.http_server.model.song_state import SongState
 
 
 class DB:

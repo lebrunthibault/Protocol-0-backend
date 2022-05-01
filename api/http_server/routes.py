@@ -12,6 +12,7 @@ from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTr
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
+from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
 
@@ -78,6 +79,11 @@ async def open_current_set():
 async def open_default_set():
     go_to_desktop(0)
     execute_process_in_new_window(f"& \"{Config.ABLETON_DEFAULT_SET}\"")
+
+
+@router.get("/toggle_room_eq")
+async def toggle_room_eq():
+    dispatch_to_script(ToggleRoomEQCommand())
 
 
 @router.get("/load_device/{name}")
