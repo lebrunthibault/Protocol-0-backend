@@ -9,6 +9,7 @@ from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackComman
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
+from protocol0.application.command.ScrollScenesCommand import ScrollScenesCommand
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
@@ -20,6 +21,7 @@ from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from api.midi_server.p0_backend_api_client import dispatch_to_script, backend_client
 from config import Config
+from lib.ableton.ableton import is_ableton_up
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 
@@ -66,7 +68,11 @@ async def tail_logs_raw():
 @router.get("/open_ableton")
 async def open_ableton():
     go_to_desktop(0)
-    execute_process_in_new_window(f"& \"{Config.ABLETON_EXE}\"")
+
+    if is_ableton_up():
+        backend_client.reload_ableton()
+    else:
+        execute_process_in_new_window(f"& \"{Config.ABLETON_EXE}\"")
 
 
 @router.get("/open_current_set")
@@ -125,6 +131,11 @@ async def toggle_scene_loop():
 @router.get("/fire_scene_to_position")
 async def fire_scene_to_position(bar_length: Optional[int] = None):
     dispatch_to_script(FireSceneToPositionCommand(bar_length))
+
+
+@router.get("/scroll_scenes/{direction}")
+async def scroll_scenes(direction: str):
+    dispatch_to_script(ScrollScenesCommand(go_next=direction == "down"))
 
 
 @router.get("/scroll_scene_position/{direction}")

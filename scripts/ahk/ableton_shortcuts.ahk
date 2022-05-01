@@ -14,7 +14,7 @@ CoordMode,mouse,screen
 ; Win: #
 
 ; loop must be before any return
-Loop, 8 {
+Loop, 9 {
     HotKey, ^NumPad%A_Index%, FireSceneToPosition
 }
 Return
@@ -62,6 +62,12 @@ return
 return
 ^+Right::
 	callBackend("scroll_scene_tracks", "right")
+return
+^Up::
+	callBackend("scroll_scenes", "up")
+return
+^Down::
+	callBackend("scroll_scenes", "down")
 return
 
 !f:: ; fold / unfold set

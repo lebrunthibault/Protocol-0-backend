@@ -1,4 +1,7 @@
 import json
+import os
+import time
+from os.path import dirname
 from typing import List, Dict
 
 import requests
@@ -29,6 +32,10 @@ from lib.window.window import focus_window
 class Routes:
     def test(self) -> None:
         pass
+
+    def test_duplication(self) -> None:
+        with open(f"{dirname(__file__)}/test_duplication.txt", "a") as f:
+            f.write(f"{time.time()} - pid: {os.getpid()}\n")
 
     @reset_midi_client
     def ping(self) -> None:
