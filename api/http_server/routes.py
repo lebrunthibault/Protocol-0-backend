@@ -1,3 +1,4 @@
+import time
 from typing import Optional
 
 from fastapi import APIRouter
@@ -140,6 +141,7 @@ async def scroll_scenes(direction: str):
 
 @router.get("/scroll_scene_position/{direction}")
 async def scroll_scene_position(direction: str):
+    print(time.time())
     dispatch_to_script(ScrollScenePositionCommand(go_next=direction == "right"))
 
 
