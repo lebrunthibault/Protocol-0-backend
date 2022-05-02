@@ -9,7 +9,7 @@ http_server:
 	uvicorn api.http_server.main:app --port 8000 --reload --reload-dir ./api/ --reload-exclude=api/midi_server/*.py
 
 midi_server:
-	watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;lib/*.py;lib/**/*.py" --recursive --ignore-directories -- python .\scripts\start_midi_server.py
+	watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;api/client/*.py;lib/*.py;lib/**/*.py" --recursive --ignore-directories -- python .\scripts\start_midi_server.py
 
 sdk:
 	cls

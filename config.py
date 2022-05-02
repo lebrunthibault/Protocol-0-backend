@@ -24,4 +24,5 @@ class Config:
     # Midi port names are relative to the Protocol0 script and not this midi backend
     P0_OUTPUT_PORT_NAME = 'P0_OUT'
     P0_INPUT_PORT_NAME = 'P0_IN'
+    P0_INPUT_FROM_HTTP_PORT_NAME = 'P0_IN_HTTP'
     P0_BACKEND_LOOPBACK_NAME = 'P0_BACKEND_LOOPBACK'

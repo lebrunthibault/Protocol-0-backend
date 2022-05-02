@@ -11,7 +11,7 @@ from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
 
 from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
-from api.midi_server.p0_script_api_client import p0_script_client
+from api.client.p0_script_api_client import p0_script_client
 from config import Config
 from gui.celery import prompt_window, select_window, notification_window, message_window
 from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
@@ -102,7 +102,7 @@ class Routes:
         save_set()
 
     def save_set_as_template(self):
-        save_set_as_template(open_pref=True)
+        save_set_as_template()
 
     def clear_arrangement(self):
         clear_arrangement()

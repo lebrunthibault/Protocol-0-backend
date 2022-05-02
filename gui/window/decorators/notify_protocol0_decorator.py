@@ -1,8 +1,9 @@
 from loguru import logger
 
-from api.midi_server.p0_backend_api_client import backend_client
+from api.client.p0_script_api_client import p0_script_client
 from gui.window.decorators.window_decorator import WindowDecorator
 from lib.patterns.observer.observer_mixin import ObserverMixin
+from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
 
 
 class NotifyProtocol0Decorator(WindowDecorator, ObserverMixin):
@@ -12,5 +13,4 @@ class NotifyProtocol0Decorator(WindowDecorator, ObserverMixin):
 
     def update(self, data):
         logger.info(f"sending backend response {data}")
-
-        backend_client.send_backend_response(data)
+        p0_script_client.dispatch(ProcessBackendResponseCommand(data))

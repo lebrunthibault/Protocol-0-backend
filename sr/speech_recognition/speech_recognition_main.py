@@ -1,10 +1,11 @@
 from loguru import logger
 from rx import operators as op, Observable
 
-from api.midi_server.p0_backend_api_client import backend_client
+from api.client.p0_script_api_client import p0_script_client
 from lib.ableton.ableton import is_ableton_focused, are_logs_focused
 from lib.decorators import log_exceptions
 from lib.rx import rx_nop
+from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
 from sr.audio.source.microphone import Microphone
 from sr.audio.speech_sound import get_speech_sounds_observable
 from sr.enums.speech_command_enum import SpeechCommandEnum
@@ -53,7 +54,8 @@ def recognize_speech():
 
     stream_provider.activation_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))  # always active
     stream_provider.speech_command_stream.subscribe(lambda r: process_speech_command(r.word_enum))
-    stream_provider.ableton_command_stream.subscribe(lambda res: backend_client.execute_vocal_command(str(res)))
+
+    stream_provider.ableton_command_stream.subscribe(lambda res: p0_script_client.dispatch(ExecuteVocalCommandCommand(str(res))))
 
     if SRConfig.USE_GUI:
         from sr.display.speech_gui import display_recognizer_result

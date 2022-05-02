@@ -10,7 +10,7 @@ from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
-from api.midi_server.p0_script_api_client import p0_script_client
+from api.client.p0_script_api_client import p0_script_client
 from config import Config
 from gui.celery import check_celery_worker_status, message_window, notification_window
 from gui.task_cache import TaskCache
@@ -18,6 +18,7 @@ from gui.window.message.message_factory import MessageFactory
 from lib.ableton.ableton import is_ableton_up
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
+from lib.midi.mido import _get_input_port
 from lib.timer import start_timer
 from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
 
@@ -43,7 +44,7 @@ def start_midi_server():
         _poll_midi_port(midi_port=midi_port_output)
         _poll_midi_port(midi_port=midi_port_backend_loopback)
 
-        time.sleep(0.01)  # release cpu
+        time.sleep(0.005)  # release cpu
 
 
 def stop_midi_server():
@@ -120,20 +121,3 @@ def _execute_midi_message(message: Message):
     logger.info(f"GET: Route.{method.__name__} (pid: {os.getpid()})")
 
     method(**payload["args"])
-
-
-def get_output_port(port_name_prefix: str):
-    return _get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_output_names())
-
-
-def _get_input_port(port_name_prefix: str):
-    return _get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_input_names())
-
-
-def _get_real_midi_port_name(port_name_prefix: str, ports):
-    # noinspection PyUnresolvedReferences
-    for port_name in ports:
-        if port_name_prefix in port_name:
-            return port_name
-
-    raise Exception(f"couldn't find {port_name_prefix} port")

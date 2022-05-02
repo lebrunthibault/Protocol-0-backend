@@ -21,7 +21,7 @@ def log_exceptions(func):
 def reset_midi_client(func):
     @wraps(func)
     def decorate(*a, **k):
-        from api.midi_server.p0_script_api_client import p0_script_client
+        from api.client.p0_script_api_client import p0_script_client
 
         p0_script_client.IS_LIVE = False
         func(*a, **k)

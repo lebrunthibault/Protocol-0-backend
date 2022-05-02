@@ -5,9 +5,10 @@ from fastapi.exceptions import RequestValidationError
 from loguru import logger
 from starlette.responses import PlainTextResponse
 
+from api.client.p0_script_api_client import p0_script_client_from_http
 from api.http_server.routes import router
 from api.http_server.ws import ws_router
-from api.midi_server.p0_backend_api_client import backend_client
+from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 
 app = FastAPI(debug=True)
 
@@ -22,4 +23,4 @@ async def validation_exception_handler(request, exc: Exception):
     return PlainTextResponse(str(exc), status_code=400)
 
 
-backend_client.get_song_state()
+p0_script_client_from_http.dispatch(GetSongStateCommand())
