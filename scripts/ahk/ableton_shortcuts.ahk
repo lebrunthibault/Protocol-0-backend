@@ -73,6 +73,7 @@ return
 !f:: ; fold / unfold set
 	Send `t
 	Send !u
+	Sleep 50
 	Send !u
 	Send `t
 return

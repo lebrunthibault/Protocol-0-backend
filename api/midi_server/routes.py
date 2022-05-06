@@ -39,13 +39,13 @@ class Routes:
 
     @reset_midi_client
     def ping(self) -> None:
-        p0_script_client.dispatch(PingCommand())
+        p0_script_client().dispatch(PingCommand())
 
     def notify_protocol0_midi_up(self) -> None:
         notify_protocol0_midi_up()
 
     def get_song_state(self) -> None:
-        p0_script_client.dispatch(GetSongStateCommand())
+        p0_script_client().dispatch(GetSongStateCommand())
 
     def notify_song_state(self, state: Dict) -> None:
         """Forward to http server"""
@@ -136,7 +136,7 @@ class Routes:
         stop_midi_server()
 
     def send_backend_response(self, res) -> None:
-        p0_script_client.dispatch(ProcessBackendResponseCommand(res))
+        p0_script_client().dispatch(ProcessBackendResponseCommand(res))
 
     def prompt(self, question: str):
         prompt_window.delay(question)
@@ -158,4 +158,4 @@ class Routes:
         select_window.delay(question, options)
 
     def execute_vocal_command(self, command: str):
-        p0_script_client.dispatch(ExecuteVocalCommandCommand(command))
+        p0_script_client().dispatch(ExecuteVocalCommandCommand(command))

@@ -3,10 +3,13 @@
 .PHONY: midi_server, http_server, celery, sdk, sdk_debug, test, flake8, mypy, vulture, check
 
 celery:
-	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- celery -A gui worker --without-heartbeat --without-gossip --without-mingle -l info --loglevel=INFO
+	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- celery -A gui worker -E --without-heartbeat --without-gossip --without-mingle -l info --loglevel=INFO
+
+celery_flower:
+	watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- powershell scripts/powershell/start_celery_flower.ps1
 
 http_server:
-	uvicorn api.http_server.main:app --port 8000 --reload --reload-dir ./api/ --reload-exclude=api/midi_server/*.py
+	uvicorn api.http_server.main:app --port 8000 --reload
 
 midi_server:
 	watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;api/client/*.py;lib/*.py;lib/**/*.py" --recursive --ignore-directories -- python .\scripts\start_midi_server.py

@@ -46,4 +46,6 @@ class Notification(Window):
             elif task_id in self._task_cache.revoked_tasks():
                 logger.warning(f"window revoked closing {task_id}")
                 break
+
+            self._task_cache.remove_revoked_task(task_id)
         self.sg_window.close()

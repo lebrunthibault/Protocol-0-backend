@@ -23,4 +23,4 @@ async def validation_exception_handler(request, exc: Exception):
     return PlainTextResponse(str(exc), status_code=400)
 
 
-p0_script_client_from_http.dispatch(GetSongStateCommand())
+p0_script_client_from_http().dispatch(GetSongStateCommand())

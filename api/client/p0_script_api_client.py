@@ -1,41 +1,33 @@
-import time
-
 import mido
 from loguru import logger
 
-from lib.midi.mido import get_output_port
-from protocol0.application.command.SerializableCommand import SerializableCommand
-
 from config import Config
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.midi.mido import get_output_port
 from lib.utils import make_sysex_message_from_command
+from protocol0.application.command.SerializableCommand import SerializableCommand
 
 
 class P0ScriptClient(object):
+    FROM_MIDI = None
+    FROM_HTTP = None
+
     def __init__(self, midi_port_name: str):
-        self._is_live = False
         self._midi_port_name = midi_port_name
         self._midi_port = mido.open_output(get_output_port(self._midi_port_name), autoreset=False)
 
-    def _send_command_to_script(self, command: SerializableCommand) -> None:
-        logger.info("sending command to script!")
-        logger.info(time.time())
+    def dispatch(self, command: SerializableCommand) -> None:
         msg = make_sysex_message_from_command(command=command)
         self._midi_port.send(msg)
         logger.info(f"Sent script command: {command.__class__.__name__}")
-        logger.info(time.time())
-
-    def set_live(self):
-        self._is_live = True
-
-    def dispatch(self, command: SerializableCommand):
-        self._send_command_to_script(command)
-        from gui.celery import notification_window
-
-        if not self._is_live:
-            notification_window.delay("client is not live", NotificationEnum.WARNING.value)
 
 
-p0_script_client = P0ScriptClient(Config.P0_INPUT_PORT_NAME)
-p0_script_client_from_http = P0ScriptClient(Config.P0_INPUT_FROM_HTTP_PORT_NAME)
-p0_script_client_from_http.set_live()
+def p0_script_client():
+    if P0ScriptClient.FROM_MIDI is None:
+        P0ScriptClient.FROM_MIDI = P0ScriptClient(Config.P0_INPUT_PORT_NAME)
+    return P0ScriptClient.FROM_MIDI
+
+
+def p0_script_client_from_http():
+    if P0ScriptClient.FROM_HTTP is None:
+        P0ScriptClient.FROM_HTTP = P0ScriptClient(Config.P0_INPUT_FROM_HTTP_PORT_NAME)
+    return P0ScriptClient.FROM_HTTP

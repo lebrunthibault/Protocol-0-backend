@@ -46,8 +46,8 @@ async def get_connections():
 @ws_router.websocket("/song_state")
 async def websocket_endpoint(websocket: WebSocket):
     await ws_manager.connect(websocket)
-    if DB.SONG_STATE:
-        await websocket.send_text(DB.SONG_STATE.json())
+    if DB.song_state:
+        await websocket.send_text(DB.song_state.json())
 
     try:
         while True:

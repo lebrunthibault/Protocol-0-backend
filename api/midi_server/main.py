@@ -15,7 +15,6 @@ from config import Config
 from gui.celery import check_celery_worker_status, message_window, notification_window
 from gui.task_cache import TaskCache
 from gui.window.message.message_factory import MessageFactory
-from lib.ableton.ableton import is_ableton_up
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.midi.mido import _get_input_port
@@ -26,13 +25,11 @@ logger = logger.opt(colors=True)
 
 
 def notify_protocol0_midi_up():
-    p0_script_client.set_live()
+    pass
 
 
 def start_midi_server():
     system_check()
-    if is_ableton_up():
-        p0_script_client.set_live()
 
     midi_port_backend_loopback = mido.open_input(_get_input_port(Config.P0_BACKEND_LOOPBACK_NAME), autoreset=False)
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
@@ -103,7 +100,7 @@ def _execute_midi_message(message: Message):
     # shortcut to call directly the script api
     command = make_script_command_from_sysex_message(message=message)
     if command:
-        p0_script_client.dispatch(command)
+        p0_script_client().dispatch(command)
         return
 
     payload = make_dict_from_sysex_message(message=message)

@@ -21,7 +21,7 @@ class AbletonSetProfilingSession():
         return self._to_csv
 
     def show_message(self, message: str):
-        p0_script_client.dispatch(ShowMessageCommand(message))
+        p0_script_client().dispatch(ShowMessageCommand(message))
 
     @property
     def _single_test(self):

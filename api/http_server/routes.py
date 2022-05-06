@@ -1,4 +1,3 @@
-import time
 from typing import Optional
 
 from fastapi import APIRouter
@@ -41,13 +40,13 @@ async def _reload_ableton():
 
 @router.get("/song_state")
 async def song_state() -> Optional[SongState]:
-    return DB.SONG_STATE
+    return DB.song_state
 
 
 @router.post("/song_state")
 async def post_song_state(song_state: SongState):
     logger.info(f"received http {song_state}")
-    DB.SONG_STATE = song_state
+    DB.song_state = song_state
     await ws_manager.broadcast_song_state(song_state)
 
 
@@ -90,72 +89,71 @@ async def open_default_set():
 
 @router.get("/toggle_room_eq")
 async def toggle_room_eq():
-    p0_script_client_from_http.dispatch(ToggleRoomEQCommand())
+    p0_script_client_from_http().dispatch(ToggleRoomEQCommand())
 
 
 @router.get("/load_device/{name}")
 async def load_device(name: str):
-    p0_script_client_from_http.dispatch(LoadDeviceCommand(name))
+    p0_script_client_from_http().dispatch(LoadDeviceCommand(name))
 
 
 @router.get("/select_or_load_device/{name}")
 async def select_or_load_device(name: str):
-    p0_script_client_from_http.dispatch(SelectOrLoadDeviceCommand(name))
+    p0_script_client_from_http().dispatch(SelectOrLoadDeviceCommand(name))
 
 
 @router.get("/load_drum_track/{name}")
 async def load_drum_track(name: str):
-    p0_script_client_from_http.dispatch(LoadDrumTrackCommand(name))
+    p0_script_client_from_http().dispatch(LoadDrumTrackCommand(name))
 
 
 @router.get("/load_drum_rack/{name}")
 async def load_drum_rack(name: str):
-    p0_script_client_from_http.dispatch(LoadDrumRackCommand(name))
+    p0_script_client_from_http().dispatch(LoadDrumRackCommand(name))
 
 
 @router.get("/drum_rack_to_simpler")
 async def drum_rack_to_simpler():
-    p0_script_client_from_http.dispatch(DrumRackToSimplerCommand())
+    p0_script_client_from_http().dispatch(DrumRackToSimplerCommand())
 
 
 @router.get("/arm")
 async def arm():
-    p0_script_client_from_http.dispatch(ToggleArmCommand())
+    p0_script_client_from_http().dispatch(ToggleArmCommand())
 
 
 @router.get("/toggle_scene_loop")
 async def toggle_scene_loop():
-    p0_script_client_from_http.dispatch(ToggleSceneLoopCommand())
+    p0_script_client_from_http().dispatch(ToggleSceneLoopCommand())
 
 
 @router.get("/fire_scene_to_position/{bar_length}")
 @router.get("/fire_scene_to_position")
 async def fire_scene_to_position(bar_length: Optional[int] = None):
-    p0_script_client_from_http.dispatch(FireSceneToPositionCommand(bar_length))
-    # p0_script_client_from_http.dispatch()(FireSceneToPositionCommand(bar_length))
+    p0_script_client_from_http().dispatch(FireSceneToPositionCommand(bar_length))
+    # p0_script_client_from_http().dispatch()(FireSceneToPositionCommand(bar_length))
 
 
 @router.get("/scroll_scenes/{direction}")
 async def scroll_scenes(direction: str):
-    p0_script_client_from_http.dispatch(ScrollScenesCommand(go_next=direction == "down"))
+    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction == "down"))
 
 
 @router.get("/scroll_scene_position/{direction}")
 async def scroll_scene_position(direction: str):
-    print(time.time())
-    p0_script_client_from_http.dispatch(ScrollScenePositionCommand(go_next=direction == "right"))
+    p0_script_client_from_http().dispatch(ScrollScenePositionCommand(go_next=direction == "right"))
 
 
 @router.get("/scroll_scene_tracks/{direction}")
 async def scroll_scene_tracks(direction: str):
-    p0_script_client_from_http.dispatch(ScrollSceneTracksCommand(go_next=direction == "right"))
+    p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "right"))
 
 
 @router.get("/toggle_track/{name}")
 async def toggle_track(name: str):
-    p0_script_client_from_http.dispatch(ToggleTrackCommand(name))
+    p0_script_client_from_http().dispatch(ToggleTrackCommand(name))
 
 
 @router.get("/toggle_drums")
 async def toggle_drums():
-    p0_script_client_from_http.dispatch(ToggleDrumsCommand())
+    p0_script_client_from_http().dispatch(ToggleDrumsCommand())

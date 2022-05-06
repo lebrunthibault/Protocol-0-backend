@@ -1,7 +1,6 @@
 import make_path  # noqa
 from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
-from config import Config
-from lib.process import execute_process_in_new_window
+from gui.celery import notification_window
 
 from scripts.abstract_cli import cli
 
@@ -13,7 +12,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    execute_process_in_new_window(f"& \"{Config.ABLETON_CURRENT_SET}\"")
+    notification_window.delay("hello hello hello")
 
 
 if __name__ == "__main__":

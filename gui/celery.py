@@ -1,4 +1,5 @@
 import os
+import sys
 from functools import wraps
 from typing import List
 
@@ -12,6 +13,8 @@ from gui.window.prompt.prompt_factory import PromptFactory
 from gui.window.select.select_factory import SelectFactory
 from lib.enum.NotificationEnum import NotificationEnum
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
 os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')
 celery_app = Celery('tasks', broker='redis://localhost')
 celery_app.control.purge()
@@ -22,7 +25,7 @@ task_cache = TaskCache()
 
 def revoke_tasks(task_type: TaskCacheKey):
     for task_id in task_cache.get_tasks(task_type):
-        task_cache.add_revoke_task(task_id)
+        task_cache.add_revoked_task(task_id)
     task_cache.clear_tasks(task_type)
 
 

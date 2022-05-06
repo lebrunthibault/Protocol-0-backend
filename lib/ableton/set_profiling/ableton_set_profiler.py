@@ -17,7 +17,7 @@ class AbletonSetProfiler():
     @classmethod
     def handle_profiling_error(cls, message: str):
         logger.error(message)
-        p0_script_client.dispatch(ShowMessageCommand(message))
+        p0_script_client().dispatch(ShowMessageCommand(message))
 
     @classmethod
     def check_profiling_conditions(cls):
