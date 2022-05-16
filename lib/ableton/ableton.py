@@ -103,7 +103,7 @@ def reload_ableton() -> None:
     p0_script_client().dispatch(ResetSongCommand())
     go_to_desktop(0)
 
-    time.sleep(0.3)
+    time.sleep(0.5)
     focus_ableton()
     send_keys("^w")  # close the microsoft office popup ..
     time.sleep(0.5)
