@@ -136,7 +136,7 @@ async def fire_scene_to_position(bar_length: Optional[int] = None):
 
 @router.get("/scroll_scenes/{direction}")
 async def scroll_scenes(direction: str):
-    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction == "down"))
+    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction != "down"))
 
 
 @router.get("/scroll_scene_position/{direction}")
