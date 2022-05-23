@@ -42,8 +42,14 @@ return
 ^l::
 	callBackend("toggle_scene_loop")
 return
+space::
+	callBackend("fire_selected_scene")
+return
 ^space::
 	callBackend("fire_scene_to_position")
+return
+^NumPad0::
+; disables this unused ableton shortcut
 return
 FireSceneToPosition:
 if WinActive("ahk_exe Ableton Live 10 Suite.exe") {

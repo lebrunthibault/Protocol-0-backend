@@ -12,6 +12,7 @@ from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
+from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
@@ -57,12 +58,14 @@ async def _save_set_as_template():
 
 @router.get("/tail_logs")
 async def tail_logs():
-    execute_python_script_in_new_window(f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py")
+    execute_python_script_in_new_window(
+        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py")
 
 
 @router.get("/tail_logs_raw")
 async def tail_logs_raw():
-    execute_python_script_in_new_window(f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw")
+    execute_python_script_in_new_window(
+        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw")
 
 
 @router.get("/open_ableton")
@@ -131,7 +134,11 @@ async def toggle_scene_loop():
 @router.get("/fire_scene_to_position")
 async def fire_scene_to_position(bar_length: Optional[int] = None):
     p0_script_client_from_http().dispatch(FireSceneToPositionCommand(bar_length))
-    # p0_script_client_from_http().dispatch()(FireSceneToPositionCommand(bar_length))
+
+
+@router.get("/fire_selected_scene")
+async def fire_selected_scene():
+    p0_script_client_from_http().dispatch(FireSelectedSceneCommand())
 
 
 @router.get("/scroll_scenes/{direction}")

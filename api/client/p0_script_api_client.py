@@ -18,7 +18,7 @@ class P0ScriptClient(object):
     def dispatch(self, command: SerializableCommand) -> None:
         msg = make_sysex_message_from_command(command=command)
         self._midi_port.send(msg)
-        logger.info(f"Sent script command: {command.__class__.__name__}")
+        logger.info(f"Sent script command: {command}")
 
 
 def p0_script_client():
