@@ -42,10 +42,10 @@ return
 ^l::
 	callBackend("toggle_scene_loop")
 return
-space::
+^space::
 	callBackend("fire_selected_scene")
 return
-^space::
++space::
 	callBackend("fire_scene_to_position")
 return
 ^NumPad0::
@@ -79,7 +79,7 @@ return
 !f:: ; fold / unfold set
 	Send `t
 	Send !u
-	Sleep 20
+	Sleep 10
 	Send !u
 	Send `t
 return
