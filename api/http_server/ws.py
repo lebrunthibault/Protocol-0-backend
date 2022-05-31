@@ -9,8 +9,11 @@ from api.http_server.db import SongState, DB
 
 ws_router = APIRouter()
 
+_DEBUG = False
+
 
 class ConnectionManager:
+
     def __init__(self):
         self._active_connections: List[WebSocket] = []
 
@@ -24,13 +27,15 @@ class ConnectionManager:
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self._active_connections.append(websocket)
-        logger.info(f"connection added: {self}")
+        if _DEBUG:
+            logger.info(f"connection added: {self}")
 
     def disconnect(self, websocket: WebSocket):
         self._active_connections.remove(websocket)
 
     async def broadcast_song_state(self, song_state: SongState):
-        logger.info(f"sending song state: {self}")
+        if _DEBUG:
+            logger.info(f"sending song state: {self}")
         for connection in self._active_connections:
             await connection.send_text(song_state.json())
 
@@ -52,7 +57,8 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
-            logger.info(f"sReceived {data}")
+            if _DEBUG:
+                logger.info(f"Received song state data: {data}")
     except WebSocketDisconnect:
         pass
 

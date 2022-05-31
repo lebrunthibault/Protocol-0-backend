@@ -1,17 +1,13 @@
 import json
 import os
 import time
-from os.path import dirname
 from typing import List, Dict
 
 import requests
-from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
-from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
-from protocol0.application.command.PingCommand import PingCommand
-from protocol0.application.command.ProcessBackendResponseCommand import ProcessBackendResponseCommand
+from loguru import logger
 
-from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from api.client.p0_script_api_client import p0_script_client
+from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from config import Config
 from gui.celery import prompt_window, select_window, notification_window, message_window
 from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
@@ -26,6 +22,11 @@ from lib.mouse.mouse import click, right_click, double_click, click_vertical_zon
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
+from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
+from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
+from protocol0.application.command.PingCommand import PingCommand
+from protocol0.application.command.ProcessBackendResponseCommand import \
+    ProcessBackendResponseCommand
 
 
 class Routes:
@@ -33,8 +34,11 @@ class Routes:
         pass
 
     def test_duplication(self) -> None:
-        with open(f"{dirname(__file__)}/test_duplication.txt", "a") as f:
+        log_path = f"{Config.PROJECT_DIRECTORY}/test_duplication.txt"
+        with open(log_path, "a") as f:
             f.write(f"{time.time()} - pid: {os.getpid()}\n")
+        logger.info(f"pid written to {log_path}")
+        os.startfile(log_path)
 
     @reset_midi_client
     def ping(self) -> None:
@@ -95,7 +99,6 @@ class Routes:
 
     def reload_ableton(self):
         reload_ableton()
-        # AbletonSetProfiler.start_profiling_single_measurement()
 
     def save_set(self):
         save_set()
