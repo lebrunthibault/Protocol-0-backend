@@ -65,7 +65,6 @@ def notification_window(self, message: str, notification_enum: str = Notificatio
 @celery_app.task()
 @handle_error
 def message_window(message: str, notification_enum: str = NotificationEnum.INFO.value):
-    logger.info(message)
     MessageFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
 
 

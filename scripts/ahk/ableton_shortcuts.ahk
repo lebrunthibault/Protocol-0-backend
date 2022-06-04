@@ -49,7 +49,7 @@ return
 	callBackend("fire_scene_to_position")
 return
 ^NumPad0::
-; disables this unused ableton shortcut
+	callBackend("fire_scene_to_position", "-1")
 return
 FireSceneToPosition:
 if WinActive("ahk_exe Ableton Live 10 Suite.exe") {

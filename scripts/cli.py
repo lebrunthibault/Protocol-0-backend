@@ -12,8 +12,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 def command_test() -> None:
-    notification_window.delay("hello hello hello")
-
+    pass
 
 if __name__ == "__main__":
     cli()

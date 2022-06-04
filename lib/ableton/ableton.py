@@ -1,3 +1,4 @@
+import os
 import subprocess
 import time
 from dataclasses import dataclass
@@ -14,7 +15,7 @@ from lib.desktop.desktop import go_to_desktop
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.mouse.mouse import click
-from lib.process import kill_window_by_criteria
+from lib.process import kill_window_by_criteria, execute_process_in_new_window
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
 from protocol0.application.command.ResetSongCommand import ResetSongCommand
@@ -34,7 +35,8 @@ class AbletonInfos():
 
     @property
     def preferences_location(self) -> Path:
-        return Path(f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\Preferences")
+        return Path(
+            f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\Preferences")
 
     @property
     def exe_location(self) -> Path:
@@ -43,7 +45,8 @@ class AbletonInfos():
 
 
 def focus_ableton() -> None:
-    focus_window(Config.ABLETON_PROCESS_NAME, search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
+    focus_window(Config.ABLETON_PROCESS_NAME,
+                 search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
 
 
 def is_ableton_up() -> bool:
@@ -51,7 +54,8 @@ def is_ableton_up() -> bool:
 
 
 def is_ableton_focused() -> bool:
-    ableton_handle = find_window_handle_by_enum(Config.ABLETON_PROCESS_NAME, SearchTypeEnum.PROGRAM_NAME)
+    ableton_handle = find_window_handle_by_enum(Config.ABLETON_PROCESS_NAME,
+                                                SearchTypeEnum.PROGRAM_NAME)
     return is_window_focused(ableton_handle)
 
 
@@ -61,7 +65,8 @@ def are_logs_focused() -> bool:
 
 
 def show_plugins() -> None:
-    if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
+    if not find_window_handle_by_enum("AbletonVstPlugClass",
+                                      search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
         keyboard.press_and_release('ctrl+alt+p')
 
 
@@ -72,7 +77,8 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     notes_count = 8 - 1
 
     # skipping start and end markers, excepting notes_count markers
-    warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <= 1.875][0:notes_count]
+    warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <= 1.875][
+                   0:notes_count]
 
     if len(warp_markers) != notes_count:
         message = f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"
@@ -150,7 +156,8 @@ def clear_arrangement():
 
 
 def kill_ableton():
-    kill_window_by_criteria(name=Config.ABLETON_WINDOW_CLASS_NAME, search_type=SearchTypeEnum.WINDOW_CLASS_NAME)
+    kill_window_by_criteria(name=Config.ABLETON_WINDOW_CLASS_NAME,
+                            search_type=SearchTypeEnum.WINDOW_CLASS_NAME)
 
     # # remove crash files
     # crash_folder = ableton_locations.preferences_location / "Crash"
@@ -167,3 +174,12 @@ def restart_ableton():
     # restart
     ableton_locations = AbletonInfos(ableton_version=Config.ABLETON_VERSION)
     subprocess.run([ableton_locations.exe_location])
+
+
+def open_set(filename: str):
+    if not os.path.exists(filename):
+        message_window.delay(f"fichier introuvable : {filename}", NotificationEnum.ERROR.value)
+        return
+
+    go_to_desktop(0)
+    execute_process_in_new_window(f"& \"{filename}\"")

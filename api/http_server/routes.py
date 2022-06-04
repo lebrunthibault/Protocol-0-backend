@@ -6,7 +6,7 @@ from api.client.p0_script_api_client import p0_script_client_from_http
 from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from config import Config
-from lib.ableton.ableton import is_ableton_up, reload_ableton, save_set_as_template
+from lib.ableton.ableton import is_ableton_up, reload_ableton, save_set_as_template, open_set
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
@@ -78,14 +78,12 @@ async def open_ableton():
 
 @router.get("/open_current_set")
 async def open_current_set():
-    go_to_desktop(0)
-    execute_process_in_new_window(f"& \"{Config.ABLETON_CURRENT_SET}\"")
+    open_set(Config.ABLETON_CURRENT_SET)
 
 
 @router.get("/open_default_set")
 async def open_default_set():
-    go_to_desktop(0)
-    execute_process_in_new_window(f"& \"{Config.ABLETON_DEFAULT_SET}\"")
+    open_set(Config.ABLETON_DEFAULT_SET)
 
 
 @router.get("/toggle_room_eq")
