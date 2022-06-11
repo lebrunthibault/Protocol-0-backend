@@ -11,8 +11,7 @@ class Config:
     ABLETON_EXE = f"C:\\ProgramData\\Ableton\\Live {_ableton_major_version} Suite\\Program\\Ableton Live {_ableton_major_version} Suite.exe"
     ABLETON_PROCESS_NAME = f"Ableton Live {_ableton_major_version} Suite.exe"
     ABLETON_CURRENT_SET = "D:\\ableton projects\\ableton projects - " \
-                          "current\\splurges\\tracks\\Splurge " \
-                          "27\\Splurge 27.als"
+                          "current\\splurges\\Dark mode.als"
     ABLETON_DEFAULT_SET = "D:\\ableton projects\\ableton projects - current\\splurges\\Default.als"
 
     HTTP_API_URL = "http://127.0.0.1:8000"
