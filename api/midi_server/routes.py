@@ -22,7 +22,6 @@ from lib.mouse.mouse import click, right_click, double_click, click_vertical_zon
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
-from protocol0.application.command.ExecuteVocalCommandCommand import ExecuteVocalCommandCommand
 from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessBackendResponseCommand import \
@@ -155,6 +154,3 @@ class Routes:
 
     def select(self, question: str, options: List, vertical: bool = True):
         select_window.delay(question, options)
-
-    def execute_vocal_command(self, command: str):
-        p0_script_client().dispatch(ExecuteVocalCommandCommand(command))
