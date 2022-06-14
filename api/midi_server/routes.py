@@ -10,8 +10,8 @@ from api.client.p0_script_api_client import p0_script_client
 from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from config import Config
 from gui.celery import prompt_window, select_window, notification_window, message_window
-from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template, \
-    analyze_test_audio_clip_jitter
+from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
+from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum

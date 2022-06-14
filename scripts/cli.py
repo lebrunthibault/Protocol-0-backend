@@ -1,6 +1,5 @@
 import make_path  # noqa
 from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
-from gui.celery import notification_window
 
 from scripts.abstract_cli import cli
 

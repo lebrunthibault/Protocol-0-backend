@@ -5,12 +5,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import keyboard
-from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
-from gui.celery import notification_window, message_window
-from lib.ableton.clip_parsing import Clip
+from gui.celery import message_window
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
@@ -68,38 +66,6 @@ def show_plugins() -> None:
     if not find_window_handle_by_enum("AbletonVstPlugClass",
                                       search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
         keyboard.press_and_release('ctrl+alt+p')
-
-
-def analyze_test_audio_clip_jitter(clip_path: str):
-    clip_path = f"{clip_path}.asd"
-    clip = Clip(clip_path, 44100, 44100)
-    # NB at 44100 the sample rate induced max jitter is 0.023 ms
-    notes_count = 8 - 1
-
-    # skipping start and end markers, excepting notes_count markers
-    warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <= 1.875][
-                   0:notes_count]
-
-    if len(warp_markers) != notes_count:
-        message = f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"
-        notification_window.delay(message)
-        return
-
-    beat_offsets = []
-    # we ignore warp markers set on note end
-    for i, warp_marker in enumerate(warp_markers):  # 1 in case the recording started before 1.1.1
-        beat_offsets.append((warp_marker.seconds - (i + 1) * 0.25) * 1000)
-
-    average_latency = (sum(beat_offsets) / notes_count)
-    total_jitter = sum(abs(b - average_latency) for b in beat_offsets)
-    average_jitter = (total_jitter / notes_count)
-    message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f} ms"
-    logger.info(message)
-    notification_type = NotificationEnum.SUCCESS
-    if average_jitter > 1 or average_latency < 0:
-        notification_type = NotificationEnum.WARNING
-
-    message_window.delay(message, notification_type.value)
 
 
 def reload_ableton() -> None:

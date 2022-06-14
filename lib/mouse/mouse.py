@@ -19,7 +19,7 @@ def click(x: int, y: int) -> None:
 
 
 def click_vertical_zone(x: int, y: int) -> None:
-    for i in range(-60, 120, 20):
+    for i in range(120, -40, -20):
         pyautogui.click(x, y + i)
 
 
