@@ -9,7 +9,7 @@ from loguru import logger
 from api.client.p0_script_api_client import p0_script_client
 from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from config import Config
-from gui.celery import prompt_window, select_window, notification_window, message_window
+from gui.celery import prompt_window, select_window, notification_window
 from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -151,11 +151,11 @@ class Routes:
         notification_window.delay(message, NotificationEnum.SUCCESS.value, centered)
 
     def show_warning(self, message: str, centered: bool = False):
-        message_window.delay(message, NotificationEnum.WARNING.value, centered)
+        notification_window.delay(message, NotificationEnum.WARNING.value, centered)
 
     @throttle(milliseconds=5000)
     def show_error(self, message: str):
-        message_window.delay(message, NotificationEnum.ERROR.value)
+        notification_window.delay(message, NotificationEnum.ERROR.value, centered=True)
 
     def select(self, question: str, options: List, vertical: bool = True):
         select_window.delay(question, options)

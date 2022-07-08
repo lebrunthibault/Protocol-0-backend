@@ -21,3 +21,7 @@ class NotificationFactory(WindowFactory):
             centered=centered,
             timeout=auto_close_duration,
         )
+
+    @classmethod
+    def show_error(cls, message: str):
+        cls.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()

@@ -1,3 +1,5 @@
+from typing import cast
+
 from lib.enum.AbstractEnum import AbstractEnum
 from lib.enum.ColorEnum import ColorEnum
 
@@ -10,9 +12,9 @@ class NotificationEnum(AbstractEnum):
 
     @property
     def color(self) -> ColorEnum:
-        return {
+        return cast(ColorEnum, {
             NotificationEnum.INFO: ColorEnum.INFO,
             NotificationEnum.SUCCESS: ColorEnum.SUCCESS,
             NotificationEnum.WARNING: ColorEnum.WARNING,
             NotificationEnum.ERROR: ColorEnum.ERROR,
-        }.get(self)
+        }.get(self))

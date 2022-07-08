@@ -12,9 +12,9 @@ from mido.backends.rtmidi import Input
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
-from gui.celery import check_celery_worker_status, message_window, notification_window
+from gui.celery import check_celery_worker_status, notification_window
 from gui.task_cache import TaskCache
-from gui.window.message.message_factory import MessageFactory
+from gui.window.notification.notification_factory import NotificationFactory
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.midi.mido import _get_input_port
@@ -66,7 +66,7 @@ def system_check():
     try:
         requests.get(f"{Config.HTTP_API_URL}/")
     except requests.exceptions.ConnectionError:
-        MessageFactory.show_error("HTTP server is not up")
+        NotificationFactory.show_error("HTTP server is not up")
         system_up = False
 
     if system_up:
@@ -76,7 +76,7 @@ def system_check():
 def check_celery():
     TaskCache().clear()
     if not check_celery_worker_status():
-        MessageFactory.show_error("Celery is not up")
+        NotificationFactory.show_error("Celery is not up")
 
 
 def signal_handler(sig, frame):
@@ -99,7 +99,7 @@ def _poll_midi_port(midi_port: Input):
                 message += traceback.format_exc()
                 logger.error(log_string(message))
                 logger.error(log_string(traceback.format_exc()))
-                message_window.delay(message, NotificationEnum.ERROR.value)
+                notification_window.delay(message, NotificationEnum.ERROR.value)
         else:
             break
 

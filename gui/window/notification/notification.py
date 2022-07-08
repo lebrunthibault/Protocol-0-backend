@@ -1,4 +1,5 @@
 import time
+from typing import Optional
 
 import PySimpleGUI as sg
 import pyautogui
@@ -35,19 +36,21 @@ class Notification(Window):
             **kw,
         )
 
-    def display(self, task_id: str):
+    def display(self, task_id: Optional[str] = None):
         self.focus()
         while True:
-            event, values = self.sg_window.read()
+            event, values = self.sg_window.read(timeout=200)
 
             if self.is_event_escape(event) or self.is_event_enter(event):
                 break
             if self._timeout and time.time() - self._start_at > self._timeout:
                 logger.info(f"window timeout closing {task_id}")
                 break
-            elif task_id in self._task_cache.revoked_tasks():
+            elif task_id is not None and task_id in self._task_cache.revoked_tasks():
                 logger.warning(f"window revoked closing {task_id}")
                 break
 
-            self._task_cache.remove_revoked_task(task_id)
+            if task_id is not None:
+                self._task_cache.remove_revoked_task(task_id)
+
         self.sg_window.close()

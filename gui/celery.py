@@ -7,7 +7,6 @@ from celery import Celery
 from loguru import logger
 
 from gui.task_cache import TaskCache, TaskCacheKey
-from gui.window.message.message_factory import MessageFactory
 from gui.window.notification.notification_factory import NotificationFactory
 from gui.window.prompt.prompt_factory import PromptFactory
 from gui.window.select.select_factory import SelectFactory
@@ -45,7 +44,7 @@ def handle_error(func):
             func(*a, **k)
         except Exception as e:
             logger.exception(e)
-            message_window.delay(str(e), NotificationEnum.ERROR.value)
+            notification_window.delay(str(e), NotificationEnum.ERROR.value)
 
     return decorate
 
@@ -60,16 +59,6 @@ def notification_window(
     NotificationFactory.createWindow(
         message=message, notification_enum=NotificationEnum[notification_enum], centered=centered
     ).display(self.request.id)
-
-
-@celery_app.task()
-@handle_error
-def message_window(
-    message: str, notification_enum: str = NotificationEnum.INFO.value, centered=True
-):
-    MessageFactory.createWindow(
-        message=message, notification_enum=NotificationEnum[notification_enum], centered=centered
-    ).display()
 
 
 @celery_app.task

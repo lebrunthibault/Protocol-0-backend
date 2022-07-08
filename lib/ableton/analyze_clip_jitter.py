@@ -3,7 +3,7 @@ from typing import List
 
 from loguru import logger
 
-from gui.celery import message_window
+from gui.celery import notification_window
 from lib.ableton.clip_parsing import Clip
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
@@ -56,4 +56,4 @@ def _process_results(beat_offsets: List[float], notes_count: int):
         # average_latency < 0 because we cannot have transients clipped
         notification_type = NotificationEnum.WARNING
 
-    message_window.delay(message, notification_type.value)
+    notification_window.delay(message, notification_type.value)

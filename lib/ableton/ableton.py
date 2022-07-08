@@ -8,7 +8,7 @@ import keyboard
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
-from gui.celery import message_window
+from gui.celery import notification_window
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
@@ -150,7 +150,7 @@ def restart_ableton():
 
 def open_set(filename: str):
     if not os.path.exists(filename):
-        message_window.delay(f"fichier introuvable : {filename}", NotificationEnum.ERROR.value)
+        notification_window.delay(f"fichier introuvable : {filename}", NotificationEnum.ERROR.value)
         return
 
     go_to_desktop(0)
