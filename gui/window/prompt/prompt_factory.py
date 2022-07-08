@@ -9,7 +9,9 @@ from lib.enum.NotificationEnum import NotificationEnum
 
 class PromptFactory(WindowFactory):
     @classmethod
-    def createWindow(cls, message: str, notification_enum: NotificationEnum = NotificationEnum.INFO) -> Window:
+    def createWindow(
+        cls, message: str, notification_enum: NotificationEnum = NotificationEnum.INFO
+    ) -> Window:
         if notification_enum == NotificationEnum.INFO:
             prompt = Prompt(message=message, background_color=ColorEnum.INFO)
         elif notification_enum == NotificationEnum.ERROR:

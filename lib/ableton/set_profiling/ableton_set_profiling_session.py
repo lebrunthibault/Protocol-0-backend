@@ -9,8 +9,8 @@ from lib.ableton.ableton import reload_ableton
 from lib.utils import copy_to_clipboard
 
 
-class AbletonSetProfilingSession():
-    """ we skip the first test as it is not in the average """
+class AbletonSetProfilingSession:
+    """we skip the first test as it is not in the average"""
 
     def __init__(self, number_of_tests):
         self.number_of_tests = number_of_tests
@@ -58,6 +58,8 @@ class AbletonSetProfilingSession():
             self.show_message(f"set profiling over : {self._to_csv}")
         else:
             logger.info(
-                f"Measurement {len(self.measurements) + 1}/{self.number_of_tests} finished, got %.2f s" % reload_duration)
+                f"Measurement {len(self.measurements) + 1}/{self.number_of_tests} finished, got %.2f s"
+                % reload_duration
+            )
             self.show_message("set reloaded in %.2f s" % reload_duration)
             self.start_measurement()

@@ -8,7 +8,7 @@ from pydub import AudioSegment
 from config import Config
 
 
-class DrumCategory():
+class DrumCategory:
     def __init__(self, directory: str, sample_names: List[str]):
         self._directory = directory
         self._sample_names = sample_names

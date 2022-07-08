@@ -18,11 +18,7 @@ class SRConfig:
     USE_GUI = True
     EXPORT_RESULTS = False
     SR_ACTIVE = True
-    WORD_ENUM_CLASSES = [
-        VocalActionEnum,
-        TrackSearchKeywordEnum,
-        SpeechCommandEnum
-    ]
+    WORD_ENUM_CLASSES = [VocalActionEnum, TrackSearchKeywordEnum, SpeechCommandEnum]
 
     PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
     TEST_DATA_DIRECTORY = f"{root}\\tests\\data"

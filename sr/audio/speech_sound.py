@@ -23,11 +23,11 @@ class SpeechSound(SoundMixin):
 
 
 def _maximize_audio(audio: AudioSegment) -> AudioSegment:
-    """ See https://sox.sourceforge.net/sox.html """
+    """See https://sox.sourceforge.net/sox.html"""
     fx = AudioEffectsChain()
 
     # noise gate
-    fx.command.append('compand')
+    fx.command.append("compand")
     attack, decay = 0.1, 0.2
     fx.command.append(f"{attack},{decay}")
     fx.command.append("-inf,-50.1,-inf,-50,-50")
@@ -35,8 +35,12 @@ def _maximize_audio(audio: AudioSegment) -> AudioSegment:
     fx.normalize()
     # fx.limiter(gain=3)
     buffer = fx(np.array(audio.get_array_of_samples()))
-    return AudioSegment(data=buffer.tobytes(), sample_width=audio.sample_width,
-                        frame_rate=audio.frame_rate, channels=1)
+    return AudioSegment(
+        data=buffer.tobytes(),
+        sample_width=audio.sample_width,
+        frame_rate=audio.frame_rate,
+        channels=1,
+    )
 
 
 def get_speech_sounds_observable(source: AudioSourceInterface) -> Observable[SpeechSound]:
@@ -44,7 +48,7 @@ def get_speech_sounds_observable(source: AudioSourceInterface) -> Observable[Spe
         op.filter(_is_speech),
         op.map(lambda short_sound: SpeechSound(_maximize_audio(short_sound.audio))),
         rx_debug("SpeechSound"),
-        op.share()
+        op.share(),
     )
 
 
@@ -55,7 +59,11 @@ class FrequencyInfo:
 
 
 def _is_speech(sound: SoundMixin) -> bool:
-    if not RecordingConfig.MINIMUM_SPEECH_DURATION < sound.duration_seconds < RecordingConfig.MAXIMUM_SPEECH_DURATION:
+    if (
+        not RecordingConfig.MINIMUM_SPEECH_DURATION
+        < sound.duration_seconds
+        < RecordingConfig.MAXIMUM_SPEECH_DURATION
+    ):
         logger.info(
             f"<yellow>Phrase duration not in the configured boundaries (lasted {sound.duration_seconds}s)</>"
         )
@@ -73,12 +81,14 @@ def _is_speech(sound: SoundMixin) -> bool:
 
 def _strongest_frequency(sound: SoundMixin) -> FrequencyInfo:
     # then normalize and convert to numpy array:
-    samples = np.double(list(sound.samples)) / (2 ** 15)
-    fft_samples = np.abs(scp.fft(samples))[0: int(len(samples) / 2)]
+    samples = np.double(list(sound.samples)) / (2**15)
+    fft_samples = np.abs(scp.fft(samples))[0 : int(len(samples) / 2)]
     freq_window_start, freq_window_end = 50, 400
     frequency_energies = list(fft_samples[freq_window_start:freq_window_end])
 
     max_frequency_energy = max(frequency_energies)
-    max_frequency = frequency_energies.index(max_frequency_energy) + RecordingConfig.SPEECH_FREQUENCY_WINDOW[0]
+    max_frequency = (
+        frequency_energies.index(max_frequency_energy) + RecordingConfig.SPEECH_FREQUENCY_WINDOW[0]
+    )
 
     return FrequencyInfo(frequency=max_frequency, energy=max_frequency_energy)

@@ -19,7 +19,11 @@ from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.midi.mido import _get_input_port
 from lib.timer import start_timer
-from lib.utils import log_string, make_dict_from_sysex_message, make_script_command_from_sysex_message
+from lib.utils import (
+    log_string,
+    make_dict_from_sysex_message,
+    make_script_command_from_sysex_message,
+)
 
 logger = logger.opt(colors=True)
 
@@ -31,10 +35,14 @@ def notify_protocol0_midi_up():
 def start_midi_server():
     system_check()
 
-    midi_port_backend_loopback = mido.open_input(_get_input_port(Config.P0_BACKEND_LOOPBACK_NAME), autoreset=False)
+    midi_port_backend_loopback = mido.open_input(
+        _get_input_port(Config.P0_BACKEND_LOOPBACK_NAME), autoreset=False
+    )
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
-    logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}. Pid {os.getpid()}")
+    logger.info(
+        f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}. Pid {os.getpid()}"
+    )
     notification_window.delay("Midi server started")
 
     while True:
@@ -80,7 +88,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 def _poll_midi_port(midi_port: Input):
-    """ non blocking poll """
+    """non blocking poll"""
     while True:
         msg_output = midi_port.poll()
         if msg_output:
@@ -109,6 +117,7 @@ def _execute_midi_message(message: Message):
 
     # or it can exploit the routes public API by passing an operation name
     from api.midi_server.routes import Routes
+
     route = Routes()
     method = getattr(route, payload["method"], None)
 

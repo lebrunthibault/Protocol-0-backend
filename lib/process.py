@@ -11,18 +11,18 @@ from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 def execute_process_in_new_window(*args: str):
     powershell_command_line = f"'cmd /c start powershell -Command {{ {' '.join(args)} }}'"
     logger.info(powershell_command_line)
-    subprocess.run(["powershell.exe",
-                    "invoke-expression",
-                    powershell_command_line
-                    ],
-                   stdout=sys.stdout)
+    subprocess.run(
+        ["powershell.exe", "invoke-expression", powershell_command_line], stdout=sys.stdout
+    )
 
 
 def execute_python_script_in_new_window(*args: str):
     execute_process_in_new_window("py -3.7", *args)
 
 
-def _get_window_pid_by_criteria(name: str, search_type: SearchTypeEnum = SearchTypeEnum.WINDOW_TITLE) -> int:
+def _get_window_pid_by_criteria(
+    name: str, search_type: SearchTypeEnum = SearchTypeEnum.WINDOW_TITLE
+) -> int:
     handle = find_window_handle_by_enum(name=name, search_type=search_type)
     if handle == 0:
         return 0

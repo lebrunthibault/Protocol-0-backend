@@ -3,7 +3,7 @@ from os.path import dirname
 from jinja2 import Template
 
 
-class DrumBranchPreset():
+class DrumBranchPreset:
     def __init__(self, drum_category: str, drum_name: str, index: int):
         self._drum_category = drum_category
         self._drum_name = drum_name
@@ -12,4 +12,10 @@ class DrumBranchPreset():
     def to_xml(self) -> str:
         with open(f"{dirname(__file__)}/drum_branch_preset.xml", "r") as f:
             t = Template(f.read())
-            return t.render({"drum_category": self._drum_category, "drum_name": self._drum_name, "index": self._index})
+            return t.render(
+                {
+                    "drum_category": self._drum_category,
+                    "drum_name": self._drum_name,
+                    "index": self._index,
+                }
+            )

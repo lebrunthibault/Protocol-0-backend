@@ -8,7 +8,7 @@ logger = logger.opt(colors=True)
 
 
 def audio_plot_sound(sound: SoundMixin):
-    Y_MAX = (2 ** 15) / 2
+    Y_MAX = (2**15) / 2
 
     figure(figsize=(10, 5))
     logger.disable(__name__)

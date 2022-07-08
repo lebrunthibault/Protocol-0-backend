@@ -4,7 +4,6 @@ from typing import List
 
 
 class WarpMarker:
-
     def __init__(self, seconds: float, beats: float):
         self.seconds = seconds
         self.beats = beats
@@ -97,7 +96,7 @@ class Clip:
         self._sr = value
 
     def __init__(self, clip_path: str, sr: int, num_samples: int):
-        '''
+        """
         Parameters
         ----------
         clip_path : str
@@ -106,17 +105,17 @@ class Clip:
             Sample rate the of the audio file associated with the ASD clip.
         num_samples : int
             Number of audio samples per channel in the audio file associated with the ASD clip.
-        '''
+        """
 
         assert clip_path.endswith(".wav.asd"), "wrong file extension"
 
         self._loop_on = False
-        self._start_marker = 0.
-        self._end_marker = 0.
-        self._loop_start = 0.
-        self._loop_end = 0.
-        self._hidden_loop_start = 0.
-        self._hidden_loop_end = 0.
+        self._start_marker = 0.0
+        self._end_marker = 0.0
+        self._loop_start = 0.0
+        self._loop_end = 0.0
+        self._hidden_loop_start = 0.0
+        self._hidden_loop_end = 0.0
         self._warp_markers = []
         self._warp_on = False
         self._sr = sr
@@ -126,7 +125,7 @@ class Clip:
 
     def get_time_map(self, bpm: float):
 
-        '''Parse an Ableton `asd` file into a time map to be used with Rubberband library's `timemap_stretch`.
+        """Parse an Ableton `asd` file into a time map to be used with Rubberband library's `timemap_stretch`.
         Parameters
         ----------
         bpm : float > 0
@@ -138,7 +137,7 @@ class Clip:
             source sample position and target sample position.
             If `t[1] < t[0]` the track will be sped up in this area.
             Refer to the function `timemap_stretch`.
-        '''
+        """
 
         time_map = []
         for wm in self._warp_markers:
@@ -146,7 +145,7 @@ class Clip:
             sample_index = int(wm.seconds * self._sr)
 
             if sample_index <= self._num_samples:
-                time_map.append([sample_index, int(wm.beats * (60. / bpm) * self._sr)])
+                time_map.append([sample_index, int(wm.beats * (60.0 / bpm) * self._sr)])
             else:
                 return time_map
 
@@ -154,10 +153,12 @@ class Clip:
         wm2 = self._warp_markers[-1]  # last warp marker
 
         # The difference in beats divided by the difference in seconds, times 60 seconds = BPM.
-        last_bpm = (wm2.beats - wm1.beats) / (wm2.seconds - wm1.seconds) * 60.
+        last_bpm = (wm2.beats - wm1.beats) / (wm2.seconds - wm1.seconds) * 60.0
 
         # Extrapolate the last bpm
-        mapped_last_sample = int(time_map[-1][1] + (self._num_samples - time_map[-1][0]) * last_bpm / bpm)
+        mapped_last_sample = int(
+            time_map[-1][1] + (self._num_samples - time_map[-1][0]) * last_bpm / bpm
+        )
 
         time_map.append([self._num_samples, mapped_last_sample])
 
@@ -165,42 +166,42 @@ class Clip:
 
     def _parse_asd_file(self, filepath: str):
 
-        '''Parse an Ableton `asd` file.
+        """Parse an Ableton `asd` file.
         Parameters
         ----------
         filepath : str
             Path to an Ableton clip file with ".asd" extension
-        '''
+        """
 
         if not isfile(filepath):
             raise FileNotFoundError(f"No such file: '{filepath}'")
 
-        f = open(filepath, 'rb')
+        f = open(filepath, "rb")
         asd_bin = f.read()
         f.close()
 
-        index = asd_bin.find(b'SampleOverViewLevel')
+        index = asd_bin.find(b"SampleOverViewLevel")
         if index > 0:
             # Assume the clip file was saved with Ableton Live 10.
             # Find the second appearance of SampleOverViewLevel
-            index = asd_bin.find(b'SampleOverViewLevel', index + 1)
+            index = asd_bin.find(b"SampleOverViewLevel", index + 1)
             # Go forward a fixed number of bytes.
             index += 90
         else:
             # Assume the clip file was saved with Ableton Live 9.
-            index = asd_bin.find(b'SampleData')
+            index = asd_bin.find(b"SampleData")
             # Find the second appearance of SampleData
-            index = asd_bin.find(b'SampleData', index + 1)
+            index = asd_bin.find(b"SampleData", index + 1)
             # Go forward a fixed number of bytes.
             index += 2712
 
         def read_double(buffer, index):
             size_double = 8  # a double is 8 bytes
-            return unpack('d', buffer[index:index + size_double])[0], index + size_double
+            return unpack("d", buffer[index : index + size_double])[0], index + size_double
 
         def read_bool(buffer, index):
             size_bool = 1
-            return unpack('?', buffer[index:index + size_bool])[0], index + size_bool
+            return unpack("?", buffer[index : index + size_bool])[0], index + size_bool
 
         self._loop_start, index = read_double(asd_bin, index)
         self._loop_end, index = read_double(asd_bin, index)
@@ -214,11 +215,11 @@ class Clip:
         self._start_marker = self._loop_start + sample_offset
 
         self._warp_markers = []
-        index = asd_bin.find(b'WarpMarker')
+        index = asd_bin.find(b"WarpMarker")
         last_good_index = -1
         while True:
 
-            index = asd_bin.find(b'WarpMarker', index + 1)
+            index = asd_bin.find(b"WarpMarker", index + 1)
             if index < 0:
                 index = last_good_index
                 break

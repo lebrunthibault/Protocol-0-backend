@@ -11,11 +11,7 @@ from lib.enum.ColorEnum import ColorEnum
 
 class Notification(Window):
     def __init__(
-        self,
-        message: str,
-        background_color: ColorEnum,
-        centered: bool,
-        timeout: float = 0
+        self, message: str, background_color: ColorEnum, centered: bool, timeout: float = 0
     ):
         self._message = message
         background_color_hex = background_color.hex_value
@@ -28,15 +24,16 @@ class Notification(Window):
         if not centered:
             kw["location"] = (pyautogui.size()[0] - (100 + 7 * len(message)), 10)
 
-        self.sg_window = sg.Window("Notification message",
-                                   layout=[[sg.Text(message, background_color=background_color_hex)]],
-                                   return_keyboard_events=True,
-                                   no_titlebar=True,
-                                   use_default_focus=False,
-                                   background_color=background_color_hex,
-                                   keep_on_top=True,
-                                   **kw
-                                   )
+        self.sg_window = sg.Window(
+            "Notification message",
+            layout=[[sg.Text(message, background_color=background_color_hex)]],
+            return_keyboard_events=True,
+            no_titlebar=True,
+            use_default_focus=False,
+            background_color=background_color_hex,
+            keep_on_top=True,
+            **kw,
+        )
 
     def display(self, task_id: str):
         self.focus()

@@ -24,25 +24,28 @@ class ShortSound(SoundMixin):
 
 def get_short_sounds_observable(source: AudioSourceInterface) -> Observable[ShortSound]:
     """
-        Make a ShortSound stream from an audio source
-        A ShortSound is a chunk of signal that starts with high energy and ends with low energy
+    Make a ShortSound stream from an audio source
+    A ShortSound is a chunk of signal that starts with high energy and ends with low energy
 
-        This method windows source the stream in overlapping windows of List[AudioSegment]
-        Then applies energy detection change to create List[List[AudioSegment]] chunks via an operator
-        Which then maps the chunks to ShortSound
+    This method windows source the stream in overlapping windows of List[AudioSegment]
+    Then applies energy detection change to create List[List[AudioSegment]] chunks via an operator
+    Which then maps the chunks to ShortSound
     """
     logger.debug(f"making speech stream from source {source}")
 
     # windowing the audio source with overlapping windows
     windows = source.make_observable().pipe(
-        op.buffer_with_count(RecordingConfig.WINDOW_SIZE, 1),
-        op.share()
+        op.buffer_with_count(RecordingConfig.WINDOW_SIZE, 1), op.share()
     )
 
     # detecting energy changes in the signal
     energy_change_obs = windows.pipe(AudioEnergyChangeDetection.energy_change_operator, op.share())
-    recording_window_openings = energy_change_obs.pipe(op.filter(lambda energy: energy == AudioEnergyEnum.HIGH))
-    recording_window_closings = energy_change_obs.pipe(op.filter(lambda energy: energy == AudioEnergyEnum.LOW))
+    recording_window_openings = energy_change_obs.pipe(
+        op.filter(lambda energy: energy == AudioEnergyEnum.HIGH)
+    )
+    recording_window_closings = energy_change_obs.pipe(
+        op.filter(lambda energy: energy == AudioEnergyEnum.LOW)
+    )
 
     # creating short sound chunks
     return windows.pipe(
@@ -58,7 +61,7 @@ class AudioEnergyEnum(Enum):
     HIGH = "HIGH"
 
 
-class AudioEnergyChangeDetection():
+class AudioEnergyChangeDetection:
     CURRENT_BUFFER_ENERGY = AudioEnergyEnum.LOW
     DEBUG = False
 
@@ -75,7 +78,9 @@ class AudioEnergyChangeDetection():
                     cls.CURRENT_BUFFER_ENERGY = AudioEnergyEnum.LOW
 
                 if cls.DEBUG:
-                    logger.info(f"current buf energy: {audio_segment.dBFS} {cls.CURRENT_BUFFER_ENERGY}")
+                    logger.info(
+                        f"current buf energy: {audio_segment.dBFS} {cls.CURRENT_BUFFER_ENERGY}"
+                    )
 
                 if previous_buffer_energy != cls.CURRENT_BUFFER_ENERGY:
                     observer.on_next(cls.CURRENT_BUFFER_ENERGY)
@@ -86,6 +91,6 @@ class AudioEnergyChangeDetection():
 
 
 def _overlapping_windows_to_audio_segment(windows: List[List[AudioSegment]]) -> AudioSegment:
-    """ reduce overlapping AudioSegment windows to a single AudioSegment """
+    """reduce overlapping AudioSegment windows to a single AudioSegment"""
     audio_segment_array = list(map(lambda win: win[0], windows[:-1])) + windows[-1]
     return reduce(operator.add, audio_segment_array)

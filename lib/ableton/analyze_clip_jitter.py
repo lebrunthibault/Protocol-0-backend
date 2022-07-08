@@ -14,8 +14,9 @@ def analyze_test_audio_clip_jitter(clip_path: str):
     clip_path = f"{clip_path}.asd"
 
     if not os.path.exists(clip_path):
-        raise Protocol0Error(f"{clip_path} does not exist, are analysis files configured in "
-                             f"Ableton ?")
+        raise Protocol0Error(
+            f"{clip_path} does not exist, are analysis files configured in " f"Ableton ?"
+        )
     clip = Clip(clip_path, 44100, 44100)
     # NB at 44100 the sample rate induced max jitter is 0.023 ms
     notes_count = 8 - 1
@@ -26,12 +27,14 @@ def analyze_test_audio_clip_jitter(clip_path: str):
 
 def _get_beat_offsets(clip: Clip, notes_count: int) -> List[float]:
     # skipping start and end markers, excepting notes_count markers
-    warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <=
-                    1.875][0:notes_count]
+    warp_markers = [wm for wm in clip.warp_markers if wm.seconds >= 0.125 and wm.seconds <= 1.875][
+        0:notes_count
+    ]
 
     if len(warp_markers) != notes_count:
         raise Protocol0Error(
-            f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}")
+            f"couldn't analyze jitter, got {len(warp_markers)} central warp_markers, expected {notes_count}"
+        )
 
     beat_offsets = []
     # we ignore warp markers set on note end
@@ -43,9 +46,9 @@ def _get_beat_offsets(clip: Clip, notes_count: int) -> List[float]:
 
 
 def _process_results(beat_offsets: List[float], notes_count: int):
-    average_latency = (sum(beat_offsets) / notes_count)
+    average_latency = sum(beat_offsets) / notes_count
     total_jitter = sum(abs(b - average_latency) for b in beat_offsets)
-    average_jitter = (total_jitter / notes_count)
+    average_jitter = total_jitter / notes_count
     message = f"average jitter {average_jitter:.2f} ms\naverage latency {average_latency:.2f} ms"
     logger.info(message)
     notification_type = NotificationEnum.SUCCESS

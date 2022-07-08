@@ -5,7 +5,7 @@ from lib.ableton.drums.drum_category import DrumCategory
 from lib.enum.NotificationEnum import NotificationEnum
 
 
-class DrumService():
+class DrumService:
     def sync_drum_rack_full_samples(self):
         drum_categories = DrumCategory.create_all()
         for category in drum_categories:

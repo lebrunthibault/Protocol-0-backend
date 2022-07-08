@@ -19,7 +19,9 @@ class SearchTypeEnum(enum.Enum):
     WINDOW_CLASS_NAME = "WINDOW_CLASS_NAME"
 
 
-def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE) -> int:
+def find_window_handle_by_enum(
+    name: str, search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE
+) -> int:
     logger.disable(__name__)
     if search_type == SearchTypeEnum.WINDOW_TITLE:
         handle = win32gui.FindWindow(None, name)
@@ -32,13 +34,14 @@ def find_window_handle_by_enum(name: str, search_type: Union[SearchTypeEnum, str
 
     logger.enable(__name__)
     if not handle:
-        logger.debug(
-            f"{name} - {search_type} : Window handle not found {handle}")
+        logger.debug(f"{name} - {search_type} : Window handle not found {handle}")
 
     return handle
 
 
-def _find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: Optional[str] = None) -> int:
+def _find_window_handle_by_criteria(
+    class_name: Optional[str] = None, app_name: Optional[str] = None
+) -> int:
     assert class_name or app_name, "You should give a criteria to search a message"
 
     handle = 0
@@ -62,12 +65,12 @@ def _find_window_handle_by_criteria(class_name: Optional[str] = None, app_name: 
 
 
 def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
-    app_name_black_list = _app_name_black_list if _app_name_black_list else [
-        "explorer.exe", "chrome.exe", "ipoint.exe", "TextInputHost.exe"
-    ]
-    class_name_black_list = [
-        "ThumbnailDeviceHelperWnd", "Shell_TrayWnd", "wxWindowNR"
-    ]
+    app_name_black_list = (
+        _app_name_black_list
+        if _app_name_black_list
+        else ["explorer.exe", "chrome.exe", "ipoint.exe", "TextInputHost.exe"]
+    )
+    class_name_black_list = ["ThumbnailDeviceHelperWnd", "Shell_TrayWnd", "wxWindowNR"]
 
     result = []
 
@@ -82,11 +85,7 @@ def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
                 return
             if "too" in app_name_black_list or class_name in class_name_black_list:
                 return
-            line = {
-                "name": name,
-                "class_name": class_name,
-                "app_name": app_name
-            }
+            line = {"name": name, "class_name": class_name, "app_name": app_name}
             logger.debug(line)
             result.append(line)
 
@@ -104,7 +103,9 @@ def _get_app_name(handle: int) -> Optional[str]:
     pid = win32process.GetWindowThreadProcessId(handle)
     try:
         logger.disable(__name__)  # silences warnings about protected processes
-        handle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1])
+        handle = win32api.OpenProcess(
+            win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1]
+        )
         logger.enable(__name__)
         return win32process.GetModuleFileNameEx(handle, 0).split("\\")[-1]
     except Exception as e:

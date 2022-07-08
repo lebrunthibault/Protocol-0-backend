@@ -35,9 +35,11 @@ def get_class_that_defined_method(meth):
                 return cls
         meth = meth.__func__  # fallback to __qualname__ parsing
     if inspect.isfunction(meth):
-        cls = getattr(inspect.getmodule(meth),
-                      meth.__qualname__.split('.<locals>', 1)[0].rsplit('.', 1)[0],
-                      None)
+        cls = getattr(
+            inspect.getmodule(meth),
+            meth.__qualname__.split(".<locals>", 1)[0].rsplit(".", 1)[0],
+            None,
+        )
         if isinstance(cls, type):
             return cls
     return None
@@ -48,7 +50,9 @@ def log_string(string) -> str:
 
 
 def make_sysex_message_from_command(command: SerializableCommand) -> mido.Message:
-    assert isinstance(command, SerializableCommand), "expected SerializableCommand, got %s" % command
+    assert isinstance(command, SerializableCommand), (
+        "expected SerializableCommand, got %s" % command
+    )
     message = command.serialize()
     b = bytearray(message.encode())
     b.insert(0, 0xF0)

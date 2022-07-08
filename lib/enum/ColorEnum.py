@@ -12,9 +12,11 @@ class ColorEnum(AbstractEnum):
     @property
     def hex_value(self):
         # type: () -> str
-        return self.get_value_from_mapping({
-            ColorEnum.SUCCESS: "#2d985c",
-            ColorEnum.INFO: BLUES[2],
-            ColorEnum.WARNING: "#8c982d",
-            ColorEnum.ERROR: "#ea5852"
-        })
+        return self.get_value_from_mapping(
+            {
+                ColorEnum.SUCCESS: "#2d985c",
+                ColorEnum.INFO: BLUES[2],
+                ColorEnum.WARNING: "#8c982d",
+                ColorEnum.ERROR: "#ea5852",
+            }
+        )

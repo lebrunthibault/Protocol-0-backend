@@ -36,7 +36,9 @@ def generate_openapi_specs():
         logger.error(e)
         return
 
-    _write_to_file(folder_name=out_folder, spec=spec, package_name=package_name, classname=classname)
+    _write_to_file(
+        folder_name=out_folder, spec=spec, package_name=package_name, classname=classname
+    )
 
 
 def _generate_bare_spec(title):
@@ -56,15 +58,8 @@ def _add_spec_path_from_method(spec, method):
         path="/%s" % method.__name__,
         parameters=list(_get_parameters_dict_from_method(method)),
         operations={
-            "get": {
-                "operationId": method.__name__,
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
-        }
+            "get": {"operationId": method.__name__, "responses": {"200": {"description": ""}}}
+        },
     )
 
 
@@ -95,9 +90,7 @@ def _get_parameters_dict_from_method(method):
             "in": "query",
             "name": param.name,
             "required": param.default is param.empty,
-            "schema": {
-                "type": _get_openapi_string_type(param.annotation)
-            }
+            "schema": {"type": _get_openapi_string_type(param.annotation)},
         }
         if param.default is not param.empty:
             param_spec["schema"]["default"] = param.default

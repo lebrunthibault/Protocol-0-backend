@@ -7,6 +7,7 @@ from sr.recognizer.grammar_generation import prepare_model_grammar
 @cli.command(name="run")
 async def command_run() -> None:
     from sr.speech_recognition.speech_recognition_main import recognize_speech
+
     recognize_speech()
     await asyncio.Future()  # make asyncio run forever
 

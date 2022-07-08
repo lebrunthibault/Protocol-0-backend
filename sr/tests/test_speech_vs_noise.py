@@ -28,7 +28,9 @@ def debug_sounds(speech_sounds: List[SoundMixin]):
 
 def _test_audio_file(filename: str, assert_callable: Callable):
     speech_sounds = []
-    source = AudioFile(filename if os.path.isabs(filename) else f"{SRConfig.TEST_DATA_DIRECTORY}\\{filename}")
+    source = AudioFile(
+        filename if os.path.isabs(filename) else f"{SRConfig.TEST_DATA_DIRECTORY}\\{filename}"
+    )
 
     def on_complete():
         try:
@@ -39,12 +41,15 @@ def _test_audio_file(filename: str, assert_callable: Callable):
 
         # debug_speech_sounds(speech_sounds=speech_sounds)
 
-    get_speech_sounds_observable(source=source).subscribe(speech_sounds.append, logger.exception, on_complete)
+    get_speech_sounds_observable(source=source).subscribe(
+        speech_sounds.append, logger.exception, on_complete
+    )
 
 
 def assert_speech(speech_sounds: List[SpeechSound], speech_count=1):
-    assert len(
-        speech_sounds) == speech_count, f"Expected to find {speech_count} speech speech_sound(s), got {len(speech_sounds)}"
+    assert (
+        len(speech_sounds) == speech_count
+    ), f"Expected to find {speech_count} speech speech_sound(s), got {len(speech_sounds)}"
 
 
 def assert_noise(speech_sounds: List[SpeechSound]):
@@ -60,11 +65,15 @@ def test_speech_recognition():
 
 @pytest.mark.skip
 def test_speech_recognition_words():
-    for filename in glob.glob(f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/words/**/*.wav", recursive=True):
+    for filename in glob.glob(
+        f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/words/**/*.wav", recursive=True
+    ):
         _test_audio_file(filename, partial(assert_speech, speech_count=1))
 
 
 @pytest.mark.skip(reason="Recognizer not good enough atm")
 def test_speech_recognition_noise():
-    for filename in glob.glob(f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/noise/**/*.wav", recursive=True):
+    for filename in glob.glob(
+        f"{SRConfig.TRAINING_AUDIO_DIRECTORY}/noise/**/*.wav", recursive=True
+    ):
         _test_audio_file(filename, partial(assert_noise))

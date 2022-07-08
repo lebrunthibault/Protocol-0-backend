@@ -26,7 +26,7 @@ class AudioFile(AudioSourceInterface):
         duration_ms = self._audio.duration_seconds * 1000
         for i in range(math.ceil(duration_ms / RecordingConfig.BUFFER_MS)):
             right_boundary = min((i + 1) * RecordingConfig.BUFFER_MS, duration_ms)
-            observer.on_next(self._audio[i * RecordingConfig.BUFFER_MS: right_boundary])
+            observer.on_next(self._audio[i * RecordingConfig.BUFFER_MS : right_boundary])
 
         observer.on_completed()
         return Disposable()

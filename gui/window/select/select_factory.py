@@ -15,9 +15,16 @@ class SelectFactory(WindowFactory):
     def createWindow(cls, message: str, options: List, vertical=True) -> Window:
         buttons = cls._create_buttons(options=options)
         if vertical:
-            select = Select(message=message, options=options, buttons=[[button] for button in buttons], arrow_keys=("Up", "Down"))
+            select = Select(
+                message=message,
+                options=options,
+                buttons=[[button] for button in buttons],
+                arrow_keys=("Up", "Down"),
+            )
         else:
-            select = Select(message=message, options=options, buttons=[buttons], arrow_keys=("Left", "Right"))
+            select = Select(
+                message=message, options=options, buttons=[buttons], arrow_keys=("Left", "Right")
+            )
 
         window = CloseWindowOnEndDecorator(select)
         window_2 = NotifyProtocol0Decorator(window)
@@ -26,9 +33,12 @@ class SelectFactory(WindowFactory):
 
     @classmethod
     def _create_buttons(self, options: List[str]) -> List[Button]:
-        return [sg.Button(
-            option,
-            key=option,
-            enable_events=True,
-            button_color=('white', BLUES[1] if i == 0 else BLUES[0])
-        ) for i, option in enumerate(options)]
+        return [
+            sg.Button(
+                option,
+                key=option,
+                enable_events=True,
+                button_color=("white", BLUES[1] if i == 0 else BLUES[0]),
+            )
+            for i, option in enumerate(options)
+        ]

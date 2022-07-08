@@ -19,10 +19,7 @@ logger = logger.opt(colors=True)
 class Recognizer(RecognizerInterface):
     DEBUG = False
 
-    def __init__(
-        self,
-        model: SpeechRecognitionModelEnum = SpeechRecognitionModelEnum.MAIN_MODEL
-    ):
+    def __init__(self, model: SpeechRecognitionModelEnum = SpeechRecognitionModelEnum.MAIN_MODEL):
         super().__init__()
         self._model_name: str = model.value
         self._recognizer: Optional[KaldiRecognizer] = None

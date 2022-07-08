@@ -20,12 +20,12 @@ from protocol0.application.command.ResetSongCommand import ResetSongCommand
 
 
 @dataclass(frozen=True)
-class AbletonInfos():
+class AbletonInfos:
     ableton_version: str
 
     @property
     def ableton_major_version(self) -> str:
-        return self.ableton_version.split('.')[0]
+        return self.ableton_version.split(".")[0]
 
     @property
     def program_name(self) -> str:
@@ -34,17 +34,20 @@ class AbletonInfos():
     @property
     def preferences_location(self) -> Path:
         return Path(
-            f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\Preferences")
+            f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\Preferences"
+        )
 
     @property
     def exe_location(self) -> Path:
         return Path(
-            f"C:\\ProgramData\\Ableton\\Live {self.ableton_major_version}\\Program\\Ableton Live {self.ableton_major_version} Suite.exe")
+            f"C:\\ProgramData\\Ableton\\Live {self.ableton_major_version}\\Program\\Ableton Live {self.ableton_major_version} Suite.exe"
+        )
 
 
 def focus_ableton() -> None:
-    focus_window(Config.ABLETON_PROCESS_NAME,
-                 search_type=SearchTypeEnum.PROGRAM_NAME)  # type: ignore
+    focus_window(
+        Config.ABLETON_PROCESS_NAME, search_type=SearchTypeEnum.PROGRAM_NAME
+    )  # type: ignore
 
 
 def is_ableton_up() -> bool:
@@ -52,8 +55,9 @@ def is_ableton_up() -> bool:
 
 
 def is_ableton_focused() -> bool:
-    ableton_handle = find_window_handle_by_enum(Config.ABLETON_PROCESS_NAME,
-                                                SearchTypeEnum.PROGRAM_NAME)
+    ableton_handle = find_window_handle_by_enum(
+        Config.ABLETON_PROCESS_NAME, SearchTypeEnum.PROGRAM_NAME
+    )
     return is_window_focused(ableton_handle)
 
 
@@ -63,14 +67,15 @@ def are_logs_focused() -> bool:
 
 
 def show_plugins() -> None:
-    if not find_window_handle_by_enum("AbletonVstPlugClass",
-                                      search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
-        keyboard.press_and_release('ctrl+alt+p')
+    if not find_window_handle_by_enum(
+        "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
+    ):
+        keyboard.press_and_release("ctrl+alt+p")
 
 
 def reload_ableton() -> None:
     """
-        Not easy to have this work every time
+    Not easy to have this work every time
     """
     p0_script_client().dispatch(ResetSongCommand())
     go_to_desktop(0)
@@ -122,8 +127,9 @@ def clear_arrangement():
 
 
 def kill_ableton():
-    kill_window_by_criteria(name=Config.ABLETON_WINDOW_CLASS_NAME,
-                            search_type=SearchTypeEnum.WINDOW_CLASS_NAME)
+    kill_window_by_criteria(
+        name=Config.ABLETON_WINDOW_CLASS_NAME, search_type=SearchTypeEnum.WINDOW_CLASS_NAME
+    )
 
     # # remove crash files
     # crash_folder = ableton_locations.preferences_location / "Crash"
@@ -148,4 +154,4 @@ def open_set(filename: str):
         return
 
     go_to_desktop(0)
-    execute_process_in_new_window(f"& \"{filename}\"")
+    execute_process_in_new_window(f'& "{filename}"')

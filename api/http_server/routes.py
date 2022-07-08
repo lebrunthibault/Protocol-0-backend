@@ -57,13 +57,15 @@ async def _save_set_as_template():
 @router.get("/tail_logs")
 async def tail_logs():
     execute_python_script_in_new_window(
-        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py")
+        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py"
+    )
 
 
 @router.get("/tail_logs_raw")
 async def tail_logs_raw():
     execute_python_script_in_new_window(
-        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw")
+        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw"
+    )
 
 
 @router.get("/open_ableton")
@@ -73,7 +75,7 @@ async def open_ableton():
     if is_ableton_up():
         reload_ableton()
     else:
-        execute_process_in_new_window(f"& \"{Config.ABLETON_EXE}\"")
+        execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
 
 
 @router.get("/open_current_set")

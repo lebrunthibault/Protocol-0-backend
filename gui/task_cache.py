@@ -12,9 +12,9 @@ class TaskCacheKey(Enum):
     REVOKED_TASKS = "p0.revoked_tasks"
 
 
-class TaskCache():
+class TaskCache:
     def __init__(self):
-        self._cache = redis.Redis(host='localhost', port=6379, db=0)
+        self._cache = redis.Redis(host="localhost", port=6379, db=0)
 
     def clear(self):
         for key in list(TaskCacheKey):

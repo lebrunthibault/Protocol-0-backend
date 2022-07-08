@@ -45,4 +45,4 @@ class SoundMixin(Protocol):
 
     @property
     def _end_window(self) -> AudioSegment:
-        return self.audio[-RecordingConfig.WINDOW_MS:]
+        return self.audio[-RecordingConfig.WINDOW_MS :]

@@ -63,4 +63,5 @@ def timing(f):
         end_at = time.time()
         logger.info(f"func: {f.__name__} took: {end_at - start_at:.3f} sec")
         return res
+
     return wrap

@@ -24,8 +24,9 @@ from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
 from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 from protocol0.application.command.PingCommand import PingCommand
-from protocol0.application.command.ProcessBackendResponseCommand import \
-    ProcessBackendResponseCommand
+from protocol0.application.command.ProcessBackendResponseCommand import (
+    ProcessBackendResponseCommand,
+)
 
 
 class Routes:
@@ -72,26 +73,30 @@ class Routes:
         send_keys(keys)
 
     def select_and_copy(self) -> None:
-        send_keys('^a')
-        send_keys('^c')
+        send_keys("^a")
+        send_keys("^c")
 
     def select_and_paste(self) -> None:
-        send_keys('^a')
-        send_keys('^v')
+        send_keys("^a")
+        send_keys("^v")
 
     def analyze_test_audio_clip_jitter(self, clip_path: str):
         analyze_test_audio_clip_jitter(clip_path=clip_path)
 
     def show_plugins(self) -> None:
-        if not find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
-            send_keys('^%p')
+        if not find_window_handle_by_enum(
+            "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
+        ):
+            send_keys("^%p")
 
     def show_hide_plugins(self) -> None:
-        send_keys('^%p')
+        send_keys("^%p")
 
     def hide_plugins(self) -> None:
-        if find_window_handle_by_enum("AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME):
-            send_keys('^%p')
+        if find_window_handle_by_enum(
+            "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
+        ):
+            send_keys("^%p")
 
     def focus_window(self, window_name: str) -> None:
         focus_window(name=window_name)

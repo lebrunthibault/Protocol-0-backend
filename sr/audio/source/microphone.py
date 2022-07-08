@@ -3,6 +3,7 @@ from typing import Optional
 
 import pyaudio
 from loguru import logger
+
 # from loguru import logger
 from pyaudio import Stream
 from pydub import AudioSegment
@@ -25,11 +26,15 @@ class Microphone(AudioSourceInterface):
     """
 
     def __init__(self, device_index=None, sample_rate=None, chunk_size=1024):
-        assert device_index is None or isinstance(device_index, int), "Device index must be None or an integer"
+        assert device_index is None or isinstance(
+            device_index, int
+        ), "Device index must be None or an integer"
         assert sample_rate is None or (
             isinstance(sample_rate, int) and sample_rate > 0
         ), "Sample rate must be None or a positive integer"
-        assert isinstance(chunk_size, int) and chunk_size > 0, "Chunk size must be a positive integer"
+        assert (
+            isinstance(chunk_size, int) and chunk_size > 0
+        ), "Chunk size must be a positive integer"
 
         # set up PyAudio
         self.pyaudio_module = self.get_pyaudio()
@@ -85,7 +90,9 @@ class Microphone(AudioSourceInterface):
         # noinspection PyUnresolvedReferences
         if LooseVersion(pyaudio.__version__) < LooseVersion("0.2.11"):
             # noinspection PyUnresolvedReferences
-            raise AttributeError("PyAudio 0.2.11 or later is required (found version {})".format(pyaudio.__version__))
+            raise AttributeError(
+                "PyAudio 0.2.11 or later is required (found version {})".format(pyaudio.__version__)
+            )
         return pyaudio
 
     def _open_stream(self):
@@ -129,8 +136,9 @@ class Microphone(AudioSourceInterface):
                 logger.error(e)
                 await asyncio.sleep(1)
                 continue
-            yield AudioSegment(data=buffer, sample_width=self.sample_width,
-                               frame_rate=self.sample_rate, channels=1)
+            yield AudioSegment(
+                data=buffer, sample_width=self.sample_width, frame_rate=self.sample_rate, channels=1
+            )
 
 
 class MicrophoneStream(object):

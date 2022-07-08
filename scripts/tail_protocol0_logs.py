@@ -43,13 +43,30 @@ class LogConfig:
         "cyan": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],
     }
-    BLACK_LIST_KEYWORDS = ["silent exception thrown", "Midi(Out|In)Device", "MidiRemoteScript",
-                           "Python: INFO:_Framework.ControlSurface:", "INFO:transitions.core"]
+    BLACK_LIST_KEYWORDS = [
+        "silent exception thrown",
+        "Midi(Out|In)Device",
+        "MidiRemoteScript",
+        "Python: INFO:_Framework.ControlSurface:",
+        "INFO:transitions.core",
+    ]
     FILTER_KEYWORDS = ["P0", "Protocol0"]
-    ERROR_NON_KEYWORDS = ['\.wav. could not be opened', 'traceback.format_stack', 'Link: Disabled', 'Push2.push2',
-                          'MemoryUsage:', 'VST 2.4']
-    ERROR_KEYWORDS = ["P0 - error", "traceback", "RemoteScriptError", "ArgumentError", "exception",
-                      "VST3 presets with unknown device type found"]
+    ERROR_NON_KEYWORDS = [
+        "\.wav. could not be opened",
+        "traceback.format_stack",
+        "Link: Disabled",
+        "Push2.push2",
+        "MemoryUsage:",
+        "VST 2.4",
+    ]
+    ERROR_KEYWORDS = [
+        "P0 - error",
+        "traceback",
+        "RemoteScriptError",
+        "ArgumentError",
+        "exception",
+        "VST3 presets with unknown device type found",
+    ]
     CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
@@ -61,12 +78,14 @@ class LogConfig:
     ]
 
 
-class ErrorState():
+class ErrorState:
     LAST_ERROR_STARTED_AT: Optional[float] = None
 
     @classmethod
     def in_error(cls):
-        return cls.LAST_ERROR_STARTED_AT is not None and time.time() - cls.LAST_ERROR_STARTED_AT > 0.01
+        return (
+            cls.LAST_ERROR_STARTED_AT is not None and time.time() - cls.LAST_ERROR_STARTED_AT > 0.01
+        )
 
     @classmethod
     def reset(cls):
@@ -81,7 +100,7 @@ class LogLine:
 
     def __str__(self):
         color = "red" if self.is_error else (self.color or "white")
-        line = re.sub('\\\\$', '', self.line)  # remove trailing slash that crashes loguru
+        line = re.sub("\\\\$", "", self.line)  # remove trailing slash that crashes loguru
         return f"<{color}>{line}</{color}>"
 
     def has_patterns(self, patterns: List[str]):
@@ -110,11 +129,15 @@ def _filter_line(line: LogLine) -> bool:
 
 
 def _is_error(line: LogLine) -> bool:
-    if line.has_patterns(LogConfig.ERROR_KEYWORDS) and not line.has_patterns(LogConfig.ERROR_NON_KEYWORDS):
+    if line.has_patterns(LogConfig.ERROR_KEYWORDS) and not line.has_patterns(
+        LogConfig.ERROR_NON_KEYWORDS
+    ):
         ErrorState.LAST_ERROR_STARTED_AT = time.time()
         return True
 
-    if not _get_clean_line(line.line).startswith(" ") or line.has_patterns(LogConfig.ERROR_NON_KEYWORDS):
+    if not _get_clean_line(line.line).startswith(" ") or line.has_patterns(
+        LogConfig.ERROR_NON_KEYWORDS
+    ):
         ErrorState.reset()
         return False
 
@@ -132,10 +155,10 @@ def get_line_observable_from_file(file: TextIO):
     sleep_sec = 0.1
 
     def _make_observable(observer, _):
-        """ Yield each line from a file as they are written.
-         `sleep_sec` is the time to sleep after empty reads. """
-        line = ''
-        for line in file.readlines()[-LogConfig.START_SIZE:]:
+        """Yield each line from a file as they are written.
+        `sleep_sec` is the time to sleep after empty reads."""
+        line = ""
+        for line in file.readlines()[-LogConfig.START_SIZE :]:
             observer.on_next(line)
         while True:
             tmp = file.readline()
@@ -143,7 +166,7 @@ def get_line_observable_from_file(file: TextIO):
                 line += tmp
                 if line.endswith("\n"):
                     observer.on_next(line)
-                    line = ''
+                    line = ""
             elif sleep_sec:
                 time.sleep(sleep_sec)
 
@@ -152,7 +175,7 @@ def get_line_observable_from_file(file: TextIO):
 
 
 @click.command()
-@click.option('--raw', is_flag=True)
+@click.option("--raw", is_flag=True)
 @log_exceptions
 def tail_ableton_log_file(raw: bool):
     if raw:
@@ -177,15 +200,21 @@ def tail_ableton_log_file(raw: bool):
             op.map(lambda line: LogLine(line=line)),
             op.map(lambda line: LogLine(line=line.line, is_error=_is_error(line))),
             op.filter(_filter_line),
-            op.map(lambda line: LogLine(line=line.line, is_error=line.is_error, color=_get_color(line))),
-            op.map(lambda line: LogLine(line=_get_clean_line(line.line), is_error=line.is_error, color=line.color)),
+            op.map(
+                lambda line: LogLine(line=line.line, is_error=line.is_error, color=_get_color(line))
+            ),
+            op.map(
+                lambda line: LogLine(
+                    line=_get_clean_line(line.line), is_error=line.is_error, color=line.color
+                )
+            ),
         ]
 
-    with open(LogConfig.LOG_FILENAME, 'r') as file:
+    with open(LogConfig.LOG_FILENAME, "r") as file:
         log_obs = get_line_observable_from_file(file)
         log_obs.pipe(*pipes).subscribe(logger.info, rx_error)
         log_obs.pipe(*pipes).subscribe(rx_nop, logger.error)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     tail_ableton_log_file()

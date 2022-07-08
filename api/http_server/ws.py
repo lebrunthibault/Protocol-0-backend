@@ -13,7 +13,6 @@ _DEBUG = False
 
 
 class ConnectionManager:
-
     def __init__(self):
         self._active_connections: List[WebSocket] = []
 

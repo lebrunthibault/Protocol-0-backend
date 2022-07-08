@@ -6,7 +6,7 @@ from jinja2 import Template
 from lib.ableton.drums.drum_rack_preset.drum_branch.drum_branch_preset import DrumBranchPreset
 
 
-class DrumRackPreset():
+class DrumRackPreset:
     def __init__(self, drum_category: str, drum_names: List[str]):
         self._drum_category = drum_category
         self._drum_names = drum_names

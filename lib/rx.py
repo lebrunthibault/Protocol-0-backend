@@ -15,8 +15,7 @@ def rx_obs_from_async_iterable(iterable: AsyncIterable) -> Observable:
             try:
                 async for i in iterable:
                     observer.on_next(i)
-                loop.call_soon(
-                    observer.on_completed)
+                loop.call_soon(observer.on_completed)
             except Exception as e:
                 loop.call_soon(partial(observer.on_error, e))
 

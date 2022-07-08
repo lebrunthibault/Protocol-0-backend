@@ -14,5 +14,5 @@ class AudioSourceInterface(Protocol):
 
     @abstractmethod
     def make_observable(self) -> Observable:
-        """ creates an Observable[AudioSegment] """
+        """creates an Observable[AudioSegment]"""
         raise NotImplementedError

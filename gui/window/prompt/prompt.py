@@ -16,7 +16,7 @@ class Prompt(Window):
         layout = [
             [sg.Text(message, key="question", background_color=background_color_hex)],
             [sg.Input(key="input", visible=False)],
-            [sg.Button("yes", key="yes"), sg.Button("no", key="no")]
+            [sg.Button("yes", key="yes"), sg.Button("no", key="no")],
         ]
         self.sg_window = sg.Window(
             "Dialog Window",
@@ -26,7 +26,7 @@ class Prompt(Window):
             keep_on_top=True,
             no_titlebar=True,
             background_color=background_color_hex,
-            element_justification='c'
+            element_justification="c",
         )
 
     def display(self):

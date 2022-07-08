@@ -34,8 +34,8 @@ class RecognizerResult:
             "result": {
                 "word": self.word,
                 "word_enum": self.word_enum.name if self.word_enum else "",
-                "error": str(self.error)
-            }
+                "error": str(self.error),
+            },
         }
 
     @property

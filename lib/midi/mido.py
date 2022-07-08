@@ -2,7 +2,9 @@ import mido
 
 
 def get_output_port(port_name_prefix: str):
-    return _get_real_midi_port_name(port_name_prefix=port_name_prefix, ports=mido.get_output_names())
+    return _get_real_midi_port_name(
+        port_name_prefix=port_name_prefix, ports=mido.get_output_names()
+    )
 
 
 def _get_input_port(port_name_prefix: str):

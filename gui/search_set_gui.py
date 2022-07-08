@@ -20,8 +20,7 @@ def send_search(search):
 def create_gui():
     # type: () -> None
     layout = [[sg.Input(key="input")]]
-    window = sg.Window(WINDOW_TITLE, layout,
-                       return_keyboard_events=True)
+    window = sg.Window(WINDOW_TITLE, layout, return_keyboard_events=True)
 
     while True:
         event, values = window.read()
