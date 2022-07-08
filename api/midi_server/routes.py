@@ -146,7 +146,7 @@ class Routes:
         notification_window.delay(message, NotificationEnum.SUCCESS.value, centered)
 
     def show_warning(self, message: str, centered: bool = False):
-        notification_window.delay(message, NotificationEnum.WARNING.value, centered)
+        message_window.delay(message, NotificationEnum.WARNING.value, centered)
 
     @throttle(milliseconds=5000)
     def show_error(self, message: str):

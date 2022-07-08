@@ -30,6 +30,7 @@ class Notification(Window):
 
         self.sg_window = sg.Window("Notification message",
                                    layout=[[sg.Text(message, background_color=background_color_hex)]],
+                                   return_keyboard_events=True,
                                    no_titlebar=True,
                                    use_default_focus=False,
                                    background_color=background_color_hex,
@@ -38,8 +39,12 @@ class Notification(Window):
                                    )
 
     def display(self, task_id: str):
+        self.focus()
         while True:
-            self.sg_window.read(timeout=200)
+            event, values = self.sg_window.read()
+
+            if self.is_event_escape(event) or self.is_event_enter(event):
+                break
             if self._timeout and time.time() - self._start_at > self._timeout:
                 logger.info(f"window timeout closing {task_id}")
                 break

@@ -15,8 +15,8 @@ from lib.enum.NotificationEnum import NotificationEnum
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-os.environ.setdefault('FORKED_BY_MULTIPROCESSING', '1')
-celery_app = Celery('tasks', broker='redis://localhost')
+os.environ.setdefault("FORKED_BY_MULTIPROCESSING", "1")
+celery_app = Celery("tasks", broker="redis://localhost")
 celery_app.control.purge()
 celery_app.conf.result_expires = 1
 
@@ -30,7 +30,7 @@ def revoke_tasks(task_type: TaskCacheKey):
 
 
 def check_celery_worker_status() -> bool:
-    """ from https://stackoverflow.com/questions/8506914/detect-whether-celery-is-available-running """
+    """from https://stackoverflow.com/questions/8506914/detect-whether-celery-is-available-running"""
     i = celery_app.control.inspect()
     availability = i.ping()
 
@@ -52,20 +52,24 @@ def handle_error(func):
 
 @celery_app.task(bind=True)
 @handle_error
-def notification_window(self, message: str, notification_enum: str = NotificationEnum.INFO.value, centered=False):
+def notification_window(
+    self, message: str, notification_enum: str = NotificationEnum.INFO.value, centered=False
+):
     revoke_tasks(TaskCacheKey.NOTIFICATION)
     task_cache.add_task(TaskCacheKey.NOTIFICATION, self.request.id)
     NotificationFactory.createWindow(
-        message=message,
-        notification_enum=NotificationEnum[notification_enum],
-        centered=centered)\
-        .display(self.request.id)
+        message=message, notification_enum=NotificationEnum[notification_enum], centered=centered
+    ).display(self.request.id)
 
 
 @celery_app.task()
 @handle_error
-def message_window(message: str, notification_enum: str = NotificationEnum.INFO.value):
-    MessageFactory.createWindow(message=message, notification_enum=NotificationEnum[notification_enum]).display()
+def message_window(
+    message: str, notification_enum: str = NotificationEnum.INFO.value, centered=True
+):
+    MessageFactory.createWindow(
+        message=message, notification_enum=NotificationEnum[notification_enum], centered=centered
+    ).display()
 
 
 @celery_app.task
