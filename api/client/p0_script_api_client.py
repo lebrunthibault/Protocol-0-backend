@@ -18,7 +18,6 @@ class P0ScriptClient(object):
         self._midi_port = mido.open_output(get_output_port(self._midi_port_name), autoreset=False)
 
     def dispatch(self, command: SerializableCommand) -> None:
-        command.server_pid = os.getpid()
         msg = make_sysex_message_from_command(command=command)
         self._midi_port.send(msg)
         logger.info(f"Sent command to script: {command}")

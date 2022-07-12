@@ -15,7 +15,7 @@ class Rev2ButtonsRelativeCoordinates(Enum):
 
     ACTIVATION_MIDDLE_BUTTON = (784, 504)
     PROGRAM = (1067, 147)
-    PRESET_STAR_CATEGORY = (974, 320)  # Relative coordinates
+    PRESET_STAR_CATEGORY = (919, 322)  # Relative coordinates
 
 
 def _get_absolute_button_position(
