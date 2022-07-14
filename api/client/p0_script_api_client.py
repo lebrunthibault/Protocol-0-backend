@@ -1,5 +1,3 @@
-import os
-
 import mido
 from loguru import logger
 

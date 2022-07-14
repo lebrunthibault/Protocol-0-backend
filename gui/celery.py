@@ -8,8 +8,8 @@ from loguru import logger
 
 from gui.task_cache import TaskCache, TaskCacheKey
 from gui.window.notification.notification_factory import NotificationFactory
-from gui.window.prompt.prompt_factory import PromptFactory
 from gui.window.select.select_factory import SelectFactory
+from lib.enum.ColorEnum import ColorEnum
 from lib.enum.NotificationEnum import NotificationEnum
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
@@ -63,11 +63,7 @@ def notification_window(
 
 @celery_app.task
 @handle_error
-def prompt_window(question: str):
-    PromptFactory.createWindow(message=question, notification_enum=NotificationEnum.INFO).display()
-
-
-@celery_app.task
-@handle_error
-def select_window(question: str, options: List, vertical=True):
-    SelectFactory.createWindow(message=question, options=options, vertical=vertical).display()
+def select_window(question: str, options: List, vertical: bool, color: str):
+    SelectFactory.createWindow(
+        message=question, options=options, vertical=vertical, color=ColorEnum[color]
+    ).display()
