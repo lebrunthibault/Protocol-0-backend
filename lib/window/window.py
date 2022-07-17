@@ -28,7 +28,7 @@ def focus_window(
         logger.info(f"handle not found for {name}")
         return
 
-    logger.warning(f"ableton handle: {handle}")
+    logger.debug(f"ableton handle: {handle}")
 
     # noinspection PyUnresolvedReferences
     pythoncom.CoInitialize()  # needed
