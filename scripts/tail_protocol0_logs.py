@@ -67,7 +67,7 @@ class LogConfig:
         "exception",
         "VST3 presets with unknown device type found",
     ]
-    CLEAR_KEYWORDS = ["clear_logs", "\(Protocol0\) Initializing"]
+    CLEAR_KEYWORD = "clear_logs"
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
         "Python: INFO:root:\\d* - ",
@@ -121,7 +121,7 @@ def _filter_line(line: LogLine) -> bool:
     if line.is_error:
         return True
 
-    if line.has_patterns(LogConfig.CLEAR_KEYWORDS):
+    if line.line.strip() == LogConfig.CLEAR_KEYWORD:
         clear_console()
         return False
 
