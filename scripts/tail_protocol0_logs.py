@@ -121,7 +121,7 @@ def _filter_line(line: LogLine) -> bool:
     if line.is_error:
         return True
 
-    if line.line.strip() == LogConfig.CLEAR_KEYWORD:
+    if line.has_patterns([LogConfig.CLEAR_KEYWORD]):
         clear_console()
         return False
 
