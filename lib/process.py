@@ -1,10 +1,10 @@
 import subprocess
 import sys
-
 import win32process
 from loguru import logger
 from psutil import Process, NoSuchProcess
 
+from config import Config
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
 
@@ -17,7 +17,7 @@ def execute_process_in_new_window(*args: str):
 
 
 def execute_python_script_in_new_window(*args: str):
-    execute_process_in_new_window("py -3.7", *args)
+    execute_process_in_new_window(f"{Config.PROJECT_DIRECTORY}\\venv\\scripts\\python", *args)
 
 
 def _get_window_pid_by_criteria(

@@ -25,9 +25,9 @@ def command_test() -> None:
                     stderr=null,
                     stdin=null,
                 )
-                    .communicate()[0]
-                    .strip()
-                    .decode("utf-8")
+                .communicate()[0]
+                .strip()
+                .decode("utf-8")
             )
         except (OSError, IOError):
             pass

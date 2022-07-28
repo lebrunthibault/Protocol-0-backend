@@ -1,16 +1,12 @@
 import enum
-from typing import Optional, Any, List, Dict, Union
-
 import win32api
 import win32con
 import win32gui
 import win32process
-import wmi
 from loguru import logger
+from typing import Optional, Any, List, Dict, Union
 
 from lib.errors.Protocol0Error import Protocol0Error
-
-c = wmi.WMI()
 
 
 class SearchTypeEnum(enum.Enum):

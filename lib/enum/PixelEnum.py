@@ -2,4 +2,4 @@ from lib.enum.AbstractEnum import AbstractEnum
 
 
 class PixelEnum(AbstractEnum):
-    SEPARATOR = (15, 869)
+    SEPARATOR = (30, 1738)

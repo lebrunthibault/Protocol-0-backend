@@ -1,11 +1,9 @@
-import os
+import mido
+import requests
 import signal
 import sys
 import time
 import traceback
-
-import mido
-import requests
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
@@ -41,7 +39,7 @@ def start_midi_server():
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
     logger.info(
-        f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}. Pid {os.getpid()}"
+        f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}"
     )
     notification_window.delay("Midi server started")
 
@@ -122,8 +120,8 @@ def _execute_midi_message(message: Message):
     method = getattr(route, payload["method"], None)
 
     if method is None:
-        raise Protocol0Error(f"Unknown Route: {payload} (pid {os.getpid()})")
+        raise Protocol0Error(f"Unknown Route: {payload}")
 
-    logger.info(f"GET: Route.{method.__name__} (pid: {os.getpid()})")
+    logger.info(f"GET: Route.{method.__name__}")
 
     method(**payload["args"])

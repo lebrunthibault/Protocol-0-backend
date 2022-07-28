@@ -1,9 +1,9 @@
-from typing import Tuple
-
 import pyautogui
 from PIL import ImageGrab
 from loguru import logger
+from typing import Tuple
 
+from config import Config
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 
@@ -11,7 +11,14 @@ def move_to(x: int, y: int) -> None:
     pyautogui.moveTo(x, y)
 
 
-def click(x: int, y: int) -> None:
+def click(x: int, y: int, exact=False) -> None:
+    # coordinates are relative to a 1080p display resolution
+    # accounting for resolution change
+    logger.info((x, y))
+    if not exact:
+        x *= Config.DISPLAY_RESOLUTION_FACTOR
+        y *= Config.DISPLAY_RESOLUTION_FACTOR
+        logger.warning((x, y))
     try:
         pyautogui.click(x, y)
     except pyautogui.FailSafeException as e:

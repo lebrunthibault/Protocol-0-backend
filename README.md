@@ -107,18 +107,22 @@ Sidekick project : control ableton via vocal commands.
 
 > This script is more here to showcase development techniques and is not ready for distribution / installation but you can try.
 
-- Add to your PYTHON_PATH (both for python2.7 and 3.7) : your remote scripts folder and this folder
-
+- Install python 3.7 on windows
+- `py -m venv venv`
+- activate virtual env
+- `pip install -r 'requirements.txt'`
+- On windows check python-rtmidi is installed else install MSVC 14 or above
+- Add to your PYTHON_PATH (you can create a .pth file in venv sites-packages) : your remote scripts folder and this folder
 - Some commands / libraries are specific to windows, adapt to mac if necessary
+- Create the `abletonVersion` env var and set it the full version number (e.g. 10.1.43) 
 
-### Install dependencies
-- `pip install -r ./requirements.txt`
-- [Celery](https://docs.celeryproject.org/en/stable/getting-started/first-steps-with-celery.html)
+### Install other dependencies
 - [Open Api generator](https://openapi-generator.tech/docs/installation/) to generate the sdk for the backend api
 - make
 - [AHK](https://www.autohotkey.com/) if you're on windows 
-  
+
 ### Generate the backend api client
+- install java
 - `make sdk`
 
 ### Setup the midi ports
