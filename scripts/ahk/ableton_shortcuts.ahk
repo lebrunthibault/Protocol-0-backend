@@ -26,15 +26,15 @@ return
 ^#+l::
 	callBackend("tail_logs")
 return
-^!+l::
-	callBackend("tail_logs_raw")
-return
 
 ; ableton hotkeys
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
 ^#+s::
     Send ^,  ; works best from ahk
     callBackend("save_set_as_template")
+return
+^!+l::
+	callBackend("tail_logs_raw")
 return
 ^+a::
 	callBackend("arm")
