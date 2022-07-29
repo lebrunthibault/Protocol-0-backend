@@ -1,9 +1,9 @@
 #!make
 
-.PHONY: midi_server, http_server, celery, sdk, sdk_debug, test, black, flake8, mypy, vulture, check
+.PHONY: celery, celery_flower, midi_server, http_server, sdk, sdk_debug, test, black, flake8, mypy, vulture, check
 
 celery:
-	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- venv/Scripts/celery -A gui worker -E --concurrency=10 --without-heartbeat --without-gossip --without-mingle -l info --loglevel=INFO
+	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- venv/Scripts/celery -A gui worker --events --concurrency=1 --without-heartbeat --without-gossip --without-mingle --loglevel=INFO --pool=solo
 
 celery_flower:
 	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- powershell scripts/powershell/start_celery_flower.ps1
@@ -12,7 +12,8 @@ http_server:
 	venv/scripts/uvicorn api.http_server.main:app --port 8000 --reload
 
 midi_server:
-	watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;api/client/*.py;lib/*.py;lib/**/*.py" --recursive --ignore-directories -- venv\scripts\python .\scripts\start_midi_server.py
+	venv\scripts\watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;api/client/*.py;lib/*.py;lib/**/*.py;lib/**/**/*.py" --recursive --ignore-directories -- venv\scripts\python .\scripts\start_midi_server.py
+
 
 logs:
 	venv/scripts/python scripts/tail_protocol0_logs.py
@@ -29,7 +30,7 @@ sdk:
 	cd api/midi_server/sdk_generation && java -jar openapi-generator-cli.jar generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_backend_client\api_client -t p0_backend_client\openapi_templates
 	venv/scripts/pip install ".\api\midi_server\sdk_generation\p0_backend_client\api_client"
 
-cli-test:
+cli_test:
 	cls
 	venv/scripts/python scripts/cli.py test
 

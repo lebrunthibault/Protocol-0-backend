@@ -1,12 +1,11 @@
-from typing import Optional
-
 from loguru import logger
-from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
+from typing import Optional
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
 from lib.ableton.set_profiling.ableton_set_profiling_session import AbletonSetProfilingSession
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
+from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 
 
 class AbletonSetProfiler:
@@ -42,7 +41,7 @@ class AbletonSetProfiler:
 
     @classmethod
     def end_measurement(cls):
-        if not cls.current_profiling_session:
+        if cls.current_profiling_session is None:
             return
         cls.current_profiling_session.end_measurement()
         if cls.current_profiling_session._is_finished:

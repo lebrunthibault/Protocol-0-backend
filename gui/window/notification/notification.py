@@ -23,11 +23,11 @@ class Notification(Window):
 
         kw = {}
         if not centered:
-            kw["location"] = (pyautogui.size()[0] - (100 + 7 * len(message)), 10)
+            kw["location"] = (pyautogui.size()[0] - (150 + 14 * len(message)), 20)
 
         self.sg_window = sg.Window(
             "Notification message",
-            layout=[[sg.Text(message, background_color=background_color_hex)]],
+            layout=[[sg.Text(f"  {message}  ", background_color=background_color_hex)]],
             return_keyboard_events=True,
             no_titlebar=True,
             use_default_focus=False,

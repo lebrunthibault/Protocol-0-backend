@@ -16,7 +16,7 @@ class Select(Window):
         buttons: List[List[Button]],
         arrow_keys: Tuple[str, str],
         background_color: ColorEnum,
-        button_colors: ButtonColors
+        button_colors: ButtonColors,
     ):
         layout = [
             [sg.Text(message, key="question", background_color=background_color.hex_value)],
@@ -34,7 +34,7 @@ class Select(Window):
             keep_on_top=True,
             no_titlebar=True,
             element_justification="c",
-            background_color=background_color.hex_value
+            background_color=background_color.hex_value,
         )
         self._options = options
         self._selected_option = options[0]
@@ -61,6 +61,10 @@ class Select(Window):
     def _scroll_selected_option(self, go_next=True):
         increment = 1 if go_next else -1
         index = (self._options.index(self._selected_option) + increment) % len(self._options)
-        self.sg_window[self._selected_option].update(button_color=("white", self._button_colors.default_color))
+        self.sg_window[self._selected_option].update(
+            button_color=("white", self._button_colors.default_color)
+        )
         self._selected_option = self._options[index]
-        self.sg_window[self._selected_option].update(button_color=("white", self._button_colors.selected_color))
+        self.sg_window[self._selected_option].update(
+            button_color=("white", self._button_colors.selected_color)
+        )

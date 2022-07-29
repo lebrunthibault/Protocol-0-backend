@@ -82,8 +82,7 @@ def reload_ableton() -> None:
 
     time.sleep(0.5)
     focus_ableton()
-    send_keys("^w")  # close the microsoft office popup ..
-    time.sleep(0.5)
+    # time.sleep(0.5)
 
     send_keys("^n")
     send_keys("{Right}")

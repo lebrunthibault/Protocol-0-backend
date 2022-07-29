@@ -1,10 +1,9 @@
 import json
 import os
-import time
-from typing import List, Dict
-
 import requests
+import time
 from loguru import logger
+from typing import List, Dict
 
 from api.client.p0_script_api_client import p0_script_client
 from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
@@ -23,7 +22,6 @@ from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
 from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
-from protocol0.application.command.PingCommand import PingCommand
 from protocol0.application.command.ProcessBackendResponseCommand import (
     ProcessBackendResponseCommand,
 )
@@ -42,7 +40,7 @@ class Routes:
 
     @reset_midi_client
     def ping(self) -> None:
-        p0_script_client().dispatch(PingCommand())
+        AbletonSetProfiler.end_measurement()
 
     def notify_protocol0_midi_up(self) -> None:
         notify_protocol0_midi_up()
@@ -130,10 +128,6 @@ class Routes:
 
     def start_profiling_single_measurement(self) -> None:
         AbletonSetProfiler.start_profiling_single_measurement()
-
-    @reset_midi_client
-    def end_measurement(self) -> None:
-        AbletonSetProfiler.end_measurement()
 
     def stop_midi_server(self) -> None:
         stop_midi_server()

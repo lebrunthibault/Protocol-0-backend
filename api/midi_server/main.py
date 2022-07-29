@@ -38,9 +38,7 @@ def start_midi_server():
     )
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
-    logger.info(
-        f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}"
-    )
+    logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
     notification_window.delay("Midi server started")
 
     while True:

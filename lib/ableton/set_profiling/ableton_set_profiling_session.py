@@ -1,12 +1,11 @@
 import time
-from typing import Optional, List
-
 from loguru import logger
-from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
+from typing import Optional, List
 
 from api.client.p0_script_api_client import p0_script_client
 from lib.ableton.ableton import reload_ableton
 from lib.utils import copy_to_clipboard
+from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 
 
 class AbletonSetProfilingSession:
@@ -18,7 +17,10 @@ class AbletonSetProfilingSession:
         self.measurements = []  # type: List[float]
 
     def __repr__(self):
-        return self._to_csv
+        if len(self.measurements) > 0:
+            return self._to_csv
+        else:
+            return "<empty>"
 
     def show_message(self, message: str):
         p0_script_client().dispatch(ShowMessageCommand(message))
@@ -29,6 +31,7 @@ class AbletonSetProfilingSession:
 
     @property
     def _to_csv(self):
+        """Skip the first measurement"""
         return ",".join(["%.2f" % m for m in self.measurements[1:]])
 
     @property
@@ -58,8 +61,7 @@ class AbletonSetProfilingSession:
             self.show_message(f"set profiling over : {self._to_csv}")
         else:
             logger.info(
-                f"Measurement {len(self.measurements) + 1}/{self.number_of_tests} finished, got %.2f s"
+                f"Measurement {len(self.measurements)}/{self.number_of_tests + 1} finished, got %.2f s"
                 % reload_duration
             )
-            self.show_message("set reloaded in %.2f s" % reload_duration)
             self.start_measurement()

@@ -12,9 +12,12 @@ class NotificationEnum(AbstractEnum):
 
     @property
     def color(self) -> ColorEnum:
-        return cast(ColorEnum, {
-            NotificationEnum.INFO: ColorEnum.INFO,
-            NotificationEnum.SUCCESS: ColorEnum.SUCCESS,
-            NotificationEnum.WARNING: ColorEnum.WARNING,
-            NotificationEnum.ERROR: ColorEnum.ERROR,
-        }.get(self))
+        return cast(
+            ColorEnum,
+            {
+                NotificationEnum.INFO: ColorEnum.INFO,
+                NotificationEnum.SUCCESS: ColorEnum.SUCCESS,
+                NotificationEnum.WARNING: ColorEnum.WARNING,
+                NotificationEnum.ERROR: ColorEnum.ERROR,
+            }.get(self),
+        )
