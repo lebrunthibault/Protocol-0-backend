@@ -3,7 +3,7 @@
 .PHONY: celery, celery_flower, midi_server, http_server, sdk, sdk_debug, test, black, flake8, mypy, vulture, check
 
 celery:
-	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- venv/Scripts/celery -A gui worker --events --concurrency=1 --without-heartbeat --without-gossip --without-mingle --loglevel=INFO --pool=solo
+	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- venv/Scripts/celery -A gui worker --events --concurrency=10 --without-heartbeat --without-gossip --without-mingle --loglevel=INFO --pool=gevent
 
 celery_flower:
 	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- powershell scripts/powershell/start_celery_flower.ps1
@@ -13,7 +13,6 @@ http_server:
 
 midi_server:
 	venv\scripts\watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;api/client/*.py;lib/*.py;lib/**/*.py;lib/**/**/*.py" --recursive --ignore-directories -- venv\scripts\python .\scripts\start_midi_server.py
-
 
 logs:
 	venv/scripts/python scripts/tail_protocol0_logs.py
