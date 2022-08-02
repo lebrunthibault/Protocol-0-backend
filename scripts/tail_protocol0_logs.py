@@ -67,7 +67,8 @@ class LogConfig:
         "exception",
         "VST3 presets with unknown device type found",
     ]
-    CLEAR_KEYWORD = "clear_logs"
+    CLEAR_KEYWORD = "oijao"
+    # CLEAR_KEYWORD = "clear_logs"
     PATTERNS_TO_REMOVE = [
         "P0 - (\\w+:)?",
         "Python: INFO:root:\\d* - ",
