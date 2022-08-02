@@ -5,6 +5,7 @@ import PySimpleGUI as sg
 import pyautogui
 from loguru import logger
 
+from config import Config
 from gui.task_cache import TaskCache
 from gui.window.window import Window
 from lib.enum.ColorEnum import ColorEnum
@@ -22,8 +23,10 @@ class Notification(Window):
         self._task_cache = TaskCache()
 
         kw = {}
+        width_offset = (75 + 7 * len(message)) * Config.DISPLAY_RESOLUTION_FACTOR
+
         if not centered:
-            kw["location"] = (pyautogui.size()[0] - (150 + 14 * len(message)), 20)
+            kw["location"] = (pyautogui.size()[0] - width_offset, 20)
 
         self.sg_window = sg.Window(
             "Notification message",
