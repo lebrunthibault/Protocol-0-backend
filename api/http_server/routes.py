@@ -149,6 +149,13 @@ async def scroll_scene_position(direction: str):
     p0_script_client_from_http().dispatch(ScrollScenePositionCommand(go_next=direction == "right"))
 
 
+@router.get("/scroll_scene_tracks_fine/{direction}")
+async def scroll_scene_tracks_fine(direction: str):
+    p0_script_client_from_http().dispatch(
+        ScrollScenePositionCommand(go_next=direction == "right", use_fine_scrolling=True)
+    )
+
+
 @router.get("/scroll_scene_tracks/{direction}")
 async def scroll_scene_tracks(direction: str):
     p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "right"))

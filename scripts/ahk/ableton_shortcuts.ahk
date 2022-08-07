@@ -64,9 +64,15 @@ return
 	callBackend("scroll_scene_position", "right")
 return
 ^+Left::
-	callBackend("scroll_scene_tracks", "left")
+	callBackend("scroll_scene_tracks_fine", "left")
 return
 ^+Right::
+	callBackend("scroll_scene_tracks_fine", "right")
+return
++Left::
+	callBackend("scroll_scene_tracks", "left")
+return
++Right::
 	callBackend("scroll_scene_tracks", "right")
 return
 ^Up::
