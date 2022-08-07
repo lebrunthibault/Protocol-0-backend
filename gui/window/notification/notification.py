@@ -42,18 +42,19 @@ class Notification(Window):
     def display(self, task_id: Optional[str] = None):
         self.focus()
         while True:
-            event, values = self.sg_window.read(timeout=200)
+            event, values = self.sg_window.read(timeout=10)
 
             if self.is_event_escape(event) or self.is_event_enter(event):
                 break
             if self._timeout and time.time() - self._start_at > self._timeout:
-                logger.info(f"window timeout closing {task_id}")
+                logger.info(f"window timeout closing task {task_id}")
                 break
             elif task_id is not None and task_id in self._task_cache.revoked_tasks():
-                logger.warning(f"window revoked closing {task_id}")
+                logger.warning(f"task {task_id} revoked: closing window")
+                logger.warning(time.time())
                 break
 
-            if task_id is not None:
-                self._task_cache.remove_revoked_task(task_id)
+        if task_id is not None:
+            self._task_cache.remove_revoked_task(task_id)
 
         self.sg_window.close()
