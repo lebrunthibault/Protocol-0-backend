@@ -154,3 +154,6 @@ def open_set(filename: str):
 
     go_to_desktop(0)
     execute_process_in_new_window(f'& "{filename}"')
+
+def toggle_clip_notes():
+    click(87, 1015)

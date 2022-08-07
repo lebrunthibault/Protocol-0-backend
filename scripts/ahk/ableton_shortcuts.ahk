@@ -81,6 +81,9 @@ return
 ^Down::
 	callBackend("scroll_scenes", "down")
 return
+^e::
+	callBackend("toggle_clip_notes")
+return
 
 !f:: ; fold / unfold set
 	Send `t

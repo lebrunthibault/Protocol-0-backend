@@ -6,7 +6,13 @@ from api.client.p0_script_api_client import p0_script_client_from_http
 from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from config import Config
-from lib.ableton.ableton import is_ableton_up, reload_ableton, save_set_as_template, open_set
+from lib.ableton.ableton import (
+    is_ableton_up,
+    reload_ableton,
+    save_set_as_template,
+    open_set,
+    toggle_clip_notes,
+)
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
@@ -169,3 +175,8 @@ async def toggle_track(name: str):
 @router.get("/toggle_drums")
 async def toggle_drums():
     p0_script_client_from_http().dispatch(ToggleDrumsCommand())
+
+
+@router.get("/toggle_clip_notes")
+async def _toggle_clip_notes():
+    toggle_clip_notes()
