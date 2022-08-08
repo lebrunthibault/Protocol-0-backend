@@ -81,7 +81,7 @@ return
 ^Down::
 	callBackend("scroll_scenes", "down")
 return
-^a::
+^q::
 	callBackend("show_automation")
 return
 ^e::
