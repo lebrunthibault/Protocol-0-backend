@@ -26,7 +26,7 @@ def click(x: int, y: int, keep_position=False, exact=False) -> None:
         logger.warning(e)
 
     if keep_position:
-        pyautogui.click(mouse_position)
+        pyautogui.moveTo(mouse_position)
 
 
 def click_vertical_zone(x: int, y: int) -> None:
