@@ -25,6 +25,7 @@ from protocol0.application.command.ScrollScenePositionCommand import ScrollScene
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
 from protocol0.application.command.ScrollScenesCommand import ScrollScenesCommand
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
+from protocol0.application.command.ShowAutomationCommand import ShowAutomationCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
@@ -175,6 +176,11 @@ async def toggle_track(name: str):
 @router.get("/toggle_drums")
 async def toggle_drums():
     p0_script_client_from_http().dispatch(ToggleDrumsCommand())
+
+
+@router.get("/show_automation")
+async def show_automation():
+    p0_script_client_from_http().dispatch(ShowAutomationCommand())
 
 
 @router.get("/toggle_clip_notes")

@@ -81,6 +81,9 @@ return
 ^Down::
 	callBackend("scroll_scenes", "down")
 return
+^a::
+	callBackend("show_automation")
+return
 ^e::
 	callBackend("toggle_clip_notes")
 return
