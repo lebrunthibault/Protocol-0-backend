@@ -11,16 +11,22 @@ def move_to(x: int, y: int) -> None:
     pyautogui.moveTo(x, y)
 
 
-def click(x: int, y: int, exact=False) -> None:
+def click(x: int, y: int, keep_position=False, exact=False) -> None:
     # coordinates are relative to a 1080p display resolution
     # accounting for resolution change
     if not exact:
         x *= Config.DISPLAY_RESOLUTION_FACTOR
         y *= Config.DISPLAY_RESOLUTION_FACTOR
+
+    mouse_position = pyautogui.position()
+
     try:
         pyautogui.click(x, y)
     except pyautogui.FailSafeException as e:
         logger.warning(e)
+
+    if keep_position:
+        pyautogui.click(mouse_position)
 
 
 def click_vertical_zone(x: int, y: int) -> None:
