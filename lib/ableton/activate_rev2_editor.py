@@ -55,7 +55,7 @@ def post_activate_rev2_editor():
     click(
         *_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM), exact=True
     )
-    click(
-        *_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY),
-        exact=True
-    )
+    # click(
+    #     *_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY),
+    #     exact=True
+    # )

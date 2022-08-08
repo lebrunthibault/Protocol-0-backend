@@ -15,8 +15,8 @@ from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
-from lib.mouse.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
-from lib.mouse.drum_rack import save_drum_rack
+from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
+from lib.ableton.drum_rack import save_drum_rack
 from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
