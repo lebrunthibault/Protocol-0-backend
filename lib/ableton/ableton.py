@@ -148,12 +148,15 @@ def restart_ableton():
 
 
 def open_set(filename: str):
-    if not os.path.exists(filename):
-        notification_window.delay(f"fichier introuvable : {filename}", NotificationEnum.ERROR.value)
+    abs_path = f"{Config.ABLETON_SET_DIRECTORY}\\{filename}"
+    if not os.path.exists(abs_path):
+        notification_window.delay(f"fichier introuvable : {abs_path}", NotificationEnum.ERROR.value)
         return
 
+    notification_window.delay(f"Opening {filename}")
+
     go_to_desktop(0)
-    execute_process_in_new_window(f'& "{filename}"')
+    execute_process_in_new_window(f'& "{abs_path}"')
 
 def toggle_clip_notes():
     click(87, 1015, keep_position=True)

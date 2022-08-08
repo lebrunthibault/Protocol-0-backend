@@ -10,11 +10,9 @@ class Config:
     SAMPLE_DIRECTORY = "C:\\Users\\thiba\\google_drive\\music\\software presets\\Ableton User Library\\Samples\\Imported"
     ABLETON_EXE = f"C:\\ProgramData\\Ableton\\Live {_ableton_major_version} Suite\\Program\\Ableton Live {_ableton_major_version} Suite.exe"
     ABLETON_PROCESS_NAME = f"Ableton Live {_ableton_major_version} Suite.exe"
-    ABLETON_CURRENT_SET = (
-        "D:\\ableton projects\\ableton projects - "
-        "current\\splurges\\tracks\\Fondation\\Fondation.als"
-    )
-    ABLETON_DEFAULT_SET = "D:\\ableton projects\\ableton projects - current\\splurges\\Default.als"
+    ABLETON_SET_DIRECTORY = "D:\\ableton projects\\ableton projects - current\\splurges"
+    ABLETON_CURRENT_SET = "tracks\\Fondation\\Fondation.als"
+    ABLETON_DEFAULT_SET = "Default.als"
 
     HTTP_API_URL = "http://127.0.0.1:8000"
     WS_PORT = 8080

@@ -23,7 +23,7 @@ class Notification(Window):
         self._task_cache = TaskCache()
 
         kw = {}
-        width_offset = (75 + 7 * len(message)) * Config.DISPLAY_RESOLUTION_FACTOR
+        width_offset = (75 + 8 * len(message)) * Config.DISPLAY_RESOLUTION_FACTOR
 
         if not centered:
             kw["location"] = (pyautogui.size()[0] - width_offset, 20)
