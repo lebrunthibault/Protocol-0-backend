@@ -24,6 +24,7 @@ from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackComm
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
 from protocol0.application.command.ScrollScenesCommand import ScrollScenesCommand
+from protocol0.application.command.ScrollTrackVolumeCommand import ScrollTrackVolumeCommand
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ShowAutomationCommand import ShowAutomationCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
@@ -148,7 +149,7 @@ async def fire_selected_scene():
 
 @router.get("/scroll_scenes/{direction}")
 async def scroll_scenes(direction: str):
-    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction != "down"))
+    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction == "up"))
 
 
 @router.get("/scroll_scene_position/{direction}")
@@ -156,8 +157,8 @@ async def scroll_scene_position(direction: str):
     p0_script_client_from_http().dispatch(ScrollScenePositionCommand(go_next=direction == "right"))
 
 
-@router.get("/scroll_scene_tracks_fine/{direction}")
-async def scroll_scene_tracks_fine(direction: str):
+@router.get("/scroll_scene_position_fine/{direction}")
+async def scroll_scene_position_fine(direction: str):
     p0_script_client_from_http().dispatch(
         ScrollScenePositionCommand(go_next=direction == "right", use_fine_scrolling=True)
     )
@@ -166,6 +167,12 @@ async def scroll_scene_tracks_fine(direction: str):
 @router.get("/scroll_scene_tracks/{direction}")
 async def scroll_scene_tracks(direction: str):
     p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "right"))
+
+
+
+@router.get("/scroll_track_volume/{direction}")
+async def scroll_track_volume(direction: str):
+    p0_script_client_from_http().dispatch(ScrollTrackVolumeCommand(go_next=direction == "up"))
 
 
 @router.get("/toggle_track/{name}")

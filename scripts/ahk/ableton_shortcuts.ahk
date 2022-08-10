@@ -64,10 +64,10 @@ return
 	callBackend("scroll_scene_position", "right")
 return
 ^+Left::
-	callBackend("scroll_scene_tracks_fine", "left")
+	callBackend("scroll_scene_position_fine", "left")
 return
 ^+Right::
-	callBackend("scroll_scene_tracks_fine", "right")
+	callBackend("scroll_scene_position_fine", "right")
 return
 +Left::
 	callBackend("scroll_scene_tracks", "left")
@@ -80,6 +80,12 @@ return
 return
 ^Down::
 	callBackend("scroll_scenes", "down")
+return
+v & Up::
+	callBackend("scroll_track_volume", "up")
+return
+v & Down::
+	callBackend("scroll_track_volume", "down")
 return
 ^q::
 	callBackend("show_automation")
