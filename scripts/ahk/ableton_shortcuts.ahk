@@ -82,10 +82,10 @@ return
 	callBackend("scroll_scenes", "prev")
 return
 ^!Up::
-	callBackend("scroll_track_volume", "prev")
+	callBackend("scroll_track_volume", "next")
 return
 ^!Down::
-	callBackend("scroll_track_volume", "next")
+	callBackend("scroll_track_volume", "prev")
 return
 ^q::
 	callBackend("show_automation", "next")
