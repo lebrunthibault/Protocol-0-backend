@@ -58,37 +58,40 @@ if WinActive("ahk_exe Ableton Live 10 Suite.exe") {
 }
 Return
 ^Left::
-	callBackend("scroll_scene_position", "left")
+	callBackend("scroll_scene_position", "prev")
 return
 ^Right::
-	callBackend("scroll_scene_position", "right")
+	callBackend("scroll_scene_position", "next")
 return
 ^+Left::
-	callBackend("scroll_scene_position_fine", "left")
+	callBackend("scroll_scene_position_fine", "prev")
 return
 ^+Right::
-	callBackend("scroll_scene_position_fine", "right")
+	callBackend("scroll_scene_position_fine", "next")
 return
 +Left::
-	callBackend("scroll_scene_tracks", "left")
+	callBackend("scroll_scene_tracks", "prev")
 return
 +Right::
-	callBackend("scroll_scene_tracks", "right")
+	callBackend("scroll_scene_tracks", "next")
 return
 ^Up::
-	callBackend("scroll_scenes", "up")
+	callBackend("scroll_scenes", "next")
 return
 ^Down::
-	callBackend("scroll_scenes", "down")
+	callBackend("scroll_scenes", "prev")
 return
-v & Up::
-	callBackend("scroll_track_volume", "up")
+^!Up::
+	callBackend("scroll_track_volume", "prev")
 return
-v & Down::
-	callBackend("scroll_track_volume", "down")
+^!Down::
+	callBackend("scroll_track_volume", "next")
 return
 ^q::
-	callBackend("show_automation")
+	callBackend("show_automation", "next")
+return
+^+q::
+	callBackend("show_automation", "prev")
 return
 ^e::
 	callBackend("toggle_clip_notes")

@@ -149,30 +149,30 @@ async def fire_selected_scene():
 
 @router.get("/scroll_scenes/{direction}")
 async def scroll_scenes(direction: str):
-    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction == "up"))
+    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction == "next"))
 
 
 @router.get("/scroll_scene_position/{direction}")
 async def scroll_scene_position(direction: str):
-    p0_script_client_from_http().dispatch(ScrollScenePositionCommand(go_next=direction == "right"))
+    p0_script_client_from_http().dispatch(ScrollScenePositionCommand(go_next=direction == "next"))
 
 
 @router.get("/scroll_scene_position_fine/{direction}")
 async def scroll_scene_position_fine(direction: str):
     p0_script_client_from_http().dispatch(
-        ScrollScenePositionCommand(go_next=direction == "right", use_fine_scrolling=True)
+        ScrollScenePositionCommand(go_next=direction == "next", use_fine_scrolling=True)
     )
 
 
 @router.get("/scroll_scene_tracks/{direction}")
 async def scroll_scene_tracks(direction: str):
-    p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "right"))
+    p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "next"))
 
 
 
 @router.get("/scroll_track_volume/{direction}")
 async def scroll_track_volume(direction: str):
-    p0_script_client_from_http().dispatch(ScrollTrackVolumeCommand(go_next=direction == "up"))
+    p0_script_client_from_http().dispatch(ScrollTrackVolumeCommand(go_next=direction == "next"))
 
 
 @router.get("/toggle_track/{name}")
@@ -185,9 +185,9 @@ async def toggle_drums():
     p0_script_client_from_http().dispatch(ToggleDrumsCommand())
 
 
-@router.get("/show_automation")
-async def show_automation():
-    p0_script_client_from_http().dispatch(ShowAutomationCommand())
+@router.get("/show_automation/{direction}")
+async def show_automation(direction: str):
+    p0_script_client_from_http().dispatch(ShowAutomationCommand(go_next=direction == "next"))
 
 
 @router.get("/toggle_clip_notes")
