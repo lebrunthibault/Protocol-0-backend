@@ -96,6 +96,9 @@ return
 ^e::
 	callBackend("toggle_clip_notes")
 return
+^Enter::
+	callBackend("go_to_group_track")
+return
 
 !f:: ; fold / unfold set
 	Send `t

@@ -18,6 +18,7 @@ from lib.process import execute_python_script_in_new_window, execute_process_in_
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
+from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
@@ -193,3 +194,8 @@ async def show_automation(direction: str):
 @router.get("/toggle_clip_notes")
 async def _toggle_clip_notes():
     toggle_clip_notes()
+
+
+@router.get("/go_to_group_track")
+async def _go_to_group_track():
+    p0_script_client_from_http().dispatch(GoToGroupTrackCommand())
