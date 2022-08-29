@@ -118,6 +118,7 @@ def save_set_as_template(open_pref=True):
 
 
 def clear_arrangement():
+    time.sleep(0.1)
     click(x=968, y=348)  # click on File Folder
     time.sleep(0.05)
     send_keys("^a")
