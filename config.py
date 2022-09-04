@@ -11,7 +11,7 @@ class Config:
     ABLETON_EXE = f"C:\\ProgramData\\Ableton\\Live {_ableton_major_version} Suite\\Program\\Ableton Live {_ableton_major_version} Suite.exe"
     ABLETON_PROCESS_NAME = f"Ableton Live {_ableton_major_version} Suite.exe"
     ABLETON_SET_DIRECTORY = "D:\\ableton projects\\ableton projects - current\\splurges"
-    ABLETON_CURRENT_SET = "tracks\\Pandora\\Pandora.als"
+    ABLETON_CURRENT_SET = "tracks\\nothing_atm"
     ABLETON_DEFAULT_SET = "Default.als"
 
     HTTP_API_URL = "http://127.0.0.1:8000"
