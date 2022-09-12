@@ -30,6 +30,13 @@ def _get_absolute_button_position(
 
 def activate_rev2_editor():
     # type: () -> None
+    _click_rev2_editor(Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON)
+
+def post_activate_rev2_editor():
+    # type: () -> None
+    _click_rev2_editor(Rev2ButtonsRelativeCoordinates.PROGRAM)
+
+def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
     show_plugins()
     handle = find_window_handle_by_enum(Config.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
@@ -38,24 +45,7 @@ def activate_rev2_editor():
     focus_window(name=Config.REV2_EDITOR_WINDOW_TITLE)
     click(
         *_get_absolute_button_position(
-            handle, Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON
+            handle, coordinates
         ),
-        exact=True
+        exact=True,
     )
-
-
-def post_activate_rev2_editor():
-    # type: () -> None
-    show_plugins()
-    handle = find_window_handle_by_enum(Config.REV2_EDITOR_WINDOW_TITLE)
-    if not handle:
-        logger.warning(f"Couldn't find rev2 editor window for name: {Config.REV2_EDITOR_WINDOW_TITLE}. Check set naming")
-        return
-    focus_window(name=Config.REV2_EDITOR_WINDOW_TITLE)
-    click(
-        *_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PROGRAM), exact=True
-    )
-    # click(
-    #     *_get_absolute_button_position(handle, Rev2ButtonsRelativeCoordinates.PRESET_STAR_CATEGORY),
-    #     exact=True
-    # )
