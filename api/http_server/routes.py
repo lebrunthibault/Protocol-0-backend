@@ -21,7 +21,6 @@ from protocol0.application.command.FireSelectedSceneCommand import FireSelectedS
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
-from protocol0.application.command.LoadDrumTrackCommand import LoadDrumTrackCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
 from protocol0.application.command.ScrollScenesCommand import ScrollScenesCommand
@@ -33,6 +32,7 @@ from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
+
 
 router = APIRouter()
 
@@ -112,14 +112,9 @@ async def select_or_load_device(name: str):
     p0_script_client_from_http().dispatch(SelectOrLoadDeviceCommand(name))
 
 
-@router.get("/load_drum_track/{name}")
-async def load_drum_track(name: str):
-    p0_script_client_from_http().dispatch(LoadDrumTrackCommand(name))
-
-
-@router.get("/load_drum_rack/{name}")
-async def load_drum_rack(name: str):
-    p0_script_client_from_http().dispatch(LoadDrumRackCommand(name))
+@router.get("/load_drum_rack/{category}/{subcategory}")
+async def load_drum_rack(category: str, subcategory: str):
+    p0_script_client_from_http().dispatch(LoadDrumRackCommand(category, subcategory))
 
 
 @router.get("/drum_rack_to_simpler")
