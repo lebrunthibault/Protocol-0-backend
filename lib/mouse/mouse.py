@@ -34,14 +34,6 @@ def click_vertical_zone(x: int, y: int) -> None:
         pyautogui.click(x, y + i)
 
 
-def right_click(x: int, y: int) -> None:
-    pyautogui.rightClick(x, y)
-
-
-def double_click(x: int, y: int) -> None:
-    pyautogui.doubleClick(x, y)
-
-
 def get_pixel_color_at(x: int, y: int) -> Tuple[int, int, int]:
     image = ImageGrab.grab()
     pixel_color = image.getpixel((x, y))

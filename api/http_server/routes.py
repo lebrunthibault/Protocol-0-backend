@@ -11,7 +11,7 @@ from lib.ableton.ableton import (
     reload_ableton,
     save_set_as_template,
     open_set,
-    toggle_clip_notes,
+    toggle_clip_notes, get_last_set,
 )
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
@@ -32,7 +32,6 @@ from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
-
 
 router = APIRouter()
 
@@ -95,6 +94,11 @@ async def open_current_set():
 @router.get("/open_default_set")
 async def open_default_set():
     open_set(Config.ABLETON_DEFAULT_SET)
+
+
+@router.get("/open_last_set")
+async def open_last_set():
+    open_set(get_last_set())
 
 
 @router.get("/toggle_room_eq")
@@ -163,7 +167,6 @@ async def scroll_scene_position_fine(direction: str):
 @router.get("/scroll_scene_tracks/{direction}")
 async def scroll_scene_tracks(direction: str):
     p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "next"))
-
 
 
 @router.get("/scroll_track_volume/{direction}")

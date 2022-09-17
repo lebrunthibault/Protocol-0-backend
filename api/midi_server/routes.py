@@ -4,20 +4,21 @@ import requests
 import time
 from loguru import logger
 from typing import List, Dict
+from time import sleep
 
 from api.client.p0_script_api_client import p0_script_client
 from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
 from config import Config
 from gui.celery import select_window, notification_window
 from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
+from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
+from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
+from lib.mouse.mouse import click, click_vertical_zone, move_to
 from lib.keys import send_keys
-from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
-from lib.ableton.drum_rack import save_drum_rack
-from lib.mouse.mouse import click, right_click, double_click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
@@ -52,8 +53,11 @@ class Routes:
         """Forward to http server"""
         requests.post(f"{Config.HTTP_API_URL}/song_state", data=json.dumps(state))
 
-    def move_to(self, x: int, y: int) -> None:
-        move_to(x=x, y=y)
+    def search(self, search: str) -> None:
+        send_keys("^f")
+        # send_keys("toto")
+        sleep(0.1)
+        send_keys(search)
 
     def click(self, x: int, y: int) -> None:
         click(x=x, y=y)
@@ -61,14 +65,8 @@ class Routes:
     def click_vertical_zone(self, x: int, y: int) -> None:
         click_vertical_zone(x=x, y=y)
 
-    def right_click(self, x: int, y: int) -> None:
-        right_click(x=x, y=y)
-
-    def double_click(self, x: int, y: int) -> None:
-        double_click(x=x, y=y)
-
-    def send_keys(self, keys: str) -> None:
-        send_keys(keys)
+    def click_vertical_zone(self, x: int, y: int) -> None:
+        click_vertical_zone(x=x, y=y)
 
     def select_and_copy(self) -> None:
         send_keys("^a")

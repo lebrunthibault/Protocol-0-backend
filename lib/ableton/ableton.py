@@ -1,10 +1,13 @@
+import glob
+
+import pyautogui
 import os
 import subprocess
 import time
 from dataclasses import dataclass
 from pathlib import Path
 
-import keyboard
+import keyboard  # noqa
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
@@ -90,6 +93,12 @@ def reload_ableton() -> None:
     send_keys("{Enter}")
 
 
+def get_last_set() -> str:
+    sets = glob.glob(
+        f'{Config.ABLETON_SET_DIRECTORY}/*')  # * means all if need specific format then *.csv
+    return max(sets, key=os.path.getctime)
+
+
 def save_set():
     send_keys("^s")
 
@@ -100,21 +109,27 @@ def save_set_as_template(open_pref=True):
         send_keys("^,")
     else:
         time.sleep(0.01)
+
+    initial_mouse_position = pyautogui.position()
+
     # first possible position
-    click(x=703, y=363)  # click on File Folder
-    click(x=1032, y=201)  # click on set as new
+    click(x=703, y=363, keep_position=False)  # click on File Folder
+    click(x=1032, y=201, keep_position=False)  # click on set as new
     time.sleep(0.05)
 
     # second position possible
-    click(x=703, y=332)  # click on File Folder
-    click(x=1032, y=203)  # click on set as new (2nd position)
-    click(x=1032, y=230)  # click on set as new (2nd position)
+    click(x=703, y=332, keep_position=False)  # click on File Folder
+    click(x=1032, y=203, keep_position=False)  # click on set as new (2nd position)
+    click(x=1032, y=230, keep_position=False)  # click on set as new (2nd position)
     time.sleep(0.05)
     send_keys("{Enter}")
     time.sleep(0.2)
     send_keys("	{ESC}")
 
     reload_ableton()
+
+    # restore mouse position
+    pyautogui.moveTo(initial_mouse_position)
 
 
 def clear_arrangement():
@@ -149,6 +164,7 @@ def restart_ableton():
 
 
 def open_set(filename: str):
+
     abs_path = f"{Config.ABLETON_SET_DIRECTORY}\\{filename}"
     if not os.path.exists(abs_path):
         notification_window.delay(f"fichier introuvable : {abs_path}", NotificationEnum.ERROR.value)
@@ -158,6 +174,7 @@ def open_set(filename: str):
 
     go_to_desktop(0)
     execute_process_in_new_window(f'& "{abs_path}"')
+
 
 def toggle_clip_notes():
     click(87, 1015, keep_position=True)
