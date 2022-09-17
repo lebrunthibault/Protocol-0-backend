@@ -1,4 +1,5 @@
 import glob
+from os.path import isabs
 
 import pyautogui
 import os
@@ -163,17 +164,19 @@ def restart_ableton():
     subprocess.run([ableton_locations.exe_location])
 
 
-def open_set(filename: str):
+def open_set(set_path: str):
+    if not isabs(set_path):
+        set_path = f"{Config.ABLETON_SET_DIRECTORY}\\{set_path}"
 
-    abs_path = f"{Config.ABLETON_SET_DIRECTORY}\\{filename}"
-    if not os.path.exists(abs_path):
-        notification_window.delay(f"fichier introuvable : {abs_path}", NotificationEnum.ERROR.value)
+    if not os.path.exists(set_path):
+        notification_window.delay(f"fichier introuvable : {set_path}", NotificationEnum.ERROR.value)
         return
 
-    notification_window.delay(f"Opening {filename}")
+    relative_path = set_path.replace(f"{Config.ABLETON_SET_DIRECTORY}\\", "").replace("//", "\\")
+    notification_window.delay(f"Opening {relative_path}")
 
     go_to_desktop(0)
-    execute_process_in_new_window(f'& "{abs_path}"')
+    execute_process_in_new_window(f'& "{set_path}"')
 
 
 def toggle_clip_notes():
