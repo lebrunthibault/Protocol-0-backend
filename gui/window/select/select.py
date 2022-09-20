@@ -40,8 +40,6 @@ class Select(Window):
         self._selected_option = options[0]
 
     def display(self):
-        from loguru import logger
-        logger.warning("display ")
         self.focus()
         while True:
             event, values = self.sg_window.read()
