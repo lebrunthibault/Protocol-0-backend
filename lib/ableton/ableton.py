@@ -20,7 +20,7 @@ from lib.mouse.mouse import click
 from lib.process import kill_window_by_criteria, execute_process_in_new_window
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import is_window_focused, focus_window
-from protocol0.application.command.ResetSongCommand import ResetSongCommand
+from protocol0.application.command.ResetPlaybackCommand import ResetPlaybackCommand
 
 
 @dataclass(frozen=True)
@@ -81,7 +81,7 @@ def reload_ableton() -> None:
     """
     Not easy to have this work every time
     """
-    p0_script_client().dispatch(ResetSongCommand())
+    p0_script_client().dispatch(ResetPlaybackCommand())
     go_to_desktop(0)
 
     time.sleep(0.5)
@@ -105,7 +105,7 @@ def save_set():
 
 
 def save_set_as_template(open_pref=True):
-    p0_script_client().dispatch(ResetSongCommand())
+    p0_script_client().dispatch(ResetPlaybackCommand())
     if open_pref:
         send_keys("^,")
     else:
