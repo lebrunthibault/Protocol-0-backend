@@ -27,6 +27,7 @@ from protocol0.application.command.ScrollScenesCommand import ScrollScenesComman
 from protocol0.application.command.ScrollTrackVolumeCommand import ScrollTrackVolumeCommand
 from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoadDeviceCommand
 from protocol0.application.command.ShowAutomationCommand import ShowAutomationCommand
+from protocol0.application.command.ShowInstrumentCommand import ShowInstrumentCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
@@ -182,6 +183,11 @@ async def toggle_track(name: str):
 @router.get("/toggle_drums")
 async def toggle_drums():
     p0_script_client_from_http().dispatch(ToggleDrumsCommand())
+
+
+@router.get("/show_instrument")
+async def show_instrument():
+    p0_script_client_from_http().dispatch(ShowInstrumentCommand())
 
 
 @router.get("/show_automation/{direction}")
