@@ -23,6 +23,9 @@ Return
 ^#+n::
 	callBackend("reload_ableton")
 return
+^!+r::
+	callBackend("reload_script")
+return
 ^#+l::
 	callBackend("tail_logs")
 return

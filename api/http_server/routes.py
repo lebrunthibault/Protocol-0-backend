@@ -21,6 +21,7 @@ from protocol0.application.command.FireSelectedSceneCommand import FireSelectedS
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
+from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
 from protocol0.application.command.ScrollScenesCommand import ScrollScenesCommand
@@ -45,6 +46,11 @@ async def index():
 @router.get("/reload_ableton")
 async def _reload_ableton():
     reload_ableton()
+
+
+@router.get("/reload_script")
+async def _reload_script():
+    p0_script_client_from_http().dispatch(ReloadScriptCommand())
 
 
 @router.get("/song_state")
