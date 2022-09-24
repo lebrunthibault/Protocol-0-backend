@@ -55,9 +55,11 @@ class Routes:
 
     def search(self, search: str) -> None:
         send_keys("^f")
-        # send_keys("toto")
         sleep(0.1)
         send_keys(search)
+
+    def move_to(self, x: int, y: int) -> None:
+        move_to(x=x, y=y)
 
     def click(self, x: int, y: int) -> None:
         click(x=x, y=y)
