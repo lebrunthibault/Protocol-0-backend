@@ -31,6 +31,7 @@ from protocol0.application.command.ShowAutomationCommand import ShowAutomationCo
 from protocol0.application.command.ShowInstrumentCommand import ShowInstrumentCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
+from protocol0.application.command.ToggleReferenceTrackCommand import ToggleReferenceTrackCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
@@ -189,6 +190,11 @@ async def toggle_track(name: str):
 @router.get("/toggle_drums")
 async def toggle_drums():
     p0_script_client_from_http().dispatch(ToggleDrumsCommand())
+
+
+@router.get("/toggle_reference")
+async def toggle_reference():
+    p0_script_client_from_http().dispatch(ToggleReferenceTrackCommand())
 
 
 @router.get("/show_instrument")
