@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import keyboard  # noqa
+from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
@@ -95,8 +96,10 @@ def reload_ableton() -> None:
 
 
 def get_last_set() -> str:
-    sets = glob.glob(
-        f'{Config.ABLETON_SET_DIRECTORY}/*')  # * means all if need specific format then *.csv
+    sets = glob.glob(f"{Config.ABLETON_SET_DIRECTORY}\\*.als") + glob.glob(
+        f"{Config.ABLETON_SET_DIRECTORY}\\tracks\\**\\*.als"
+    )
+    logger.warning(sets)
     return max(sets, key=os.path.getctime)
 
 
