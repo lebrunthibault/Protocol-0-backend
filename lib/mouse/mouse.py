@@ -11,7 +11,7 @@ def move_to(x: int, y: int) -> None:
     pyautogui.moveTo(x, y)
 
 
-def click(x: int, y: int, keep_position=True, exact=False) -> None:
+def click(x: int, y: int, keep_position=False, exact=False) -> None:
     # coordinates are relative to a 1080p display resolution
     # accounting for resolution change
     if not exact:
