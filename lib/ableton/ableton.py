@@ -1,15 +1,13 @@
 import glob
-from os.path import isabs
-
-import pyautogui
 import os
 import subprocess
 import time
 from dataclasses import dataclass
+from os.path import isabs
 from pathlib import Path
 
 import keyboard  # noqa
-from loguru import logger
+import pyautogui
 
 from api.client.p0_script_api_client import p0_script_client
 from config import Config
@@ -99,8 +97,11 @@ def get_last_set() -> str:
     sets = glob.glob(f"{Config.ABLETON_SET_DIRECTORY}\\*.als") + glob.glob(
         f"{Config.ABLETON_SET_DIRECTORY}\\tracks\\**\\*.als"
     )
-    logger.warning(sets)
-    return max(sets, key=os.path.getctime)
+
+    non_track_names = (Config.ABLETON_DEFAULT_SET, "Master.als")
+    tracks = filter(lambda name: not any(name.endswith(suffix) for suffix in non_track_names), sets)
+
+    return max(tracks, key=os.path.getctime)
 
 
 def save_set():
