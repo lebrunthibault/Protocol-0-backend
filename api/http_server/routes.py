@@ -31,6 +31,7 @@ from protocol0.application.command.ShowAutomationCommand import ShowAutomationCo
 from protocol0.application.command.ShowInstrumentCommand import ShowInstrumentCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
+from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
 from protocol0.application.command.ToggleReferenceTrackCommand import ToggleReferenceTrackCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
@@ -112,6 +113,11 @@ async def open_last_set():
 @router.get("/toggle_room_eq")
 async def toggle_room_eq():
     p0_script_client_from_http().dispatch(ToggleRoomEQCommand())
+
+
+@router.get("/play_pause")
+async def play_pause():
+    p0_script_client_from_http().dispatch(PlayPauseSongCommand())
 
 
 @router.get("/load_device/{name}")
