@@ -98,7 +98,7 @@ def get_last_set() -> str:
         f"{Config.ABLETON_SET_DIRECTORY}\\tracks\\**\\*.als"
     )
 
-    non_track_names = (Config.ABLETON_DEFAULT_SET, "Master.als")
+    non_track_names = (Config.ABLETON_DEFAULT_SET, "Master.als", "Kontakt.als")
     tracks = filter(lambda name: not any(name.endswith(suffix) for suffix in non_track_names), sets)
 
     return max(tracks, key=os.path.getctime)
