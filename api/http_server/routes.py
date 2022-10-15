@@ -11,7 +11,9 @@ from lib.ableton.ableton import (
     reload_ableton,
     save_set_as_template,
     open_set,
-    toggle_clip_notes, get_last_set,
+    toggle_clip_notes,
+    get_last_launched_set,
+    get_kontakt_set,
 )
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
@@ -107,7 +109,12 @@ async def open_default_set():
 
 @router.get("/open_last_set")
 async def open_last_set():
-    open_set(get_last_set())
+    open_set(get_last_launched_set())
+
+
+@router.get("/open_kontakt_set")
+async def open_kontakt_set():
+    open_set(get_kontakt_set())
 
 
 @router.get("/toggle_room_eq")

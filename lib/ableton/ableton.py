@@ -3,7 +3,7 @@ import os
 import subprocess
 import time
 from dataclasses import dataclass
-from os.path import isabs
+from os.path import isabs, dirname
 from pathlib import Path
 
 import keyboard  # noqa
@@ -93,15 +93,30 @@ def reload_ableton() -> None:
     send_keys("{Enter}")
 
 
-def get_last_set() -> str:
+def get_last_launched_set() -> str:
     sets = glob.glob(f"{Config.ABLETON_SET_DIRECTORY}\\*.als") + glob.glob(
         f"{Config.ABLETON_SET_DIRECTORY}\\tracks\\**\\*.als"
     )
 
-    non_track_names = (Config.ABLETON_DEFAULT_SET, "Master.als", "Kontakt.als")
-    tracks = filter(lambda name: not any(name.endswith(suffix) for suffix in non_track_names), sets)
+    non_track_names = (Config.ABLETON_DEFAULT_SET, "master", "kontakt")
+    tracks = filter(
+        lambda name: not any(excluded in name.lower() for excluded in non_track_names), sets
+    )
 
-    return max(tracks, key=os.path.getctime)
+    return max(tracks, key=os.path.getatime)
+
+
+def get_kontakt_set() -> str:
+    main_set = get_last_launched_set()
+
+    set_folder = dirname(main_set)
+    if set_folder != Config.ABLETON_SET_DIRECTORY:
+        sets = glob.glob(f"{set_folder}\\*.als")
+        set_kontakt_set = next((set for set in sets if "kontakt" in set.lower()), None)
+        if set_kontakt_set is not None:
+            return set_kontakt_set
+
+    return Config.ABLETON_KONTAKT_SET
 
 
 def save_set():

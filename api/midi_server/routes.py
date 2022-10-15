@@ -67,9 +67,6 @@ class Routes:
     def click_vertical_zone(self, x: int, y: int) -> None:
         click_vertical_zone(x=x, y=y)
 
-    def click_vertical_zone(self, x: int, y: int) -> None:
-        click_vertical_zone(x=x, y=y)
-
     def select_and_copy(self) -> None:
         send_keys("^a")
         send_keys("^c")

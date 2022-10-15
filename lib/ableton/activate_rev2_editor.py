@@ -32,20 +32,22 @@ def activate_rev2_editor():
     # type: () -> None
     _click_rev2_editor(Rev2ButtonsRelativeCoordinates.ACTIVATION_MIDDLE_BUTTON)
 
+
 def post_activate_rev2_editor():
     # type: () -> None
     _click_rev2_editor(Rev2ButtonsRelativeCoordinates.PROGRAM)
+
 
 def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
     show_plugins()
     handle = find_window_handle_by_enum(Config.REV2_EDITOR_WINDOW_TITLE)
     if not handle:
-        logger.warning(f"Couldn't find rev2 editor window for name: {Config.REV2_EDITOR_WINDOW_TITLE}. Check set naming")
+        logger.warning(
+            f"Couldn't find rev2 editor window for name: {Config.REV2_EDITOR_WINDOW_TITLE}. Check set naming"
+        )
         return
     focus_window(name=Config.REV2_EDITOR_WINDOW_TITLE)
     click(
-        *_get_absolute_button_position(
-            handle, coordinates
-        ),
+        *_get_absolute_button_position(handle, coordinates),
         exact=True,
     )

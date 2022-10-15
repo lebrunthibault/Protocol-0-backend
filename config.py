@@ -12,6 +12,7 @@ class Config:
     ABLETON_PROCESS_NAME = f"Ableton Live {_ableton_major_version} Suite.exe"
     ABLETON_SET_DIRECTORY = "D:\\ableton projects\\ableton projects - current\\splurges"
     ABLETON_CURRENT_SET = "tracks//Steppe//Steppe.als"
+    ABLETON_KONTAKT_SET = "Kontakt.als"
     ABLETON_DEFAULT_SET = "Default.als"
 
     HTTP_API_URL = "http://127.0.0.1:8000"
