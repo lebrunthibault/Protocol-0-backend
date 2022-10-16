@@ -98,7 +98,7 @@ def get_last_launched_set() -> str:
         f"{Config.ABLETON_SET_DIRECTORY}\\tracks\\**\\*.als"
     )
 
-    non_track_names = (Config.ABLETON_DEFAULT_SET, "master", "kontakt")
+    non_track_names = ("default", "master", "kontakt")
     tracks = filter(
         lambda name: not any(excluded in name.lower() for excluded in non_track_names), sets
     )
