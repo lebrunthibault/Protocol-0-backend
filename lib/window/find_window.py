@@ -60,7 +60,7 @@ def _find_window_handle_by_criteria(
     return handle
 
 
-def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
+def get_windows_list(_app_name_black_list: List[str] = None) -> List[Dict]:
     app_name_black_list = (
         _app_name_black_list
         if _app_name_black_list
@@ -82,7 +82,6 @@ def show_windows(_app_name_black_list: List[str] = None) -> List[Dict]:
             if "too" in app_name_black_list or class_name in class_name_black_list:
                 return
             line = {"name": name, "class_name": class_name, "app_name": app_name}
-            logger.debug(line)
             result.append(line)
 
     win32gui.EnumWindows(winEnumHandler, None)

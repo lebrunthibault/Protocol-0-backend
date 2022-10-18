@@ -1,9 +1,12 @@
 from ctypes import windll
 from typing import Tuple, Union
 
+# noinspection PyUnresolvedReferences
+import psutil
 import pythoncom
 import win32com.client
 import win32gui
+import win32process
 from loguru import logger
 
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
@@ -49,3 +52,12 @@ def focus_window(
 def is_window_focused(handle: int) -> bool:
     active_window_handle = windll.user32.GetForegroundWindow()
     return active_window_handle != 0 and handle == active_window_handle
+
+
+def get_focused_window_process_name():
+    pid = win32process.GetWindowThreadProcessId(win32gui.GetForegroundWindow())
+    return psutil.Process(pid[-1]).name()
+
+
+def get_focused_window_title() -> str:
+    return win32gui.GetWindowText(win32gui.GetForegroundWindow())

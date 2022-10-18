@@ -1,6 +1,7 @@
 import time
 from typing import Optional
 
+# noinspection PyUnresolvedReferences
 import PySimpleGUI as sg
 import pyautogui
 from loguru import logger
@@ -31,7 +32,7 @@ class Notification(Window):
         self.sg_window = sg.Window(
             "Notification message",
             layout=[[sg.Text(f"  {message}  ", background_color=background_color_hex)]],
-            return_keyboard_events=True,
+            # return_keyboard_events=True,
             no_titlebar=True,
             use_default_focus=False,
             background_color=background_color_hex,
@@ -40,7 +41,6 @@ class Notification(Window):
         )
 
     def display(self, task_id: Optional[str] = None):
-        self.focus()
         while True:
             event, values = self.sg_window.read(timeout=10)
 
@@ -51,7 +51,6 @@ class Notification(Window):
                 break
             elif task_id is not None and task_id in self._task_cache.revoked_tasks():
                 logger.warning(f"task {task_id} revoked: closing window")
-                logger.warning(time.time())
                 break
 
         if task_id is not None:

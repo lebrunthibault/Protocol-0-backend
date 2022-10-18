@@ -2,7 +2,7 @@ import json
 from enum import Enum
 from typing import List
 
-import redis
+from lib.redis import database
 
 TaskId = str
 
@@ -14,7 +14,7 @@ class TaskCacheKey(Enum):
 
 class TaskCache:
     def __init__(self):
-        self._cache = redis.Redis(host="localhost", port=6379, db=0)
+        self._cache = database
 
     def clear(self):
         for key in list(TaskCacheKey):

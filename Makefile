@@ -29,13 +29,9 @@ sdk:
 	cd api/midi_server/sdk_generation && java -jar openapi-generator-cli.jar generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_backend_client\api_client -t p0_backend_client\openapi_templates
 	venv/scripts/pip install ".\api\midi_server\sdk_generation\p0_backend_client\api_client"
 
-cli_test:
-	cls
-	venv/scripts/python scripts/cli.py test
-
 test:
 	cls
-	pytest -s tests
+	venv/scripts/python scripts/cli.py test
 
 flake8:
 	cls

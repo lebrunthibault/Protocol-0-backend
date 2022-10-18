@@ -13,6 +13,7 @@ from config import Config
 from gui.celery import check_celery_worker_status, notification_window
 from gui.task_cache import TaskCache
 from gui.window.notification.notification_factory import NotificationFactory
+from lib.ableton.ableton_set import AbletonSet
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.midi.mido import _get_input_port
@@ -26,10 +27,6 @@ from lib.utils import (
 logger = logger.opt(colors=True)
 
 
-def notify_protocol0_midi_up():
-    pass
-
-
 def start_midi_server():
     system_check()
 
@@ -39,6 +36,9 @@ def start_midi_server():
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
+
+    AbletonSet.restore()
+
     notification_window.delay("Midi server started")
 
     while True:

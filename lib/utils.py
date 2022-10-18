@@ -65,7 +65,7 @@ def make_script_command_from_sysex_message(message: mido.Message) -> Optional[Se
     if dict is None:
         return None
     try:
-        return SerializableCommand.unserialize(json.dumps(dict))
+        return SerializableCommand.un_serialize(json.dumps(dict))
     except (AssertionError, Protocol0Error):
         return None
 

@@ -1,24 +1,31 @@
 import json
 import os
-import requests
 import time
-from loguru import logger
-from typing import List, Dict
 from time import sleep
+from typing import List, Dict
+
+import requests
+from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
-from api.midi_server.main import notify_protocol0_midi_up, stop_midi_server
+from api.midi_server.main import stop_midi_server
 from config import Config
 from gui.celery import select_window, notification_window
-from lib.ableton.ableton import reload_ableton, clear_arrangement, save_set, save_set_as_template
+from lib.ableton.ableton import (
+    reload_ableton,
+    clear_arrangement,
+    save_set,
+    save_set_as_template,
+)
+from lib.ableton.ableton_set import AbletonSet
 from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
-from lib.mouse.mouse import click, click_vertical_zone, move_to
 from lib.keys import send_keys
+from lib.mouse.mouse import click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
@@ -43,8 +50,11 @@ class Routes:
     def ping(self) -> None:
         AbletonSetProfiler.end_measurement()
 
-    def notify_protocol0_midi_up(self) -> None:
-        notify_protocol0_midi_up()
+    def register_set(self, set_id: str) -> None:
+        AbletonSet.register(set_id)
+
+    def remove_set(self, set_id: str) -> None:
+        AbletonSet.remove(set_id)
 
     def get_song_state(self) -> None:
         p0_script_client().dispatch(GetSongStateCommand())

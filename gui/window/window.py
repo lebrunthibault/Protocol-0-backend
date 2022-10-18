@@ -1,6 +1,7 @@
 from functools import partial
 from typing import Optional
 
+# noinspection PyUnresolvedReferences
 from PySimpleGUI import Window as SgWindow
 
 from lib.patterns.observer.subject_mixin import SubjectMixin
@@ -20,8 +21,14 @@ class Window(SubjectMixin):
         for interval in (0.5, 1):
             start_timer(interval, partial(focus_window, self.sg_window.Title))
 
-    def is_event_escape(self, event):
+    def is_event_escape(self, event: Optional[str]) -> bool:
+        if event is None:
+            return False
+
         return event == "Exit" or event.split(":")[0] == "Escape"
 
-    def is_event_enter(self, event):
+    def is_event_enter(self, event: Optional[str]) -> bool:
+        if event is None:
+            return False
+
         return len(event) == 1 and ord(event) == 13

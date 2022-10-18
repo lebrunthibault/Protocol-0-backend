@@ -1,9 +1,8 @@
-import glob
 import os
 import subprocess
 import time
 from dataclasses import dataclass
-from os.path import isabs, dirname
+from os.path import isabs
 from pathlib import Path
 
 import keyboard  # noqa
@@ -18,7 +17,11 @@ from lib.keys import send_keys
 from lib.mouse.mouse import click
 from lib.process import kill_window_by_criteria, execute_process_in_new_window
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
-from lib.window.window import is_window_focused, focus_window
+from lib.window.window import (
+    is_window_focused,
+    focus_window,
+    get_focused_window_process_name,
+)
 from protocol0.application.command.ResetPlaybackCommand import ResetPlaybackCommand
 
 
@@ -58,10 +61,7 @@ def is_ableton_up() -> bool:
 
 
 def is_ableton_focused() -> bool:
-    ableton_handle = find_window_handle_by_enum(
-        Config.ABLETON_PROCESS_NAME, SearchTypeEnum.PROGRAM_NAME
-    )
-    return is_window_focused(ableton_handle)
+    return get_focused_window_process_name() == Config.ABLETON_PROCESS_NAME
 
 
 def are_logs_focused() -> bool:
@@ -91,32 +91,6 @@ def reload_ableton() -> None:
     send_keys("{Right}")
     time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
     send_keys("{Enter}")
-
-
-def get_last_launched_set() -> str:
-    sets = glob.glob(f"{Config.ABLETON_SET_DIRECTORY}\\*.als") + glob.glob(
-        f"{Config.ABLETON_SET_DIRECTORY}\\tracks\\**\\*.als"
-    )
-
-    non_track_names = ("default", "master", "kontakt")
-    tracks = filter(
-        lambda name: not any(excluded in name.lower() for excluded in non_track_names), sets
-    )
-
-    return max(tracks, key=os.path.getatime)
-
-
-def get_kontakt_set() -> str:
-    main_set = get_last_launched_set()
-
-    set_folder = dirname(main_set)
-    if set_folder != Config.ABLETON_SET_DIRECTORY:
-        sets = glob.glob(f"{set_folder}\\*.als")
-        set_kontakt_set = next((set for set in sets if "kontakt" in set.lower()), None)
-        if set_kontakt_set is not None:
-            return set_kontakt_set
-
-    return Config.ABLETON_KONTAKT_SET
 
 
 def save_set():
