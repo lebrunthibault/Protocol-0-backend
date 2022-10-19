@@ -1,4 +1,5 @@
 """ websocket endpoint for broadcasting the song state """
+import json
 from typing import List
 
 from fastapi import APIRouter
@@ -6,6 +7,7 @@ from loguru import logger
 from starlette.websockets import WebSocket, WebSocketDisconnect
 
 from api.http_server.db import SongState, DB
+from lib.song_state import SongStateManager
 
 ws_router = APIRouter()
 
@@ -29,14 +31,28 @@ class ConnectionManager:
         if _DEBUG:
             logger.info(f"connection added: {self}")
 
+        if DB.song_state is not None:
+            await self.broadcast_song_state(DB.song_state)
+
+        await self.broadcast_sever_state()
+
     def disconnect(self, websocket: WebSocket):
         self._active_connections.remove(websocket)
 
     async def broadcast_song_state(self, song_state: SongState):
-        if _DEBUG:
-            logger.info(f"sending song state: {self}")
         for connection in self._active_connections:
-            await connection.send_text(song_state.json())
+            await connection.send_text(
+                json.dumps({"type": "SONG_STATE", "data": song_state.dict()})
+            )
+
+        await ws_manager.broadcast_sever_state()
+
+    async def broadcast_sever_state(self):
+        server_state = {"song_states": [ss.dict() for ss in SongStateManager.all()]}
+        logger.success(server_state)
+
+        for connection in self._active_connections:
+            await connection.send_text(json.dumps({"type": "SERVER_STATE", "data": server_state}))
 
 
 ws_manager = ConnectionManager()
@@ -50,8 +66,6 @@ async def get_connections():
 @ws_router.websocket("/song_state")
 async def websocket_endpoint(websocket: WebSocket):
     await ws_manager.connect(websocket)
-    if DB.song_state:
-        await websocket.send_text(DB.song_state.json())
 
     try:
         while True:

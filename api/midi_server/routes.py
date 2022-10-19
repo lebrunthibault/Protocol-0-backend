@@ -1,4 +1,3 @@
-import json
 import os
 import time
 from time import sleep
@@ -8,6 +7,7 @@ import requests
 from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
+from lib.song_state import SongState, SongStateManager
 from api.midi_server.main import stop_midi_server
 from config import Config
 from gui.celery import select_window, notification_window
@@ -17,7 +17,6 @@ from lib.ableton.ableton import (
     save_set,
     save_set_as_template,
 )
-from lib.ableton.ableton_set import AbletonSet
 from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.drum_rack import save_drum_rack
@@ -50,18 +49,23 @@ class Routes:
     def ping(self) -> None:
         AbletonSetProfiler.end_measurement()
 
-    def register_set(self, set_id: str) -> None:
-        AbletonSet.register(set_id)
+    def close_set(self, id: str) -> None:
+        SongStateManager.remove(id)
+        requests.delete(f"{Config.HTTP_API_URL}/set/{id}")
 
-    def remove_set(self, set_id: str) -> None:
-        AbletonSet.remove(set_id)
+        self.get_song_state()
 
     def get_song_state(self) -> None:
         p0_script_client().dispatch(GetSongStateCommand())
 
-    def notify_song_state(self, state: Dict) -> None:
-        """Forward to http server"""
-        requests.post(f"{Config.HTTP_API_URL}/song_state", data=json.dumps(state))
+    def notify_song_state(self, song_state: Dict) -> None:
+        song_state = SongState(**song_state)
+        SongStateManager.register(song_state)
+        sleep(0.5)  # fix too fast backend ..?
+        p0_script_client().dispatch(ProcessBackendResponseCommand(song_state.dict()))
+
+        # forward to http server
+        requests.post(f"{Config.HTTP_API_URL}/song_state", data=song_state.json())
 
     def search(self, search: str) -> None:
         send_keys("^f")

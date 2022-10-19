@@ -1,9 +1,10 @@
-import mido
-import requests
 import signal
 import sys
 import time
 import traceback
+
+import mido
+import requests
 from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
@@ -13,7 +14,6 @@ from config import Config
 from gui.celery import check_celery_worker_status, notification_window
 from gui.task_cache import TaskCache
 from gui.window.notification.notification_factory import NotificationFactory
-from lib.ableton.ableton_set import AbletonSet
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.midi.mido import _get_input_port
@@ -23,6 +23,7 @@ from lib.utils import (
     make_dict_from_sysex_message,
     make_script_command_from_sysex_message,
 )
+from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 
 logger = logger.opt(colors=True)
 
@@ -37,7 +38,7 @@ def start_midi_server():
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
 
-    AbletonSet.restore()
+    p0_script_client().dispatch(GetSongStateCommand())
 
     notification_window.delay("Midi server started")
 

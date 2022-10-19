@@ -3,19 +3,11 @@ import os
 import re
 import time
 from os.path import dirname
-from typing import List
 
 import keyboard  # noqa
 from loguru import logger
 
 from config import Config
-from lib.window.find_window import get_windows_list
-
-
-def get_launched_sets() -> List[str]:
-    set_infos = filter(lambda i: i["app_name"] == Config.ABLETON_PROCESS_NAME, get_windows_list())
-
-    return [i["name"] for i in set_infos]
 
 
 def get_last_launched_set(excluded_keywords=("default", "master", "kontakt")) -> str:

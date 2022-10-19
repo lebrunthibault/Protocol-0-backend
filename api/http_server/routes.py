@@ -1,6 +1,7 @@
 from typing import Optional, Dict
 
 from fastapi import APIRouter
+from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client_from_http
 from api.http_server.db import SongState, DB
@@ -13,16 +14,17 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
-from lib.ableton.ableton_set import AbletonSet, get_focused_set
 from lib.ableton.get_set import get_last_launched_set, get_kontakt_set, get_recently_launched_set
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
+from lib.song_state import SongStateManager, get_focused_set
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
+from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
@@ -41,17 +43,10 @@ from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
 
 router = APIRouter()
 
-AbletonSet.restore()
-
 
 @router.get("/")
 async def index():
     return {"message": "Hello World"}
-
-
-@router.get("/sync")
-async def sync():
-    AbletonSet.restore()
 
 
 @router.get("/reload_ableton")
@@ -67,7 +62,7 @@ async def _reload_script():
 @router.get("/server_state")
 async def server_state() -> Dict:
     return {
-        "launched_sets": AbletonSet.all(),
+        "launched_sets": [s.dict(include={"id", "title", "muted"}) for s in SongStateManager.all()],
         "get_last_launched_set": get_last_launched_set(),
         "get_recently_launched_set": get_recently_launched_set(),
         "get_kontakt_set": get_kontakt_set(),
@@ -83,7 +78,16 @@ async def song_state() -> Optional[SongState]:
 @router.post("/song_state")
 async def post_song_state(song_state: SongState):
     DB.song_state = song_state
+    SongStateManager.register(song_state)
+    logger.success(song_state)
     await ws_manager.broadcast_song_state(song_state)
+
+
+@router.delete("/set/{id}")
+async def delete_set(id: str):
+    SongStateManager.remove(id)
+    DB.song_state = None
+    await ws_manager.broadcast_sever_state()
 
 
 @router.get("/save_set_as_template")
@@ -133,6 +137,15 @@ async def open_last_set():
 @router.get("/open_kontakt_set")
 async def open_kontakt_set():
     open_set(get_kontakt_set())
+
+
+@router.get("/mute_set/{set_id}")
+async def mute_set(set_id: str):
+    command = MuteSetCommand()
+    song_state = SongStateManager.get(set_id)
+    command.set_id = song_state.id
+
+    p0_script_client_from_http().dispatch(command)
 
 
 @router.get("/toggle_room_eq")
