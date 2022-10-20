@@ -7,7 +7,6 @@ from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from config import Config
 from lib.ableton.ableton import (
-    is_ableton_up,
     reload_ableton,
     save_set_as_template,
     open_set,
@@ -111,10 +110,7 @@ async def tail_logs_raw():
 async def open_ableton():
     go_to_desktop(0)
 
-    if is_ableton_up():
-        reload_ableton()
-    else:
-        execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
+    execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
 
 
 @router.get("/open_current_set")
