@@ -48,8 +48,10 @@ class ConnectionManager:
         await ws_manager.broadcast_sever_state()
 
     async def broadcast_sever_state(self):
-        server_state = {"song_states": [ss.dict() for ss in SongStateManager.all()]}
-        logger.success(server_state)
+        song_states = list(
+            sorted([ss.dict() for ss in SongStateManager.all()], key=lambda s: s["title"])
+        )
+        server_state = {"song_states": song_states}
 
         for connection in self._active_connections:
             await connection.send_text(json.dumps({"type": "SERVER_STATE", "data": server_state}))

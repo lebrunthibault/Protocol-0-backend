@@ -1,7 +1,6 @@
 from typing import Optional, Dict
 
 from fastapi import APIRouter
-from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client_from_http
 from api.http_server.db import SongState, DB
@@ -79,7 +78,6 @@ async def song_state() -> Optional[SongState]:
 async def post_song_state(song_state: SongState):
     DB.song_state = song_state
     SongStateManager.register(song_state)
-    logger.success(song_state)
     await ws_manager.broadcast_song_state(song_state)
 
 

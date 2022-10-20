@@ -3,7 +3,11 @@ from typing import List, Dict, Optional
 from pydantic import BaseModel
 
 from lib.ableton.ableton import is_ableton_focused
-from lib.ableton.get_set import get_window_title_from_filename, get_recently_launched_set
+from lib.ableton.get_set import (
+    get_window_title_from_filename,
+    get_recently_launched_set,
+    get_launched_sets,
+)
 from lib.window.window import get_focused_window_title
 
 
@@ -27,6 +31,12 @@ class SongStateManager:
         song_state.title = song_state.title or get_window_title_from_filename(
             get_recently_launched_set()
         )
+
+        # cleaning here in case a closed set didn't notify
+        launched_sets = get_launched_sets()
+        for ss in cls.all():
+            if next(filter(lambda s: ss.title in s, launched_sets), None) is None:  # type: ignore
+                cls.remove(ss.id)
 
         # deduplicate on set title
         existing_song_state = cls.from_title(song_state.title)
