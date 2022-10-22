@@ -7,7 +7,7 @@ from loguru import logger
 from starlette.websockets import WebSocket, WebSocketDisconnect
 
 from api.http_server.db import SongState, DB
-from lib.song_state import SongStateManager
+from lib.server_state import ServerState
 
 ws_router = APIRouter()
 
@@ -48,13 +48,10 @@ class ConnectionManager:
         await ws_manager.broadcast_sever_state()
 
     async def broadcast_sever_state(self):
-        song_states = list(
-            sorted([ss.dict() for ss in SongStateManager.all()], key=lambda s: s["title"])
-        )
-        server_state = {"song_states": song_states}
-
         for connection in self._active_connections:
-            await connection.send_text(json.dumps({"type": "SERVER_STATE", "data": server_state}))
+            await connection.send_text(
+                json.dumps({"type": "SERVER_STATE", "data": ServerState.create().dict()})
+            )
 
 
 ws_manager = ConnectionManager()

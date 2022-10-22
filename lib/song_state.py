@@ -18,9 +18,6 @@ class SongState(BaseModel):
     id: str
     title: Optional[str]  # computed only by the backend
     muted: bool
-    sample_categories: Dict[str, List[str]]
-    favorite_device_names: List[List[str]]
-    insert_favorite_device_names: List[str]
     drum_rack_visible: bool
     room_eq_enabled: bool
 

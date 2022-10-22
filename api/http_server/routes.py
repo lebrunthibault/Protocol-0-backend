@@ -1,4 +1,4 @@
-from typing import Optional, Dict
+from typing import Optional
 
 from fastapi import APIRouter
 
@@ -12,10 +12,11 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
-from lib.ableton.get_set import get_last_launched_set, get_kontakt_set, get_recently_launched_set
+from lib.ableton.get_set import get_last_launched_set, get_kontakt_set
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
-from lib.song_state import SongStateManager, get_focused_set
+from lib.server_state import ServerState
+from lib.song_state import SongStateManager
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
@@ -58,14 +59,8 @@ async def _reload_script():
 
 
 @router.get("/server_state")
-async def server_state() -> Dict:
-    return {
-        "launched_sets": [s.dict(include={"id", "title", "muted"}) for s in SongStateManager.all()],
-        "get_last_launched_set": get_last_launched_set(),
-        "get_recently_launched_set": get_recently_launched_set(),
-        "get_kontakt_set": get_kontakt_set(),
-        "get_focused_set": get_focused_set(),
-    }
+async def server_state() -> ServerState:
+    return ServerState.create()
 
 
 @router.get("/song_state")
