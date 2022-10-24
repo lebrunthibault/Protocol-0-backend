@@ -83,6 +83,11 @@ async def delete_set(id: str):
     await ws_manager.broadcast_sever_state()
 
 
+@router.get("/set/sync")
+async def sync_sets():
+    SongStateManager.sync()
+
+
 @router.get("/save_set_as_template")
 async def _save_set_as_template():
     save_set_as_template()

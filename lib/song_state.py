@@ -2,13 +2,17 @@ from typing import List, Dict, Optional
 
 from pydantic import BaseModel
 
+from api.client.p0_script_api_client import p0_script_client_from_http
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
     get_window_title_from_filename,
     get_recently_launched_set,
     get_launched_sets,
 )
+from gui.celery import notification_window
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
+from protocol0.application.command.EnableScriptCommand import EnableScriptCommand
 
 
 class SongState(BaseModel):
@@ -16,6 +20,7 @@ class SongState(BaseModel):
         return f"SongState('{self.title}')"
 
     id: str
+    enabled: bool
     title: Optional[str]  # computed only by the backend
     muted: bool
     drum_rack_visible: bool
@@ -58,6 +63,21 @@ class SongStateManager:
     @classmethod
     def all(cls) -> List[SongState]:
         return list(_song_state_registry.values())
+
+    @classmethod
+    def sync(cls) -> None:
+        focused_set = get_focused_set()
+
+        if focused_set is None:
+            notification_window.delay("No set focused", NotificationEnum.WARNING.value)
+            return
+
+        for ss in cls.all():
+            command = EnableScriptCommand(ss == focused_set)
+            command.set_id = ss.id
+            p0_script_client_from_http().dispatch(command)
+
+        notification_window.delay(f"Activated '{focused_set.title}'")
 
 
 _song_state_registry: Dict[str, SongState] = {}
