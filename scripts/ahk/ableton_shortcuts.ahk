@@ -42,9 +42,6 @@ return
 ^+a::
 	callBackend("arm")
 return
-^l::
-	callBackend("toggle_scene_loop")
-return
 ^space::
 	callBackend("fire_selected_scene")
 return
@@ -60,6 +57,12 @@ if WinActive("ahk_exe Ableton Live 10 Suite.exe") {
 	callBackend("fire_scene_to_position", barLength)
 }
 Return
+^Enter::
+	callBackend("go_to_group_track")
+return
+^!+r::
+	callBackend("record_unlimited")
+return
 ^Left::
 	callBackend("scroll_scene_position", "prev")
 return
@@ -102,8 +105,8 @@ return
 ^e::
 	callBackend("toggle_clip_notes")
 return
-^Enter::
-	callBackend("go_to_group_track")
+^l::
+	callBackend("toggle_scene_loop")
 return
 
 !f:: ; fold / unfold set

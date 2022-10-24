@@ -21,6 +21,7 @@ from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSim
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
+from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.MuteSetCommand import MuteSetCommand
@@ -186,6 +187,11 @@ async def fire_scene_to_position(bar_length: Optional[int] = None):
 @router.get("/fire_selected_scene")
 async def fire_selected_scene():
     p0_script_client_from_http().dispatch(FireSelectedSceneCommand())
+
+
+@router.get("/record_unlimited")
+async def record_unlimited():
+    p0_script_client_from_http().dispatch(RecordUnlimitedCommand())
 
 
 @router.get("/scroll_scenes/{direction}")
