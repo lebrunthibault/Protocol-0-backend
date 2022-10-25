@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from api.client.p0_script_api_client import p0_script_client_from_http
 from api.http_server.ws import ws_manager
 from config import Config
+from gui.celery import notification_window
 from lib.ableton.ableton import (
     reload_ableton,
     save_set_as_template,
@@ -64,7 +65,7 @@ async def server_state() -> ServerState:
 
 
 @router.post("/set")
-async def post_ableton_set(set: AbletonSet):
+async def post_set(set: AbletonSet):
     AbletonSetManager.register(set)
     await ws_manager.broadcast_set(set)
 
@@ -112,31 +113,22 @@ async def tail_logs_raw():
     )
 
 
-@router.get("/open_ableton")
-async def open_ableton():
-    go_to_desktop(0)
+@router.get("/open_set/{name}")
+async def _open_set(name: str):
+    if name == "new":
+        go_to_desktop(0)
+        execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
+        notification_window.delay(f"Opening new set")
+        return
 
-    execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
+    sets = {
+        "current": lambda: Config.ABLETON_CURRENT_SET,
+        "default": lambda: Config.ABLETON_DEFAULT_SET,
+        "last": get_last_launched_set,
+        "kontakt": get_kontakt_set,
+    }
 
-
-@router.get("/open_current_set")
-async def open_current_set():
-    open_set(Config.ABLETON_CURRENT_SET)
-
-
-@router.get("/open_default_set")
-async def open_default_set():
-    open_set(Config.ABLETON_DEFAULT_SET)
-
-
-@router.get("/open_last_set")
-async def open_last_set():
-    open_set(get_last_launched_set())
-
-
-@router.get("/open_kontakt_set")
-async def open_kontakt_set():
-    open_set(get_kontakt_set())
+    open_set(sets[name]())
 
 
 @router.get("/toggle_room_eq")

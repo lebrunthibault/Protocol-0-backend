@@ -67,7 +67,7 @@ class Routes:
         p0_script_client().dispatch(command)
 
         # forward to http server
-        requests.post(f"{Config.HTTP_API_URL}/ableton_set", data=ableton_set.json())
+        requests.post(f"{Config.HTTP_API_URL}/set", data=ableton_set.json())
 
     def search(self, search: str) -> None:
         send_keys("^f")
