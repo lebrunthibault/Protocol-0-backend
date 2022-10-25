@@ -57,7 +57,7 @@ def get_kontakt_set() -> str:
     return Config.ABLETON_KONTAKT_SET
 
 
-def get_window_title_from_filename(filename: str) -> str:
+def _get_window_title_from_filename(filename: str) -> str:
     # for matching against window title
     if filename == Config.ABLETON_DEFAULT_SET:
         return "Untitled"

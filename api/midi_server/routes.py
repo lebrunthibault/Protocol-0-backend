@@ -62,7 +62,9 @@ class Routes:
         song_state = SongState(**song_state)
         SongStateManager.register(song_state)
         sleep(0.5)  # fix too fast backend ..?
-        p0_script_client().dispatch(ProcessBackendResponseCommand(song_state.dict()))
+        command = ProcessBackendResponseCommand(song_state.dict())
+        command.set_id = song_state.id
+        p0_script_client().dispatch(command)
 
         # forward to http server
         requests.post(f"{Config.HTTP_API_URL}/song_state", data=song_state.json())

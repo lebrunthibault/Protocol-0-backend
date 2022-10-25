@@ -2,17 +2,18 @@ from typing import List, Dict, Optional
 
 from pydantic import BaseModel
 
-from api.client.p0_script_api_client import p0_script_client_from_http
+from api.client.p0_script_api_client import p0_script_client_from_http, p0_script_client
+from gui.celery import notification_window
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
-    get_window_title_from_filename,
+    _get_window_title_from_filename,
     get_recently_launched_set,
     get_launched_sets,
 )
-from gui.celery import notification_window
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.EnableScriptCommand import EnableScriptCommand
+from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
 
 
 class SongState(BaseModel):
@@ -30,7 +31,7 @@ class SongState(BaseModel):
 class SongStateManager:
     @classmethod
     def register(cls, song_state: SongState):
-        song_state.title = song_state.title or get_window_title_from_filename(
+        song_state.title = song_state.title or _get_window_title_from_filename(
             get_recently_launched_set()
         )
 
@@ -58,7 +59,7 @@ class SongStateManager:
 
     @classmethod
     def from_title(cls, title: str) -> Optional[SongState]:
-        return next(filter(lambda s: s.title in title, cls.all()), None)  # type: ignore
+        return next(filter(lambda s: s.title == title, cls.all()), None)  # type: ignore
 
     @classmethod
     def all(cls) -> List[SongState]:
@@ -71,6 +72,8 @@ class SongStateManager:
         if focused_set is None:
             notification_window.delay("No set focused", NotificationEnum.WARNING.value)
             return
+
+        p0_script_client().dispatch(GetSongStateCommand())
 
         for ss in cls.all():
             command = EnableScriptCommand(ss == focused_set)
@@ -87,4 +90,10 @@ def get_focused_set() -> Optional[SongState]:
     if not is_ableton_focused():
         return None
 
-    return SongStateManager.from_title(get_focused_window_title())
+    title = get_focused_window_title()
+    if "*" in title:
+        set_title = title.split("*")[0]
+    else:
+        set_title = title.split(" - Ableton Live")[0]
+
+    return SongStateManager.from_title(set_title)
