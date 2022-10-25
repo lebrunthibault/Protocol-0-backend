@@ -12,7 +12,7 @@ from lib.ableton.get_set import (
 )
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
-from protocol0.application.command.EnableScriptCommand import EnableScriptCommand
+from protocol0.application.command.ActivateSetCommand import ActivateSetCommand
 from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 
 
@@ -21,7 +21,7 @@ class AbletonSet(BaseModel):
         return f"AbletonSet('{self.title}')"
 
     id: str
-    enabled: bool
+    active: bool
     title: Optional[str]  # computed only by the backend
     muted: bool
     drum_rack_visible: bool
@@ -59,7 +59,7 @@ class AbletonSetManager:
 
     @classmethod
     def active(cls) -> Optional[AbletonSet]:
-        return next(filter(lambda s: s.enabled, cls.all()), None)  # type: ignore
+        return next(filter(lambda s: s.active, cls.all()), None)  # type: ignore
 
     @classmethod
     def from_title(cls, title: str) -> Optional[AbletonSet]:
@@ -80,7 +80,7 @@ class AbletonSetManager:
         p0_script_client().dispatch(GetSetStateCommand())
 
         for ss in cls.all():
-            command = EnableScriptCommand(ss == active_set)
+            command = ActivateSetCommand(ss == active_set)
             command.set_id = ss.id
             p0_script_client_from_http().dispatch(command)
 

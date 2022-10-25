@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Callable, Dict
 
 from fastapi import APIRouter
 
@@ -118,10 +118,10 @@ async def _open_set(name: str):
     if name == "new":
         go_to_desktop(0)
         execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
-        notification_window.delay(f"Opening new set")
+        notification_window.delay("Opening new set")
         return
 
-    sets = {
+    sets: Dict[str, Callable] = {
         "current": lambda: Config.ABLETON_CURRENT_SET,
         "default": lambda: Config.ABLETON_DEFAULT_SET,
         "last": get_last_launched_set,
