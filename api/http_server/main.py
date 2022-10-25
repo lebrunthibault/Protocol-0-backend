@@ -11,7 +11,7 @@ from api.client.p0_script_api_client import p0_script_client_from_http
 load_dotenv()
 from api.http_server.routes import router  # noqa
 from api.http_server.ws import ws_router  # noqa
-from protocol0.application.command.GetSongStateCommand import GetSongStateCommand  # noqa
+from protocol0.application.command.GetSetStateCommand import GetSetStateCommand  # noqa
 
 app = FastAPI(debug=True)
 
@@ -26,4 +26,4 @@ async def validation_exception_handler(request, exc: Exception):
     return PlainTextResponse(str(exc), status_code=400)
 
 
-p0_script_client_from_http().dispatch(GetSongStateCommand())
+p0_script_client_from_http().dispatch(GetSetStateCommand())

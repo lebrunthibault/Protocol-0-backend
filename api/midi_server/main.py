@@ -23,7 +23,7 @@ from lib.utils import (
     make_dict_from_sysex_message,
     make_script_command_from_sysex_message,
 )
-from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
+from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 
 logger = logger.opt(colors=True)
 
@@ -38,7 +38,7 @@ def start_midi_server():
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
 
-    p0_script_client().dispatch(GetSongStateCommand())
+    p0_script_client().dispatch(GetSetStateCommand())
 
     notification_window.delay("Midi server started")
 

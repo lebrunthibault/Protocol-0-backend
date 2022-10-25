@@ -17,7 +17,7 @@ class P0ScriptClient(object):
 
     def dispatch(self, command: SerializableCommand) -> None:
         # Pass the focused set info to the script in case of multiple sets
-        from lib.song_state import get_focused_set
+        from lib.ableton_set import get_focused_set
 
         focused_set = get_focused_set()
         if focused_set is not None and command.set_id is None:

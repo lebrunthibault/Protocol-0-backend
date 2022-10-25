@@ -13,12 +13,12 @@ from lib.ableton.get_set import (
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.EnableScriptCommand import EnableScriptCommand
-from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
+from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 
 
-class SongState(BaseModel):
+class AbletonSet(BaseModel):
     def __repr__(self):
-        return f"SongState('{self.title}')"
+        return f"AbletonSet('{self.title}')"
 
     id: str
     enabled: bool
@@ -28,10 +28,10 @@ class SongState(BaseModel):
     room_eq_enabled: bool
 
 
-class SongStateManager:
+class AbletonSetManager:
     @classmethod
-    def register(cls, song_state: SongState):
-        song_state.title = song_state.title or _get_window_title_from_filename(
+    def register(cls, ableton_set: AbletonSet):
+        ableton_set.title = ableton_set.title or _get_window_title_from_filename(
             get_recently_launched_set()
         )
 
@@ -42,51 +42,56 @@ class SongStateManager:
                 cls.remove(ss.id)
 
         # deduplicate on set title
-        existing_song_state = cls.from_title(song_state.title)
-        if existing_song_state is not None:
-            cls.remove(existing_song_state.id)
+        existing_set = cls.from_title(ableton_set.title)
+        if existing_set is not None:
+            cls.remove(existing_set.id)
 
-        _song_state_registry[song_state.id] = song_state
+        _ableton_set_registry[ableton_set.id] = ableton_set
 
     @classmethod
     def remove(cls, id: str):
-        if id in _song_state_registry:
-            del _song_state_registry[id]
+        if id in _ableton_set_registry:
+            del _ableton_set_registry[id]
 
     @classmethod
-    def get(cls, id) -> SongState:
-        return _song_state_registry[id]
+    def get(cls, id: str) -> AbletonSet:
+        return _ableton_set_registry[id]
 
     @classmethod
-    def from_title(cls, title: str) -> Optional[SongState]:
+    def active(cls) -> Optional[AbletonSet]:
+        return next(filter(lambda s: s.enabled, cls.all()), None)  # type: ignore
+
+    @classmethod
+    def from_title(cls, title: str) -> Optional[AbletonSet]:
         return next(filter(lambda s: s.title == title, cls.all()), None)  # type: ignore
 
     @classmethod
-    def all(cls) -> List[SongState]:
-        return list(_song_state_registry.values())
+    def all(cls) -> List[AbletonSet]:
+        return list(_ableton_set_registry.values())
 
     @classmethod
-    def sync(cls) -> None:
-        focused_set = get_focused_set()
+    def sync(cls, active_set: AbletonSet = None) -> None:
+        active_set = get_focused_set()
 
-        if focused_set is None:
+        if active_set is None:
             notification_window.delay("No set focused", NotificationEnum.WARNING.value)
             return
 
-        p0_script_client().dispatch(GetSongStateCommand())
+        p0_script_client().dispatch(GetSetStateCommand())
 
         for ss in cls.all():
-            command = EnableScriptCommand(ss == focused_set)
+            command = EnableScriptCommand(ss == active_set)
             command.set_id = ss.id
             p0_script_client_from_http().dispatch(command)
 
-        notification_window.delay(f"Activated '{focused_set.title}'")
+        notification_window.delay(f"Activated '{active_set.title}'")
 
 
-_song_state_registry: Dict[str, SongState] = {}
+# in-memory registry
+_ableton_set_registry: Dict[str, AbletonSet] = {}
 
 
-def get_focused_set() -> Optional[SongState]:
+def get_focused_set() -> Optional[AbletonSet]:
     if not is_ableton_focused():
         return None
 
@@ -96,4 +101,4 @@ def get_focused_set() -> Optional[SongState]:
     else:
         set_title = title.split(" - Ableton Live")[0]
 
-    return SongStateManager.from_title(set_title)
+    return AbletonSetManager.from_title(set_title)

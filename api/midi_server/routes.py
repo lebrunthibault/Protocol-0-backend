@@ -7,7 +7,7 @@ import requests
 from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
-from lib.song_state import SongState, SongStateManager
+from lib.ableton_set import AbletonSet, AbletonSetManager
 from api.midi_server.main import stop_midi_server
 from config import Config
 from gui.celery import select_window, notification_window
@@ -28,7 +28,7 @@ from lib.mouse.mouse import click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
-from protocol0.application.command.GetSongStateCommand import GetSongStateCommand
+from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.ProcessBackendResponseCommand import (
     ProcessBackendResponseCommand,
 )
@@ -50,24 +50,24 @@ class Routes:
         AbletonSetProfiler.end_measurement()
 
     def close_set(self, id: str) -> None:
-        SongStateManager.remove(id)
+        AbletonSetManager.remove(id)
         requests.delete(f"{Config.HTTP_API_URL}/set/{id}")
 
-        self.get_song_state()
+        self.get_set_state()
 
-    def get_song_state(self) -> None:
-        p0_script_client().dispatch(GetSongStateCommand())
+    def get_set_state(self) -> None:
+        p0_script_client().dispatch(GetSetStateCommand())
 
-    def notify_song_state(self, song_state: Dict) -> None:
-        song_state = SongState(**song_state)
-        SongStateManager.register(song_state)
+    def notify_set_state(self, set_data: Dict) -> None:
+        ableton_set = AbletonSet(**set_data)
+        AbletonSetManager.register(ableton_set)
         sleep(0.5)  # fix too fast backend ..?
-        command = ProcessBackendResponseCommand(song_state.dict())
-        command.set_id = song_state.id
+        command = ProcessBackendResponseCommand(ableton_set.dict())
+        command.set_id = ableton_set.id
         p0_script_client().dispatch(command)
 
         # forward to http server
-        requests.post(f"{Config.HTTP_API_URL}/song_state", data=song_state.json())
+        requests.post(f"{Config.HTTP_API_URL}/ableton_set", data=ableton_set.json())
 
     def search(self, search: str) -> None:
         send_keys("^f")

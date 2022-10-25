@@ -3,7 +3,6 @@ from typing import Optional
 from fastapi import APIRouter
 
 from api.client.p0_script_api_client import p0_script_client_from_http
-from api.http_server.db import SongState, DB
 from api.http_server.ws import ws_manager
 from config import Config
 from lib.ableton.ableton import (
@@ -13,19 +12,19 @@ from lib.ableton.ableton import (
     toggle_clip_notes,
 )
 from lib.ableton.get_set import get_last_launched_set, get_kontakt_set
+from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 from lib.server_state import ServerState
-from lib.song_state import SongStateManager
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
-from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
+from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
 from protocol0.application.command.ScrollSceneTracksCommand import ScrollSceneTracksCommand
@@ -64,28 +63,34 @@ async def server_state() -> ServerState:
     return ServerState.create()
 
 
-@router.get("/song_state")
-async def song_state() -> Optional[SongState]:
-    return DB.song_state
-
-
-@router.post("/song_state")
-async def post_song_state(song_state: SongState):
-    DB.song_state = song_state
-    SongStateManager.register(song_state)
-    await ws_manager.broadcast_song_state(song_state)
+@router.post("/set")
+async def post_ableton_set(set: AbletonSet):
+    AbletonSetManager.register(set)
+    await ws_manager.broadcast_set(set)
 
 
 @router.delete("/set/{id}")
 async def delete_set(id: str):
-    SongStateManager.remove(id)
-    DB.song_state = None
+    AbletonSetManager.remove(id)
     await ws_manager.broadcast_sever_state()
+
+
+@router.get("/set/active")
+async def active_set() -> Optional[AbletonSet]:
+    return AbletonSetManager.active()
 
 
 @router.get("/set/sync")
 async def sync_sets():
-    SongStateManager.sync()
+    AbletonSetManager.sync()
+
+
+@router.get("/set/{id}/mute")
+async def mute_set(id: str):
+    command = MuteSetCommand()
+    command.set_id = id
+
+    p0_script_client_from_http().dispatch(command)
 
 
 @router.get("/save_set_as_template")
@@ -132,15 +137,6 @@ async def open_last_set():
 @router.get("/open_kontakt_set")
 async def open_kontakt_set():
     open_set(get_kontakt_set())
-
-
-@router.get("/mute_set/{set_id}")
-async def mute_set(set_id: str):
-    command = MuteSetCommand()
-    song_state = SongStateManager.get(set_id)
-    command.set_id = song_state.id
-
-    p0_script_client_from_http().dispatch(command)
 
 
 @router.get("/toggle_room_eq")
