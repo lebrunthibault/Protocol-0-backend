@@ -114,7 +114,7 @@ def open_set(set_path: str):
         return
 
     relative_path = set_path.replace(f"{settings.ableton_set_directory}\\", "").replace("//", "\\")
-    notification_window.delay(f"Opening {relative_path}")
+    notification_window.delay(f"Opening '{relative_path}'")
 
     go_to_desktop(0)
     execute_process_in_new_window(f'& "{set_path}"')
