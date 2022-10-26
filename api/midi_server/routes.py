@@ -7,7 +7,6 @@ import requests
 from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
-from lib.ableton_set import AbletonSet, AbletonSetManager
 from api.midi_server.main import stop_midi_server
 from config import Config
 from gui.celery import select_window, notification_window
@@ -21,6 +20,7 @@ from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
+from lib.ableton_set import AbletonSet
 from lib.decorators import reset_midi_client, throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
@@ -28,7 +28,6 @@ from lib.mouse.mouse import click, click_vertical_zone, move_to
 from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
-from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.ProcessBackendResponseCommand import (
     ProcessBackendResponseCommand,
 )
@@ -49,25 +48,12 @@ class Routes:
     def ping(self) -> None:
         AbletonSetProfiler.end_measurement()
 
-    def close_set(self, id: str) -> None:
-        AbletonSetManager.remove(id)
-        requests.delete(f"{Config.HTTP_API_URL}/set/{id}")
-
-        self.get_set_state()
-
-    def get_set_state(self) -> None:
-        p0_script_client().dispatch(GetSetStateCommand())
-
     def notify_set_state(self, set_data: Dict) -> None:
-        ableton_set = AbletonSet(**set_data)
-        AbletonSetManager.register(ableton_set)
-        sleep(0.5)  # fix too fast backend ..?
-        command = ProcessBackendResponseCommand(ableton_set.dict())
-        command.set_id = ableton_set.id
-        p0_script_client().dispatch(command)
-
         # forward to http server
-        requests.post(f"{Config.HTTP_API_URL}/set", data=ableton_set.json())
+        requests.post(f"{Config.HTTP_API_URL}/set", data=AbletonSet(**set_data).json())
+
+    def close_set(self, id: str) -> None:
+        requests.delete(f"{Config.HTTP_API_URL}/set/{id}")
 
     def search(self, search: str) -> None:
         send_keys("^f")

@@ -1,4 +1,5 @@
 """ http / websocket gateway server to the midi server. Hit by ahk and the stream deck. """
+import asyncio
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -26,4 +27,7 @@ async def validation_exception_handler(request, exc: Exception):
     return PlainTextResponse(str(exc), status_code=400)
 
 
-p0_script_client_from_http().dispatch(GetSetStateCommand())
+@app.on_event("startup")
+async def startup_event():
+    await asyncio.sleep(1)
+    p0_script_client_from_http().dispatch(GetSetStateCommand())

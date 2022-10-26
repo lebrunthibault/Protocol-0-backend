@@ -23,7 +23,6 @@ from lib.utils import (
     make_dict_from_sysex_message,
     make_script_command_from_sysex_message,
 )
-from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 
 logger = logger.opt(colors=True)
 
@@ -37,8 +36,6 @@ def start_midi_server():
     midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
-
-    p0_script_client().dispatch(GetSetStateCommand())
 
     notification_window.delay("Midi server started")
 

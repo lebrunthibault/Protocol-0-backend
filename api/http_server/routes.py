@@ -1,3 +1,4 @@
+from time import sleep
 from typing import Optional, Callable, Dict
 
 from fastapi import APIRouter
@@ -25,6 +26,9 @@ from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
+from protocol0.application.command.ProcessBackendResponseCommand import (
+    ProcessBackendResponseCommand,
+)
 from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
@@ -42,11 +46,6 @@ from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoop
 from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
 
 router = APIRouter()
-
-
-@router.get("/")
-async def index():
-    return {"message": "Hello World"}
 
 
 @router.get("/reload_ableton")
@@ -67,6 +66,10 @@ async def server_state() -> ServerState:
 @router.post("/set")
 async def post_set(set: AbletonSet):
     AbletonSetManager.register(set)
+    sleep(0.5)  # fix too fast backend ..?
+    command = ProcessBackendResponseCommand(set.dict())
+    command.set_id = set.id
+    p0_script_client_from_http().dispatch(command)
     await ws_manager.broadcast_set(set)
 
 
