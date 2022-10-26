@@ -3,9 +3,9 @@ from typing import Optional, Callable, Dict
 
 from fastapi import APIRouter
 
-from api.client.p0_script_api_client import p0_script_client_from_http
+from api.client.p0_script_api_client import p0_script_client_from_http, p0_script_client
 from api.http_server.ws import ws_manager
-from config import Config
+from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.ableton import (
     reload_ableton,
@@ -21,6 +21,7 @@ from lib.server_state import ServerState
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
+from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
@@ -47,6 +48,8 @@ from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
 
 router = APIRouter()
 
+settings = Settings()
+
 
 @router.get("/reload_ableton")
 async def _reload_ableton():
@@ -65,18 +68,18 @@ async def server_state() -> ServerState:
 
 @router.post("/set")
 async def post_set(set: AbletonSet):
-    AbletonSetManager.register(set)
+    await AbletonSetManager.register(set)
     sleep(0.5)  # fix too fast backend ..?
     command = ProcessBackendResponseCommand(set.dict())
     command.set_id = set.id
     p0_script_client_from_http().dispatch(command)
-    await ws_manager.broadcast_set(set)
+    await ws_manager.broadcast_server_state()
 
 
 @router.delete("/set/{id}")
 async def delete_set(id: str):
-    AbletonSetManager.remove(id)
-    await ws_manager.broadcast_sever_state()
+    await AbletonSetManager.remove(id)
+    await ws_manager.broadcast_server_state()
 
 
 @router.get("/set/active")
@@ -86,7 +89,13 @@ async def active_set() -> Optional[AbletonSet]:
 
 @router.get("/set/sync")
 async def sync_sets():
-    AbletonSetManager.sync()
+    await AbletonSetManager.sync()
+
+
+@router.get("/set/refresh")
+async def refresh_sets():
+    p0_script_client().dispatch(GetSetStateCommand())
+    notification_window.delay("Refreshing set info")
 
 
 @router.get("/set/{id}/mute")
@@ -105,14 +114,14 @@ async def _save_set_as_template():
 @router.get("/tail_logs")
 async def tail_logs():
     execute_python_script_in_new_window(
-        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py"
+        f"{settings.project_directory}/scripts/tail_protocol0_logs.py"
     )
 
 
 @router.get("/tail_logs_raw")
 async def tail_logs_raw():
     execute_python_script_in_new_window(
-        f"{Config.PROJECT_DIRECTORY}/scripts/tail_protocol0_logs.py", "--raw"
+        f"{settings.project_directory}/scripts/tail_protocol0_logs.py", "--raw"
     )
 
 
@@ -120,13 +129,12 @@ async def tail_logs_raw():
 async def _open_set(name: str):
     if name == "new":
         go_to_desktop(0)
-        execute_process_in_new_window(f'& "{Config.ABLETON_EXE}"')
+        execute_process_in_new_window(f'& "{settings.ableton_exe}"')
         notification_window.delay("Opening new set")
         return
 
     sets: Dict[str, Callable] = {
-        "current": lambda: Config.ABLETON_CURRENT_SET,
-        "default": lambda: Config.ABLETON_DEFAULT_SET,
+        "default": lambda: settings.ableton_default_set,
         "last": get_last_launched_set,
         "kontakt": get_kontakt_set,
     }

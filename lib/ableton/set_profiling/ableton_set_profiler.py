@@ -2,7 +2,7 @@ from loguru import logger
 from typing import Optional
 
 from api.client.p0_script_api_client import p0_script_client
-from config import Config
+from api.settings import Settings
 from lib.ableton.set_profiling.ableton_set_profiling_session import AbletonSetProfilingSession
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
@@ -20,7 +20,10 @@ class AbletonSetProfiler:
 
     @classmethod
     def check_profiling_conditions(cls):
-        if find_window_handle_by_enum(Config.LOG_WINDOW_TITLE, SearchTypeEnum.WINDOW_TITLE) != 0:
+        if (
+            find_window_handle_by_enum(Settings().log_window_title, SearchTypeEnum.WINDOW_TITLE)
+            != 0
+        ):
             cls.handle_profiling_error("Close the log message to start profiling")
             return False
         return True

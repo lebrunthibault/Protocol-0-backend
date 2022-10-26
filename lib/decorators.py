@@ -18,17 +18,6 @@ def log_exceptions(func):
     return decorate
 
 
-def reset_midi_client(func):
-    @wraps(func)
-    def decorate(*a, **k):
-        from api.client.p0_script_api_client import p0_script_client
-
-        p0_script_client.IS_LIVE = False
-        func(*a, **k)
-
-    return decorate
-
-
 class throttle(object):
     """
     Decorator that prevents a function from being called more than once every

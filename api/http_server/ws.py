@@ -6,7 +6,6 @@ from fastapi import APIRouter
 from loguru import logger
 from starlette.websockets import WebSocket, WebSocketDisconnect
 
-from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.server_state import ServerState
 
 ws_router = APIRouter()
@@ -14,7 +13,7 @@ ws_router = APIRouter()
 _DEBUG = False
 
 
-class ConnectionManager:
+class WebSocketManager:
     def __init__(self):
         self._active_connections: List[WebSocket] = []
 
@@ -31,29 +30,19 @@ class ConnectionManager:
         if _DEBUG:
             logger.info(f"connection added: {self}")
 
-        active_set = AbletonSetManager.active()
-        if active_set is not None:
-            await self.broadcast_set(active_set)
-
-        await self.broadcast_sever_state()
+        await self.broadcast_server_state()
 
     def disconnect(self, websocket: WebSocket):
         self._active_connections.remove(websocket)
 
-    async def broadcast_set(self, set: AbletonSet):
-        for connection in self._active_connections:
-            await connection.send_text(json.dumps({"type": "SET_STATE", "data": set.dict()}))
-
-        await ws_manager.broadcast_sever_state()
-
-    async def broadcast_sever_state(self):
+    async def broadcast_server_state(self):
         for connection in self._active_connections:
             await connection.send_text(
                 json.dumps({"type": "SERVER_STATE", "data": ServerState.create().dict()})
             )
 
 
-ws_manager = ConnectionManager()
+ws_manager = WebSocketManager()
 
 
 @ws_router.get("/ws/connections")

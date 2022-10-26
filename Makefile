@@ -9,7 +9,7 @@ celery_flower:
 	venv/scripts/watchmedo auto-restart --directory=./gui --pattern=*.py --recursive -- powershell scripts/powershell/start_celery_flower.ps1
 
 http_server:
-	venv/scripts/uvicorn api.http_server.main:app --port 8000 --reload
+	venv/scripts/uvicorn api.http_server.main:app --port 8000 --reload --workers 4
 
 midi_server:
 	venv\scripts\watchmedo auto-restart --directory=. --pattern="api/midi_server/*.py;api/midi_server/**/*.py;api/client/*.py;lib/*.py;lib/**/*.py;lib/**/**/*.py" --recursive --ignore-directories -- venv\scripts\python .\scripts\start_midi_server.py
@@ -47,9 +47,11 @@ mypy:
 
 vulture:
 	cls
-	vulture . .\vulture_whitelist.py
+	./venv/scripts/vulture . .\vulture_whitelist.py --make-whitelist --exclude=venv/,api_client/,routes.py
 
 check:
 	make black
 	make flake8
 	make mypy
+	make vulture
+	@echo "ok"

@@ -3,7 +3,7 @@ from PIL import ImageGrab
 from loguru import logger
 from typing import Tuple
 
-from config import Config
+from api.settings import Settings
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 
 
@@ -15,8 +15,8 @@ def click(x: int, y: int, keep_position=True, exact=False) -> None:
     # coordinates are relative to a 1080p display resolution
     # accounting for resolution change
     if not exact:
-        x *= Config.DISPLAY_RESOLUTION_FACTOR
-        y *= Config.DISPLAY_RESOLUTION_FACTOR
+        x *= Settings().display_resolution_factor
+        y *= Settings().display_resolution_factor
 
     mouse_position = pyautogui.position()
 

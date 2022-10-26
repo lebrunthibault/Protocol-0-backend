@@ -8,7 +8,7 @@ from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
 from api.midi_server.main import stop_midi_server
-from config import Config
+from api.settings import Settings
 from gui.celery import select_window, notification_window
 from lib.ableton.ableton import (
     reload_ableton,
@@ -21,7 +21,7 @@ from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
-from lib.decorators import reset_midi_client, throttle
+from lib.decorators import throttle
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
@@ -32,28 +32,34 @@ from protocol0.application.command.ProcessBackendResponseCommand import (
     ProcessBackendResponseCommand,
 )
 
+settings = Settings()
+
 
 class Routes:
     def test(self) -> None:
         pass
 
     def test_duplication(self) -> None:
-        log_path = f"{Config.PROJECT_DIRECTORY}/test_duplication.txt"
+        log_path = f"{settings.project_directory}/test_duplication.txt"
         with open(log_path, "a") as f:
             f.write(f"{time.time()} - pid: {os.getpid()}\n")
         logger.info(f"pid written to {log_path}")
         os.startfile(log_path)
 
-    @reset_midi_client
     def ping(self) -> None:
         AbletonSetProfiler.end_measurement()
 
     def notify_set_state(self, set_data: Dict) -> None:
         # forward to http server
-        requests.post(f"{Config.HTTP_API_URL}/set", data=AbletonSet(**set_data).json())
+        requests.post(f"{settings.http_api_url}/set", data=AbletonSet(**set_data).json())
 
     def close_set(self, id: str) -> None:
-        requests.delete(f"{Config.HTTP_API_URL}/set/{id}")
+        requests.delete(f"{settings.http_api_url}/set/{id}")
+
+    def log(self, message: str) -> None:
+        """Merging logs from different script instances"""
+        with open(settings.log_file, "a") as f:
+            f.write(f"{message}\n")
 
     def search(self, search: str) -> None:
         send_keys("^f")

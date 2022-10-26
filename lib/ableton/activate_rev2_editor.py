@@ -2,11 +2,13 @@ from enum import Enum
 from loguru import logger
 from typing import Tuple
 
-from config import Config
+from api.settings import Settings
 from lib.ableton.ableton import show_plugins
 from lib.mouse.mouse import click
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import get_window_position, focus_window
+
+settings = Settings()
 
 
 class Rev2ButtonsRelativeCoordinates(Enum):
@@ -15,7 +17,6 @@ class Rev2ButtonsRelativeCoordinates(Enum):
     # Relative coordinates
     ACTIVATION_MIDDLE_BUTTON = (784, 504)
     PROGRAM = (1067, 147)
-    PRESET_STAR_CATEGORY = (919, 322)
 
 
 def _get_absolute_button_position(
@@ -23,8 +24,8 @@ def _get_absolute_button_position(
 ) -> Tuple[int, int]:
     (x, y, w, h) = get_window_position(handle)
     (x_button, y_button) = window_coordinates.value
-    x_button *= Config.DISPLAY_RESOLUTION_FACTOR
-    y_button *= Config.DISPLAY_RESOLUTION_FACTOR
+    x_button *= settings.display_resolution_factor
+    y_button *= settings.display_resolution_factor
     return (x + x_button, y + y_button)
 
 
@@ -40,13 +41,13 @@ def post_activate_rev2_editor():
 
 def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
     show_plugins()
-    handle = find_window_handle_by_enum(Config.REV2_EDITOR_WINDOW_TITLE)
+    handle = find_window_handle_by_enum(settings.rev2_editor_window_title)
     if not handle:
         logger.warning(
-            f"Couldn't find rev2 editor window for name: {Config.REV2_EDITOR_WINDOW_TITLE}. Check set naming"
+            f"Couldn't find rev2 editor window for name: {settings.rev2_editor_window_title}. Check set naming"
         )
         return
-    focus_window(name=Config.REV2_EDITOR_WINDOW_TITLE)
+    focus_window(name=settings.rev2_editor_window_title)
     click(
         *_get_absolute_button_position(handle, coordinates),
         exact=True,

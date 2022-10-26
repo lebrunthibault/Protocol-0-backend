@@ -4,7 +4,7 @@ from typing import List, Dict, Optional
 from loguru import logger
 from pydantic import BaseModel
 
-from api.client.p0_script_api_client import p0_script_client_from_http, p0_script_client
+from api.client.p0_script_api_client import p0_script_client_from_http
 from gui.celery import notification_window
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
@@ -15,12 +15,12 @@ from lib.ableton.get_set import (
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.ActivateSetCommand import ActivateSetCommand
-from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 
 
 class AbletonSet(BaseModel):
     def __repr__(self):
-        return f"AbletonSet('{self.title}')"
+        star = "*" if self.active else ""
+        return f"AbletonSet('{star}{self.title}')"
 
     def __str__(self):
         return self.__repr__()
@@ -34,10 +34,10 @@ class AbletonSet(BaseModel):
 
 
 class AbletonSetManager:
-    DEBUG = False
+    DEBUG = True
 
     @classmethod
-    def register(cls, ableton_set: AbletonSet):
+    async def register(cls, ableton_set: AbletonSet):
         ableton_set.title = ableton_set.title or _get_window_title_from_filename(
             get_recently_launched_set()
         )
@@ -46,28 +46,33 @@ class AbletonSetManager:
         launched_sets = get_launched_sets()
         for ss in cls.all():
             if next(filter(lambda s: ss.title in s, launched_sets), None) is None:  # type: ignore
-                cls.remove(ss.id)
+                await cls.remove(ss.id)
 
         # deduplicate on set title
         existing_set = cls.from_title(ableton_set.title)
 
         _ableton_set_registry[ableton_set.id] = ableton_set
         if cls.DEBUG:
-            logger.info(f"registering set {ableton_set}, existing: {existing_set and existing_set.id}")
+            logger.info(f"registering set {ableton_set}, existing: {existing_set is not None}")
 
         if existing_set is not None and existing_set.id != ableton_set.id:
-            cls.remove(existing_set.id)
+            await cls.remove(existing_set.id)
         if existing_set is None:
             # it's an update
-            cls.sync(active_set=ableton_set)
+            await cls.sync(active_set=ableton_set)
 
     @classmethod
-    def remove(cls, id: str):
+    async def remove(cls, id: str):
         if cls.DEBUG:
             logger.info(f"removing {id}")
 
         if id in _ableton_set_registry:
             del _ableton_set_registry[id]
+
+            # pass the active state to another set
+            other_set = next(iter(cls.all()), None)
+            if other_set is not None:
+                await cls.sync(other_set, force_log=True)
 
     @classmethod
     def get(cls, id: str) -> AbletonSet:
@@ -86,10 +91,7 @@ class AbletonSetManager:
         return list(_ableton_set_registry.values())
 
     @classmethod
-    def sync(cls, active_set: AbletonSet = None) -> None:
-        if active_set is None:
-            p0_script_client().dispatch(GetSetStateCommand())
-
+    async def sync(cls, active_set: AbletonSet = None, force_log=False) -> None:
         active_set = active_set or get_focused_set()
 
         if active_set is None:
@@ -100,12 +102,16 @@ class AbletonSetManager:
             ss.active = ss == active_set
             command = ActivateSetCommand(ss.active)
             command.set_id = ss.id
-            p0_script_client_from_http().dispatch(command)
+            p0_script_client_from_http().dispatch(command, log=False)
 
-        if len(cls.all()) > 1:
+        from api.http_server.ws import ws_manager
+
+        await ws_manager.broadcast_server_state()
+
+        if len(cls.all()) > 1 or force_log:
             notification_window.delay(f"Activated '{active_set.title}'")
         else:
-            notification_window.delay("Only one set launched")
+            logger.info("Only one set launched")
 
 
 # in-memory registry
@@ -117,8 +123,6 @@ def get_focused_set() -> Optional[AbletonSet]:
         return None
 
     title = get_focused_window_title()
-    if AbletonSetManager.DEBUG:
-        logger.info(f"focused_window_title: {title}")
 
     match = re.match("([^[*]*)\*?\s*(\[[^[]*])? - Ableton Live.*", title)
 

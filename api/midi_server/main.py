@@ -10,7 +10,7 @@ from mido import Message
 from mido.backends.rtmidi import Input
 
 from api.client.p0_script_api_client import p0_script_client
-from config import Config
+from api.settings import Settings
 from gui.celery import check_celery_worker_status, notification_window
 from gui.task_cache import TaskCache
 from gui.window.notification.notification_factory import NotificationFactory
@@ -26,14 +26,18 @@ from lib.utils import (
 
 logger = logger.opt(colors=True)
 
+settings = Settings()
+
 
 def start_midi_server():
     system_check()
 
     midi_port_backend_loopback = mido.open_input(
-        _get_input_port(Config.P0_BACKEND_LOOPBACK_NAME), autoreset=False
+        _get_input_port(settings.p0_backend_loopback_name), autoreset=False
     )
-    midi_port_output = mido.open_input(_get_input_port(Config.P0_OUTPUT_PORT_NAME), autoreset=False)
+    midi_port_output = mido.open_input(
+        _get_input_port(settings.p0_output_port_name), autoreset=False
+    )
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
 
@@ -58,7 +62,7 @@ def system_check():
         start_timer(8, check_celery)
 
     try:
-        requests.get(f"{Config.HTTP_API_URL}/")
+        requests.get(f"{settings.http_api_url}/")
     except requests.exceptions.ConnectionError:
         NotificationFactory.show_error("HTTP server is not up")
         system_up = False
@@ -73,7 +77,7 @@ def check_celery():
         NotificationFactory.show_error("Celery is not up")
 
 
-def signal_handler(sig, frame):
+def signal_handler(*_):
     logger.warning("exiting after SIGINT")
     sys.exit()
 
@@ -98,6 +102,9 @@ def _poll_midi_port(midi_port: Input):
             break
 
 
+_SILENT_MESSAGES = ("log",)
+
+
 def _execute_midi_message(message: Message):
     # shortcut to call directly the script api
     command = make_script_command_from_sysex_message(message=message)
@@ -118,6 +125,7 @@ def _execute_midi_message(message: Message):
     if method is None:
         raise Protocol0Error(f"Unknown Route: {payload}")
 
-    logger.info(f"GET: Route.{method.__name__}")
+    if method.__name__ not in _SILENT_MESSAGES:
+        logger.info(f"GET: Route.{method.__name__}")
 
     method(**payload["args"])

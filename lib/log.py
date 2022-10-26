@@ -1,14 +1,13 @@
 import json
 import sys
-from typing import Optional
 
 from loguru import logger
 
-from config import Config
+from api.settings import Settings
 
 
-def configure_logging(filename: Optional[str] = None) -> None:
-    with open(f"{Config.PROJECT_DIRECTORY}/lib/logging_config.json") as config_file:
+def configure_logging() -> None:
+    with open(f"{Settings().project_directory}/lib/logging_config.json") as config_file:
         logging_config = json.load(config_file)
 
     logger.remove()
@@ -17,10 +16,3 @@ def configure_logging(filename: Optional[str] = None) -> None:
         level=logging_config.get("level"),
         format=logging_config.get("format_stdout"),
     )
-
-    if filename:
-        logger.add(
-            f"{Config.LOGGING_DIRECTORY}\\{filename}",
-            level=logging_config.get("level"),
-            format=logging_config.get("format_log_file"),
-        )

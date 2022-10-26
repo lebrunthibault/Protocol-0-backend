@@ -13,7 +13,7 @@ import win32gui
 from loguru import logger
 from rx import operators as op, create
 
-from config import Config
+from api.settings import Settings
 from lib.console import clear_console
 from lib.decorators import log_exceptions
 from lib.process import kill_window_by_criteria
@@ -21,10 +21,11 @@ from lib.rx import rx_error, rx_nop
 from lib.utils import log_string
 from lib.window.find_window import SearchTypeEnum
 
+settings = Settings()
+
 logger = logger.opt(colors=True)
 logger.remove()
 logger.add(sys.stdout, format="<light-yellow>{time:HH:mm:ss.SSS}</> {message}")
-logger.add(f"{Config.LOGGING_DIRECTORY}\\logs.log", level="ERROR")
 
 
 class LogLevelEnum(Enum):
@@ -34,7 +35,6 @@ class LogLevelEnum(Enum):
 
 class LogConfig:
     PROCESS_LOGS = True
-    LOG_FILENAME = f"C:\\Users\\thiba\\AppData\\Roaming\\Ableton\\Live {Config.ABLETON_VERSION}\\Preferences\\Log.txt"
     START_SIZE = 300
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
@@ -160,6 +160,7 @@ def get_line_observable_from_file(file: TextIO):
         line = ""
         for line in file.readlines()[-LogConfig.START_SIZE :]:
             observer.on_next(line)
+
         while True:
             tmp = file.readline()
             if tmp is not None:
@@ -182,10 +183,10 @@ def tail_ableton_log_file(raw: bool):
         LogConfig.PROCESS_LOGS = False
         LogConfig.START_SIZE = 200
 
-    kill_window_by_criteria(name=Config.LOG_WINDOW_TITLE, search_type=SearchTypeEnum.WINDOW_TITLE)
+    kill_window_by_criteria(name=settings.log_window_title, search_type=SearchTypeEnum.WINDOW_TITLE)
 
     win32gui.ShowWindow(win32gui.GetForegroundWindow(), win32con.SHOW_FULLSCREEN)
-    ctypes.windll.kernel32.SetConsoleTitleW(Config.LOG_WINDOW_TITLE)
+    ctypes.windll.kernel32.SetConsoleTitleW(settings.log_window_title)
 
     if LogConfig.LOG_LEVEL == LogLevelEnum.INFO:
         LogConfig.BLACK_LIST_KEYWORDS.append("P0 - debug")
@@ -210,7 +211,7 @@ def tail_ableton_log_file(raw: bool):
             ),
         ]
 
-    with open(LogConfig.LOG_FILENAME, "r") as file:
+    with open(settings.log_file, "r") as file:
         log_obs = get_line_observable_from_file(file)
         log_obs.pipe(*pipes).subscribe(logger.info, rx_error)
         log_obs.pipe(*pipes).subscribe(rx_nop, logger.error)

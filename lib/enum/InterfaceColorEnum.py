@@ -19,6 +19,3 @@ class InterfaceColorEnum(AbstractEnum):
         return InterfaceColorEnum.get_tuple_from_string(self.value)
 
     ACTIVATED = "FFA608"
-    DEACTIVATED = "2D2D2D"
-    SEPARATOR = "4B4B4B"
-    # SEPARATOR = "5F5F5F"
