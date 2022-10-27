@@ -18,4 +18,8 @@ class InterfaceColorEnum(AbstractEnum):
         # type: () -> Tuple[int, int, int]
         return InterfaceColorEnum.get_tuple_from_string(self.value)
 
+    # used when doing dynamic color detection
     ACTIVATED = "FFA608"
+    # DEACTIVATED = "2D2D2D"
+    DEACTIVATED = "C3C3C3"
+    SEPARATOR = "4B4B4B"
