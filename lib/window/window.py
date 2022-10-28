@@ -55,8 +55,13 @@ def is_window_focused(handle: int) -> bool:
 
 
 def get_focused_window_process_name():
-    pid = win32process.GetWindowThreadProcessId(win32gui.GetForegroundWindow())
-    return psutil.Process(pid[-1]).name()
+    res = win32process.GetWindowThreadProcessId(win32gui.GetForegroundWindow())
+    pid = res[-1]
+    if pid < 0:
+        logger.warning(f"Got pid {pid}")
+        return ""
+
+    return psutil.Process(pid).name()
 
 
 def get_focused_window_title() -> str:

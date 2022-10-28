@@ -17,9 +17,7 @@ def _distance(c1, c2):
 def _get_closest_color_at_pixel(x, y):
     # type: (int, int) -> InterfaceColorEnum
     pixel_color = get_pixel_color_at(x, y)
-    return sorted(
-        list(InterfaceColorEnum), key=lambda c: _distance(c.get_tuple(), pixel_color)
-    )[0]
+    return sorted(list(InterfaceColorEnum), key=lambda c: _distance(c.get_tuple(), pixel_color))[0]
 
 
 def toggle_ableton_button(x: int, y: int, activate: bool) -> None:

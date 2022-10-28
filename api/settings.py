@@ -21,7 +21,6 @@ class Settings(BaseSettings):
     ableton_exe = f"C:\\ProgramData\\Ableton\\Live {_ableton_major_version} Suite\\Program\\Ableton Live {_ableton_major_version} Suite.exe"
     ableton_process_name = f"Ableton Live {_ableton_major_version} Suite.exe"
     ableton_set_directory = "D:\\ableton projects\\ableton projects - current\\splurges"
-    ableton_kontakt_set = "Kontakt.als"
     ableton_default_set = "Default.als"
 
     http_api_url = "http://127.0.0.1:8000"

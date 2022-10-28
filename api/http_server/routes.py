@@ -13,7 +13,7 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
-from lib.ableton.get_set import get_last_launched_set, get_kontakt_set
+from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
@@ -94,6 +94,7 @@ async def sync_sets():
 
 @router.get("/set/refresh")
 async def refresh_sets():
+    AbletonSetManager.clear()
     p0_script_client().dispatch(GetSetStateCommand())
     notification_window.delay("Refreshing set info")
 
@@ -135,11 +136,13 @@ async def _open_set(name: str):
 
     sets: Dict[str, Callable] = {
         "default": lambda: settings.ableton_default_set,
-        "last": get_last_launched_set,
-        "kontakt": get_kontakt_set,
+        "last": get_last_launched_track_set,
+        "midi": get_midi_set,
     }
 
-    open_set(sets[name]())
+    set_filename = sets[name]()
+    if set_filename is not None:
+        open_set(set_filename)
 
 
 @router.get("/toggle_room_eq")

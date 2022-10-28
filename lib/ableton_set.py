@@ -38,9 +38,8 @@ class AbletonSetManager:
 
     @classmethod
     async def register(cls, ableton_set: AbletonSet):
-        ableton_set.title = ableton_set.title or _get_window_title_from_filename(
-            get_recently_launched_set()
-        )
+        if ableton_set.title is None:
+            ableton_set.title = _get_window_title_from_filename(get_recently_launched_set())
 
         # cleaning here in case a closed set didn't notify
         launched_sets = get_launched_sets()
@@ -91,6 +90,11 @@ class AbletonSetManager:
         return list(_ableton_set_registry.values())
 
     @classmethod
+    def clear(cls):
+        nonlocal _ableton_set_registry
+        _ableton_set_registry = {}
+
+    @classmethod
     async def sync(cls, active_set: AbletonSet = None, force_log=False) -> None:
         active_set = active_set or get_focused_set()
 
@@ -118,7 +122,7 @@ class AbletonSetManager:
 _ableton_set_registry: Dict[str, AbletonSet] = {}
 
 
-def get_focused_set() -> Optional[AbletonSet]:
+def get_focused_set_title() -> Optional[str]:
     if not is_ableton_focused():
         return None
 
@@ -128,6 +132,13 @@ def get_focused_set() -> Optional[AbletonSet]:
 
     if match is None:
         return None
-    set_title = match.group(1).strip()
+
+    return match.group(1).strip()
+
+
+def get_focused_set() -> Optional[AbletonSet]:
+    set_title = get_focused_set_title()
+    if set_title is None:
+        return None
 
     return AbletonSetManager.from_title(set_title)
