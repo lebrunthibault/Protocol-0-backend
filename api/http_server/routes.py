@@ -13,6 +13,7 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
+from lib.ableton.browser import load_rev2_track, load_minitaur_track
 from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
@@ -168,6 +169,16 @@ async def select_or_load_device(name: str):
 @router.get("/load_drum_rack/{category}/{subcategory}")
 async def load_drum_rack(category: str, subcategory: str):
     p0_script_client_from_http().dispatch(LoadDrumRackCommand(category, subcategory))
+
+
+@router.get("/load_rev2")
+async def load_rev2():
+    load_rev2_track()
+
+
+@router.get("/load_minitaur")
+async def load_minitaur():
+    load_minitaur_track()
 
 
 @router.get("/drum_rack_to_simpler")

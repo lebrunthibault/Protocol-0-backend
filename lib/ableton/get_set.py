@@ -5,8 +5,6 @@ import time
 from os.path import dirname
 from typing import List, Optional
 
-import keyboard  # noqa
-
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.window.find_window import get_windows_list

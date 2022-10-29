@@ -2,7 +2,7 @@ import os
 import time
 from os.path import isabs
 
-import keyboard  # noqa
+import keyboard
 import pyautogui
 
 from api.client.p0_script_api_client import p0_script_client
@@ -58,9 +58,9 @@ def reload_ableton() -> None:
     # time.sleep(0.5)
 
     send_keys("^n")
-    send_keys("{Right}")
+    send_keys("{RIGHT}")
     time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
-    send_keys("{Enter}")
+    send_keys("{ENTER}")
 
 
 def save_set():
@@ -86,7 +86,7 @@ def save_set_as_template(open_pref=True):
     click(x=1032, y=203, keep_position=False)  # click on set as new (2nd position)
     click(x=1032, y=230, keep_position=False)  # click on set as new (2nd position)
     time.sleep(0.05)
-    send_keys("{Enter}")
+    send_keys("{ENTER}")
     time.sleep(0.2)
     send_keys("	{ESC}")
 

@@ -31,7 +31,7 @@ sdk:
 
 test:
 	cls
-	venv/scripts/python scripts/cli.py test
+	venv/scripts/python -u scripts/cli.py test
 
 flake8:
 	cls

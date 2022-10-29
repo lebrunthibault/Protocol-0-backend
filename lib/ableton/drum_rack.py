@@ -15,4 +15,4 @@ def save_drum_rack(drum_rack_name: str):
     sleep(0.5)
     send_keys(drum_rack_name)
     sleep(0.5)
-    send_keys("{Enter}")
+    send_keys("{ENTER}")

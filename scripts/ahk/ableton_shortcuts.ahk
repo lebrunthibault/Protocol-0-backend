@@ -108,6 +108,12 @@ return
 ^l::
 	callBackend("toggle_scene_loop")
 return
+^+_::
+    Send {Up}
+return
+^+&::
+    Send {Down}
+return
 
 !f:: ; fold / unfold set
 	Send `t

@@ -18,6 +18,7 @@ from lib.ableton.ableton import (
 )
 from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
+from lib.ableton.browser import load_rev2_track
 from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
@@ -65,6 +66,9 @@ class Routes:
         send_keys("^f")
         sleep(0.1)
         send_keys(search)
+
+    def load_rev2_track(self) -> None:
+        load_rev2_track()
 
     def move_to(self, x: int, y: int) -> None:
         move_to(x=x, y=y)
