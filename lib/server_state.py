@@ -1,5 +1,6 @@
 from typing import List, Dict
 
+from loguru import logger
 from protocol0.domain.lom.device.DeviceEnum import DeviceEnum
 from protocol0.domain.lom.sample.SampleCategoryEnum import SampleCategoryEnum
 from pydantic import BaseModel
@@ -16,6 +17,7 @@ class ServerState(BaseModel):
     @classmethod
     def create(cls) -> "ServerState":
         sets = list(sorted([ss.dict() for ss in AbletonSetManager.all()], key=lambda s: s["title"]))
+        logger.success(list(SampleCategoryEnum))
 
         return ServerState(
             sets=sets,
