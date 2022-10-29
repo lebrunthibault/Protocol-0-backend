@@ -91,8 +91,8 @@ class AbletonSetManager:
 
     @classmethod
     def clear(cls):
-        nonlocal _ableton_set_registry
-        _ableton_set_registry = {}
+        for set in cls.all():
+            cls.remove(set.id)
 
     @classmethod
     async def sync(cls, active_set: AbletonSet = None, force_log=False) -> None:
