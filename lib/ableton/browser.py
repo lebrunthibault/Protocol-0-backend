@@ -1,6 +1,7 @@
 from time import sleep
 
-from lib.keys import send_keys, send_up, send_down
+from lib.keys import send_keys, send_up, send_down, send_left, send_right
+from lib.mouse.mouse import click
 
 
 def search(search: str):
@@ -32,3 +33,34 @@ def load_minitaur_track():
     send_up()
 
     send_keys("{ENTER}")
+
+
+def preload_set_tracks(set_title: str):
+    search("")  # focus the browser
+    send_keys("{BACKSPACE}")
+    click(58, 500)  # click on "splurges" in browser
+    sleep(0.05)
+    click(86, 58)  # click in the search box without activating search mode
+    sleep(0.05)
+
+    send_keys(set_title)  # filter on the set folder
+
+    # a way to always show the tracks sub folder
+    send_down()
+    send_down()
+
+    send_left()
+    send_left()
+    send_left()
+    send_left()
+    send_left()
+    send_left()
+    send_left()
+
+    send_right()
+
+    send_right()
+    send_down()
+    send_right()
+    send_down()
+    send_right()

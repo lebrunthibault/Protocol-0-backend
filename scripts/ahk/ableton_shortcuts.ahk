@@ -114,6 +114,12 @@ return
 ^+&::
     Send {Down}
 return
+^+$::
+    Send {Left}
+return
+^+*::
+    Send {Right}
+return
 
 !f:: ; fold / unfold set
 	Send `t

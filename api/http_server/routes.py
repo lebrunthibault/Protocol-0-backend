@@ -13,7 +13,7 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
-from lib.ableton.browser import load_rev2_track, load_minitaur_track
+from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
 from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
@@ -179,6 +179,16 @@ async def load_rev2():
 @router.get("/load_minitaur")
 async def load_minitaur():
     load_minitaur_track()
+
+
+@router.get("/preload_set_tracks")
+async def _preload_set_tracks():
+    active_set = AbletonSetManager.active()
+    if active_set is None:
+        notification_window.delay("No active set")
+        return
+
+    preload_set_tracks(active_set.title)
 
 
 @router.get("/drum_rack_to_simpler")

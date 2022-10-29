@@ -22,3 +22,13 @@ def send_up():
 def send_down():
     send_keys("^+&")
     sleep(0.01)
+
+
+def send_left():
+    send_keys("^+$")
+    sleep(0.01)
+
+
+def send_right():
+    send_keys("^+*")
+    sleep(0.01)
