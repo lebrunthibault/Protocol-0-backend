@@ -58,8 +58,9 @@ class Routes:
 
     def log(self, message: str) -> None:
         """Merging logs from different script instances"""
-        with open(settings.log_file, "a") as f:
-            f.write(f"{message}\n")
+        pass
+        # with open(settings.log_file, "a") as f:
+        #     f.write(f"{message}\n")
 
     def search(self, search: str) -> None:
         send_keys("^f")

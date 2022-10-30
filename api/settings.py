@@ -14,7 +14,7 @@ class Settings(BaseSettings):
 
     @property
     def log_file(self) -> str:
-        return f"{self.logging_directory}\\logs.log"
+        return f"{self.logging_directory}\\Log.txt"
 
     project_directory = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
