@@ -11,8 +11,7 @@ from lib.ableton.ableton import (
     reload_ableton,
     save_set_as_template,
     open_set,
-    toggle_clip_notes,
-)
+    toggle_clip_notes, )
 from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
 from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
 from lib.ableton_set import AbletonSetManager, AbletonSet

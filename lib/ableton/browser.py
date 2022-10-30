@@ -1,5 +1,6 @@
 from time import sleep
 
+from lib.ableton.ableton import toggle_fold_set
 from lib.keys import send_keys, send_up, send_down, send_left, send_right
 from lib.mouse.mouse import click
 
@@ -36,6 +37,8 @@ def load_minitaur_track():
 
 
 def preload_set_tracks(set_title: str):
+    toggle_fold_set()
+
     search("")  # focus the browser
     send_keys("{BACKSPACE}")
     click(58, 500)  # click on "splurges" in browser

@@ -96,6 +96,14 @@ def save_set_as_template(open_pref=True):
     pyautogui.moveTo(initial_mouse_position)
 
 
+def toggle_fold_set():
+    send_keys("{TAB}")
+    send_keys("%u")
+    time.sleep(0.01)
+    send_keys("%u")
+    send_keys("{TAB}")
+
+
 def clear_arrangement():
     time.sleep(0.1)
     click(x=968, y=348)  # click on File Folder
