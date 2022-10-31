@@ -14,6 +14,9 @@ def search(search: str):
 def load_rev2_track():
     search('"Default.als"')
     sleep(0.2)
+    send_down()
+    send_down()
+    send_right()
 
     for _ in range(12):
         send_down()
@@ -27,6 +30,10 @@ def load_rev2_track():
 def load_minitaur_track():
     search('"Default.als"')
     sleep(0.2)
+
+    send_down()
+    send_down()
+    send_right()
 
     for _ in range(12):
         send_down()
@@ -61,6 +68,9 @@ def preload_set_tracks(set_title: str):
     send_left()
 
     send_right()
+
+    send_down()
+    send_down()
 
     send_right()
     send_down()
