@@ -77,3 +77,22 @@ def preload_set_tracks(set_title: str):
     send_right()
     send_down()
     send_right()
+
+
+def preload_sample_category(category: str):
+    search("")  # focus the browser
+    sleep(0.1)
+    click(58, 523)  # click on samples folder in browser
+    sleep(0.05)
+    click(86, 58)  # click in the search box without activating search mode
+    sleep(0.05)
+    send_keys("^a")
+    send_keys("{BACKSPACE}")
+    send_keys(category)  # filter on the set folder
+    sleep(0.2)
+
+    # a way to always show the tracks sub folder
+    send_down()
+    send_down()
+
+    send_right()
