@@ -10,7 +10,7 @@ from api.settings import Settings
 from gui.celery import notification_window
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.NotificationEnum import NotificationEnum
-from lib.keys import send_keys
+from lib.keys import send_keys, send_right
 from lib.mouse.mouse import click
 from lib.process import execute_process_in_new_window
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
@@ -126,6 +126,12 @@ def open_set(set_path: str):
 
     go_to_desktop(0)
     execute_process_in_new_window(f'& "{set_path}"')
+    time.sleep(2)
+
+    for _ in range(6):
+        send_right()
+        send_keys("{ENTER}")
+        time.sleep(0.5)
 
 
 def toggle_clip_notes():

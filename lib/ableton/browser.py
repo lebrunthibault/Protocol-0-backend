@@ -88,7 +88,7 @@ def preload_sample_category(category: str):
     sleep(0.05)
     send_keys("^a")
     send_keys("{BACKSPACE}")
-    send_keys(category)  # filter on the set folder
+    send_keys(f"'{category}'")  # filter on the set folder
     sleep(0.2)
 
     # a way to always show the tracks sub folder
