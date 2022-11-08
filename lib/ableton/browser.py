@@ -93,6 +93,5 @@ def preload_sample_category(category: str):
 
     # a way to always show the tracks sub folder
     send_down()
-    send_down()
 
     send_right()

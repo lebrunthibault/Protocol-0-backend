@@ -4,6 +4,7 @@ from os.path import isabs
 
 import keyboard
 import pyautogui
+from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
@@ -40,9 +41,11 @@ def are_logs_focused() -> bool:
 
 
 def show_plugins() -> None:
+    logger.success("show plugins")
     if not find_window_handle_by_enum(
         "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
     ):
+        logger.success("showing plugins")
         keyboard.press_and_release("ctrl+alt+p")
 
 

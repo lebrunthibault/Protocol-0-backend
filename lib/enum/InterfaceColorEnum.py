@@ -20,6 +20,14 @@ class InterfaceColorEnum(AbstractEnum):
 
     # used when doing dynamic color detection
     ACTIVATED = "FFA608"
-    # DEACTIVATED = "2D2D2D"
-    DEACTIVATED = "C3C3C3"
+    NOT_SHOWN = "C3C3C3"
+    DEACTIVATED = "A5A5A5"
     SEPARATOR = "4B4B4B"
+
+    @property
+    def button_activated(self) -> bool:
+        return self in (InterfaceColorEnum.ACTIVATED, InterfaceColorEnum.NOT_SHOWN)
+
+    @property
+    def button_deactivated(self) -> bool:
+        return self == InterfaceColorEnum.DEACTIVATED

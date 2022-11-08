@@ -36,6 +36,7 @@ def activate_rev2_editor():
 
 def post_activate_rev2_editor():
     # type: () -> None
+    return
     _click_rev2_editor(Rev2ButtonsRelativeCoordinates.PROGRAM)
 
 
