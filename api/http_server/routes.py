@@ -11,7 +11,8 @@ from lib.ableton.ableton import (
     reload_ableton,
     save_set_as_template,
     open_set,
-    toggle_clip_notes, )
+    toggle_clip_notes,
+)
 from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
 from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
 from lib.ableton_set import AbletonSetManager, AbletonSet
@@ -126,7 +127,7 @@ async def tail_logs_raw():
     )
 
 
-@router.get("/open_set/{name}")
+@router.get("/set/{name}/open")
 async def _open_set(name: str):
     if name == "new":
         go_to_desktop(0)

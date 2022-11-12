@@ -9,6 +9,7 @@ from lib.ableton_set import AbletonSet, AbletonSetManager
 
 class ServerState(BaseModel):
     sets: List[AbletonSet]
+    set_shortcuts: List[str]
     sample_categories: Dict[str, List[str]]
     favorite_device_names: List[List[str]]
     insert_favorite_device_names: List[str]
@@ -19,6 +20,7 @@ class ServerState(BaseModel):
 
         return ServerState(
             sets=sets,
+            set_shortcuts=["last", "default", "new"],
             sample_categories={
                 category.name.lower(): category.subcategories
                 for category in list(SampleCategoryEnum)
