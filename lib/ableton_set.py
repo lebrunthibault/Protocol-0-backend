@@ -113,7 +113,8 @@ class AbletonSetManager:
         await ws_manager.broadcast_server_state()
 
         if len(cls.all()) > 1 or force_log:
-            notification_window.delay(f"Activated '{active_set.title}'")
+            # notification_window.delay(f"Activated '{active_set.title}'")
+            logger.info(f"Activated '{active_set.title}'")
         else:
             logger.info("Only one set launched")
 
