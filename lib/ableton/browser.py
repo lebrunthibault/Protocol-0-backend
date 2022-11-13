@@ -58,6 +58,8 @@ def preload_set_tracks(set_title: str):
     # a way to always show the tracks sub folder
     send_down()
     send_down()
+    send_down()
+    send_down()
 
     send_left()
     send_left()
