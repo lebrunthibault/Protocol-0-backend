@@ -4,15 +4,15 @@ from os.path import isabs
 
 import keyboard
 import pyautogui
-from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.desktop.desktop import go_to_desktop
+from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys, send_right
-from lib.mouse.mouse import click
+from lib.mouse.mouse import click, get_pixel_color_at, color_distance
 from lib.process import execute_process_in_new_window
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
@@ -41,11 +41,9 @@ def are_logs_focused() -> bool:
 
 
 def show_plugins() -> None:
-    logger.success("show plugins")
     if not find_window_handle_by_enum(
         "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
     ):
-        logger.success("showing plugins")
         keyboard.press_and_release("ctrl+alt+p")
 
 
@@ -139,3 +137,20 @@ def open_set(set_path: str):
 
 def toggle_clip_notes():
     click(87, 1015, keep_position=True)
+
+
+def get_closest_color_at_pixel(x: int, y: int) -> InterfaceColorEnum:
+    pixel_color = get_pixel_color_at(x, y)
+    return sorted(
+        list(InterfaceColorEnum), key=lambda c: color_distance(c.get_tuple(), pixel_color)
+    )[0]
+
+
+def is_browser_visible() -> bool:
+    color = get_closest_color_at_pixel(18, 221)
+    return color == InterfaceColorEnum.BROWSER
+
+
+def is_browser_splurges_clickable() -> bool:
+    color = get_closest_color_at_pixel(27, 502)
+    return color == InterfaceColorEnum.BROWSER or color == InterfaceColorEnum.BROWSER_SELECTED_DIM

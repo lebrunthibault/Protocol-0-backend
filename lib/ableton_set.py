@@ -1,10 +1,14 @@
+import glob
+import os.path
 import re
+from os.path import dirname
 from typing import List, Dict, Optional
 
 from loguru import logger
 from pydantic import BaseModel
 
 from api.client.p0_script_api_client import p0_script_client_from_http
+from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
@@ -15,6 +19,8 @@ from lib.ableton.get_set import (
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.ActivateSetCommand import ActivateSetCommand
+
+settings = Settings()
 
 
 class AbletonSet(BaseModel):
@@ -27,10 +33,37 @@ class AbletonSet(BaseModel):
 
     id: str
     active: bool
+    path: Optional[str]  # computed only by the backend
     title: Optional[str]  # computed only by the backend
     muted: bool
+    current_track_name: str
+    current_track_type: str
     drum_rack_visible: bool
     room_eq_enabled: bool
+
+    @property
+    def is_unknown(self):
+        return self.title == "Untitled"
+
+    @property
+    def set_folder(self):
+        return dirname(self.path)
+
+    @property
+    def has_backup(self) -> bool:
+        sub_folder_path = self.set_folder.replace(settings.ableton_set_directory, "")
+        backup_sets = glob.glob(
+            f"{settings.ableton_set_directory}\\Backup\\{sub_folder_path}\\*.als"
+        )
+        return len(backup_sets) != 0
+
+    @property
+    def saved_tracks(self) -> List:
+        tracks_folder = f"{self.set_folder}\\tracks"
+        if not os.path.exists(tracks_folder):
+            return []
+
+        return glob.glob(f"{tracks_folder}\\*.als")
 
 
 class AbletonSetManager:
@@ -39,7 +72,8 @@ class AbletonSetManager:
     @classmethod
     async def register(cls, ableton_set: AbletonSet):
         if ableton_set.title is None:
-            ableton_set.title = _get_window_title_from_filename(get_recently_launched_set())
+            ableton_set.path = get_recently_launched_set()
+            ableton_set.title = _get_window_title_from_filename(ableton_set.path)
 
         # cleaning here in case a closed set didn't notify
         launched_sets = get_launched_sets()
@@ -79,7 +113,12 @@ class AbletonSetManager:
 
     @classmethod
     def active(cls) -> Optional[AbletonSet]:
-        return next(filter(lambda s: s.active, cls.all()), None)  # type: ignore
+        active_set = next(filter(lambda s: s.active, cls.all()), None)  # type: ignore
+
+        if active_set is None:
+            notification_window.delay("No active set")
+
+        return active_set
 
     @classmethod
     def from_title(cls, title: str) -> Optional[AbletonSet]:
@@ -113,7 +152,6 @@ class AbletonSetManager:
         await ws_manager.broadcast_server_state()
 
         if len(cls.all()) > 1 or force_log:
-            # notification_window.delay(f"Activated '{active_set.title}'")
             logger.info(f"Activated '{active_set.title}'")
         else:
             logger.info("Only one set launched")

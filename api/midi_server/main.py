@@ -41,7 +41,7 @@ def start_midi_server():
 
     logger.info(f"Midi server listening on {midi_port_backend_loopback} and {midi_port_output}")
 
-    notification_window.delay("Midi server started")
+    # notification_window.delay("Midi server started")
 
     while True:
         _poll_midi_port(midi_port=midi_port_output)

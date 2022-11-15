@@ -14,6 +14,7 @@ from lib.ableton.ableton import (
     toggle_clip_notes,
 )
 from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
+from lib.ableton.external_synth_track import save_and_remove_ext_track, load_ext_track
 from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
@@ -184,11 +185,25 @@ async def load_minitaur():
 @router.get("/preload_set_tracks")
 async def _preload_set_tracks():
     active_set = AbletonSetManager.active()
-    if active_set is None:
-        notification_window.delay("No active set")
-        return
 
-    preload_set_tracks(active_set.title)
+    if active_set is not None:
+        preload_set_tracks(active_set)
+
+
+@router.get("/load_ext_track")
+async def _load_ext_track():
+    active_set = AbletonSetManager.active()
+
+    if active_set is not None:
+        load_ext_track(active_set)
+
+
+@router.get("/save_ext_track")
+async def save_ext_track():
+    active_set = AbletonSetManager.active()
+
+    if active_set is not None:
+        save_and_remove_ext_track(active_set)
 
 
 @router.get("/drum_rack_to_simpler")

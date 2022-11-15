@@ -16,7 +16,7 @@ from lib.ableton.ableton import (
     save_set,
     save_set_as_template,
 )
-from lib.ableton.activate_rev2_editor import activate_rev2_editor, post_activate_rev2_editor
+from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.browser import preload_sample_category
 from lib.ableton.drum_rack import save_drum_rack

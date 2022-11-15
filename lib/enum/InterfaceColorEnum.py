@@ -23,6 +23,9 @@ class InterfaceColorEnum(AbstractEnum):
     NOT_SHOWN = "C3C3C3"
     DEACTIVATED = "A5A5A5"
     SEPARATOR = "4B4B4B"
+    BROWSER = "878787"
+    BROWSER_SELECTED_DIM = "BFAB7A"
+    LEFT_SIZE = "6E6E6E"
 
     @property
     def button_activated(self) -> bool:
