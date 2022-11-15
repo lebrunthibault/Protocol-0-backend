@@ -65,6 +65,55 @@ def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
     )
 
 
+def load_ext_track(set: AbletonSet):
+    if set.is_unknown:
+        notification_window.delay(
+            "Set is unknown", notification_enum=NotificationEnum.WARNING.value
+        )
+        return
+
+    if set.current_track_type != "SimpleAudioTrack":
+        notification_window.delay("Invalid track", notification_enum=NotificationEnum.WARNING.value)
+        return
+
+    tracks = [basename(t).replace(".als", "") for t in set.saved_tracks]
+
+    if set.current_track_name not in tracks:
+        notification_window.delay(
+            "Track is not a set saved track", notification_enum=NotificationEnum.WARNING.value
+        )
+        return
+
+    browser_visible = is_browser_visible()
+
+    if not browser_visible:
+        notification_window.delay(
+            "Reselect your track", notification_enum=NotificationEnum.WARNING.value, centered=True
+        )
+
+    preload_set_tracks(set)
+
+    if not browser_visible:
+        return
+
+    track_index = tracks.index(set.current_track_name)
+    x_orig, y_orig = pyautogui.position()
+    distance = track_index + 1
+    if set.has_backup:
+        distance += 1
+
+    y = 160 + distance * 24   # px
+    move_to(290, y)  # place cursor on track
+    # slight offset to have the subtrack be inserted at the left
+    drag_duration = 0.5
+
+    # in grouped track live interface reacts more slower
+    if set.current_track_is_grouped:
+        drag_duration = 2
+
+    drag_to(x_orig - 40, y_orig, duration=drag_duration)
+
+
 def save_and_remove_ext_track(set: AbletonSet):
     if set.is_unknown:
         notification_window.delay(
@@ -111,43 +160,3 @@ def save_and_remove_ext_track(set: AbletonSet):
 
     move_to(*initial_mouse_position)
     notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)
-
-
-def load_ext_track(set: AbletonSet):
-    if set.is_unknown:
-        notification_window.delay(
-            "Set is unknown", notification_enum=NotificationEnum.WARNING.value
-        )
-        return
-
-    if set.current_track_type != "SimpleAudioTrack":
-        notification_window.delay("Invalid track", notification_enum=NotificationEnum.WARNING.value)
-        return
-
-    tracks = [basename(t).replace(".als", "") for t in set.saved_tracks]
-
-    if set.current_track_name not in tracks:
-        notification_window.delay(
-            "Track is not a set saved track", notification_enum=NotificationEnum.WARNING.value
-        )
-        return
-
-    browser_visible = is_browser_visible()
-
-    if not browser_visible:
-        notification_window.delay(
-            "Reselect your track", notification_enum=NotificationEnum.WARNING.value, centered=True
-        )
-
-    preload_set_tracks(set)
-
-    if not browser_visible:
-        return
-
-    track_index = tracks.index(set.current_track_name)
-    x_orig, y_orig = pyautogui.position()
-
-    y = 160 + (track_index + 1) * 24
-    move_to(290, y)  # place cursor on track
-    # slight offset to have the subtrack be inserted at the left
-    drag_to(x_orig - 40, y_orig)

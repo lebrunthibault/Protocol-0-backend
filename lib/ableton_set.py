@@ -38,6 +38,7 @@ class AbletonSet(BaseModel):
     muted: bool
     current_track_name: str
     current_track_type: str
+    current_track_is_grouped: bool
     drum_rack_visible: bool
     room_eq_enabled: bool
 
