@@ -62,9 +62,18 @@ class AbletonSet(BaseModel):
     def saved_tracks(self) -> List:
         tracks_folder = f"{self.set_folder}\\tracks"
         if not os.path.exists(tracks_folder):
+            notification_window.delay(
+                "No track folder",
+                notification_enum=NotificationEnum.ERROR.value,
+                centered=True,
+            )
             return []
 
         return glob.glob(f"{tracks_folder}\\*.als")
+
+    @property
+    def last_saved_track(self) -> str:
+        return max(self.saved_tracks, key=os.path.getatime)
 
 
 class AbletonSetManager:

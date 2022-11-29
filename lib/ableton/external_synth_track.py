@@ -1,3 +1,5 @@
+import os
+import time
 from enum import Enum
 from os.path import basename
 from time import sleep
@@ -115,6 +117,8 @@ def load_ext_track(set: AbletonSet):
 
 
 def save_and_remove_ext_track(set: AbletonSet):
+    from loguru import logger
+    logger.success(set.current_track_name)
     if set.is_unknown:
         notification_window.delay(
             "Set is unknown", notification_enum=NotificationEnum.WARNING.value
@@ -156,7 +160,20 @@ def save_and_remove_ext_track(set: AbletonSet):
     send_left()
     send_keys("{ENTER}")
 
-    p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand())
+    p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand(set.current_track_name))
 
     move_to(*initial_mouse_position)
     notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)
+
+    # checking the track was saved
+    sleep(0.5)
+    saved_track = set.last_saved_track
+    saved_track_name = basename(saved_track).replace(".als", "")
+
+    if saved_track_name != set.current_track_name or time.time() - os.path.getatime(saved_track) > 2:
+        notification_window.delay(
+            "Track was not saved",
+            notification_enum=NotificationEnum.ERROR.value,
+            centered=True,
+        )
+        return
