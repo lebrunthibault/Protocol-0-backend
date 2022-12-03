@@ -124,7 +124,7 @@ return
 !f:: ; fold / unfold set
 	Send `t
 	Send !u
-	Sleep 30
+	Sleep 50
 	Send !u
 	Send `t
 return
