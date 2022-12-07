@@ -166,7 +166,7 @@ def save_and_remove_ext_track(set: AbletonSet):
     notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)
 
     # checking the track was saved
-    sleep(0.5)
+    sleep(1)
     saved_track = set.last_saved_track
     saved_track_name = basename(saved_track).replace(".als", "")
 
