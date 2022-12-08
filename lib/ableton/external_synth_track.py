@@ -68,12 +68,6 @@ def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
 
 
 def load_ext_track(set: AbletonSet):
-    if set.is_unknown:
-        notification_window.delay(
-            "Set is unknown", notification_enum=NotificationEnum.WARNING.value
-        )
-        return
-
     if set.current_track_type != "SimpleAudioTrack":
         notification_window.delay("Invalid track", notification_enum=NotificationEnum.WARNING.value)
         return
@@ -104,7 +98,7 @@ def load_ext_track(set: AbletonSet):
     if set.has_backup:
         distance += 1
 
-    y = 160 + distance * 24   # px
+    y = 160 + distance * 24  # px
     move_to(290, y)  # place cursor on track
     # slight offset to have the subtrack be inserted at the left
     drag_duration = 0.5
@@ -117,14 +111,6 @@ def load_ext_track(set: AbletonSet):
 
 
 def save_and_remove_ext_track(set: AbletonSet):
-    from loguru import logger
-    logger.success(set.current_track_name)
-    if set.is_unknown:
-        notification_window.delay(
-            "Set is unknown", notification_enum=NotificationEnum.WARNING.value
-        )
-        return
-
     if set.current_track_type != "ExternalSynthTrack":
         notification_window.delay("Invalid track", notification_enum=NotificationEnum.WARNING.value)
         return
@@ -170,7 +156,10 @@ def save_and_remove_ext_track(set: AbletonSet):
     saved_track = set.last_saved_track
     saved_track_name = basename(saved_track).replace(".als", "")
 
-    if saved_track_name != set.current_track_name or time.time() - os.path.getatime(saved_track) > 2:
+    if (
+        saved_track_name != set.current_track_name
+        or time.time() - os.path.getatime(saved_track) > 2
+    ):
         notification_window.delay(
             "Track was not saved",
             notification_enum=NotificationEnum.ERROR.value,

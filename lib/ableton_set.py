@@ -13,8 +13,8 @@ from gui.celery import notification_window
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
     _get_window_title_from_filename,
-    get_recently_launched_set,
     get_launched_sets,
+    get_last_launched_track_set,
 )
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.window.window import get_focused_window_title
@@ -44,7 +44,7 @@ class AbletonSet(BaseModel):
 
     @property
     def is_unknown(self):
-        return self.title == "Untitled"
+        return self.title is None or self.title == "Untitled"
 
     @property
     def set_folder(self):
@@ -75,15 +75,18 @@ class AbletonSet(BaseModel):
     def last_saved_track(self) -> str:
         return max(self.saved_tracks, key=os.path.getatime)
 
+    def set_path(self, path: str):
+        self.path = path
+        self.title = _get_window_title_from_filename(path)
+
 
 class AbletonSetManager:
     DEBUG = True
 
     @classmethod
     async def register(cls, ableton_set: AbletonSet):
-        if ableton_set.title is None:
-            ableton_set.path = get_recently_launched_set()
-            ableton_set.title = _get_window_title_from_filename(ableton_set.path)
+        if ableton_set.is_unknown:
+            ableton_set.set_path(get_last_launched_track_set())
 
         # cleaning here in case a closed set didn't notify
         launched_sets = get_launched_sets()
@@ -92,7 +95,7 @@ class AbletonSetManager:
                 await cls.remove(ss.id)
 
         # deduplicate on set title
-        existing_set = cls.from_title(ableton_set.title)
+        existing_set = cls.from_title(str(ableton_set.title))
 
         _ableton_set_registry[ableton_set.id] = ableton_set
         if cls.DEBUG:

@@ -15,7 +15,7 @@ from lib.ableton.ableton import (
 )
 from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
 from lib.ableton.external_synth_track import save_and_remove_ext_track, load_ext_track
-from lib.ableton.get_set import get_last_launched_track_set, get_midi_set
+from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
@@ -139,7 +139,6 @@ async def _open_set(name: str):
     sets: Dict[str, Callable] = {
         "default": lambda: settings.ableton_default_set,
         "last": get_last_launched_track_set,
-        "midi": get_midi_set,
     }
 
     set_filename = sets[name]()

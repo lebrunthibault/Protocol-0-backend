@@ -52,15 +52,16 @@ def reload_ableton() -> None:
     Not easy to have this work every time
     """
     p0_script_client().dispatch(ResetPlaybackCommand())
-    go_to_desktop(0)
-
-    time.sleep(0.5)
-    focus_ableton()
-    # time.sleep(0.5)
+    if not is_ableton_focused():
+        go_to_desktop(0)
+        time.sleep(0.5)
+        focus_ableton()
 
     send_keys("^n")
-    send_keys("{RIGHT}")
-    time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
+    send_right()
+
+    # send_keys("{RIGHT}")
+    # time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
     send_keys("{ENTER}")
 
 
