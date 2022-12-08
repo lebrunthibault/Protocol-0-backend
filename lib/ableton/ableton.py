@@ -58,10 +58,10 @@ def reload_ableton() -> None:
         focus_ableton()
 
     send_keys("^n")
-    send_right()
+    # send_right()
 
-    # send_keys("{RIGHT}")
-    # time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
+    send_keys("{RIGHT}")
+    time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
     send_keys("{ENTER}")
 
 
