@@ -128,6 +128,9 @@ def open_set(set_path: str):
 
     go_to_desktop(0)
     execute_process_in_new_window(f'& "{set_path}"')
+    from lib.ableton_set import AbletonSetManager
+
+    AbletonSetManager.LAST_SET_OPENED_AT = time.time()
     time.sleep(2)
 
     for _ in range(6):

@@ -14,8 +14,8 @@ from lib.ableton.ableton import (
     toggle_clip_notes,
 )
 from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
-from lib.ableton.external_synth_track import save_and_remove_ext_track, load_ext_track
 from lib.ableton.get_set import get_last_launched_track_set
+from lib.ableton.matching_track import load_matching_track, save_and_remove_matching_track
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
@@ -65,6 +65,11 @@ async def _reload_script():
 
 @router.get("/server_state")
 async def server_state() -> ServerState:
+
+    from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
+
+    command = ShowMessageCommand(f"Startup took s")
+    p0_script_client_from_http().dispatch(command)
     return ServerState.create()
 
 
@@ -189,20 +194,20 @@ async def _preload_set_tracks():
         preload_set_tracks(active_set)
 
 
-@router.get("/load_ext_track")
-async def _load_ext_track():
+@router.get("/load_matching_track")
+async def _load_matching_track():
     active_set = AbletonSetManager.active()
 
     if active_set is not None:
-        load_ext_track(active_set)
+        load_matching_track(active_set)
 
 
-@router.get("/save_ext_track")
-async def save_ext_track():
+@router.get("/save_matching_track")
+async def save_matching_track():
     active_set = AbletonSetManager.active()
 
     if active_set is not None:
-        save_and_remove_ext_track(active_set)
+        save_and_remove_matching_track(active_set)
 
 
 @router.get("/drum_rack_to_simpler")

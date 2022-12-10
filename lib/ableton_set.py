@@ -1,6 +1,7 @@
 import glob
 import os.path
 import re
+import time
 from os.path import dirname
 from typing import List, Dict, Optional
 
@@ -17,8 +18,10 @@ from lib.ableton.get_set import (
     get_last_launched_track_set,
 )
 from lib.enum.NotificationEnum import NotificationEnum
+from lib.timer import start_timer
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.ActivateSetCommand import ActivateSetCommand
+from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 
 settings = Settings()
 
@@ -82,6 +85,7 @@ class AbletonSet(BaseModel):
 
 class AbletonSetManager:
     DEBUG = True
+    LAST_SET_OPENED_AT: Optional[float] = None
 
     @classmethod
     async def register(cls, ableton_set: AbletonSet):
@@ -106,6 +110,14 @@ class AbletonSetManager:
         if existing_set is None:
             # it's an update
             await cls.sync(active_set=ableton_set)
+
+        if cls.LAST_SET_OPENED_AT is not None:
+            startup_duration = time.time() - cls.LAST_SET_OPENED_AT
+            logger.success(f"took {startup_duration:.2f}")
+            command = ShowMessageCommand(f"Startup took {startup_duration:.2f}s")
+            start_timer(1, lambda: p0_script_client_from_http().dispatch(command))
+
+            cls.LAST_SET_OPENED_AT = None
 
     @classmethod
     async def remove(cls, id: str):
