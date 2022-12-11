@@ -120,6 +120,9 @@ return
 ^+*::
     Send {Right}
 return
+~^+r::
+	callBackend("check_audio_export_valid")
+return
 
 !f:: ; fold / unfold set
 	Send `t

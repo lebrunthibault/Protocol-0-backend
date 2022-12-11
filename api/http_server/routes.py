@@ -20,6 +20,7 @@ from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
 from lib.server_state import ServerState
+from protocol0.application.command.CheckAudioExportValidCommand import CheckAudioExportValidCommand
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
@@ -301,3 +302,8 @@ async def _toggle_clip_notes():
 @router.get("/go_to_group_track")
 async def _go_to_group_track():
     p0_script_client_from_http().dispatch(GoToGroupTrackCommand())
+
+
+@router.get("/check_audio_export_valid")
+async def check_audio_export_valid():
+    p0_script_client_from_http().dispatch(CheckAudioExportValidCommand())
