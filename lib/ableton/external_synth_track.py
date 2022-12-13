@@ -1,10 +1,11 @@
 from enum import Enum
 from typing import Tuple
 
-from loguru import logger
+from gui.celery import notification_window
 
 from api.settings import Settings
 from lib.ableton.ableton import show_plugins
+from lib.enum.NotificationEnum import NotificationEnum
 from lib.mouse.mouse import click
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import get_window_position, focus_window
@@ -44,8 +45,9 @@ def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
     show_plugins()
     handle = find_window_handle_by_enum(settings.rev2_editor_window_title)
     if not handle:
-        logger.warning(
-            f"Couldn't find rev2 editor window for name: {settings.rev2_editor_window_title}. Check set naming"
+        notification_window.delay(
+            f"Couldn't find rev2 editor window for name: {settings.rev2_editor_window_title}. Check set naming",
+            notification_enum=NotificationEnum.WARNING.value,
         )
         return
     focus_window(name=settings.rev2_editor_window_title)

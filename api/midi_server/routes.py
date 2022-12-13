@@ -68,7 +68,7 @@ class Routes:
         sleep(0.1)
         send_keys(search)
 
-    def show_sample_category(self, category: str):
+    def show_sample_categoryw(self, category: str):
         preload_sample_category(category)
 
     def move_to(self, x: int, y: int) -> None:
