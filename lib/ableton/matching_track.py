@@ -18,7 +18,10 @@ from protocol0.application.command.DeleteSelectedTrackCommand import DeleteSelec
 
 def load_matching_track(set: AbletonSet):
     if set.current_track_type != "SimpleAudioTrack":
-        notification_window.delay(f"Invalid track type: {set.current_track_type}", notification_enum=NotificationEnum.WARNING.value)
+        notification_window.delay(
+            f"Invalid track type: {set.current_track_type}",
+            notification_enum=NotificationEnum.WARNING.value,
+        )
         return
 
     tracks = [basename(t).replace(".als", "") for t in set.saved_tracks]
@@ -43,11 +46,10 @@ def load_matching_track(set: AbletonSet):
 
     track_index = tracks.index(set.current_track_name)
     x_orig, y_orig = pyautogui.position()
-    distance = track_index + 1
-    if set.has_backup:
-        distance += 1
 
-    y = 160 + distance * 24  # px
+    x, y = set.tracks_browser_coordinates
+    y += (track_index + 1) * 24  # px
+
     move_to(290, y)  # place cursor on track
     # slight offset to have the subtrack be inserted at the left
     drag_duration = 0.5
@@ -56,12 +58,15 @@ def load_matching_track(set: AbletonSet):
     if set.current_track_is_grouped:
         drag_duration = 2
 
-    drag_to(x_orig - 40, y_orig, duration=drag_duration)
+    drag_to(x_orig, y_orig, duration=drag_duration)
 
 
 def save_and_remove_matching_track(set: AbletonSet):
     if set.current_track_type not in ("ExternalSynthTrack", "SimpleMidiTrack"):
-        notification_window.delay(f"Invalid track type: {set.current_track_type}", notification_enum=NotificationEnum.WARNING.value)
+        notification_window.delay(
+            f"Invalid track type: {set.current_track_type}",
+            notification_enum=NotificationEnum.WARNING.value,
+        )
         return
 
     if not is_browser_splurges_clickable():
@@ -87,21 +92,19 @@ def save_and_remove_matching_track(set: AbletonSet):
     initial_mouse_position = pyautogui.position()
 
     # drag track to tracks
-    y = 180 if set.has_backup else 156
-    drag_to(278, y)
+    x, y = set.tracks_browser_coordinates
+    drag_to(x, y)
+
     sleep(0.5)
     # save
     send_keys("{ENTER}")
     send_left()
     send_keys("{ENTER}")
 
-    p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand(set.current_track_name))
-
     move_to(*initial_mouse_position)
-    notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)
 
     # checking the track was saved
-    sleep(1)
+    sleep(1.5)
     saved_track = set.last_saved_track
     saved_track_name = basename(saved_track).replace(".als", "")
 
@@ -115,3 +118,6 @@ def save_and_remove_matching_track(set: AbletonSet):
             centered=True,
         )
         return
+    else:
+        p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand(set.current_track_name))
+        notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)

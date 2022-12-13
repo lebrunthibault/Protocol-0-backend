@@ -57,7 +57,7 @@ def preload_set_tracks(set: AbletonSet):
 
     search("")  # focus the browser
     send_keys("{BACKSPACE}")
-    click(58, 500)  # click on "splurges" in browser
+    click(58, 500)  # click on "tracks" in browser
     sleep(0.05)
     click(86, 58)  # click in the search box without activating search mode
     sleep(0.05)
@@ -75,6 +75,10 @@ def preload_set_tracks(set: AbletonSet):
         send_left()
         send_right()
         send_down()
+
+    if set.has_freezed_samples:
+        send_down()
+
     send_right()
     send_down()
     send_right()

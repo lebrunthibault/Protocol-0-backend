@@ -3,7 +3,7 @@ import os.path
 import re
 import time
 from os.path import dirname
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 
 from loguru import logger
 from pydantic import BaseModel
@@ -62,6 +62,13 @@ class AbletonSet(BaseModel):
         return len(backup_sets) != 0
 
     @property
+    def has_freezed_samples(self) -> bool:
+        freezed_samples = glob.glob(
+            f"{settings.ableton_freezed_samples_directory}\\*{self.title}*.wav"
+        )
+        return len(freezed_samples) != 0
+
+    @property
     def saved_tracks(self) -> List:
         tracks_folder = f"{self.set_folder}\\tracks"
         if not os.path.exists(tracks_folder):
@@ -81,6 +88,17 @@ class AbletonSet(BaseModel):
     def set_path(self, path: str):
         self.path = path
         self.title = _get_window_title_from_filename(path)
+
+    @property
+    def tracks_browser_coordinates(self) -> Tuple[int, int]:
+        # drag track to tracks
+        y = 156
+        if self.has_backup:
+            y += 24
+        if self.has_freezed_samples:
+            y += 24
+
+        return (278, y)
 
 
 class AbletonSetManager:

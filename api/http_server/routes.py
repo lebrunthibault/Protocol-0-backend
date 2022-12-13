@@ -66,11 +66,6 @@ async def _reload_script():
 
 @router.get("/server_state")
 async def server_state() -> ServerState:
-
-    from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
-
-    command = ShowMessageCommand(f"Startup took s")
-    p0_script_client_from_http().dispatch(command)
     return ServerState.create()
 
 
