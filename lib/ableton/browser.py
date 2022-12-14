@@ -49,7 +49,7 @@ def load_minitaur_track():
 def preload_set_tracks(set: AbletonSet):
     if is_browser_visible() and not is_browser_tracks_folder_clickable():
         notification_window.delay(
-            "Browser is not selectable in preload",
+            "Browser is not selectable",
             notification_enum=NotificationEnum.WARNING.value,
             centered=True,
         )

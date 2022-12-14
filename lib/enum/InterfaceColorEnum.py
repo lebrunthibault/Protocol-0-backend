@@ -25,6 +25,7 @@ class InterfaceColorEnum(AbstractEnum):
     SEPARATOR = "4B4B4B"
     BROWSER = "878787"
     BROWSER_SELECTED_DIM = "BFAB7A"
+    BROWSER_SELECTED_DIMMER = "A8BBC4"
     LEFT_SIZE = "6E6E6E"
 
     @property
@@ -34,3 +35,11 @@ class InterfaceColorEnum(AbstractEnum):
     @property
     def button_deactivated(self) -> bool:
         return self == InterfaceColorEnum.DEACTIVATED
+
+    @property
+    def browser_shown(self) -> bool:
+        return self in (
+            InterfaceColorEnum.BROWSER,
+            InterfaceColorEnum.BROWSER_SELECTED_DIM,
+            InterfaceColorEnum.BROWSER_SELECTED_DIMMER,
+        )
