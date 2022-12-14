@@ -155,6 +155,6 @@ def is_browser_visible() -> bool:
     return color == InterfaceColorEnum.BROWSER
 
 
-def is_browser_splurges_clickable() -> bool:
+def is_browser_tracks_folder_clickable() -> bool:
     color = get_closest_color_at_pixel(27, 502)
     return color == InterfaceColorEnum.BROWSER or color == InterfaceColorEnum.BROWSER_SELECTED_DIM

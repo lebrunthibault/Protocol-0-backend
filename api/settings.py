@@ -23,10 +23,6 @@ class Settings(BaseSettings):
     ableton_set_directory: str
     ableton_default_set = "Default.als"
 
-    @property
-    def ableton_freezed_samples_directory(self):
-        return f"{self.ableton_set_directory}/Samples/Processed/Freeze"
-
     http_api_url = "http://127.0.0.1:8000"
 
     rev2_editor_window_title = "REV2Editor/m"

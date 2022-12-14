@@ -1,11 +1,11 @@
 from time import sleep
 
-from lib.ableton.ableton import is_browser_splurges_clickable, is_browser_visible
+from gui.celery import notification_window
+from lib.ableton.ableton import is_browser_tracks_folder_clickable, is_browser_visible
 from lib.ableton_set import AbletonSet
 from lib.enum.NotificationEnum import NotificationEnum
-from lib.keys import send_keys, send_up, send_down, send_right, send_left
+from lib.keys import send_keys, send_up, send_down, send_right
 from lib.mouse.mouse import click
-from gui.celery import notification_window
 
 
 def search(search: str):
@@ -47,9 +47,9 @@ def load_minitaur_track():
 
 
 def preload_set_tracks(set: AbletonSet):
-    if is_browser_visible() and not is_browser_splurges_clickable():
+    if is_browser_visible() and not is_browser_tracks_folder_clickable():
         notification_window.delay(
-            "Browser is not selectable",
+            "Browser is not selectable in preload",
             notification_enum=NotificationEnum.WARNING.value,
             centered=True,
         )
@@ -57,7 +57,7 @@ def preload_set_tracks(set: AbletonSet):
 
     search("")  # focus the browser
     send_keys("{BACKSPACE}")
-    click(58, 500)  # click on "tracks" in browser
+    click(58, 524)  # click on "tracks" in browser
     sleep(0.05)
     click(86, 58)  # click in the search box without activating search mode
     sleep(0.05)
@@ -69,17 +69,6 @@ def preload_set_tracks(set: AbletonSet):
     sleep(0.2)
 
     # a way to always show the tracks sub folder
-    send_down()
-    if set.has_backup:
-        send_left()
-        send_left()
-        send_right()
-        send_down()
-
-    if set.has_freezed_samples:
-        send_down()
-
-    send_right()
     send_down()
     send_right()
     send_down()

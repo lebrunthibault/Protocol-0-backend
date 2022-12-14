@@ -7,7 +7,7 @@ import pyautogui
 
 from api.client.p0_script_api_client import p0_script_client_from_http
 from gui.celery import notification_window
-from lib.ableton.ableton import is_browser_visible, is_browser_splurges_clickable
+from lib.ableton.ableton import is_browser_visible, is_browser_tracks_folder_clickable
 from lib.ableton.browser import preload_set_tracks
 from lib.ableton_set import AbletonSet
 from lib.enum.NotificationEnum import NotificationEnum
@@ -47,10 +47,7 @@ def load_matching_track(set: AbletonSet):
     track_index = tracks.index(set.current_track_name)
     x_orig, y_orig = pyautogui.position()
 
-    x, y = set.tracks_browser_coordinates
-    y += (track_index + 1) * 24  # px
-
-    move_to(290, y)  # place cursor on track
+    move_to(290, 156 + (track_index + 1) * 24)  # place cursor on track
     # slight offset to have the subtrack be inserted at the left
     drag_duration = 0.5
 
@@ -69,7 +66,7 @@ def save_and_remove_matching_track(set: AbletonSet):
         )
         return
 
-    if not is_browser_splurges_clickable():
+    if not is_browser_tracks_folder_clickable():
         notification_window.delay(
             "Browser is not selectable",
             notification_enum=NotificationEnum.WARNING.value,
@@ -92,8 +89,7 @@ def save_and_remove_matching_track(set: AbletonSet):
     initial_mouse_position = pyautogui.position()
 
     # drag track to tracks
-    x, y = set.tracks_browser_coordinates
-    drag_to(x, y)
+    drag_to(278, 156)
 
     sleep(0.5)
     # save
