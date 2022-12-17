@@ -32,22 +32,18 @@ def load_matching_track(set: AbletonSet):
         )
         return
 
-    browser_visible = is_browser_visible()
-
-    if not browser_visible:
+    if not is_browser_visible():
         notification_window.delay(
             "Reselect your track", notification_enum=NotificationEnum.WARNING.value, centered=True
         )
+        return
 
     preload_set_tracks(set)
-
-    if not browser_visible:
-        return
 
     track_index = tracks.index(set.current_track_name)
     x_orig, y_orig = pyautogui.position()
 
-    move_to(290, 156 + (track_index + 1) * 24)  # place cursor on track
+    move_to(290, 156 + track_index * 24)  # place cursor on track
     # slight offset to have the subtrack be inserted at the left
     drag_duration = 0.5
 
