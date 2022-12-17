@@ -18,7 +18,7 @@ from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton.matching_track import load_matching_track, save_and_remove_matching_track
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
-from lib.process import execute_python_script_in_new_window, execute_process_in_new_window
+from lib.process import execute_python_script_in_new_window, execute_powershell_command
 from lib.server_state import ServerState
 from protocol0.application.command.CheckAudioExportValidCommand import CheckAudioExportValidCommand
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
@@ -133,7 +133,7 @@ async def tail_logs_raw():
 async def _open_set(name: str):
     if name == "new":
         go_to_desktop(0)
-        execute_process_in_new_window(f'& "{settings.ableton_exe}"')
+        execute_powershell_command(f'& "{settings.ableton_exe}"')
         notification_window.delay("Opening new set")
         return
 

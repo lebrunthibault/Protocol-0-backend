@@ -13,7 +13,7 @@ from lib.enum.InterfaceColorEnum import InterfaceColorEnum
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys, send_right
 from lib.mouse.mouse import click, get_pixel_color_at, color_distance
-from lib.process import execute_process_in_new_window
+from lib.process import execute_powershell_command
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
     is_window_focused,
@@ -127,7 +127,7 @@ def open_set(set_path: str):
     notification_window.delay(f"Opening '{relative_path}'")
 
     go_to_desktop(0)
-    execute_process_in_new_window(f'& "{set_path}"')
+    execute_powershell_command(f'& "{set_path}"')
     from lib.ableton_set import AbletonSetManager
 
     AbletonSetManager.LAST_SET_OPENED_AT = time.time()

@@ -34,7 +34,7 @@ def load_matching_track(set: AbletonSet):
 
     if not is_browser_visible():
         notification_window.delay(
-            "Reselect your track", notification_enum=NotificationEnum.WARNING.value, centered=True
+            "Browser is not visible", notification_enum=NotificationEnum.WARNING.value, centered=True
         )
         return
 
@@ -70,17 +70,13 @@ def save_and_remove_matching_track(set: AbletonSet):
         )
         return
 
-    browser_visible = is_browser_visible()
-
-    if not browser_visible:
+    if not is_browser_visible():
         notification_window.delay(
-            "Reselect your track", notification_enum=NotificationEnum.WARNING.value, centered=True
+            "Browser is not visible", notification_enum=NotificationEnum.WARNING.value, centered=True
         )
+        return
 
     preload_set_tracks(set)
-
-    if not browser_visible:
-        return
 
     initial_mouse_position = pyautogui.position()
 

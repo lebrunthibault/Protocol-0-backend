@@ -63,7 +63,7 @@ def preload_set_tracks(set: AbletonSet):
     sleep(0.05)
 
     # first writing a wrong title to clear the potential sub folder focus
-    send_keys(f"{set.title}a")  # filter on the set folder
+    send_keys(f"{set.title}*")  # filter on the set folder
     sleep(0.2)
     send_keys("{BACKSPACE}")
     sleep(0.2)

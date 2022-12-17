@@ -1,9 +1,9 @@
 import math
+from typing import Tuple
 
 import pyautogui
 from PIL import ImageGrab
 from loguru import logger
-from typing import Tuple
 
 from api.settings import Settings
 from lib.enum.InterfaceColorEnum import InterfaceColorEnum
@@ -13,8 +13,12 @@ def move_to(x: int, y: int) -> None:
     pyautogui.moveTo(x, y)
 
 
-def drag_to(x: int, y: int, button="left", duration=0.5) -> None:
-    pyautogui.dragTo(x, y, button=button, duration=duration)
+def drag_to(x: int, y: int, duration=0.5) -> None:
+    # pyautogui.mouseDown(button='left')
+    # pyautogui.moveTo(x, y, button='left')
+    # sleep(2)
+    # pyautogui.mouseUp(button='left')
+    pyautogui.dragTo(x, y, button='left', duration=duration, tween=pyautogui.easeOutQuad)
 
 
 def click(x: int, y: int, keep_position=True, exact=False) -> None:
