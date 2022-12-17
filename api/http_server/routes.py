@@ -20,6 +20,7 @@ from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
 from lib.server_state import ServerState
+from protocol0.application.command.BounceTrackToAudioCommand import BounceTrackToAudioCommand
 from protocol0.application.command.CheckAudioExportValidCommand import CheckAudioExportValidCommand
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
@@ -188,6 +189,11 @@ async def _preload_set_tracks():
 
     if active_set is not None:
         preload_set_tracks(active_set)
+
+
+@router.get("/bounce_track_to_audio")
+async def bounce_track_to_audio():
+    p0_script_client_from_http().dispatch(BounceTrackToAudioCommand())
 
 
 @router.get("/load_matching_track")
