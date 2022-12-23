@@ -2,7 +2,7 @@ import glob
 import os.path
 import re
 import time
-from os.path import dirname
+from os.path import dirname, basename
 from typing import List, Dict, Optional
 
 from loguru import logger
@@ -69,6 +69,16 @@ class AbletonSet(BaseModel):
     @property
     def last_saved_track(self) -> str:
         return max(self.saved_tracks, key=os.path.getatime)
+
+    @property
+    def is_track_saved(self) -> bool:
+        saved_track = self.last_saved_track
+        saved_track_name = basename(saved_track).replace(".als", "")
+
+        return (
+            saved_track_name == self.current_track_name
+            and time.time() - os.path.getatime(saved_track) <= 2
+        )
 
     def set_path(self, path: str):
         self.path = path

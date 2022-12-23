@@ -1,5 +1,3 @@
-import os
-import time
 from os.path import basename
 from time import sleep
 
@@ -92,20 +90,19 @@ def save_and_remove_matching_track(set: AbletonSet):
     move_to(*initial_mouse_position)
 
     # checking the track was saved
-    sleep(1.5)
-    saved_track = set.last_saved_track
-    saved_track_name = basename(saved_track).replace(".als", "")
+    sleep(1)
 
-    if (
-        saved_track_name != set.current_track_name
-        or time.time() - os.path.getatime(saved_track) > 2
-    ):
-        notification_window.delay(
-            "Track was not saved",
-            notification_enum=NotificationEnum.ERROR.value,
-            centered=True,
-        )
-        return
-    else:
-        p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand(set.current_track_name))
-        notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)
+    if not set.is_track_saved:
+        sleep(2)
+
+        if not set.is_track_saved:
+            notification_window.delay(
+                "Track was not saved",
+                notification_enum=NotificationEnum.ERROR.value,
+                centered=True,
+            )
+            return
+
+    send_left()  # fold the set sub track
+    p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand(set.current_track_name))
+    notification_window.delay("Saved", notification_enum=NotificationEnum.SUCCESS.value)
