@@ -46,7 +46,7 @@ def _click_rev2_editor(coordinates: Rev2ButtonsRelativeCoordinates):
     handle = find_window_handle_by_enum(settings.rev2_editor_window_title)
     if not handle:
         notification_window.delay(
-            f"Couldn't focus rev2 editor",
+            "Couldn't focus rev2 editor",
             notification_enum=NotificationEnum.WARNING.value,
         )
         return

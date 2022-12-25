@@ -41,7 +41,6 @@ class AbletonSet(BaseModel):
     muted: bool
     current_track_name: str
     current_track_type: str
-    current_track_is_grouped: bool
     drum_rack_visible: bool
     room_eq_enabled: bool
 
@@ -54,9 +53,12 @@ class AbletonSet(BaseModel):
         return dirname(self.path)
 
     @property
+    def tracks_folder(self):
+        return f"{self.set_folder}\\tracks"
+
+    @property
     def saved_tracks(self) -> List:
-        tracks_folder = f"{self.set_folder}\\tracks"
-        if not os.path.exists(tracks_folder):
+        if not os.path.exists(self.tracks_folder):
             notification_window.delay(
                 "No track folder",
                 notification_enum=NotificationEnum.ERROR.value,
@@ -64,7 +66,13 @@ class AbletonSet(BaseModel):
             )
             return []
 
-        return glob.glob(f"{tracks_folder}\\*.als")
+        return glob.glob(f"{self.tracks_folder}\\*.als")
+
+    @property
+    def current_track_index_in_tracks(self):
+        tracks = [basename(t).replace(".als", "") for t in self.saved_tracks]
+
+        return tracks.index(self.current_track_name)
 
     @property
     def last_saved_track(self) -> str:
@@ -76,6 +84,7 @@ class AbletonSet(BaseModel):
         saved_track_name = basename(saved_track).replace(".als", "")
 
         from loguru import logger
+
         logger.success(saved_track)
         logger.success(saved_track_name)
         logger.success(self.current_track_name)

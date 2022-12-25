@@ -1,4 +1,4 @@
-from os.path import basename
+import os
 from time import sleep
 
 import pyautogui
@@ -11,45 +11,72 @@ from lib.ableton_set import AbletonSet
 from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys, send_left
 from lib.mouse.mouse import drag_to, move_to
+from lib.process import kill_window_by_criteria
 from protocol0.application.command.DeleteSelectedTrackCommand import DeleteSelectedTrackCommand
 
 
-def load_matching_track(set: AbletonSet):
+def _assert_load_matching_track_conditions(set: AbletonSet) -> bool:
     if set.current_track_type != "SimpleAudioTrack":
         notification_window.delay(
             f"Invalid track type: {set.current_track_type}",
             notification_enum=NotificationEnum.WARNING.value,
         )
-        return
+        return False
 
-    tracks = [basename(t).replace(".als", "") for t in set.saved_tracks]
-
-    if set.current_track_name not in tracks:
+    try:
+        set.current_track_index_in_tracks
+    except IndexError:
         notification_window.delay(
             "Track is not a set saved track", notification_enum=NotificationEnum.WARNING.value
         )
+        return False
+
+    return True
+
+
+def load_matching_track(set: AbletonSet):
+    if not _assert_load_matching_track_conditions(set):
+        return
+
+    x_orig, y_orig = pyautogui.position()
+    os.startfile(set.tracks_folder)
+    sleep(0.3)
+
+    index = set.current_track_index_in_tracks
+    row_index = index // 2
+    # using Small icons explorer display
+    y = 850
+    if index % 2 != 0:
+        y = 1235
+
+    move_to(y, 377 + row_index * 40)  # place cursor on track
+
+    drag_to(x_orig, y_orig, duration=0.2)
+
+    # remove the explorer window
+    kill_window_by_criteria(name="tracks")
+
+
+def load_matching_track_from_live(set: AbletonSet):
+    if not _assert_load_matching_track_conditions(set):
         return
 
     if not is_browser_visible():
         notification_window.delay(
-            "Browser is not visible", notification_enum=NotificationEnum.WARNING.value, centered=True
+            "Browser is not visible",
+            notification_enum=NotificationEnum.WARNING.value,
+            centered=True,
         )
         return
 
     preload_set_tracks(set)
 
-    track_index = tracks.index(set.current_track_name)
     x_orig, y_orig = pyautogui.position()
 
-    move_to(290, 156 + track_index * 24)  # place cursor on track
+    move_to(290, 156 + set.current_track_index_in_tracks * 24)  # place cursor on track
     # slight offset to have the subtrack be inserted at the left
-    drag_duration = 0.5
 
-    # in grouped track live interface reacts more slower
-    if set.current_track_is_grouped:
-        drag_duration = 2
-
-    drag_to(x_orig, y_orig, duration=drag_duration)
+    drag_to(x_orig, y_orig)
 
 
 def save_and_remove_matching_track(set: AbletonSet):
@@ -70,7 +97,9 @@ def save_and_remove_matching_track(set: AbletonSet):
 
     if not is_browser_visible():
         notification_window.delay(
-            "Browser is not visible", notification_enum=NotificationEnum.WARNING.value, centered=True
+            "Browser is not visible",
+            notification_enum=NotificationEnum.WARNING.value,
+            centered=True,
         )
         return
 

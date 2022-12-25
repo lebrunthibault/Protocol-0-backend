@@ -13,12 +13,13 @@ def move_to(x: int, y: int) -> None:
     pyautogui.moveTo(x, y)
 
 
+def tween(n: float) -> float:
+    """mouse go fast then slow"""
+    return 1 - pow(n - 1, 6)
+
+
 def drag_to(x: int, y: int, duration=0.5) -> None:
-    # pyautogui.mouseDown(button='left')
-    # pyautogui.moveTo(x, y, button='left')
-    # sleep(2)
-    # pyautogui.mouseUp(button='left')
-    pyautogui.dragTo(x, y, button='left', duration=duration, tween=pyautogui.easeOutQuad)
+    pyautogui.dragTo(x, y, button="left", duration=duration, tween=tween)
 
 
 def click(x: int, y: int, keep_position=True, exact=False) -> None:
