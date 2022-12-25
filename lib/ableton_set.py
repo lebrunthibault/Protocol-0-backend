@@ -75,6 +75,11 @@ class AbletonSet(BaseModel):
         saved_track = self.last_saved_track
         saved_track_name = basename(saved_track).replace(".als", "")
 
+        from loguru import logger
+        logger.success(saved_track)
+        logger.success(saved_track_name)
+        logger.success(self.current_track_name)
+        logger.success(time.time() - os.path.getatime(saved_track))
         return (
             saved_track_name == self.current_track_name
             and time.time() - os.path.getatime(saved_track) <= 2

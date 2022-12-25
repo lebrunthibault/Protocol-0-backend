@@ -1,3 +1,5 @@
+import os
+
 import make_path  # noqa
 from api.midi_server.sdk_generation.generate_openapi_specs import generate_openapi_specs
 from scripts.abstract_cli import cli
@@ -10,7 +12,8 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 async def command_test() -> None:
-    pass
+    path = 'D:\\ableton projects\\tracks\\Toto\\tracks'
+    os.startfile(path)
 
 
 if __name__ == "__main__":
