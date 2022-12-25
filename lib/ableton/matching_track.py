@@ -40,7 +40,7 @@ def load_matching_track(set: AbletonSet):
 
     x_orig, y_orig = pyautogui.position()
     os.startfile(set.tracks_folder)
-    sleep(0.3)
+    sleep(0.5)
 
     index = set.current_track_index_in_tracks
     row_index = index // 2
