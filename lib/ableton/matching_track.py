@@ -9,99 +9,60 @@ from lib.ableton.ableton import is_browser_visible, is_browser_tracks_folder_cli
 from lib.ableton.browser import preload_set_tracks
 from lib.ableton_set import AbletonSet
 from lib.enum.NotificationEnum import NotificationEnum
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.keys import send_keys, send_left
-from lib.mouse.mouse import drag_to, move_to
+from lib.mouse.mouse import drag_to, move_to, keep_mouse_position, click
 from lib.process import kill_window_by_criteria
+from lib.screen import get_selected_track_header_coordinates, focus_left_most_track
 from protocol0.application.command.DeleteSelectedTrackCommand import DeleteSelectedTrackCommand
+from protocol0.application.command.SelectTrackCommand import SelectTrackCommand
 
 
-def _assert_load_matching_track_conditions(set: AbletonSet) -> bool:
+def _assert_load_matching_track_conditions(set: AbletonSet) -> None:
     if set.current_track_type != "SimpleAudioTrack":
-        notification_window.delay(
-            f"Invalid track type: {set.current_track_type}",
-            notification_enum=NotificationEnum.WARNING.value,
-        )
-        return False
-
+        raise Protocol0Error(f"Invalid track type: {set.current_track_type}")
     try:
         set.current_track_index_in_tracks
     except IndexError:
-        notification_window.delay(
-            "Track is not a set saved track", notification_enum=NotificationEnum.WARNING.value
-        )
-        return False
-
-    return True
+        raise Protocol0Error("Track is not a set saved track")
 
 
+@keep_mouse_position
 def load_matching_track(set: AbletonSet):
-    if not _assert_load_matching_track_conditions(set):
-        return
+    _assert_load_matching_track_conditions(set)
 
-    x_orig, y_orig = pyautogui.position()
+    focus_left_most_track()
+    p0_script_client_from_http().dispatch(SelectTrackCommand(set.current_track_name), log=True)
+    sleep(0.1)
+    coords = get_selected_track_header_coordinates()
+
     os.startfile(set.tracks_folder)
-    sleep(0.5)
+    # sleep(0.5)
 
     index = set.current_track_index_in_tracks
     row_index = index // 2
     # using Small icons explorer display
-    y = 850
+    x = 740
     if index % 2 != 0:
-        y = 1235
+        x += 385
 
-    move_to(y, 377 + row_index * 40)  # place cursor on track
-
-    drag_to(x_orig, y_orig, duration=0.2)
+    click(x, 377 + row_index * 40, keep_position=False)  # place cursor on track
+    sleep(0.5)
+    drag_to(*coords, duration=0.2)
 
     # remove the explorer window
     kill_window_by_criteria(name="tracks")
 
 
-def load_matching_track_from_live(set: AbletonSet):
-    if not _assert_load_matching_track_conditions(set):
-        return
-
-    if not is_browser_visible():
-        notification_window.delay(
-            "Browser is not visible",
-            notification_enum=NotificationEnum.WARNING.value,
-            centered=True,
-        )
-        return
-
-    preload_set_tracks(set)
-
-    x_orig, y_orig = pyautogui.position()
-
-    move_to(290, 156 + set.current_track_index_in_tracks * 24)  # place cursor on track
-    # slight offset to have the subtrack be inserted at the left
-
-    drag_to(x_orig, y_orig)
-
-
 def save_and_remove_matching_track(set: AbletonSet):
     if set.current_track_type not in ("ExternalSynthTrack", "SimpleMidiTrack"):
-        notification_window.delay(
-            f"Invalid track type: {set.current_track_type}",
-            notification_enum=NotificationEnum.WARNING.value,
-        )
-        return
+        raise Protocol0Error(f"Invalid track type: {set.current_track_type}")
 
     if not is_browser_tracks_folder_clickable():
-        notification_window.delay(
-            "Browser is not selectable",
-            notification_enum=NotificationEnum.WARNING.value,
-            centered=True,
-        )
-        return
+        raise Protocol0Error("Browser is not selectable")
 
     if not is_browser_visible():
-        notification_window.delay(
-            "Browser is not visible",
-            notification_enum=NotificationEnum.WARNING.value,
-            centered=True,
-        )
-        return
+        raise Protocol0Error("Browser is not visible")
 
     preload_set_tracks(set)
 
@@ -125,12 +86,7 @@ def save_and_remove_matching_track(set: AbletonSet):
         sleep(2)
 
         if not set.is_track_saved:
-            notification_window.delay(
-                "Track was not saved",
-                notification_enum=NotificationEnum.ERROR.value,
-                centered=True,
-            )
-            return
+            raise Protocol0Error("Track was not saved")
 
     send_left()  # fold the set sub track
     p0_script_client_from_http().dispatch(DeleteSelectedTrackCommand(set.current_track_name))

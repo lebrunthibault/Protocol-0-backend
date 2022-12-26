@@ -4,6 +4,8 @@ from functools import wraps
 
 from loguru import logger
 
+from lib.errors.Protocol0Error import Protocol0Error
+
 
 def log_exceptions(func):
     @wraps(func)
@@ -52,5 +54,19 @@ def timing(f):
         end_at = time.time()
         logger.info(f"func: {f.__name__} took: {end_at - start_at:.3f} sec")
         return res
+
+    return wrap
+
+
+def retry(f):
+    @wraps(f)
+    def wrap(*a, **k):
+        try:
+            return f(*a, **k)
+        except Protocol0Error as e:
+            from loguru import logger
+
+            logger.warning(e)
+            return f(*a, **k)
 
     return wrap

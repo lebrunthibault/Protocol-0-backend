@@ -157,8 +157,5 @@ def is_browser_visible() -> bool:
 
 def is_browser_tracks_folder_clickable() -> bool:
     color = get_closest_color_at_pixel(27, 502)
-    from loguru import logger
-
-    logger.success(color)
 
     return color.browser_shown

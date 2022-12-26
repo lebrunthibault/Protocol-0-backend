@@ -8,6 +8,7 @@ import win32com.client
 import win32gui
 import win32process
 from loguru import logger
+from psutil import NoSuchProcess
 
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
 
@@ -61,7 +62,10 @@ def get_focused_window_process_name():
         logger.warning(f"Got pid {pid}")
         return ""
 
-    return psutil.Process(pid).name()
+    try:
+        return psutil.Process(pid).name()
+    except NoSuchProcess:
+        return ""
 
 
 def get_focused_window_title() -> str:

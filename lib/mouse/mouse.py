@@ -1,4 +1,5 @@
 import math
+from functools import wraps
 from typing import Tuple
 
 import pyautogui
@@ -43,6 +44,20 @@ def click(x: int, y: int, keep_position=True, exact=False) -> None:
 def click_vertical_zone(x: int, y: int) -> None:
     for i in range(120, -40, -20):
         pyautogui.click(x, y + i)
+
+
+def keep_mouse_position(func):
+    @wraps(func)
+    def decorate(*a, **k):
+        x_orig, y_orig = pyautogui.position()
+
+        res = func(*a, **k)
+
+        move_to(x_orig, y_orig)
+
+        return res
+
+    return decorate
 
 
 def get_pixel_color_at(x: int, y: int) -> Tuple[int, int, int]:

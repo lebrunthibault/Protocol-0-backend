@@ -16,10 +16,10 @@ from lib.ableton.ableton import (
     save_set,
     save_set_as_template,
 )
-from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.browser import preload_sample_category
 from lib.ableton.drum_rack import save_drum_rack
+from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
 from lib.decorators import throttle
@@ -57,18 +57,12 @@ class Routes:
     def close_set(self, id: str) -> None:
         requests.delete(f"{settings.http_api_url}/set/{id}")
 
-    def log(self, message: str) -> None:
-        """Merging logs from different script instances"""
-        pass
-        # with open(settings.log_file, "a") as f:
-        #     f.write(f"{message}\n")
-
     def search(self, search: str) -> None:
         send_keys("^f")
         sleep(0.1)
         send_keys(search)
 
-    def show_sample_categoryw(self, category: str):
+    def show_sample_category(self, category: str):
         preload_sample_category(category)
 
     def move_to(self, x: int, y: int) -> None:

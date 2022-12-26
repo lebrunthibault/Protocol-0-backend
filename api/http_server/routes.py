@@ -72,11 +72,15 @@ async def server_state() -> ServerState:
 
 @router.post("/set")
 async def post_set(set: AbletonSet):
-    await AbletonSetManager.register(set)
-    sleep(0.5)  # fix too fast backend ..?
-    command = ProcessBackendResponseCommand(set.dict())
-    command.set_id = set.id
-    p0_script_client_from_http().dispatch(command)
+    """Forwarded from midi server"""
+    register_change = await AbletonSetManager.register(set)
+
+    if register_change:
+        sleep(0.5)  # fix too fast backend ..?
+        command = ProcessBackendResponseCommand(set.dict())
+        command.set_id = set.id
+        p0_script_client_from_http().dispatch(command, log=False)
+
     await ws_manager.broadcast_server_state()
 
 
