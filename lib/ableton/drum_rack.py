@@ -1,7 +1,7 @@
 from time import sleep
 
 from gui.celery import notification_window
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
 from lib.mouse.mouse import click
 

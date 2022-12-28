@@ -5,7 +5,7 @@ from gui.celery import notification_window
 
 from api.settings import Settings
 from lib.ableton.ableton import show_plugins
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.mouse.mouse import click
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import get_window_position, focus_window

@@ -1,5 +1,5 @@
 from gui.window.window import Window
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 
 
 class WindowFactory:

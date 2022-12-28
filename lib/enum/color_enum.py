@@ -1,6 +1,6 @@
 from PySimpleGUI import BLUES
 
-from lib.enum.AbstractEnum import AbstractEnum
+from lib.enum.abstract_enum import AbstractEnum
 
 
 class ColorEnum(AbstractEnum):

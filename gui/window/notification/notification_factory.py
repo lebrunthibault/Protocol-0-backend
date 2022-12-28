@@ -1,6 +1,6 @@
 from gui.window.notification.notification import Notification
 from gui.window.window_factory import WindowFactory
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 
 
 class NotificationFactory(WindowFactory):

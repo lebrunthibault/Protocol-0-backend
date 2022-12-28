@@ -9,7 +9,7 @@ from gui.window.select.button_colors import ButtonColors
 from gui.window.select.select import Select
 from gui.window.window import Window
 from gui.window.window_factory import WindowFactory
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.color_enum import ColorEnum
 
 
 class SelectFactory(WindowFactory):

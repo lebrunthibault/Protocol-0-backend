@@ -5,7 +5,7 @@ from PySimpleGUI import Button
 
 from gui.window.select.button_colors import ButtonColors
 from gui.window.window import Window
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.color_enum import ColorEnum
 
 
 class Select(Window):

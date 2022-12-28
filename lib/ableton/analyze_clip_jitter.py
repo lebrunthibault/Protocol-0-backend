@@ -5,7 +5,7 @@ from loguru import logger
 
 from gui.celery import notification_window
 from lib.ableton.clip_parsing import Clip
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 
 

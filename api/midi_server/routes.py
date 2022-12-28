@@ -6,7 +6,6 @@ from typing import List, Dict
 import requests
 from loguru import logger
 
-from api.client.p0_script_api_client import p0_script_client
 from api.midi_server.main import stop_midi_server
 from api.settings import Settings
 from gui.celery import select_window, notification_window
@@ -17,21 +16,19 @@ from lib.ableton.ableton import (
     save_set_as_template,
 )
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
-from lib.ableton.browser import preload_sample_category
+from lib.ableton.interface.browser import preload_sample_category
 from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
+from lib.ableton.interface.toggle_ableton_button import toggle_ableton_button
+from lib.ableton.interface.track import flatten_focused_track
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
 from lib.decorators import throttle
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
-from lib.mouse.toggle_ableton_button import toggle_ableton_button
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
-from protocol0.application.command.ProcessBackendResponseCommand import (
-    ProcessBackendResponseCommand,
-)
 
 settings = Settings()
 
@@ -64,6 +61,13 @@ class Routes:
 
     def show_sample_category(self, category: str):
         preload_sample_category(category)
+
+    def save_track_to_sub_tracks(self):
+        # forward to http server
+        requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks")
+
+    def flatten_focused_track(self):
+        flatten_focused_track()
 
     def move_to(self, x: int, y: int) -> None:
         move_to(x=x, y=y)
@@ -135,9 +139,6 @@ class Routes:
 
     def stop_midi_server(self) -> None:
         stop_midi_server()
-
-    def send_backend_response(self, res) -> None:
-        p0_script_client().dispatch(ProcessBackendResponseCommand(res))
 
     def show_info(self, message: str, centered: bool = False):
         notification_window.delay(message, NotificationEnum.INFO.value, centered)

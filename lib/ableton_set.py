@@ -8,16 +8,16 @@ from typing import List, Dict, Optional
 from loguru import logger
 from pydantic import BaseModel
 
-from api.client.p0_script_api_client import p0_script_client_from_http
+from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
     _get_window_title_from_filename,
-    get_launched_sets,
+    get_ableton_windows,
     get_last_launched_track_set,
 )
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.timer import start_timer
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
@@ -98,7 +98,7 @@ class AbletonSetManager:
 
     @classmethod
     async def register(cls, ableton_set: AbletonSet) -> bool:
-        launched_sets = get_launched_sets()
+        launched_sets = get_ableton_windows()
 
         if ableton_set.is_unknown:
             ableton_set.set_path(get_last_launched_track_set())
@@ -125,7 +125,7 @@ class AbletonSetManager:
             startup_duration = time.time() - cls.LAST_SET_OPENED_AT
             logger.info(f"took {startup_duration:.2f}")
             command = ShowMessageCommand(f"Startup took {startup_duration:.2f}s")
-            start_timer(1, lambda: p0_script_client_from_http().dispatch(command))
+            start_timer(1, lambda: p0_script_client().dispatch(command))
 
             cls.LAST_SET_OPENED_AT = None
 

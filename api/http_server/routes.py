@@ -3,7 +3,7 @@ from typing import Optional, Callable, Dict
 
 from fastapi import APIRouter
 
-from api.client.p0_script_api_client import p0_script_client_from_http, p0_script_client
+from api.client.p0_script_api_client import p0_script_client
 from api.http_server.ws import ws_manager
 from api.settings import Settings
 from gui.celery import notification_window
@@ -13,9 +13,10 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
-from lib.ableton.browser import load_rev2_track, load_minitaur_track, preload_set_tracks
+from lib.ableton.interface.browser import load_rev2_track, load_minitaur_track
 from lib.ableton.get_set import get_last_launched_track_set
-from lib.ableton.matching_track import load_matching_track, save_and_remove_matching_track
+from lib.ableton.matching_track.load_matching_track import load_matching_track
+from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
@@ -62,7 +63,7 @@ async def _reload_ableton():
 
 @router.get("/reload_script")
 async def _reload_script():
-    p0_script_client_from_http().dispatch(ReloadScriptCommand())
+    p0_script_client().dispatch(ReloadScriptCommand())
 
 
 @router.get("/server_state")
@@ -79,7 +80,7 @@ async def post_set(set: AbletonSet):
         sleep(0.5)  # fix too fast backend ..?
         command = ProcessBackendResponseCommand(set.dict())
         command.set_id = set.id
-        p0_script_client_from_http().dispatch(command, log=False)
+        p0_script_client().dispatch(command, log=False)
 
     await ws_manager.broadcast_server_state()
 
@@ -112,7 +113,7 @@ async def mute_set(id: str):
     command = MuteSetCommand()
     command.set_id = id
 
-    p0_script_client_from_http().dispatch(command)
+    p0_script_client().dispatch(command)
 
 
 @router.get("/save_set_as_template")
@@ -154,27 +155,27 @@ async def _open_set(name: str):
 
 @router.get("/toggle_room_eq")
 async def toggle_room_eq():
-    p0_script_client_from_http().dispatch(ToggleRoomEQCommand())
+    p0_script_client().dispatch(ToggleRoomEQCommand())
 
 
 @router.get("/play_pause")
 async def play_pause():
-    p0_script_client_from_http().dispatch(PlayPauseSongCommand())
+    p0_script_client().dispatch(PlayPauseSongCommand())
 
 
 @router.get("/load_device/{name}")
 async def load_device(name: str):
-    p0_script_client_from_http().dispatch(LoadDeviceCommand(name))
+    p0_script_client().dispatch(LoadDeviceCommand(name))
 
 
 @router.get("/select_or_load_device/{name}")
 async def select_or_load_device(name: str):
-    p0_script_client_from_http().dispatch(SelectOrLoadDeviceCommand(name))
+    p0_script_client().dispatch(SelectOrLoadDeviceCommand(name))
 
 
 @router.get("/load_drum_rack/{category}/{subcategory}")
 async def load_drum_rack(category: str, subcategory: str):
-    p0_script_client_from_http().dispatch(LoadDrumRackCommand(category, subcategory))
+    p0_script_client().dispatch(LoadDrumRackCommand(category, subcategory))
 
 
 @router.get("/load_rev2")
@@ -187,17 +188,17 @@ async def load_minitaur():
     load_minitaur_track()
 
 
-@router.get("/preload_set_tracks")
-async def _preload_set_tracks():
+@router.get("/bounce_track_to_audio")
+async def _bounce_track_to_audio():
+    p0_script_client().dispatch(BounceTrackToAudioCommand())
+
+
+@router.get("/save_track_to_sub_tracks")
+async def _save_track_to_sub_tracks():
     active_set = AbletonSetManager.active()
 
     if active_set is not None:
-        preload_set_tracks(active_set)
-
-
-@router.get("/bounce_track_to_audio")
-async def bounce_track_to_audio():
-    p0_script_client_from_http().dispatch(BounceTrackToAudioCommand())
+        save_track_to_sub_tracks(active_set)
 
 
 @router.get("/load_matching_track")
@@ -208,95 +209,87 @@ async def _load_matching_track():
         load_matching_track(active_set)
 
 
-@router.get("/save_matching_track")
-async def save_matching_track():
-    active_set = AbletonSetManager.active()
-
-    if active_set is not None:
-        save_and_remove_matching_track(active_set)
-
-
 @router.get("/drum_rack_to_simpler")
 async def drum_rack_to_simpler():
-    p0_script_client_from_http().dispatch(DrumRackToSimplerCommand())
+    p0_script_client().dispatch(DrumRackToSimplerCommand())
 
 
 @router.get("/arm")
 async def arm():
-    p0_script_client_from_http().dispatch(ToggleArmCommand())
+    p0_script_client().dispatch(ToggleArmCommand())
 
 
 @router.get("/toggle_scene_loop")
 async def toggle_scene_loop():
-    p0_script_client_from_http().dispatch(ToggleSceneLoopCommand())
+    p0_script_client().dispatch(ToggleSceneLoopCommand())
 
 
 @router.get("/fire_scene_to_position/{bar_length}")
 @router.get("/fire_scene_to_position")
 async def fire_scene_to_position(bar_length: Optional[int] = None):
-    p0_script_client_from_http().dispatch(FireSceneToPositionCommand(bar_length))
+    p0_script_client().dispatch(FireSceneToPositionCommand(bar_length))
 
 
 @router.get("/fire_selected_scene")
 async def fire_selected_scene():
-    p0_script_client_from_http().dispatch(FireSelectedSceneCommand())
+    p0_script_client().dispatch(FireSelectedSceneCommand())
 
 
 @router.get("/record_unlimited")
 async def record_unlimited():
-    p0_script_client_from_http().dispatch(RecordUnlimitedCommand())
+    p0_script_client().dispatch(RecordUnlimitedCommand())
 
 
 @router.get("/scroll_scenes/{direction}")
 async def scroll_scenes(direction: str):
-    p0_script_client_from_http().dispatch(ScrollScenesCommand(go_next=direction == "next"))
+    p0_script_client().dispatch(ScrollScenesCommand(go_next=direction == "next"))
 
 
 @router.get("/scroll_scene_position/{direction}")
 async def scroll_scene_position(direction: str):
-    p0_script_client_from_http().dispatch(ScrollScenePositionCommand(go_next=direction == "next"))
+    p0_script_client().dispatch(ScrollScenePositionCommand(go_next=direction == "next"))
 
 
 @router.get("/scroll_scene_position_fine/{direction}")
 async def scroll_scene_position_fine(direction: str):
-    p0_script_client_from_http().dispatch(
+    p0_script_client().dispatch(
         ScrollScenePositionCommand(go_next=direction == "next", use_fine_scrolling=True)
     )
 
 
 @router.get("/scroll_scene_tracks/{direction}")
 async def scroll_scene_tracks(direction: str):
-    p0_script_client_from_http().dispatch(ScrollSceneTracksCommand(go_next=direction == "next"))
+    p0_script_client().dispatch(ScrollSceneTracksCommand(go_next=direction == "next"))
 
 
 @router.get("/scroll_track_volume/{direction}")
 async def scroll_track_volume(direction: str):
-    p0_script_client_from_http().dispatch(ScrollTrackVolumeCommand(go_next=direction == "next"))
+    p0_script_client().dispatch(ScrollTrackVolumeCommand(go_next=direction == "next"))
 
 
 @router.get("/toggle_track/{name}")
 async def toggle_track(name: str):
-    p0_script_client_from_http().dispatch(ToggleTrackCommand(name))
+    p0_script_client().dispatch(ToggleTrackCommand(name))
 
 
 @router.get("/toggle_drums")
 async def toggle_drums():
-    p0_script_client_from_http().dispatch(ToggleDrumsCommand())
+    p0_script_client().dispatch(ToggleDrumsCommand())
 
 
 @router.get("/toggle_reference")
 async def toggle_reference():
-    p0_script_client_from_http().dispatch(ToggleReferenceTrackCommand())
+    p0_script_client().dispatch(ToggleReferenceTrackCommand())
 
 
 @router.get("/show_instrument")
 async def show_instrument():
-    p0_script_client_from_http().dispatch(ShowInstrumentCommand())
+    p0_script_client().dispatch(ShowInstrumentCommand())
 
 
 @router.get("/show_automation/{direction}")
 async def show_automation(direction: str):
-    p0_script_client_from_http().dispatch(ShowAutomationCommand(go_next=direction == "next"))
+    p0_script_client().dispatch(ShowAutomationCommand(go_next=direction == "next"))
 
 
 @router.get("/toggle_clip_notes")
@@ -306,9 +299,9 @@ async def _toggle_clip_notes():
 
 @router.get("/go_to_group_track")
 async def _go_to_group_track():
-    p0_script_client_from_http().dispatch(GoToGroupTrackCommand())
+    p0_script_client().dispatch(GoToGroupTrackCommand())
 
 
 @router.get("/check_audio_export_valid")
 async def check_audio_export_valid():
-    p0_script_client_from_http().dispatch(CheckAudioExportValidCommand())
+    p0_script_client().dispatch(CheckAudioExportValidCommand())

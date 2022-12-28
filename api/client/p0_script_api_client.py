@@ -1,3 +1,5 @@
+import sys
+
 import mido
 from loguru import logger
 
@@ -30,12 +32,13 @@ class P0ScriptClient(object):
 
 
 def p0_script_client():
-    if P0ScriptClient.FROM_MIDI is None:
-        P0ScriptClient.FROM_MIDI = P0ScriptClient(Settings().p0_input_port_name)
-    return P0ScriptClient.FROM_MIDI
+    is_midi = "midi_server" in sys.argv[0]
 
-
-def p0_script_client_from_http():
-    if P0ScriptClient.FROM_HTTP is None:
-        P0ScriptClient.FROM_HTTP = P0ScriptClient(Settings().p0_input_from_http_port_name)
-    return P0ScriptClient.FROM_HTTP
+    if is_midi:
+        if P0ScriptClient.FROM_MIDI is None:
+            P0ScriptClient.FROM_MIDI = P0ScriptClient(Settings().p0_input_port_name)
+        return P0ScriptClient.FROM_MIDI
+    else:
+        if P0ScriptClient.FROM_HTTP is None:
+            P0ScriptClient.FROM_HTTP = P0ScriptClient(Settings().p0_input_from_http_port_name)
+        return P0ScriptClient.FROM_HTTP

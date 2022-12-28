@@ -9,7 +9,7 @@ from lib.window.find_window import get_windows_list
 settings = Settings()
 
 
-def get_launched_sets() -> List[str]:
+def get_ableton_windows() -> List[str]:
     set_infos = filter(lambda i: i["app_name"] == settings.ableton_process_name, get_windows_list())
 
     return [i["name"] for i in set_infos]

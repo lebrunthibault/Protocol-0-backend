@@ -9,8 +9,8 @@ from loguru import logger
 from gui.task_cache import TaskCache, TaskCacheKey
 from gui.window.notification.notification_factory import NotificationFactory
 from gui.window.select.select_factory import SelectFactory
-from lib.enum.ColorEnum import ColorEnum
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.color_enum import ColorEnum
+from lib.enum.notification_enum import NotificationEnum
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 

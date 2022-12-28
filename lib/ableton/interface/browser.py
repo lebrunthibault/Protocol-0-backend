@@ -1,11 +1,26 @@
 from time import sleep
 
-from gui.celery import notification_window
-from lib.ableton.ableton import is_browser_tracks_folder_clickable, is_browser_visible
+from lib.ableton.ableton import get_closest_color_at_pixel
+from lib.ableton.interface.interface_color_enum import InterfaceColorEnum
 from lib.ableton_set import AbletonSet
-from lib.enum.NotificationEnum import NotificationEnum
 from lib.keys import send_keys, send_up, send_down, send_right
 from lib.mouse.mouse import click
+
+
+def toggle_browser():
+    send_keys("^%b")
+    sleep(0.1)
+
+
+def is_browser_visible() -> bool:
+    color = get_closest_color_at_pixel(18, 221)
+    return color == InterfaceColorEnum.BROWSER
+
+
+def is_browser_tracks_folder_clickable() -> bool:
+    color = get_closest_color_at_pixel(27, 502)
+
+    return color.browser_shown
 
 
 def search(search: str):
@@ -47,13 +62,9 @@ def load_minitaur_track():
 
 
 def preload_set_tracks(set: AbletonSet):
-    if is_browser_visible() and not is_browser_tracks_folder_clickable():
-        notification_window.delay(
-            "Browser is not selectable",
-            notification_enum=NotificationEnum.WARNING.value,
-            centered=True,
-        )
-        return
+    if not is_browser_visible():
+        toggle_browser()
+    assert is_browser_tracks_folder_clickable(), "Browser is not selectable"
 
     search("")  # focus the browser
     send_keys("{BACKSPACE}")

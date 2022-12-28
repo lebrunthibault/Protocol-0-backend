@@ -9,13 +9,13 @@ from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 
 # needed when calling protocol0 Config
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 
 load_dotenv()
 
 from gui.celery import notification_window
-from api.client.p0_script_api_client import p0_script_client_from_http
+from api.client.p0_script_api_client import p0_script_client
 from api.http_server.routes import router  # noqa
 from api.http_server.ws import ws_router  # noqa
 from protocol0.application.command.GetSetStateCommand import GetSetStateCommand  # noqa
@@ -37,17 +37,24 @@ async def validation_exception_handler(request, exc: Exception):
 async def _catch_protocol0_errors(request: Request, call_next):
     try:
         return await call_next(request)
-    except Protocol0Error as e:
+    except (Protocol0Error, AssertionError) as e:
+        logger.error(e)
         notification_window.delay(
             str(e), notification_enum=NotificationEnum.WARNING.value, centered=True
         )
-        return PlainTextResponse(str(e), status_code=400)
+        return PlainTextResponse(str(e), status_code=500)
+    except Exception as e:
+        logger.error(e)
+        notification_window.delay(
+            str(e), notification_enum=NotificationEnum.ERROR.value, centered=True
+        )
+        return PlainTextResponse(str(e), status_code=500)
 
 
 async def _get_state():
     """Delaying so the http and midi servers are up to receive set data"""
     await asyncio.sleep(3)
-    p0_script_client_from_http().dispatch(GetSetStateCommand())
+    p0_script_client().dispatch(GetSetStateCommand())
 
 
 @app.on_event("startup")

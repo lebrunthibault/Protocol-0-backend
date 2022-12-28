@@ -14,7 +14,7 @@ from api.settings import Settings
 from gui.celery import check_celery_worker_status, notification_window
 from gui.task_cache import TaskCache
 from gui.window.notification.notification_factory import NotificationFactory
-from lib.enum.NotificationEnum import NotificationEnum
+from lib.enum.notification_enum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.midi.mido import _get_input_port
 from lib.timer import start_timer
@@ -128,4 +128,10 @@ def _execute_midi_message(message: Message):
     if method.__name__ not in _SILENT_MESSAGES:
         logger.info(f"GET: Route.{method.__name__}")
 
-    method(**payload["args"])
+    try:
+        method(**payload["args"])
+    except Protocol0Error as e:
+        notification_window.delay(
+            str(e), notification_enum=NotificationEnum.WARNING.value, centered=True
+        )
+        raise e

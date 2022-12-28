@@ -7,7 +7,7 @@ from PIL import ImageGrab
 from loguru import logger
 
 from api.settings import Settings
-from lib.enum.InterfaceColorEnum import InterfaceColorEnum
+from lib.ableton.interface.interface_color_enum import InterfaceColorEnum
 
 
 def move_to(x: int, y: int) -> None:
@@ -23,9 +23,12 @@ def drag_to(x: int, y: int, duration=0.5) -> None:
     pyautogui.dragTo(x, y, button="left", duration=duration, tween=tween)
 
 
-def click(x: int, y: int, keep_position=True, exact=False) -> None:
+def click(x: int, y: int, keep_position=True, exact=False, button=pyautogui.PRIMARY) -> None:
     # coordinates are relative to a 1080p display resolution
     # accounting for resolution change
+    if button != pyautogui.PRIMARY:
+        keep_position = False
+
     if not exact:
         x *= Settings().display_resolution_factor
         y *= Settings().display_resolution_factor
@@ -33,7 +36,7 @@ def click(x: int, y: int, keep_position=True, exact=False) -> None:
     mouse_position = pyautogui.position()
 
     try:
-        pyautogui.click(x, y)
+        pyautogui.click(x, y, button=button)
     except pyautogui.FailSafeException as e:
         logger.warning(e)
 

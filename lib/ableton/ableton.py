@@ -8,11 +8,13 @@ import pyautogui
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
+from lib.ableton.interface.interface_color_enum import InterfaceColorEnum
 from lib.desktop.desktop import go_to_desktop
-from lib.enum.InterfaceColorEnum import InterfaceColorEnum
-from lib.enum.NotificationEnum import NotificationEnum
-from lib.keys import send_keys, send_right
-from lib.mouse.mouse import click, get_pixel_color_at, color_distance
+from lib.enum.notification_enum import NotificationEnum
+from lib.keys import send_keys
+from lib.keys import send_right
+from lib.mouse.mouse import click
+from lib.mouse.mouse import get_pixel_color_at, color_distance
 from lib.process import execute_powershell_command
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
@@ -145,17 +147,6 @@ def toggle_clip_notes():
 
 def get_closest_color_at_pixel(x: int, y: int) -> InterfaceColorEnum:
     pixel_color = get_pixel_color_at(x, y)
-    return sorted(
-        list(InterfaceColorEnum), key=lambda c: color_distance(c.get_tuple(), pixel_color)
-    )[0]
-
-
-def is_browser_visible() -> bool:
-    color = get_closest_color_at_pixel(18, 221)
-    return color == InterfaceColorEnum.BROWSER
-
-
-def is_browser_tracks_folder_clickable() -> bool:
-    color = get_closest_color_at_pixel(27, 502)
-
-    return color.browser_shown
+    return sorted(list(InterfaceColorEnum), key=lambda c: color_distance(c.to_tuple, pixel_color))[
+        0
+    ]

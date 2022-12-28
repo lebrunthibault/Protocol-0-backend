@@ -1,7 +1,7 @@
 from typing import cast
 
-from lib.enum.AbstractEnum import AbstractEnum
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.abstract_enum import AbstractEnum
+from lib.enum.color_enum import ColorEnum
 
 
 class NotificationEnum(AbstractEnum):

@@ -9,7 +9,7 @@ from loguru import logger
 from api.settings import Settings
 from gui.task_cache import TaskCache
 from gui.window.window import Window
-from lib.enum.ColorEnum import ColorEnum
+from lib.enum.color_enum import ColorEnum
 
 
 class Notification(Window):
