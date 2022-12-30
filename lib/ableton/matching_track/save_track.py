@@ -1,3 +1,4 @@
+import os
 import shutil
 from time import sleep
 
@@ -19,7 +20,7 @@ from protocol0.application.command.EmitBackendEventCommand import (
 )
 
 
-@retry(10, 0)
+@retry(30, 0)
 def _wait_for_track_save(set: AbletonSet):
     sleep(0.1)
     assert set.is_current_track_saved, "Track not yet saved"
@@ -34,7 +35,8 @@ def _close_browser():
 @keep_mouse_position
 def save_track_to_sub_tracks(set: AbletonSet):
     assert len(AbletonSet.set_tracks()) < 8, "Too many set tracks, drag cannot be made"
-    assert set.saved_temp_track is None, "No temp track should be saved"
+    while set.saved_temp_track is not None:
+        os.unlink(set.saved_temp_track)
 
     if not is_browser_visible():
         toggle_browser()
@@ -50,6 +52,7 @@ def save_track_to_sub_tracks(set: AbletonSet):
 
     shutil.move(str(set.saved_temp_track), f"{set.tracks_folder}/{set.current_track_name}.als")
 
+    sleep(0.1)
     send_keys("{ESC}")  # close the name prompt
     _close_browser()
 
