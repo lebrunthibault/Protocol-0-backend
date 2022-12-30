@@ -44,19 +44,19 @@ def get_absolute_coords(handle: int, coords: Coords) -> Tuple[int, int]:
     return (x + x_coords, y + y_coords)
 
 
-def get_pixel_color_at(x: int, y: int) -> RGBColor:
+def _get_pixel_color_at(coords: Coords) -> RGBColor:
     image = ImageGrab.grab()
-    pixel_color = image.getpixel((x, y))
+    pixel_color = image.getpixel(coords)
     logger.debug("pixel_color: %s" % PixelColorEnum.get_string_from_tuple(pixel_color))
     return pixel_color
 
 
-def get_closest_color_at_pixel(x: int, y: int) -> PixelColorEnum:
+def get_closest_color_at_pixel(coords: Coords) -> PixelColorEnum:
     def color_distance(c1, c2):
         # type: (RGBColor, RGBColor) -> float
         (r1, g1, b1) = c1
         (r2, g2, b2) = c2
         return math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2)
 
-    pixel_color = get_pixel_color_at(x, y)
+    pixel_color = _get_pixel_color_at(coords)
     return sorted(list(PixelColorEnum), key=lambda c: color_distance(c.rgb, pixel_color))[0]

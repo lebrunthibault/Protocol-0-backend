@@ -54,6 +54,10 @@ class AbletonSet(BaseModel):
     def tracks_folder(self):
         return f"{self.set_folder}\\tracks"
 
+    @classmethod
+    def set_tracks(cls) -> List[str]:
+        return next(os.walk(f"{settings.ableton_set_directory}\\tracks"))[1]
+
     @property
     def saved_tracks(self) -> List:
         assert os.path.exists(self.tracks_folder), "No track folder"
