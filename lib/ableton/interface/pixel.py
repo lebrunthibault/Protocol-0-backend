@@ -1,14 +1,14 @@
 import math
+from time import sleep
 from typing import Tuple
 
 from PIL import ImageGrab
-from loguru import logger
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum, RGBColor
-from lib.decorators import timing
+from lib.decorators import retry
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.window import get_window_position
 from protocol0.application.command.EmitBackendEventCommand import (
@@ -18,18 +18,29 @@ from protocol0.application.command.EmitBackendEventCommand import (
 settings = Settings()
 
 
-@timing
-def get_color_coords(pixel_color: PixelColorEnum) -> Coords:
+def get_color_coords(pixel_color: PixelColorEnum, box_boundary="left") -> Coords:
+    assert box_boundary in ("left", "right"), "Invalid box boundary"
     screen = ImageGrab.grab()
 
     header_offset = 45  # skip these pixels
 
-    for i, coords in enumerate(list(screen.getdata())[1920 * header_offset : 1920 * 100]):
+    pixels = list(screen.getdata())[1920 * header_offset : 1920 * 100]
+    for i, coords in enumerate(pixels):
         if coords == pixel_color.rgb:
+            # find the right most pixel of the selected box
+            if box_boundary == "right":
+                while True:
+                    if coords != pixel_color.rgb:
+                        break
+                    i += 1
+                    coords = pixels[i]
+            x, y = (i % 1920, (i // 1920) + header_offset)
+
             if pixel_color == PixelColorEnum.TRACK_FOCUSED:
+                y += 10  # drag works better here
                 p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
 
-            return (i % 1920, (i // 1920) + header_offset)
+            return x, y
 
     raise Protocol0Error(f"{pixel_color} not found")
 
@@ -47,7 +58,6 @@ def get_absolute_coords(handle: int, coords: Coords) -> Tuple[int, int]:
 def _get_pixel_color_at(coords: Coords) -> RGBColor:
     image = ImageGrab.grab()
     pixel_color = image.getpixel(coords)
-    logger.debug("pixel_color: %s" % PixelColorEnum.get_string_from_tuple(pixel_color))
     return pixel_color
 
 
@@ -60,3 +70,13 @@ def get_closest_color_at_pixel(coords: Coords) -> PixelColorEnum:
 
     pixel_color = _get_pixel_color_at(coords)
     return sorted(list(PixelColorEnum), key=lambda c: color_distance(c.rgb, pixel_color))[0]
+
+
+@retry(10, 0)
+def wait_for_pixel_color(target_color: PixelColorEnum, coords: Coords):
+    if _get_pixel_color_at(coords) == target_color.rgb:
+        return
+
+    sleep(0.1)
+    pixel_color = _get_pixel_color_at(coords)
+    assert pixel_color == target_color.rgb, f"{pixel_color} != {target_color.rgb}"

@@ -3,6 +3,7 @@ import time
 from os.path import isabs
 
 import keyboard
+import win32gui
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
@@ -51,17 +52,19 @@ def reload_ableton() -> None:
     Not easy to have this work every time
     """
     p0_script_client().dispatch(ResetPlaybackCommand())
-    if not is_ableton_focused():
-        go_to_desktop(0)
-        time.sleep(0.5)
+    # hack to get the focus when ableton is shown
+    go_to_desktop(1)
+    go_to_desktop(0)
+
+    for i in range(0, 6):
+        if win32gui.GetCursorInfo()[1] == 65543:  # loading
+            break
+
         focus_ableton()
-
-    send_keys("^n")
-    # send_right()
-
-    send_keys("{RIGHT}")
-    time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
-    send_keys("{ENTER}")
+        send_keys("^n")
+        send_keys("{RIGHT}")
+        time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
+        send_keys("{ENTER}")
 
 
 def save_set():

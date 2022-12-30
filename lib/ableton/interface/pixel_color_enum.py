@@ -13,11 +13,6 @@ class PixelColorEnum(AbstractEnum):
         # type: (str) -> RGBColor
         return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
 
-    @classmethod
-    def get_string_from_tuple(cls, color):
-        # type: (RGBColor) -> str
-        return "".join(str(hex(code).replace("0x", "").upper()) for code in color)
-
     @property
     def rgb(self):
         # type: () -> RGBColor
@@ -32,6 +27,8 @@ class PixelColorEnum(AbstractEnum):
     BROWSER_SELECTED_DIMMER = "A8BBC4"
 
     TRACK_FOCUSED = "FF39D4"
+
+    EXPLORER_ABLETON_SET_ICON = "222222"
 
     # needed for closest color detection
     SEPARATOR = "4B4B4B"
