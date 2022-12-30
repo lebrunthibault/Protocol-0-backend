@@ -58,15 +58,24 @@ def timing(f):
     return wrap
 
 
-def retry(f):
-    @wraps(f)
-    def wrap(*a, **k):
-        try:
-            return f(*a, **k)
-        except Protocol0Error as e:
-            from loguru import logger
+def retry(count: int, duration: float):
+    def decorator(func):
+        @wraps(func)
+        def wrap(*a, **k):
+            assert count > 1, "Expected count to be > 1"
 
-            logger.warning(e)
-            return f(*a, **k)
+            exception = None
 
-    return wrap
+            for i in range(0, count):
+                try:
+                    return func(*a, **k)
+                except (Protocol0Error, AssertionError) as e:
+                    logger.warning(e)
+                    time.sleep(duration)
+                    exception = e
+
+            raise exception
+
+        return wrap
+
+    return decorator

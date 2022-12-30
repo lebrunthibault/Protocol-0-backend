@@ -26,6 +26,7 @@ class Settings(BaseSettings):
     http_api_url = "http://127.0.0.1:8000"
 
     rev2_editor_window_title = "REV2Editor/m"
+    track_window_title = "tracks"
     log_window_title = "logs terminal"
 
     # Midi port names are relative to the Protocol0 script and not this midi backend

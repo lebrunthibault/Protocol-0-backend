@@ -13,9 +13,9 @@ from lib.ableton.ableton import (
     open_set,
     toggle_clip_notes,
 )
-from lib.ableton.interface.browser import load_rev2_track, load_minitaur_track
 from lib.ableton.get_set import get_last_launched_track_set
-from lib.ableton.matching_track.load_matching_track import load_matching_track
+from lib.ableton.interface.browser import load_rev2_track, load_minitaur_track
+from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
@@ -30,10 +30,11 @@ from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
+from protocol0.application.command.LoadMatchingTrackCommand import LoadMatchingTrackCommand
 from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
-from protocol0.application.command.ProcessBackendResponseCommand import (
-    ProcessBackendResponseCommand,
+from protocol0.application.command.EmitBackendEventCommand import (
+    EmitBackendEventCommand,
 )
 from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
@@ -78,7 +79,7 @@ async def post_set(set: AbletonSet):
 
     if register_change:
         sleep(0.5)  # fix too fast backend ..?
-        command = ProcessBackendResponseCommand(set.dict())
+        command = EmitBackendEventCommand("set_updated", data=set.dict())
         command.set_id = set.id
         p0_script_client().dispatch(command, log=False)
 
@@ -202,11 +203,16 @@ async def _save_track_to_sub_tracks():
 
 
 @router.get("/load_matching_track")
-async def _load_matching_track():
+async def load_matching_track():
+    p0_script_client().dispatch(LoadMatchingTrackCommand())
+
+
+@router.get("/drag_matching_track")
+async def _drag_matching_track():
     active_set = AbletonSetManager.active()
 
     if active_set is not None:
-        load_matching_track(active_set)
+        drag_matching_track(active_set)
 
 
 @router.get("/drum_rack_to_simpler")

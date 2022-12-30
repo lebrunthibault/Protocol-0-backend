@@ -2,7 +2,10 @@ from typing import List, Tuple
 
 import PySimpleGUI as sg
 from PySimpleGUI import Button
-
+from protocol0.application.command.EmitBackendEventCommand import (
+    EmitBackendEventCommand,
+)
+from api.client.p0_script_api_client import p0_script_client
 from gui.window.select.button_colors import ButtonColors
 from gui.window.window import Window
 from lib.enum.color_enum import ColorEnum
@@ -56,7 +59,10 @@ class Select(Window):
                     break
 
         self.sg_window.close()
-        self.notify(self._selected_option)
+
+        p0_script_client().dispatch(
+            EmitBackendEventCommand("option_selected", data=self._selected_option)
+        )
 
     def _scroll_selected_option(self, go_next=True):
         increment = 1 if go_next else -1

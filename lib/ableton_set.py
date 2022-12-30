@@ -2,7 +2,7 @@ import glob
 import os.path
 import re
 import time
-from os.path import dirname, basename
+from os.path import basename, dirname
 from typing import List, Dict, Optional
 
 from loguru import logger
@@ -17,6 +17,7 @@ from lib.ableton.get_set import (
     get_ableton_windows,
     get_last_launched_track_set,
 )
+from lib.ableton.interface.explorer import sort_by_name
 from lib.enum.notification_enum import NotificationEnum
 from lib.timer import start_timer
 from lib.window.window import get_focused_window_title
@@ -37,7 +38,6 @@ class AbletonSet(BaseModel):
     title: Optional[str]  # computed only by the backend
     muted: bool
     current_track_name: str
-    current_track_type: str
     drum_rack_visible: bool
     room_eq_enabled: bool
 
@@ -56,35 +56,35 @@ class AbletonSet(BaseModel):
 
     @property
     def saved_tracks(self) -> List:
-        if not os.path.exists(self.tracks_folder):
-            notification_window.delay(
-                "No track folder",
-                notification_enum=NotificationEnum.ERROR.value,
-                centered=True,
-            )
-            return []
-
+        assert os.path.exists(self.tracks_folder), "No track folder"
         return glob.glob(f"{self.tracks_folder}\\*.als")
 
     @property
+    def temp_track_folder(self) -> str:
+        return f"{settings.ableton_set_directory}\\tracks"
+
+    @property
     def current_track_index_in_tracks(self):
-        tracks = [basename(t).replace(".als", "") for t in self.saved_tracks]
+        tracks = sort_by_name([basename(t).replace(".als", "") for t in self.saved_tracks])
 
         return tracks.index(self.current_track_name)
 
     @property
-    def last_saved_track(self) -> str:
-        return max(self.saved_tracks, key=os.path.getatime)
+    def saved_temp_track(self) -> Optional[str]:
+        return next(iter(glob.glob(f"{self.temp_track_folder}\\*.als")), None)
 
     @property
-    def is_track_saved(self) -> bool:
-        saved_track = self.last_saved_track
+    def is_current_track_saved(self) -> bool:
+        saved_track = self.saved_temp_track
+        if saved_track is None:
+            return False
+
         saved_track_name = basename(saved_track).replace(".als", "")
 
-        return (
-            saved_track_name == self.current_track_name
-            and time.time() - os.path.getatime(saved_track) <= 2
-        )
+        assert saved_track_name == self.current_track_name, "track saved mismatch"
+        assert time.time() - os.path.getmtime(saved_track) <= 2, "track not saved recently"
+
+        return True
 
     def set_path(self, path: str):
         logger.info(f"setting set path {path}")

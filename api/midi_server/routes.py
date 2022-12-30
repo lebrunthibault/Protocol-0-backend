@@ -66,17 +66,21 @@ class Routes:
         # forward to http server
         requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks")
 
+    def drag_matching_track(self):
+        # forward to http server
+        requests.get(f"{settings.http_api_url}/drag_matching_track")
+
     def flatten_focused_track(self):
         flatten_focused_track()
 
     def move_to(self, x: int, y: int) -> None:
-        move_to(x=x, y=y)
+        move_to((x, y))
 
     def click(self, x: int, y: int) -> None:
         click(x=x, y=y)
 
     def click_vertical_zone(self, x: int, y: int) -> None:
-        click_vertical_zone(x=x, y=y)
+        click_vertical_zone((x, y))
 
     def select_and_copy(self) -> None:
         send_keys("^a")

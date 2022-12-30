@@ -2,24 +2,26 @@ from typing import Tuple
 
 from lib.enum.abstract_enum import AbstractEnum
 
+RGBColor = Tuple[int, int, int]
 
-class InterfaceColorEnum(AbstractEnum):
+
+class PixelColorEnum(AbstractEnum):
     """used when doing dynamic color detection"""
 
     @classmethod
-    def get_tuple_from_string(cls, color):
-        # type: (str) -> Tuple[int, int, int]
+    def hex_to_rgb(cls, color):
+        # type: (str) -> RGBColor
         return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
 
     @classmethod
     def get_string_from_tuple(cls, color):
-        # type: (Tuple[int, int, int]) -> str
+        # type: (RGBColor) -> str
         return "".join(str(hex(code).replace("0x", "").upper()) for code in color)
 
     @property
-    def to_tuple(self):
-        # type: () -> Tuple[int, int, int]
-        return InterfaceColorEnum.get_tuple_from_string(self.value)
+    def rgb(self):
+        # type: () -> RGBColor
+        return PixelColorEnum.hex_to_rgb(self.value)
 
     BUTTON_ACTIVATED = "FFA608"
     BUTTON_NOT_SHOWN = "C3C3C3"
@@ -37,12 +39,12 @@ class InterfaceColorEnum(AbstractEnum):
 
     @property
     def button_activated(self) -> bool:
-        return self in (InterfaceColorEnum.BUTTON_ACTIVATED, InterfaceColorEnum.BUTTON_NOT_SHOWN)
+        return self in (PixelColorEnum.BUTTON_ACTIVATED, PixelColorEnum.BUTTON_NOT_SHOWN)
 
     @property
     def browser_shown(self) -> bool:
         return self in (
-            InterfaceColorEnum.BROWSER,
-            InterfaceColorEnum.BROWSER_SELECTED_DIM,
-            InterfaceColorEnum.BROWSER_SELECTED_DIMMER,
+            PixelColorEnum.BROWSER,
+            PixelColorEnum.BROWSER_SELECTED_DIM,
+            PixelColorEnum.BROWSER_SELECTED_DIMMER,
         )

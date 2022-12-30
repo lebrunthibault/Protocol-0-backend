@@ -1,7 +1,7 @@
 from time import sleep
 
-from lib.ableton.ableton import get_closest_color_at_pixel
-from lib.ableton.interface.interface_color_enum import InterfaceColorEnum
+from lib.ableton.interface.pixel_color_enum import PixelColorEnum
+from lib.ableton.interface.pixel import get_closest_color_at_pixel
 from lib.ableton_set import AbletonSet
 from lib.keys import send_keys, send_up, send_down, send_right
 from lib.mouse.mouse import click
@@ -14,7 +14,7 @@ def toggle_browser():
 
 def is_browser_visible() -> bool:
     color = get_closest_color_at_pixel(18, 221)
-    return color == InterfaceColorEnum.BROWSER
+    return color == PixelColorEnum.BROWSER
 
 
 def is_browser_tracks_folder_clickable() -> bool:
@@ -66,24 +66,7 @@ def preload_set_tracks(set: AbletonSet):
         toggle_browser()
     assert is_browser_tracks_folder_clickable(), "Browser is not selectable"
 
-    search("")  # focus the browser
-    send_keys("{BACKSPACE}")
-    click(58, 524)  # click on "tracks" in browser
-    sleep(0.05)
-    click(86, 58)  # click in the search box without activating search mode
-    sleep(0.05)
-
-    # first writing a wrong title to clear the potential sub folder focus
-    send_keys(f"{set.title}*")  # filter on the set folder
-    sleep(0.2)
-    send_keys("{BACKSPACE}")
-    sleep(0.2)
-
-    # a way to always show the tracks sub folder
-    send_down()
-    send_right()
-    send_down()
-    send_right()
+    click(50, 474)  # click on "tracks" in browser
 
 
 def preload_sample_category(category: str):

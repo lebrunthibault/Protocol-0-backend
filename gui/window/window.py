@@ -4,12 +4,11 @@ from typing import Optional
 # noinspection PyUnresolvedReferences
 from PySimpleGUI import Window as SgWindow
 
-from lib.patterns.observer.subject_mixin import SubjectMixin
 from lib.timer import start_timer
 from lib.window.window import focus_window
 
 
-class Window(SubjectMixin):
+class Window:
     sg_window: Optional[SgWindow] = None
 
     def display(self):

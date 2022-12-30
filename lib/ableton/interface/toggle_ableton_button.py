@@ -1,7 +1,7 @@
 from loguru import logger
 
-from lib.ableton.ableton import get_closest_color_at_pixel
-from lib.ableton.interface.interface_color_enum import InterfaceColorEnum
+from lib.ableton.interface.pixel_color_enum import PixelColorEnum
+from lib.ableton.interface.pixel import get_closest_color_at_pixel
 from lib.mouse.mouse import click
 
 
@@ -11,7 +11,7 @@ def toggle_ableton_button(x: int, y: int, activate: bool) -> None:
 
     if (
         activate
-        and closest_color == InterfaceColorEnum.BUTTON_DEACTIVATED
+        and closest_color == PixelColorEnum.BUTTON_DEACTIVATED
         or not activate
         and closest_color.button_activated
     ):

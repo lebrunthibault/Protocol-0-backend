@@ -3,18 +3,15 @@ import time
 from os.path import isabs
 
 import keyboard
-import pyautogui
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
-from lib.ableton.interface.interface_color_enum import InterfaceColorEnum
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
 from lib.keys import send_right
-from lib.mouse.mouse import click
-from lib.mouse.mouse import get_pixel_color_at, color_distance
+from lib.mouse.mouse import click, keep_mouse_position
 from lib.process import execute_powershell_command
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
@@ -71,6 +68,7 @@ def save_set():
     send_keys("^s")
 
 
+@keep_mouse_position
 def save_set_as_template(open_pref=True):
     p0_script_client().dispatch(ResetPlaybackCommand())
     if open_pref:
@@ -78,26 +76,21 @@ def save_set_as_template(open_pref=True):
     else:
         time.sleep(0.01)
 
-    initial_mouse_position = pyautogui.position()
-
     # first possible position
-    click(x=703, y=363, keep_position=False)  # click on File Folder
-    click(x=1032, y=201, keep_position=False)  # click on set as new
+    click(x=703, y=363)  # click on File Folder
+    click(x=1032, y=201)  # click on set as new
     time.sleep(0.05)
 
     # second position possible
-    click(x=703, y=332, keep_position=False)  # click on File Folder
-    click(x=1032, y=203, keep_position=False)  # click on set as new (2nd position)
-    click(x=1032, y=230, keep_position=False)  # click on set as new (2nd position)
+    click(x=703, y=332)  # click on File Folder
+    click(x=1032, y=203)  # click on set as new (2nd position)
+    click(x=1032, y=230)  # click on set as new (2nd position)
     time.sleep(0.05)
     send_keys("{ENTER}")
     time.sleep(0.2)
     send_keys("	{ESC}")
 
     reload_ableton()
-
-    # restore mouse position
-    pyautogui.moveTo(initial_mouse_position)
 
 
 def toggle_fold_set():
@@ -142,11 +135,4 @@ def open_set(set_path: str):
 
 
 def toggle_clip_notes():
-    click(87, 1015, keep_position=True)
-
-
-def get_closest_color_at_pixel(x: int, y: int) -> InterfaceColorEnum:
-    pixel_color = get_pixel_color_at(x, y)
-    return sorted(list(InterfaceColorEnum), key=lambda c: color_distance(c.to_tuple, pixel_color))[
-        0
-    ]
+    click(87, 1015)

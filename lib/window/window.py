@@ -10,6 +10,7 @@ import win32process
 from loguru import logger
 from psutil import NoSuchProcess
 
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
 
 
@@ -26,28 +27,26 @@ def focus_window(
     name: str,
     search_type: Union[SearchTypeEnum, str] = SearchTypeEnum.WINDOW_TITLE,
     retry: bool = True,
-) -> None:
+) -> int:
     handle = find_window_handle_by_enum(name=name, search_type=search_type)
-    if not handle:
-        logger.info(f"handle not found for {name}")
-        return
+    assert handle, f"No window '{name}'"
 
     # noinspection PyUnresolvedReferences
     pythoncom.CoInitialize()  # needed
     # noinspection PyBroadException
     try:
         win32gui.SetForegroundWindow(handle)
-        return
+        return handle
     except Exception as e:
         logger.warning(f"couldn't focus {name} : {e}")
         if retry:
             # needed for SetForegroundWindow to be allowed
             shell = win32com.client.Dispatch("WScript.Shell")
             shell.SendKeys("%")
-            focus_window(name=name, search_type=search_type, retry=False)
-            return
+            return focus_window(name=name, search_type=search_type, retry=False)
 
     logger.error("Window not focused : %s" % name)
+    raise Protocol0Error("window is not focused")
 
 
 def is_window_focused(handle: int) -> bool:

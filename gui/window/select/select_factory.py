@@ -4,7 +4,6 @@ import PySimpleGUI as sg
 from PySimpleGUI import Button, BLUES
 
 from gui.window.decorators.close_window_on_end_decorator import CloseWindowOnEndDecorator
-from gui.window.decorators.notify_protocol0_decorator import NotifyProtocol0Decorator
 from gui.window.select.button_colors import ButtonColors
 from gui.window.select.select import Select
 from gui.window.window import Window
@@ -32,10 +31,7 @@ class SelectFactory(WindowFactory):
         else:
             select = Select(buttons=[buttons], arrow_keys=("Left", "Right"), **kwargs)  # type: ignore[arg-type]
 
-        window = CloseWindowOnEndDecorator(select)
-        window_2 = NotifyProtocol0Decorator(window)
-        select.attach(window_2)
-        return window_2
+        return CloseWindowOnEndDecorator(select)
 
     @classmethod
     def _get_button_color(cls, color: ColorEnum) -> ButtonColors:

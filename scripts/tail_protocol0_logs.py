@@ -58,6 +58,7 @@ class LogConfig:
         "Push2.push2",
         "MemoryUsage:",
         "VST 2.4",
+        "is an invalid filename",
     ]
     ERROR_KEYWORDS = [
         "P0 - error",
