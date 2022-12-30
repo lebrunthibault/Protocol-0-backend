@@ -2,8 +2,11 @@ import shutil
 from time import sleep
 
 from api.client.p0_script_api_client import p0_script_client
-from lib.ableton.interface.browser import toggle_browser, is_browser_visible, \
-    is_browser_tracks_folder_clickable
+from lib.ableton.interface.browser import (
+    toggle_browser,
+    is_browser_visible,
+    is_browser_tracks_folder_clickable,
+)
 from lib.ableton.interface.coords import CoordsEnum
 from lib.ableton.interface.pixel import get_color_coords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum

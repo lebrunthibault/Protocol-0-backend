@@ -16,11 +16,10 @@ from lib.ableton.ableton import (
     save_set_as_template,
 )
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
-from lib.ableton.interface.browser import preload_sample_category
-from lib.ableton.drum_rack import save_drum_rack
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
+from lib.ableton.interface.browser import preload_sample_category
 from lib.ableton.interface.toggle_ableton_button import toggle_ableton_button
-from lib.ableton.interface.track import flatten_focused_track
+from lib.ableton.interface.track import flatten_focused_track, load_instrument_track
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
 from lib.decorators import throttle
@@ -124,10 +123,10 @@ class Routes:
         clear_arrangement()
 
     def toggle_ableton_button(self, x: int, y: int, activate: bool = False) -> None:
-        toggle_ableton_button(x=x, y=y, activate=activate)
+        toggle_ableton_button((x, y), activate=activate)
 
-    def save_drum_rack(self, drum_rack_name: str) -> None:
-        save_drum_rack(drum_rack_name)
+    def load_instrument_track(self, instrument_name: str) -> None:
+        load_instrument_track(instrument_name)
 
     def activate_rev2_editor(self) -> None:
         activate_rev2_editor()

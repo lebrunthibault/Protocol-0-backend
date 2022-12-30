@@ -17,7 +17,6 @@ from lib.ableton.get_set import (
     get_ableton_windows,
     get_last_launched_track_set,
 )
-from lib.ableton.interface.explorer import sort_by_name
 from lib.enum.notification_enum import NotificationEnum
 from lib.timer import start_timer
 from lib.window.window import get_focused_window_title
@@ -59,19 +58,8 @@ class AbletonSet(BaseModel):
         return next(os.walk(f"{settings.ableton_set_directory}\\tracks"))[1]
 
     @property
-    def saved_tracks(self) -> List:
-        assert os.path.exists(self.tracks_folder), "No track folder"
-        return glob.glob(f"{self.tracks_folder}\\*.als")
-
-    @property
     def temp_track_folder(self) -> str:
         return f"{settings.ableton_set_directory}\\tracks"
-
-    @property
-    def current_track_index_in_tracks(self):
-        tracks = sort_by_name([basename(t).replace(".als", "") for t in self.saved_tracks])
-
-        return tracks.index(self.current_track_name)
 
     @property
     def saved_temp_track(self) -> Optional[str]:

@@ -14,7 +14,6 @@ from lib.ableton.ableton import (
     toggle_clip_notes,
 )
 from lib.ableton.get_set import get_last_launched_track_set
-from lib.ableton.interface.browser import load_rev2_track, load_minitaur_track
 from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet
@@ -30,6 +29,8 @@ from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
+from protocol0.application.command.LoadRev2Command import LoadRev2Command
+from protocol0.application.command.LoadMinitaurCommand import LoadMinitaurCommand
 from protocol0.application.command.LoadMatchingTrackCommand import LoadMatchingTrackCommand
 from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
@@ -181,12 +182,12 @@ async def load_drum_rack(category: str, subcategory: str):
 
 @router.get("/load_rev2")
 async def load_rev2():
-    load_rev2_track()
+    p0_script_client().dispatch(LoadRev2Command())
 
 
 @router.get("/load_minitaur")
 async def load_minitaur():
-    load_minitaur_track()
+    p0_script_client().dispatch(LoadMinitaurCommand())
 
 
 @router.get("/bounce_track_to_audio")
