@@ -19,7 +19,7 @@ from protocol0.application.command.EmitBackendEventCommand import (
 )
 
 
-@retry(30, 0)
+@retry(50, 0)  # 5 seconds max
 def _wait_for_track_save(set: AbletonSet):
     sleep(0.1)
     assert set.is_current_track_saved, "Track not yet saved"
