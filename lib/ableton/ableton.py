@@ -8,6 +8,7 @@ import win32gui
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
+from lib.ableton.get_set import get_ableton_windows
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
@@ -56,7 +57,7 @@ def reload_ableton() -> None:
     go_to_desktop(1)
     go_to_desktop(0)
 
-    for i in range(0, 6):
+    for i in range(0, 5):
         if win32gui.GetCursorInfo()[1] == 65543:  # loading
             break
 
@@ -64,7 +65,9 @@ def reload_ableton() -> None:
         send_keys("^n")
         send_keys("{RIGHT}")
         time.sleep(0.1)  # when clicking too fast, ableton is opening a template set ..
-        send_keys("{ENTER}")
+        if len(get_ableton_windows()) == 2:
+            send_keys("{ENTER}")
+            break
 
 
 def save_set():
@@ -92,6 +95,7 @@ def save_set_as_template(open_pref=True):
     send_keys("{ENTER}")
     time.sleep(0.2)
     send_keys("	{ESC}")
+    time.sleep(0.5)
 
     reload_ableton()
 

@@ -5,8 +5,7 @@ import pyautogui
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from lib.ableton.get_set import get_ableton_windows
-from lib.ableton.interface.pixel import get_color_coords
-from lib.ableton.interface.pixel_color_enum import PixelColorEnum
+from lib.ableton.interface.pixel import get_focused_track_color_coords
 from lib.ableton.track_folder import TrackFolder
 from lib.mouse.mouse import drag_to, click
 from lib.process import kill_window_by_criteria
@@ -17,8 +16,8 @@ from protocol0.application.command.EmitBackendEventCommand import (
 settings = Settings()
 
 
-def flatten_focused_track():
-    x, y = get_color_coords(PixelColorEnum.TRACK_FOCUSED)
+def flatten_track():
+    x, y = get_focused_track_color_coords()
 
     # click on freeze track
     click(x, y, button=pyautogui.RIGHT)
@@ -42,7 +41,7 @@ def load_instrument_track(instrument_name: str):
     )
     track_folder.click_track(instrument_name)
 
-    drag_to(get_color_coords(PixelColorEnum.TRACK_FOCUSED, box_boundary="right"), duration=0.2)
+    drag_to(get_focused_track_color_coords(box_boundary="right"), duration=0.2)
 
     # remove the explorer window
     kill_window_by_criteria(name=settings.instrument_tracks_folder)

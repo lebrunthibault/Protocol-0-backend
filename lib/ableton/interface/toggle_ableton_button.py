@@ -14,7 +14,7 @@ def toggle_ableton_button(coords: Coords, activate: bool) -> None:
         activate
         and closest_color == PixelColorEnum.BUTTON_DEACTIVATED
         or not activate
-        and closest_color.button_activated
+        and closest_color.is_button_activated
     ):
         logger.debug("color matching expectation, dispatching click")
         click(*coords)

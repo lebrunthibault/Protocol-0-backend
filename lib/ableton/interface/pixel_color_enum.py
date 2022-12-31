@@ -27,6 +27,7 @@ class PixelColorEnum(AbstractEnum):
     BROWSER_SELECTED_DIMMER = "A8BBC4"
 
     TRACK_FOCUSED = "FF39D4"
+    TRACK_SELECTED = "C7EDFF"
 
     EXPLORER_ABLETON_SET_ICON = "222222"
 
@@ -35,11 +36,11 @@ class PixelColorEnum(AbstractEnum):
     LEFT_SIZE = "6E6E6E"
 
     @property
-    def button_activated(self) -> bool:
+    def is_button_activated(self) -> bool:
         return self in (PixelColorEnum.BUTTON_ACTIVATED, PixelColorEnum.BUTTON_NOT_SHOWN)
 
     @property
-    def browser_shown(self) -> bool:
+    def is_browser_shown(self) -> bool:
         return self in (
             PixelColorEnum.BROWSER,
             PixelColorEnum.BROWSER_SELECTED_DIM,

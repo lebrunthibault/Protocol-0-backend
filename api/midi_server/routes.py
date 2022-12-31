@@ -19,7 +19,7 @@ from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.interface.browser import preload_sample_category
 from lib.ableton.interface.toggle_ableton_button import toggle_ableton_button
-from lib.ableton.interface.track import flatten_focused_track, load_instrument_track
+from lib.ableton.interface.track import flatten_track, load_instrument_track
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
 from lib.decorators import throttle
@@ -69,8 +69,8 @@ class Routes:
         # forward to http server
         requests.get(f"{settings.http_api_url}/drag_matching_track")
 
-    def flatten_focused_track(self):
-        flatten_focused_track()
+    def flatten_track(self):
+        flatten_track()
 
     def move_to(self, x: int, y: int) -> None:
         move_to((x, y))

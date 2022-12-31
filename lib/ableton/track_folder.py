@@ -3,7 +3,6 @@ import os
 from os.path import basename
 from typing import List
 
-from api.settings import Settings
 from lib.ableton.interface.coords import Coords, CoordsEnum
 from lib.ableton.interface.explorer import sort_by_name
 from lib.ableton.interface.pixel import get_absolute_coords, wait_for_pixel_color
@@ -22,7 +21,7 @@ class TrackFolder:
     def click_track(self, track_name: str):
         """place cursor on track"""
         os.startfile(self._path)
-        handle = retry(10, 0.1)(focus_window)(name=Settings().instrument_tracks_folder)
+        handle = retry(10, 0.1)(focus_window)(name=basename(self._path))
 
         coords = get_absolute_coords(handle, self._get_relative_coords(track_name))
         click(*coords, exact=True)

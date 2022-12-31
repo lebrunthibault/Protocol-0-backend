@@ -18,31 +18,31 @@ from protocol0.application.command.EmitBackendEventCommand import (
 settings = Settings()
 
 
-def get_color_coords(pixel_color: PixelColorEnum, box_boundary="left") -> Coords:
+def get_focused_track_color_coords(box_boundary="left") -> Coords:
     assert box_boundary in ("left", "right"), "Invalid box boundary"
     screen = ImageGrab.grab()
 
     header_offset = 45  # skip these pixels
+    selection_colors = (PixelColorEnum.TRACK_FOCUSED.rgb, PixelColorEnum.TRACK_SELECTED.rgb)
 
     pixels = list(screen.getdata())[1920 * header_offset : 1920 * 100]
-    for i, coords in enumerate(pixels):
-        if coords == pixel_color.rgb:
+    for i, color in enumerate(pixels):
+        if color in selection_colors:
             # find the right most pixel of the selected box
             if box_boundary == "right":
                 while True:
-                    if coords != pixel_color.rgb:
+                    if color not in selection_colors:
                         break
                     i += 1
-                    coords = pixels[i]
+                    color = pixels[i]
             x, y = (i % 1920, (i // 1920) + header_offset)
 
-            if pixel_color == PixelColorEnum.TRACK_FOCUSED:
-                y += 10  # drag works better here
-                p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
+            y += 10  # drag works better here
+            p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
 
             return x, y
 
-    raise Protocol0Error(f"{pixel_color} not found")
+    raise Protocol0Error("focused track not found")
 
 
 def get_absolute_coords(handle: int, coords: Coords) -> Tuple[int, int]:

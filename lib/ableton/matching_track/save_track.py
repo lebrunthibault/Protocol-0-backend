@@ -6,15 +6,14 @@ from api.client.p0_script_api_client import p0_script_client
 from lib.ableton.interface.browser import (
     toggle_browser,
     is_browser_visible,
-    is_browser_tracks_folder_clickable,
+    click_browser_tracks,
 )
 from lib.ableton.interface.coords import CoordsEnum
-from lib.ableton.interface.pixel import get_color_coords
-from lib.ableton.interface.pixel_color_enum import PixelColorEnum
+from lib.ableton.interface.pixel import get_focused_track_color_coords
 from lib.ableton_set import AbletonSet
 from lib.decorators import retry
 from lib.keys import send_keys
-from lib.mouse.mouse import drag_to, keep_mouse_position, move_to, double_click
+from lib.mouse.mouse import drag_to, keep_mouse_position, move_to
 from protocol0.application.command.EmitBackendEventCommand import (
     EmitBackendEventCommand,
 )
@@ -38,14 +37,10 @@ def save_track_to_sub_tracks(set: AbletonSet):
     while set.saved_temp_track is not None:
         os.unlink(set.saved_temp_track)
 
-    if not is_browser_visible():
-        toggle_browser()
-    # browser should have a minimum size
-    assert is_browser_tracks_folder_clickable(), "Browser is not selectable"
+    click_browser_tracks()
 
     # drag the track to the tracks folder
-    double_click(CoordsEnum.BROWSER_PLACE_TRACKS.value)
-    move_to(get_color_coords(PixelColorEnum.TRACK_FOCUSED))
+    move_to(get_focused_track_color_coords())
     drag_to(CoordsEnum.BROWSER_FREE_TRACK_SPOT.value, duration=0.3)  # drag to a free spot
 
     _wait_for_track_save(set)
