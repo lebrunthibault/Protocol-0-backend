@@ -43,38 +43,6 @@ def search(search: str):
     send_keys(search)
 
 
-def load_rev2_track():
-    search('"Default.als"')
-    sleep(0.2)
-    send_down()
-    send_down()
-    send_right()
-
-    for _ in range(12):
-        send_down()
-
-    send_up()
-    send_up()
-
-    send_keys("{ENTER}")
-
-
-def load_minitaur_track():
-    search('"Default.als"')
-    sleep(0.2)
-
-    send_down()
-    send_down()
-    send_right()
-
-    for _ in range(12):
-        send_down()
-
-    send_up()
-
-    send_keys("{ENTER}")
-
-
 def preload_sample_category(category: str):
     search("")  # focus the browser
     sleep(0.1)

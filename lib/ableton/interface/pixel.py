@@ -37,7 +37,7 @@ def get_focused_track_color_coords(box_boundary="left") -> Coords:
                     color = pixels[i]
             x, y = (i % 1920, (i // 1920) + header_offset)
 
-            y += 10  # drag works better here
+            y += 5  # drag works better here
             p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
 
             return x, y

@@ -22,10 +22,10 @@ def _click_context_menu(track_coords: Coords, y_offset: int):
     """handles when menu appears left or right"""
     x, y = track_coords
     click(x, y, button=pyautogui.RIGHT)
-    menu_coords = (x + 50, y + y_offset)
+    menu_coords = (x + 10, y + y_offset)
 
-    if get_pixel_color_at(menu_coords) != PixelColorEnum.TRACK_CONTEXT_MENU_BACKGROUND:
-        menu_coords = (x - 50, y + y_offset)
+    if get_pixel_color_at(menu_coords) != PixelColorEnum.TRACK_CONTEXT_MENU_BACKGROUND.rgb:
+        menu_coords = (x - 10, y + y_offset)
 
     click(*menu_coords)
 
