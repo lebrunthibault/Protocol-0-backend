@@ -21,7 +21,7 @@ class TrackFolder:
     def click_track(self, track_name: str):
         """place cursor on track"""
         os.startfile(self._path)
-        handle = retry(10, 0.1)(focus_window)(name=basename(self._path))
+        handle = retry(30, 0.1)(focus_window)(name=basename(self._path))
 
         coords = get_absolute_coords(handle, self._get_relative_coords(track_name))
         click(*coords, exact=True)
