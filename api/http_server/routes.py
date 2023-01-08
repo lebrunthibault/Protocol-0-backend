@@ -18,25 +18,26 @@ from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet
 from lib.desktop.desktop import go_to_desktop
+from lib.keys import send_keys
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
 from lib.server_state import ServerState
 from protocol0.application.command.BounceTrackToAudioCommand import BounceTrackToAudioCommand
 from protocol0.application.command.CheckAudioExportValidCommand import CheckAudioExportValidCommand
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
+from protocol0.application.command.EmitBackendEventCommand import (
+    EmitBackendEventCommand,
+)
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
 from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
-from protocol0.application.command.LoadRev2Command import LoadRev2Command
-from protocol0.application.command.LoadMinitaurCommand import LoadMinitaurCommand
 from protocol0.application.command.LoadMatchingTrackCommand import LoadMatchingTrackCommand
+from protocol0.application.command.LoadMinitaurCommand import LoadMinitaurCommand
+from protocol0.application.command.LoadRev2Command import LoadRev2Command
 from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
-from protocol0.application.command.EmitBackendEventCommand import (
-    EmitBackendEventCommand,
-)
 from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
 from protocol0.application.command.ScrollScenePositionCommand import ScrollScenePositionCommand
@@ -128,6 +129,8 @@ async def tail_logs():
     execute_python_script_in_new_window(
         f"{settings.project_directory}/scripts/tail_protocol0_logs.py"
     )
+    sleep(0.5)
+    send_keys("%{TAB}")
 
 
 @router.get("/tail_logs_raw")
