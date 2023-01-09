@@ -3,7 +3,7 @@ from time import sleep
 from lib.ableton.interface.coords import CoordsEnum
 from lib.ableton.interface.pixel import get_closest_color_at_pixel
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
-from lib.keys import send_keys, send_up, send_down, send_right
+from lib.keys import send_keys, send_down, send_right
 from lib.mouse.mouse import click, double_click
 
 

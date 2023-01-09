@@ -1,5 +1,6 @@
 """ http / websocket gateway server to the midi server. Hit by ahk and the stream deck. """
 import asyncio
+import traceback
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -37,17 +38,15 @@ async def validation_exception_handler(request, exc: Exception):
 async def _catch_protocol0_errors(request: Request, call_next):
     try:
         return await call_next(request)
-    except (Protocol0Error, AssertionError) as e:
-        logger.error(e)
-        notification_window.delay(
-            str(e), notification_enum=NotificationEnum.WARNING.value, centered=True
-        )
-        return PlainTextResponse(str(e), status_code=500)
     except Exception as e:
         logger.error(e)
-        notification_window.delay(
-            str(e), notification_enum=NotificationEnum.ERROR.value, centered=True
-        )
+        traceback.print_tb(e.__traceback__)
+
+        notification_level = NotificationEnum.ERROR.value
+        if isinstance(e, (Protocol0Error, AssertionError)):
+            notification_level = NotificationEnum.WARNING.value
+
+        notification_window.delay(str(e), notification_enum=notification_level, centered=True)
         return PlainTextResponse(str(e), status_code=500)
 
 

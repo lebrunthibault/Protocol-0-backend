@@ -13,9 +13,9 @@ from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.ableton import is_ableton_focused
 from lib.ableton.get_set import (
-    _get_window_title_from_filename,
     get_ableton_windows,
     get_last_launched_track_set,
+    _get_window_title_from_filename,
 )
 from lib.enum.notification_enum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
@@ -75,11 +75,6 @@ class AbletonSet(BaseModel):
 
         return True
 
-    def set_path(self, path: str):
-        logger.info(f"setting set path {path}")
-        self.path = path
-        self.title = _get_window_title_from_filename(path)
-
 
 class AbletonSetManager:
     DEBUG = False
@@ -89,8 +84,13 @@ class AbletonSetManager:
     async def register(cls, ableton_set: AbletonSet) -> bool:
         launched_sets = get_ableton_windows()
 
+        is_untitled_set = len(launched_sets) == 1 and "Untitled" in launched_sets[0]
         if ableton_set.is_unknown:
-            ableton_set.set_path(get_last_launched_track_set())
+            if is_untitled_set:
+                ableton_set.title = "Untitled"
+            else:
+                ableton_set.path = get_last_launched_track_set()
+                ableton_set.title = _get_window_title_from_filename(ableton_set.path)
 
         # cleaning here in case a closed set didn't notify
         for ss in cls.all():
