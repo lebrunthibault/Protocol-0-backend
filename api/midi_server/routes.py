@@ -72,6 +72,9 @@ class Routes:
     def flatten_track(self):
         flatten_track()
 
+    def show_sub_tracks(self):
+        requests.get(f"{settings.http_api_url}/show_sub_tracks")
+
     def move_to(self, x: int, y: int) -> None:
         move_to((x, y))
 

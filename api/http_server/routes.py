@@ -1,3 +1,4 @@
+import os
 from time import sleep
 from typing import Optional, Callable, Dict
 
@@ -200,10 +201,7 @@ async def _bounce_track_to_audio():
 
 @router.get("/save_track_to_sub_tracks")
 async def _save_track_to_sub_tracks():
-    active_set = AbletonSetManager.active()
-
-    if active_set is not None:
-        save_track_to_sub_tracks(active_set)
+    save_track_to_sub_tracks(AbletonSetManager.active())
 
 
 @router.get("/load_matching_track")
@@ -213,10 +211,12 @@ async def load_matching_track():
 
 @router.get("/drag_matching_track")
 async def _drag_matching_track():
-    active_set = AbletonSetManager.active()
+    drag_matching_track(AbletonSetManager.active())
 
-    if active_set is not None:
-        drag_matching_track(active_set)
+
+@router.get("/show_sub_tracks")
+async def _show_sub_tracks():
+    os.startfile(AbletonSetManager.active().tracks_folder)
 
 
 @router.get("/drum_rack_to_simpler")

@@ -18,6 +18,7 @@ from lib.ableton.get_set import (
     get_last_launched_track_set,
 )
 from lib.enum.notification_enum import NotificationEnum
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.timer import start_timer
 from lib.window.window import get_focused_window_title
 from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
@@ -46,15 +47,11 @@ class AbletonSet(BaseModel):
         # return self.title is None or self.title == "Untitled"
 
     @property
-    def set_folder(self):
-        return dirname(self.path)
-
-    @property
     def tracks_folder(self):
-        return f"{self.set_folder}\\tracks"
+        return f"{dirname(self.path)}\\tracks"
 
     @classmethod
-    def set_tracks(cls) -> List[str]:
+    def all_tracks_folder(cls) -> List[str]:
         return next(os.walk(f"{settings.ableton_set_directory}\\tracks"))[1]
 
     @property
@@ -146,7 +143,7 @@ class AbletonSetManager:
         active_set = next(iter(cls.all()), None)  # type: ignore
 
         if active_set is None:
-            notification_window.delay("No active set")
+            raise Protocol0Error("no active set")
 
         return active_set
 

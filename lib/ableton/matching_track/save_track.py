@@ -33,7 +33,7 @@ def _close_browser():
 
 @keep_mouse_position
 def save_track_to_sub_tracks(set: AbletonSet):
-    assert len(AbletonSet.set_tracks()) < 8, "Too many set tracks, drag cannot be made"
+    assert len(AbletonSet.all_tracks_folder()) < 8, "Too many set tracks, drag cannot be made"
     while set.saved_temp_track is not None:
         os.unlink(set.saved_temp_track)
 
