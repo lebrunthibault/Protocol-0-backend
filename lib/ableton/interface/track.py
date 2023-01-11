@@ -6,7 +6,7 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
-from lib.ableton.interface.pixel import get_focused_track_color_coords, get_pixel_color_at
+from lib.ableton.interface.pixel import get_focused_track_coords, get_pixel_color_at
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.ableton.track_folder import TrackFolder
 from lib.mouse.mouse import drag_to, click
@@ -31,7 +31,7 @@ def _click_context_menu(track_coords: Coords, y_offset: int):
 
 
 def flatten_track():
-    coords = get_focused_track_color_coords()
+    coords = get_focused_track_coords()
 
     _click_context_menu(coords, 150)  # freeze track
 
@@ -51,7 +51,7 @@ def load_instrument_track(instrument_name: str):
     )
     track_folder.click_track(instrument_name)
 
-    drag_to(get_focused_track_color_coords(box_boundary="right"), duration=0.2)
+    drag_to(get_focused_track_coords(box_boundary="right"), duration=0.2)
 
     # remove the explorer window
     kill_window_by_criteria(name=settings.instrument_tracks_folder)

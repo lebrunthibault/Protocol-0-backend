@@ -1,6 +1,6 @@
 import math
 from time import sleep
-from typing import Tuple
+from typing import Tuple, List
 
 from PIL import ImageGrab
 
@@ -18,31 +18,40 @@ from protocol0.application.command.EmitBackendEventCommand import (
 settings = Settings()
 
 
-def get_focused_track_color_coords(box_boundary="left") -> Coords:
+def get_focused_track_coords(box_boundary="left") -> Coords:
+    x, y = get_coords_for_color(
+        [PixelColorEnum.TRACK_FOCUSED, PixelColorEnum.TRACK_SELECTED],
+        box_boundary=box_boundary,
+        height_offset=45,
+        height=100,
+    )
+    p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
+
+    return x, y + 5  # drag works better here
+
+
+def get_coords_for_color(
+    colors: List[PixelColorEnum], box_boundary="left", height_offset=0, height=1080, width_offset=0
+) -> Coords:
     assert box_boundary in ("left", "right"), "Invalid box boundary"
     screen = ImageGrab.grab()
+    colors_rgb = [c.rgb for c in colors]
 
-    header_offset = 45  # skip these pixels
-    selection_colors = (PixelColorEnum.TRACK_FOCUSED.rgb, PixelColorEnum.TRACK_SELECTED.rgb)
-
-    pixels = list(screen.getdata())[1920 * header_offset : 1920 * 100]
+    pixels = list(screen.getdata())[1920 * height_offset: 1920 * height]
     for i, color in enumerate(pixels):
-        if color in selection_colors:
+        if width_offset != 0 and i % 1920 < width_offset:
+            continue
+        if color in colors_rgb:
             # find the right most pixel of the selected box
             if box_boundary == "right":
                 while True:
-                    if color not in selection_colors:
+                    if color not in colors_rgb:
                         break
                     i += 1
                     color = pixels[i]
-            x, y = (i % 1920, (i // 1920) + header_offset)
+            return (i % 1920, (i // 1920) + height_offset)
 
-            y += 5  # drag works better here
-            p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
-
-            return x, y
-
-    raise Protocol0Error("focused track not found")
+    raise Protocol0Error("color not found in screen")
 
 
 def get_absolute_coords(handle: int, coords: Coords) -> Tuple[int, int]:

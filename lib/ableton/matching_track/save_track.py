@@ -9,7 +9,7 @@ from lib.ableton.interface.browser import (
     click_browser_tracks,
 )
 from lib.ableton.interface.coords import CoordsEnum
-from lib.ableton.interface.pixel import get_focused_track_color_coords
+from lib.ableton.interface.pixel import get_focused_track_coords
 from lib.ableton_set import AbletonSet
 from lib.decorators import retry
 from lib.keys import send_keys
@@ -40,7 +40,7 @@ def save_track_to_sub_tracks(set: AbletonSet):
     click_browser_tracks()
 
     # drag the track to the tracks folder
-    move_to(get_focused_track_color_coords())
+    move_to(get_focused_track_coords())
     drag_to(CoordsEnum.BROWSER_FREE_TRACK_SPOT.value, duration=0.3)  # drag to a free spot
 
     _wait_for_track_save(set)

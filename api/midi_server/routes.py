@@ -18,6 +18,7 @@ from lib.ableton.ableton import (
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.interface.browser import preload_sample_category
+from lib.ableton.interface.sample import load_sample_in_simpler
 from lib.ableton.interface.toggle_ableton_button import toggle_ableton_button
 from lib.ableton.interface.track import flatten_track, load_instrument_track
 from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
@@ -130,6 +131,9 @@ class Routes:
 
     def load_instrument_track(self, instrument_name: str) -> None:
         load_instrument_track(instrument_name)
+
+    def load_sample_in_simpler(self, sample_path: str):
+        load_sample_in_simpler(sample_path)
 
     def activate_rev2_editor(self) -> None:
         activate_rev2_editor()
