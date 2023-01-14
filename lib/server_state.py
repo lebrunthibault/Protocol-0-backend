@@ -20,15 +20,12 @@ class ServerState(BaseModel):
         sets = list(sorted([ss.dict() for ss in AbletonSetManager.all()], key=lambda s: s["title"]))
         favorite_device_names = []
 
-        def serialize_device_enum(d):
-            # type: (Union[DeviceEnum, DeviceEnumGroup]) -> Union[str, Dict]
+        def serialize_device_enum(d: Union[DeviceEnum, DeviceEnumGroup]) -> Union[str, Dict]:
             if isinstance(d, DeviceEnum):
                 return d.name
             else:
                 return d.to_dict()
 
-        from loguru import logger
-        logger.success(DeviceEnum.favorites())
         return ServerState(
             sets=sets,
             set_shortcuts=["last", "default", "new"],

@@ -4,20 +4,25 @@ from typing import Optional
 # noinspection PyUnresolvedReferences
 import PySimpleGUI as sg
 import pyautogui
+from PySimpleGUI import WIN_CLOSED
 from loguru import logger
 
 from api.settings import Settings
 from gui.task_cache import TaskCache
 from gui.window.window import Window
 from lib.enum.color_enum import ColorEnum
+from lib.window.window import focus_window
 
 
 class Notification(Window):
+    _WINDOW_TITLE = "Notification message"
+
     def __init__(
-        self, message: str, background_color: ColorEnum, centered: bool, timeout: float = 0
+        self, message: str, background_color: ColorEnum, centered: bool, timeout: float = 0, autofocus=True
     ):
         background_color_hex = background_color.hex_value
         self._timeout = timeout
+        self._autofocus = autofocus
 
         self._start_at = time.time()
         self._task_cache = TaskCache()
@@ -29,9 +34,9 @@ class Notification(Window):
             kw["location"] = (pyautogui.size()[0] - width_offset, 20)
 
         self.sg_window = sg.Window(
-            "Notification message",
+            self._WINDOW_TITLE,
             layout=[[sg.Text(f"  {message}  ", background_color=background_color_hex)]],
-            # return_keyboard_events=True,
+            return_keyboard_events=True,
             no_titlebar=True,
             use_default_focus=False,
             background_color=background_color_hex,
@@ -40,10 +45,14 @@ class Notification(Window):
         )
 
     def display(self, task_id: Optional[str] = None):
+        focused = False
         while True:
             event, values = self.sg_window.read(timeout=10)
+            if not focused and self._autofocus:
+                focus_window(self._WINDOW_TITLE)
+            focused = True
 
-            if self.is_event_escape(event) or self.is_event_enter(event):
+            if self.is_event_escape(event) or self.is_event_enter(event) or event == WIN_CLOSED:
                 break
             if self._timeout and time.time() - self._start_at > self._timeout:
                 logger.info(f"window timeout closing task {task_id}")

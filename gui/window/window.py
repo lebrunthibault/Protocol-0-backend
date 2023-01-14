@@ -24,7 +24,7 @@ class Window:
         if event is None:
             return False
 
-        return event == "Exit" or event.split(":")[0] == "Escape"
+        return event == "Exit" or event == "__TIMEOUTS__" or event.split(":")[0] == "Escape"
 
     def is_event_enter(self, event: Optional[str]) -> bool:
         if event is None:
