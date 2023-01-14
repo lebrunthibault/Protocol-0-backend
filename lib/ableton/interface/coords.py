@@ -15,5 +15,3 @@ class CoordsEnum(enum.Enum):
     # Relative coordinates
     REV2_ACTIVATION_MIDDLE_BUTTON = (784, 504)
     REV2_PROGRAM = (1067, 147)
-
-    EXPLORER_FIRST_TRACK_ICON = (336, 192)

@@ -18,6 +18,7 @@ from lib.ableton.ableton import (
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.interface.browser import preload_sample_category
+from lib.ableton.interface.clip import set_clip_file_path
 from lib.ableton.interface.sample import load_sample_in_simpler
 from lib.ableton.interface.toggle_ableton_button import toggle_ableton_button
 from lib.ableton.interface.track import flatten_track, load_instrument_track
@@ -27,6 +28,7 @@ from lib.decorators import throttle
 from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
+from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
 
@@ -135,6 +137,9 @@ class Routes:
     def load_sample_in_simpler(self, sample_path: str):
         load_sample_in_simpler(sample_path)
 
+    def set_clip_file_path(self, file_path: str):
+        set_clip_file_path(file_path)
+
     def activate_rev2_editor(self) -> None:
         activate_rev2_editor()
 
@@ -149,6 +154,9 @@ class Routes:
 
     def stop_midi_server(self) -> None:
         stop_midi_server()
+
+    def close_explorer_window(self, folder_name: str) -> None:
+        kill_window_by_criteria(name=folder_name)
 
     def show_info(self, message: str, centered: bool = False):
         notification_window.delay(message, NotificationEnum.INFO.value, centered)

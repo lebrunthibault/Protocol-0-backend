@@ -8,9 +8,8 @@ from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
 from lib.ableton.interface.pixel import get_focused_track_coords, get_pixel_color_at
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
-from lib.ableton.track_folder import TrackFolder
-from lib.mouse.mouse import drag_to, click
-from lib.process import kill_window_by_criteria
+from lib.explorer import drag_file_to
+from lib.mouse.mouse import click
 from protocol0.application.command.EmitBackendEventCommand import (
     EmitBackendEventCommand,
 )
@@ -46,13 +45,8 @@ def flatten_track():
 
 
 def load_instrument_track(instrument_name: str):
-    track_folder = TrackFolder(
-        f"{settings.ableton_set_directory}\\{settings.instrument_tracks_folder}"
-    )
-    track_folder.click_track(instrument_name)
+    track_path = f"{settings.ableton_set_directory}\\{settings.instrument_tracks_folder}\\{instrument_name}.als"
 
-    drag_to(get_focused_track_coords(box_boundary="right"), duration=0.2)
+    drag_file_to(track_path, get_focused_track_coords(box_boundary="right"), drag_duration=0.2)
 
-    # remove the explorer window
-    kill_window_by_criteria(name=settings.instrument_tracks_folder)
     p0_script_client().dispatch(EmitBackendEventCommand("instrument_loaded"))

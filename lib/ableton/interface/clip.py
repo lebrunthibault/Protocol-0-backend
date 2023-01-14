@@ -7,7 +7,6 @@ from protocol0.application.command.EmitBackendEventCommand import (
 
 
 @keep_mouse_position
-def load_sample_in_simpler(sample_path: str):
-    drag_file_to(sample_path, (55, 800))
-    p0_script_client().dispatch(EmitBackendEventCommand("sample_loaded"))
-
+def set_clip_file_path(file_path: str):
+    drag_file_to(file_path, (1860, 800), close_window=False)
+    p0_script_client().dispatch(EmitBackendEventCommand("file_path_updated"))

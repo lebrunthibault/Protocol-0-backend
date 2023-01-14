@@ -48,6 +48,7 @@ class AbletonSet(BaseModel):
 
     @property
     def tracks_folder(self):
+        assert self.path is not None, "current set is Untitled"
         return f"{dirname(self.path)}\\tracks"
 
     @classmethod
