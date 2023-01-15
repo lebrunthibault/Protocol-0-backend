@@ -24,6 +24,8 @@ def get_focused_track_coords(box_boundary="left") -> Coords:
         box_coords=(40, 45, 1870, 110),
         box_boundary=box_boundary,
     )
+    from loguru import logger
+    logger.success((box_boundary, x, y))
     p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
 
     return x, y + 5  # drag works better here
