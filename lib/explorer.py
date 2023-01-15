@@ -60,13 +60,12 @@ def drag_file_to(file_path: str, dest_coords: Coords, drag_duration=0.5, close_w
 
     folder_name = basename(os.path.split(file_path)[0])
 
-    coords = get_coords_for_color(
+    coords = retry(20, 0.1)(get_coords_for_color)(
         [
             PixelColorEnum.EXPLORER_SELECTED_ENTRY,
             PixelColorEnum.EXPLORER_SELECTED_ENTRY_LIGHT,
         ],
-        width_offset=x + 200,
-        height_offset=y + 200,
+        box_coords=(x + 200, y + 200, x + 1000, y + 750),
     )
     move_to(coords)
     drag_to(dest_coords, duration=drag_duration)

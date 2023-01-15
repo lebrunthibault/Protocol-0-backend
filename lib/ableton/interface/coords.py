@@ -2,6 +2,7 @@ import enum
 from typing import Tuple
 
 Coords = Tuple[int, int]
+RectCoords = Tuple[int, int, int, int]
 
 
 class CoordsEnum(enum.Enum):

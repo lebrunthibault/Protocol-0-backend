@@ -6,7 +6,7 @@ from PIL import ImageGrab
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
-from lib.ableton.interface.coords import Coords
+from lib.ableton.interface.coords import Coords, RectCoords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum, RGBColor
 from lib.decorators import retry
 from lib.errors.Protocol0Error import Protocol0Error
@@ -21,9 +21,8 @@ settings = Settings()
 def get_focused_track_coords(box_boundary="left") -> Coords:
     x, y = get_coords_for_color(
         [PixelColorEnum.TRACK_FOCUSED, PixelColorEnum.TRACK_SELECTED],
+        box_coords=(40, 45, 1830, 60),
         box_boundary=box_boundary,
-        height_offset=45,
-        height=100,
     )
     p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
 
@@ -31,15 +30,19 @@ def get_focused_track_coords(box_boundary="left") -> Coords:
 
 
 def get_coords_for_color(
-    colors: List[PixelColorEnum], box_boundary="left", height_offset=0, height=1080, width_offset=0
+    colors: List[PixelColorEnum], box_coords: RectCoords, box_boundary="left"
 ) -> Coords:
     assert box_boundary in ("left", "right"), "Invalid box boundary"
     screen = ImageGrab.grab()
     colors_rgb = [c.rgb for c in colors]
+    x, y, w, h = box_coords
+    from loguru import logger
+    logger.success(box_coords)
 
-    pixels = list(screen.getdata())[1920 * height_offset: 1920 * height]
+    pixels = list(screen.getdata())[1920 * y: 1920 * (y + h)]
     for i, color in enumerate(pixels):
-        if width_offset != 0 and i % 1920 < width_offset:
+        x_color = i % 1920
+        if not x <= x_color <= x + w:
             continue
         if color in colors_rgb:
             # find the right most pixel of the selected box
@@ -49,7 +52,7 @@ def get_coords_for_color(
                         break
                     i += 1
                     color = pixels[i]
-            return (i % 1920, (i // 1920) + height_offset)
+            return (x_color, (i // 1920) + y)
 
     raise Protocol0Error("color not found in screen")
 
