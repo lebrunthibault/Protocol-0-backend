@@ -49,8 +49,6 @@ def _open_explorer(file_path: str) -> int:
         handle = retry(50, 0.1)(focus_window)(name=folder_name)
         sleep(0.5)
 
-    from loguru import logger
-    logger.success(handle)
     return handle
 
 

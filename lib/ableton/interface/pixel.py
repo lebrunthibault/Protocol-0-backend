@@ -4,29 +4,14 @@ from typing import Tuple, List
 
 from PIL import ImageGrab
 
-from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum, RGBColor
 from lib.decorators import retry
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.window import get_window_position
-from protocol0.application.command.EmitBackendEventCommand import (
-    EmitBackendEventCommand,
-)
 
 settings = Settings()
-
-
-def get_focused_track_coords(box_boundary="left") -> Coords:
-    x, y = get_coords_for_color(
-        [PixelColorEnum.TRACK_FOCUSED, PixelColorEnum.TRACK_SELECTED],
-        box_coords=(40, 45, 1830, 60),
-        box_boundary=box_boundary,
-    )
-    p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
-
-    return x, y + 5  # drag works better here
 
 
 def get_coords_for_color(
@@ -35,14 +20,12 @@ def get_coords_for_color(
     assert box_boundary in ("left", "right"), "Invalid box boundary"
     screen = ImageGrab.grab()
     colors_rgb = [c.rgb for c in colors]
-    x, y, w, h = box_coords
-    from loguru import logger
-    logger.success(box_coords)
+    x, y, x2, y2 = box_coords
 
-    pixels = list(screen.getdata())[1920 * y: 1920 * (y + h)]
+    pixels = list(screen.getdata())[1920 * y: 1920 * y2]
     for i, color in enumerate(pixels):
         x_color = i % 1920
-        if not x <= x_color <= x + w:
+        if not x <= x_color <= x2:
             continue
         if color in colors_rgb:
             # find the right most pixel of the selected box

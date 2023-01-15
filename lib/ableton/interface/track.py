@@ -6,7 +6,8 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
-from lib.ableton.interface.pixel import get_focused_track_coords, get_pixel_color_at
+from lib.ableton.interface.pixel import get_pixel_color_at, \
+    get_coords_for_color
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.explorer import drag_file_to
 from lib.mouse.mouse import click
@@ -15,6 +16,17 @@ from protocol0.application.command.EmitBackendEventCommand import (
 )
 
 settings = Settings()
+
+
+def get_focused_track_coords(box_boundary="left") -> Coords:
+    x, y = get_coords_for_color(
+        [PixelColorEnum.ELEMENT_FOCUSED, PixelColorEnum.ELEMENT_SELECTED],
+        box_coords=(40, 45, 1870, 110),
+        box_boundary=box_boundary,
+    )
+    p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))
+
+    return x, y + 5  # drag works better here
 
 
 def _click_context_menu(track_coords: Coords, y_offset: int):

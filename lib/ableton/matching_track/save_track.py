@@ -9,7 +9,7 @@ from lib.ableton.interface.browser import (
     click_browser_tracks,
 )
 from lib.ableton.interface.coords import CoordsEnum
-from lib.ableton.interface.pixel import get_focused_track_coords
+from lib.ableton.interface.track import get_focused_track_coords
 from lib.ableton_set import AbletonSet
 from lib.decorators import retry
 from lib.keys import send_keys

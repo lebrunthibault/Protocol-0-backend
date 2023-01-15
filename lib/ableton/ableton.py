@@ -141,5 +141,6 @@ def open_set(set_path: str):
         time.sleep(0.5)
 
 
+@keep_mouse_position
 def toggle_clip_notes():
     click(87, 1015)

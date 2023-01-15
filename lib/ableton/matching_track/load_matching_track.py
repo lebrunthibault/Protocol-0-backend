@@ -1,5 +1,5 @@
 from api.client.p0_script_api_client import p0_script_client
-from lib.ableton.interface.pixel import get_focused_track_coords
+from lib.ableton.interface.track import get_focused_track_coords
 from lib.ableton_set import AbletonSet
 from lib.explorer import drag_file_to
 from lib.mouse.mouse import keep_mouse_position

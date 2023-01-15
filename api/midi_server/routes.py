@@ -18,7 +18,7 @@ from lib.ableton.ableton import (
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.interface.browser import preload_sample_category
-from lib.ableton.interface.clip import set_clip_file_path
+from lib.ableton.interface.clip import set_clip_file_path, crop_clip
 from lib.ableton.interface.sample import load_sample_in_simpler
 from lib.ableton.interface.toggle_ableton_button import toggle_ableton_button
 from lib.ableton.interface.track import flatten_track, load_instrument_track
@@ -74,6 +74,9 @@ class Routes:
 
     def flatten_track(self):
         flatten_track()
+
+    def crop_clip(self):
+        crop_clip()
 
     def show_sub_tracks(self):
         requests.get(f"{settings.http_api_url}/show_sub_tracks")
