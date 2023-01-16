@@ -42,7 +42,7 @@ class AbletonSet(BaseModel):
     room_eq_enabled: bool
 
     @property
-    def is_unknown(self):
+    def is_untitled(self):
         return self.title is None
         # return self.title is None or self.title == "Untitled"
 
@@ -86,7 +86,7 @@ class AbletonSetManager:
         launched_sets = get_ableton_windows()
 
         is_untitled_set = len(launched_sets) == 1 and "Untitled" in launched_sets[0]
-        if ableton_set.is_unknown:
+        if ableton_set.is_untitled:
             if is_untitled_set:
                 ableton_set.title = "Untitled"
             else:
