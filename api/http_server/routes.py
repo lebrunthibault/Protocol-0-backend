@@ -49,11 +49,9 @@ from protocol0.application.command.SelectOrLoadDeviceCommand import SelectOrLoad
 from protocol0.application.command.ShowAutomationCommand import ShowAutomationCommand
 from protocol0.application.command.ShowInstrumentCommand import ShowInstrumentCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
-from protocol0.application.command.ToggleDrumsCommand import ToggleDrumsCommand
 from protocol0.application.command.ToggleReferenceTrackCommand import ToggleReferenceTrackCommand
 from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
-from protocol0.application.command.ToggleTrackCommand import ToggleTrackCommand
 
 router = APIRouter()
 
@@ -275,16 +273,6 @@ async def scroll_scene_tracks(direction: str):
 @router.get("/scroll_track_volume/{direction}")
 async def scroll_track_volume(direction: str):
     p0_script_client().dispatch(ScrollTrackVolumeCommand(go_next=direction == "next"))
-
-
-@router.get("/toggle_track/{name}")
-async def toggle_track(name: str):
-    p0_script_client().dispatch(ToggleTrackCommand(name))
-
-
-@router.get("/toggle_drums")
-async def toggle_drums():
-    p0_script_client().dispatch(ToggleDrumsCommand())
 
 
 @router.get("/toggle_reference")

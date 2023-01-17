@@ -40,6 +40,8 @@ def save_track_to_sub_tracks(set: AbletonSet):
     click_browser_tracks()
 
     # drag the track to the tracks folder
+    from loguru import logger
+    logger.success("before move to")
     move_to(get_focused_track_coords())
     drag_to(CoordsEnum.BROWSER_FREE_TRACK_SPOT.value, duration=0.3)  # drag to a free spot
 

@@ -31,8 +31,6 @@ def get_coords_for_color(
             # find the right most pixel of the selected box
             if box_boundary == "right":
                 while True:
-                    from loguru import logger
-                    logger.success((i, color))
                     if color not in colors_rgb:
                         break
                     i += 1

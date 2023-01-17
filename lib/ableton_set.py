@@ -88,7 +88,8 @@ class AbletonSetManager:
         is_untitled_set = len(launched_sets) == 1 and "Untitled" in launched_sets[0]
         if ableton_set.is_untitled:
             if is_untitled_set:
-                ableton_set.title = "Untitled"
+                ableton_set.path = settings.ableton_test_set_path
+                ableton_set.title = "Toto"
             else:
                 ableton_set.path = get_last_launched_track_set()
                 ableton_set.title = _get_window_title_from_filename(ableton_set.path)
