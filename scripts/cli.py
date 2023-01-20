@@ -12,5 +12,6 @@ def command_generate_openapi_specs() -> None:
 async def command_test() -> None:
     pass
 
+
 if __name__ == "__main__":
     cli()

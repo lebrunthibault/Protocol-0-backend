@@ -158,8 +158,9 @@ class Routes:
     def stop_midi_server(self) -> None:
         stop_midi_server()
 
-    def close_explorer_window(self, folder_name: str) -> None:
-        kill_window_by_criteria(name=folder_name)
+    def close_samples_windows(self) -> None:
+        kill_window_by_criteria(name="Recorded")
+        kill_window_by_criteria(name="Freeze")
 
     def show_info(self, message: str, centered: bool = False):
         notification_window.delay(message, NotificationEnum.INFO.value, centered)

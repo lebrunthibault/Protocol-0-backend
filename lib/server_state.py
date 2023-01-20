@@ -18,7 +18,6 @@ class ServerState(BaseModel):
     @classmethod
     def create(cls) -> "ServerState":
         sets = list(sorted([ss.dict() for ss in AbletonSetManager.all()], key=lambda s: s["title"]))
-        favorite_device_names = []
 
         def serialize_device_enum(d: Union[DeviceEnum, DeviceEnumGroup]) -> Union[str, Dict]:
             if isinstance(d, DeviceEnum):

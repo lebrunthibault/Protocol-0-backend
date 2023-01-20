@@ -18,7 +18,12 @@ class Notification(Window):
     _WINDOW_TITLE = "Notification message"
 
     def __init__(
-        self, message: str, background_color: ColorEnum, centered: bool, timeout: float = 0, autofocus=True
+        self,
+        message: str,
+        background_color: ColorEnum,
+        centered: bool,
+        timeout: float = 0,
+        autofocus=True,
     ):
         background_color_hex = background_color.hex_value
         self._timeout = timeout

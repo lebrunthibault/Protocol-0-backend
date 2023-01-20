@@ -11,7 +11,8 @@ from protocol0.application.command.EmitBackendEventCommand import (
 
 @keep_mouse_position
 def set_clip_file_path(file_path: str):
-    drag_file_to(file_path, (1860, 800), close_window=False)
+    drag_file_to(file_path, (1860, 800), close_window=False, rect_coords=(0, 0, 1100, 1080))
+
     p0_script_client().dispatch(EmitBackendEventCommand("file_path_updated"))
 
 

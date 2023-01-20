@@ -12,7 +12,7 @@ class NotificationFactory(WindowFactory):
         cls,
         message: str,
         notification_enum: NotificationEnum = NotificationEnum.INFO,
-        centered=False
+        centered=False,
     ) -> Notification:
         auto_close_duration = cls.BASE_SECOND_DURATION + len(message) * cls.CHAR_SECOND_DURATION
         return Notification(
@@ -25,6 +25,4 @@ class NotificationFactory(WindowFactory):
 
     @classmethod
     def show_error(cls, message: str):
-        cls.createWindow(
-            message=message, notification_enum=NotificationEnum.ERROR
-        ).display()
+        cls.createWindow(message=message, notification_enum=NotificationEnum.ERROR).display()

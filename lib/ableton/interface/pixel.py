@@ -1,5 +1,4 @@
 import math
-from time import sleep
 from typing import Tuple, List
 
 from PIL import ImageGrab
@@ -7,7 +6,6 @@ from PIL import ImageGrab
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum, RGBColor
-from lib.decorators import retry
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.window import get_window_position
 
@@ -22,7 +20,7 @@ def get_coords_for_color(
     colors_rgb = [c.rgb for c in colors]
     x, y, x2, y2 = box_coords
 
-    pixels = list(screen.getdata())[1920 * y: 1920 * y2]
+    pixels = list(screen.getdata())[1920 * y : 1920 * y2]
     for i, color in enumerate(pixels):
         x_color = i % 1920
         if not x <= x_color <= x2:
@@ -66,13 +64,3 @@ def get_closest_color_at_pixel(coords: Coords) -> PixelColorEnum:
 
     pixel_color = get_pixel_color_at(coords)
     return sorted(list(PixelColorEnum), key=lambda c: color_distance(c.rgb, pixel_color))[0]
-
-
-@retry(10, 0)
-def wait_for_pixel_color(target_color: PixelColorEnum, coords: Coords):
-    if get_pixel_color_at(coords) == target_color.rgb:
-        return
-
-    sleep(0.1)
-    pixel_color = get_pixel_color_at(coords)
-    assert pixel_color == target_color.rgb, f"{pixel_color} != {target_color.rgb}"

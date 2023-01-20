@@ -58,3 +58,6 @@ drag_matching_track  # unused function (lib\ableton\matching_track\load_matching
 send_left  # unused function (lib\keys.py:27)
 load_instrument_track  # unused function (lib\ableton\interface\track.py:37)
 send_up  # unused function (lib\keys.py:17)
+load_sample_in_simpler  # unused function (lib\ableton\interface\sample.py:9)
+set_clip_file_path  # unused function (lib\ableton\interface\clip.py:12)
+crop_clip  # unused function (lib\ableton\interface\clip.py:19)

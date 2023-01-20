@@ -1,4 +1,5 @@
 from ctypes import windll
+from time import sleep
 from typing import Tuple, Union
 
 # noinspection PyUnresolvedReferences
@@ -47,6 +48,12 @@ def focus_window(
 
     logger.error("Window not focused : %s" % name)
     raise Protocol0Error("window is not focused")
+
+
+def move_window(handle, x: int, y: int, w: int, h: int):
+    # see https://stackoverflow.com/questions/51694887/win32gui-movewindow-not-aligned-with-left-edge-of-screen
+    win32gui.MoveWindow(handle, x - 7, y, w, h, True)
+    sleep(0.1)
 
 
 def is_window_focused(handle: int) -> bool:

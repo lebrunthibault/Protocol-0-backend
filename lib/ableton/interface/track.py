@@ -6,8 +6,7 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
-from lib.ableton.interface.pixel import get_pixel_color_at, \
-    get_coords_for_color
+from lib.ableton.interface.pixel import get_pixel_color_at, get_coords_for_color
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.explorer import drag_file_to
 from lib.mouse.mouse import click

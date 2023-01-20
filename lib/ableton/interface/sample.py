@@ -10,4 +10,3 @@ from protocol0.application.command.EmitBackendEventCommand import (
 def load_sample_in_simpler(sample_path: str):
     drag_file_to(sample_path, (55, 800))
     p0_script_client().dispatch(EmitBackendEventCommand("sample_loaded"))
-
