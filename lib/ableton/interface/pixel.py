@@ -13,28 +13,28 @@ settings = Settings()
 
 
 def get_coords_for_color(
-    colors: List[PixelColorEnum], box_coords: RectCoords, box_boundary="left"
+    colors: List[PixelColorEnum], bbox: RectCoords = None, box_boundary="left"
 ) -> Coords:
     assert box_boundary in ("left", "right"), "Invalid box boundary"
-    screen = ImageGrab.grab()
-    colors_rgb = [c.rgb for c in colors]
-    x, y, x2, y2 = box_coords
+    screen = ImageGrab.grab(bbox=bbox)
 
-    pixels = list(screen.getdata())[1920 * y : 1920 * y2]
-    for i, color in enumerate(pixels):
-        x_color = i % 1920
-        if not x <= x_color <= x2:
+    colors_rgb = [c.rgb for c in colors]
+    x1, y1, x2, _ = bbox
+    width = x2 - x1
+
+    pixels = list(enumerate(screen.getdata()))
+    for i, color in pixels[::20]:
+        if color not in colors_rgb:
             continue
-        if color in colors_rgb:
-            # find the right most pixel of the selected box
-            if box_boundary == "right":
-                while True:
-                    if color not in colors_rgb:
-                        break
-                    i += 1
-                    color = pixels[i]
-                x_color = i % 1920
-            return (x_color, (i // 1920) + y)
+
+        if box_boundary == "right":
+            while True:
+                if color not in colors_rgb:
+                    break
+                i += 1
+                color = pixels[i]
+
+        return ((i % width) + x1, (i // width) + y1)
 
     raise Protocol0Error("color not found in screen")
 

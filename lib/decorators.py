@@ -62,7 +62,7 @@ def retry(count: int, duration: float):
     def decorator(func):
         @wraps(func)
         def wrap(*a, **k):
-            assert count > 1, "Expected count to be > 1"
+            assert count > 1, f"Expected count to be > 1, not {count}"
 
             exception = None
 
@@ -72,6 +72,7 @@ def retry(count: int, duration: float):
                 except (Protocol0Error, AssertionError) as e:
                     logger.warning(e)
                     time.sleep(duration)
+                    logger.info(f"retry {i}/{count}")
                     exception = e
 
             raise exception

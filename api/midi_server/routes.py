@@ -26,9 +26,9 @@ from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
 from lib.decorators import throttle
 from lib.enum.notification_enum import NotificationEnum
+from lib.explorer import close_samples_windows
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
-from lib.process import kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
 
@@ -159,8 +159,7 @@ class Routes:
         stop_midi_server()
 
     def close_samples_windows(self) -> None:
-        kill_window_by_criteria(name="Recorded")
-        kill_window_by_criteria(name="Freeze")
+        close_samples_windows()
 
     def show_info(self, message: str, centered: bool = False):
         notification_window.delay(message, NotificationEnum.INFO.value, centered)

@@ -11,7 +11,13 @@ from protocol0.application.command.EmitBackendEventCommand import (
 
 @keep_mouse_position
 def set_clip_file_path(file_path: str):
-    drag_file_to(file_path, (1860, 800), close_window=False, rect_coords=(0, 0, 1100, 1080))
+    drag_file_to(
+        file_path,
+        (1500, 800),
+        close_window=False,
+        rect_coords=(0, 0, 1100, 1080),
+        drag_duration=0.2,
+    )
 
     p0_script_client().dispatch(EmitBackendEventCommand("file_path_updated"))
 
@@ -20,7 +26,7 @@ def set_clip_file_path(file_path: str):
 def crop_clip():
     coords = get_coords_for_color(
         [PixelColorEnum.ELEMENT_FOCUSED],
-        box_coords=(40, 80, 1870, 750),
+        bbox=(40, 80, 1870, 750),
     )
     _click_context_menu(coords, 258)  # crop clip
 

@@ -1,6 +1,9 @@
 import os
 from os.path import basename
 from time import sleep
+from typing import Optional
+
+import win32gui
 
 from lib.ableton.interface.coords import Coords, RectCoords
 from lib.ableton.interface.pixel import (
@@ -31,6 +34,35 @@ def _open_explorer(file_path: str) -> int:
     return handle
 
 
+@retry(3, 0)
+def _open_explorer_until_selected(
+    file_path: str, rect_coords: Optional[RectCoords], max_width=None
+):
+    handle = _open_explorer(file_path)
+
+    # by default: window at the bottom left
+    rect_coords = rect_coords or (0, 330, 1100, 750)
+    x, y, w, h = win32gui.GetWindowRect(handle)
+
+    # move window if its in the way
+    if max_width is not None and x + w > max_width:
+        move_window(handle, rect_coords)
+
+    x, y, w, h = rect_coords
+
+    try:
+        return retry(3, 0)(get_coords_for_color)(
+            [
+                PixelColorEnum.EXPLORER_SELECTED_ENTRY,
+                PixelColorEnum.EXPLORER_SELECTED_ENTRY_LIGHT,
+            ],
+            bbox=(x + 200, y + 200, x + w, y + h),
+        )
+    except Protocol0Error as e:
+        close_samples_windows()
+        raise e
+
+
 def drag_file_to(
     file_path: str,
     dest_coords: Coords,
@@ -38,25 +70,17 @@ def drag_file_to(
     close_window=True,
     rect_coords: RectCoords = None,
 ):
-    handle = _open_explorer(file_path)
+    x, y = _open_explorer_until_selected(file_path, rect_coords)
 
-    # by default: window at the bottom left
-    rect_coords = rect_coords or (0, 330, 1100, 750)
-    x, y, w, h = rect_coords
-
-    move_window(handle, x, y, w, h)
-
-    folder_name = basename(os.path.split(file_path)[0])
-
-    coords = retry(20, 0.1)(get_coords_for_color)(
-        [
-            PixelColorEnum.EXPLORER_SELECTED_ENTRY,
-            PixelColorEnum.EXPLORER_SELECTED_ENTRY_LIGHT,
-        ],
-        box_coords=(x + 200, y + 200, x + w, y + h),
-    )
-    move_to(coords)
+    move_to((x, y + 10))
     drag_to(dest_coords, duration=drag_duration)
 
     if close_window:
+        folder_name = basename(os.path.split(file_path)[0])
+
         kill_window_by_criteria(name=folder_name)
+
+
+def close_samples_windows():
+    kill_window_by_criteria(name="Recorded")
+    kill_window_by_criteria(name="Freeze")

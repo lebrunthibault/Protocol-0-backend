@@ -20,7 +20,7 @@ settings = Settings()
 def get_focused_track_coords(box_boundary="left") -> Coords:
     x, y = get_coords_for_color(
         [PixelColorEnum.ELEMENT_FOCUSED, PixelColorEnum.ELEMENT_SELECTED],
-        box_coords=(40, 45, 1870, 110),
+        bbox=(40, 45, 1870, 110),
         box_boundary=box_boundary,
     )
     p0_script_client().dispatch(EmitBackendEventCommand("track_focused"))

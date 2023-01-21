@@ -32,6 +32,9 @@ return
 
 ; ableton hotkeys
 #IfWinActive, ahk_exe Ableton Live 10 Suite.exe
+^+z::
+    Send ^y  ; redo
+return
 ^#+s::
     Send ^,  ; works best from ahk
     callBackend("save_set_as_template")

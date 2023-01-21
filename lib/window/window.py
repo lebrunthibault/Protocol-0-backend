@@ -1,5 +1,4 @@
 from ctypes import windll
-from time import sleep
 from typing import Tuple, Union
 
 # noinspection PyUnresolvedReferences
@@ -11,6 +10,7 @@ import win32process
 from loguru import logger
 from psutil import NoSuchProcess
 
+from lib.ableton.interface.coords import RectCoords
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
 
@@ -50,10 +50,16 @@ def focus_window(
     raise Protocol0Error("window is not focused")
 
 
-def move_window(handle, x: int, y: int, w: int, h: int):
+def move_window(handle, rect_coords: RectCoords):
     # see https://stackoverflow.com/questions/51694887/win32gui-movewindow-not-aligned-with-left-edge-of-screen
+    window_rect_coords = win32gui.GetWindowRect(handle)
+    if window_rect_coords == rect_coords:
+        return
+
+    x, y, w, h = rect_coords
+
     win32gui.MoveWindow(handle, x - 7, y, w, h, True)
-    sleep(0.1)
+    # sleep(0.1)
 
 
 def is_window_focused(handle: int) -> bool:
