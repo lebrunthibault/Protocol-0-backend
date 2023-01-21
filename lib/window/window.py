@@ -10,7 +10,7 @@ import win32process
 from loguru import logger
 from psutil import NoSuchProcess
 
-from lib.ableton.interface.coords import RectCoords
+from lib.ableton.interface.coords import RectCoords, Coords
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.find_window import SearchTypeEnum, find_window_handle_by_enum
 
@@ -82,3 +82,15 @@ def get_focused_window_process_name():
 
 def get_focused_window_title() -> str:
     return win32gui.GetWindowText(win32gui.GetForegroundWindow())
+
+
+def window_contains_coords(bbox: RectCoords, coords: Coords) -> bool:
+    x, y, x2, y2 = bbox
+    x_point, y_point = coords
+    from loguru import logger
+    logger.success(coords)
+    logger.success(bbox)
+    logger.success((x, x2, y, y2))
+    logger.success(x <= x_point <= x2 and y <= y_point <= y2)
+
+    return x <= x_point <= x2 and y <= y_point <= y2

@@ -3,7 +3,7 @@ from time import sleep
 import pyautogui
 
 from api.client.p0_script_api_client import p0_script_client
-from api.settings import Settings
+from api.settings import Settings, DOWN_BBOX
 from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
 from lib.ableton.interface.pixel import get_pixel_color_at, get_coords_for_color
@@ -58,6 +58,6 @@ def flatten_track():
 def load_instrument_track(instrument_name: str):
     track_path = f"{settings.ableton_set_directory}\\{settings.instrument_tracks_folder}\\{instrument_name}.als"
 
-    drag_file_to(track_path, get_focused_track_coords(box_boundary="right"), drag_duration=0.2)
+    drag_file_to(track_path, get_focused_track_coords(box_boundary="right"), bbox=DOWN_BBOX, drag_duration=0.2)
 
     p0_script_client().dispatch(EmitBackendEventCommand("instrument_loaded"))

@@ -1,4 +1,5 @@
 from api.client.p0_script_api_client import p0_script_client
+from api.settings import LEFT_BBOX
 from lib.ableton.interface.pixel import get_coords_for_color
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.ableton.interface.track import _click_context_menu
@@ -13,10 +14,10 @@ from protocol0.application.command.EmitBackendEventCommand import (
 def set_clip_file_path(file_path: str):
     drag_file_to(
         file_path,
-        (1500, 800),
-        close_window=False,
-        rect_coords=(0, 0, 1100, 1080),
+        (1800, 800),
+        bbox=LEFT_BBOX,
         drag_duration=0.2,
+        close_window=False,
     )
 
     p0_script_client().dispatch(EmitBackendEventCommand("file_path_updated"))
