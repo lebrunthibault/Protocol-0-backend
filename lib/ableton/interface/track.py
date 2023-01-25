@@ -58,6 +58,11 @@ def flatten_track():
 def load_instrument_track(instrument_name: str):
     track_path = f"{settings.ableton_set_directory}\\{settings.instrument_tracks_folder}\\{instrument_name}.als"
 
-    drag_file_to(track_path, get_focused_track_coords(box_boundary="right"), bbox=DOWN_BBOX, drag_duration=0.2)
+    drag_file_to(
+        track_path,
+        get_focused_track_coords(box_boundary="right"),
+        bbox=DOWN_BBOX,
+        drag_duration=0.2,
+    )
 
     p0_script_client().dispatch(EmitBackendEventCommand("instrument_loaded"))

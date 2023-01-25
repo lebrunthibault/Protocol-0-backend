@@ -34,9 +34,7 @@ def _open_explorer(file_path: str) -> int:
 
 
 @retry(3, 0)
-def _open_explorer_until_selected(
-    file_path: str, bbox: RectCoords, dest_coords: Coords, max_width=None
-):
+def _open_explorer_until_selected(file_path: str, bbox: RectCoords, dest_coords: Coords):
     handle = _open_explorer(file_path)
 
     window_bbox = win32gui.GetWindowRect(handle)

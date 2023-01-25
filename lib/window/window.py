@@ -87,10 +87,5 @@ def get_focused_window_title() -> str:
 def window_contains_coords(bbox: RectCoords, coords: Coords) -> bool:
     x, y, x2, y2 = bbox
     x_point, y_point = coords
-    from loguru import logger
-    logger.success(coords)
-    logger.success(bbox)
-    logger.success((x, x2, y, y2))
-    logger.success(x <= x_point <= x2 and y <= y_point <= y2)
 
     return x <= x_point <= x2 and y <= y_point <= y2
