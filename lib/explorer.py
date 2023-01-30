@@ -41,6 +41,8 @@ def _open_explorer_until_selected(file_path: str, bbox: RectCoords, dest_coords:
 
     # move window if its in the way
     if window_contains_coords(window_bbox, dest_coords):
+        from loguru import logger
+        logger.success(bbox)
         move_window(handle, bbox)
         window_bbox = bbox
 
