@@ -72,8 +72,8 @@ class Routes:
         # forward to http server
         requests.get(f"{settings.http_api_url}/drag_matching_track")
 
-    def flatten_track(self):
-        flatten_track()
+    def flatten_track(self, is_only_child: bool):
+        flatten_track(is_only_child)
 
     def crop_clip(self):
         crop_clip()

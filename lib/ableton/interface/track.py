@@ -40,17 +40,21 @@ def _click_context_menu(track_coords: Coords, y_offset: int):
     click(*menu_coords)
 
 
-def flatten_track():
+def flatten_track(is_only_child):
+    freeze_pos = 150
+    if is_only_child:
+        freeze_pos = 111
+
     coords = get_focused_track_coords()
 
-    _click_context_menu(coords, 150)  # freeze track
+    _click_context_menu(coords, freeze_pos)  # freeze track
 
     sleep(0.2)
     # wait for track freeze
     while "Freeze..." in get_ableton_windows():
         sleep(0.2)
 
-    _click_context_menu(coords, 170)  # flatten track
+    _click_context_menu(coords, freeze_pos + 20)  # flatten track
 
     p0_script_client().dispatch(EmitBackendEventCommand("track_flattened"))
 

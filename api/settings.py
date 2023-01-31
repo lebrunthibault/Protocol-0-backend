@@ -7,7 +7,7 @@ _ableton_major_version = _ableton_version.split(".")[0]
 
 LEFT_BBOX = (0, 0, 1100, 1080)
 RIGHT_BBOX = (960, 0, 1920, 1080)
-DOWN_BBOX = (960, 300, 1920, 1080)
+DOWN_BBOX = (660, 300, 1920, 1080)
 
 
 class Settings(BaseSettings):

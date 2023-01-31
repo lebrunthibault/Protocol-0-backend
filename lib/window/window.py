@@ -1,4 +1,5 @@
 from ctypes import windll
+from time import sleep
 from typing import Tuple, Union
 
 # noinspection PyUnresolvedReferences
@@ -56,10 +57,10 @@ def move_window(handle, rect_coords: RectCoords):
     if window_rect_coords == rect_coords:
         return
 
-    x, y, w, h = rect_coords
+    x, y, x2, y2 = rect_coords
 
-    win32gui.MoveWindow(handle, x - 7, y, w, h, True)
-    # sleep(0.1)
+    win32gui.MoveWindow(handle, x - 7, y, x2 - x, y2 - y, True)
+    sleep(0.05)
 
 
 def is_window_focused(handle: int) -> bool:
