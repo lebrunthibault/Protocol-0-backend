@@ -13,6 +13,7 @@ from lib.ableton.ableton import (
     save_set_as_template,
     open_set,
     toggle_clip_notes,
+    edit_automation_value,
 )
 from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton.matching_track.load_matching_track import drag_matching_track
@@ -293,6 +294,15 @@ async def show_automation(direction: str):
 @router.get("/toggle_clip_notes")
 async def _toggle_clip_notes():
     toggle_clip_notes()
+
+
+@router.get("/edit_automation_value")
+async def _edit_automation_value():
+    assert (
+        AbletonSetManager.active().current_track.type == "SimpleAudioTrack"
+    ), "cannot edit automation"
+
+    edit_automation_value()
 
 
 @router.get("/go_to_group_track")

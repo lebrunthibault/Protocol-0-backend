@@ -3,17 +3,20 @@ import time
 from os.path import isabs
 
 import keyboard
+import pyautogui
 import win32gui
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.get_set import get_ableton_windows
+from lib.ableton.interface.pixel import get_pixel_color_at
+from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
 from lib.keys import send_right
-from lib.mouse.mouse import click, keep_mouse_position
+from lib.mouse.mouse import click, keep_mouse_position, get_mouse_position
 from lib.process import execute_powershell_command
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
@@ -83,14 +86,14 @@ def save_set_as_template(open_pref=True):
         time.sleep(0.01)
 
     # first possible position
-    click(x=703, y=363)  # click on File Folder
-    click(x=1032, y=201)  # click on set as new
+    click((703, 363))  # click on File Folder
+    click((1032, 201))  # click on set as new
     time.sleep(0.05)
 
     # second position possible
-    click(x=703, y=332)  # click on File Folder
-    click(x=1032, y=203)  # click on set as new (2nd position)
-    click(x=1032, y=230)  # click on set as new (2nd position)
+    click((703, 332))  # click on File Folder
+    click((1032, 203))  # click on set as new (2nd position)
+    click((1032, 230))  # click on set as new (2nd position)
     time.sleep(0.05)
     send_keys("{ENTER}")
     time.sleep(0.2)
@@ -110,7 +113,7 @@ def toggle_fold_set():
 
 def clear_arrangement():
     time.sleep(0.1)
-    click(x=968, y=348)  # click on File Folder
+    click((968, 348))  # click on File Folder
     time.sleep(0.05)
     send_keys("^a")
     time.sleep(0.05)
@@ -129,7 +132,7 @@ def open_set(set_path: str):
     notification_window.delay(f"Opening '{relative_path}'")
 
     go_to_desktop(0)
-    execute_powershell_command(f'& "{set_path}"')
+    execute_powershell_command(f'& "{settings.ableton_exe}" "{set_path}"')
     from lib.ableton_set import AbletonSetManager
 
     AbletonSetManager.LAST_SET_OPENED_AT = time.time()
@@ -143,4 +146,18 @@ def open_set(set_path: str):
 
 @keep_mouse_position
 def toggle_clip_notes():
-    click(87, 1015)
+    click((87, 1015))
+
+
+@keep_mouse_position
+def edit_automation_value():
+    x, y = get_mouse_position()
+    x_menu, y_menu = x + 10, y - 387
+    click((x, y), button=pyautogui.RIGHT)
+
+    # the menu can have the Delete entry (or not)
+    color = get_pixel_color_at((x_menu, y_menu))
+    if color != PixelColorEnum.CONTEXT_MENU_BACKGROUND.rgb:
+        y_menu += 32
+
+    click((x_menu, y_menu))

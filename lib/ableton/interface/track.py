@@ -30,14 +30,16 @@ def get_focused_track_coords(box_boundary="left") -> Coords:
 
 def _click_context_menu(track_coords: Coords, y_offset: int):
     """handles when menu appears left or right"""
+    click(track_coords, button=pyautogui.RIGHT)
+
     x, y = track_coords
-    click(x, y, button=pyautogui.RIGHT)
+
     menu_coords = (x + 10, y + y_offset)
 
-    if get_pixel_color_at(menu_coords) != PixelColorEnum.TRACK_CONTEXT_MENU_BACKGROUND.rgb:
+    if get_pixel_color_at(menu_coords) != PixelColorEnum.CONTEXT_MENU_BACKGROUND.rgb:
         menu_coords = (x - 10, y + y_offset)
 
-    click(*menu_coords)
+    click(menu_coords)
 
 
 def flatten_track(is_only_child):

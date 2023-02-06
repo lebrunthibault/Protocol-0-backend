@@ -108,6 +108,9 @@ return
 ^e::
 	callBackend("toggle_clip_notes")
 return
+^+e::
+	callBackend("edit_automation_value")
+return
 ^l::
 	callBackend("toggle_scene_loop")
 return

@@ -46,9 +46,11 @@ def search(search: str):
 def preload_sample_category(category: str):
     search("")  # focus the browser
     sleep(0.1)
-    click(*CoordsEnum.BROWSER_PLACE_IMPORTED)  # click on samples folder in browser
+    click(CoordsEnum.BROWSER_PLACE_IMPORTED.value)  # click on samples folder in browser
     sleep(0.05)
-    click(*CoordsEnum.BROWSER_SEARCH_BOX)  # click in the search box without activating search mode
+    click(
+        CoordsEnum.BROWSER_SEARCH_BOX.value
+    )  # click in the search box without activating search mode
     sleep(0.05)
     send_keys("^a")
     send_keys("{BACKSPACE}")

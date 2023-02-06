@@ -45,7 +45,7 @@ def save_track_to_sub_tracks(set: AbletonSet):
 
     _wait_for_track_save(set)
 
-    shutil.move(str(set.saved_temp_track), f"{set.tracks_folder}/{set.current_track_name}.als")
+    shutil.move(str(set.saved_temp_track), f"{set.tracks_folder}/{set.current_track.name}.als")
 
     sleep(0.1)
     send_keys("{ESC}")  # close the name prompt

@@ -19,7 +19,7 @@ from lib.window.window import focus_window, move_window, window_contains_coords
 def _open_explorer(file_path: str) -> int:
     assert os.path.exists(file_path), f"'{file_path}' does not exist"
 
-    click(0, 500)  # move the cursor from the explorer window position
+    click((0, 500))  # move the cursor from the explorer window position
     folder_name = basename(os.path.split(file_path)[0])
     try:
         handle = focus_window(folder_name)
@@ -42,6 +42,7 @@ def _open_explorer_until_selected(file_path: str, bbox: RectCoords, dest_coords:
     # move window if its in the way
     if window_contains_coords(window_bbox, dest_coords):
         from loguru import logger
+
         logger.success(bbox)
         move_window(handle, bbox)
         window_bbox = bbox

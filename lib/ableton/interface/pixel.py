@@ -1,5 +1,5 @@
 import math
-from typing import Tuple, List
+from typing import List
 
 from PIL import ImageGrab
 
@@ -39,7 +39,7 @@ def get_coords_for_color(
     raise Protocol0Error("color not found in screen")
 
 
-def get_absolute_coords(handle: int, coords: Coords) -> Tuple[int, int]:
+def get_absolute_coords(handle: int, coords: Coords) -> Coords:
     (x, y, w, h) = get_window_position(handle)
     (x_coords, y_coords) = coords
 

@@ -20,9 +20,11 @@ def drag_to(coords: Coords, duration=0.5) -> None:
     pyautogui.dragTo(*coords, button="left", duration=duration, tween=tween)
 
 
-def click(x: int, y: int, exact=False, button=pyautogui.PRIMARY) -> None:
+def click(coords: Coords, exact=False, button=pyautogui.PRIMARY) -> None:
     # coordinates are relative to a 1080p display resolution
     # accounting for resolution change
+
+    x, y = coords
 
     if not exact:
         x *= Settings().display_resolution_factor
@@ -47,10 +49,14 @@ def click_vertical_zone(coords: Coords) -> None:
         pyautogui.click(x, y + i)
 
 
+def get_mouse_position() -> Coords:
+    return pyautogui.position()
+
+
 def keep_mouse_position(func):
     @wraps(func)
     def decorate(*a, **k):
-        coords = pyautogui.position()
+        coords = get_mouse_position()
 
         res = func(*a, **k)
 

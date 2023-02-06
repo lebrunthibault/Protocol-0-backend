@@ -26,6 +26,11 @@ from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 settings = Settings()
 
 
+class AbletonTrack(BaseModel):
+    name: str
+    type: str
+
+
 class AbletonSet(BaseModel):
     def __repr__(self):
         return f"AbletonSet('{self.title}')"
@@ -37,7 +42,7 @@ class AbletonSet(BaseModel):
     path: Optional[str]  # computed only by the backend
     title: Optional[str]  # computed only by the backend
     muted: bool
-    current_track_name: str
+    current_track: AbletonTrack
     drum_rack_visible: bool
     room_eq_enabled: bool
 
@@ -71,7 +76,7 @@ class AbletonSet(BaseModel):
 
         saved_track_name = basename(saved_track).replace(".als", "")
 
-        assert saved_track_name == self.current_track_name, "track saved mismatch"
+        assert saved_track_name == self.current_track.name, "track saved mismatch"
         assert time.time() - os.path.getmtime(saved_track) <= 2, "track not saved recently"
 
         return True

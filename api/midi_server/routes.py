@@ -85,7 +85,7 @@ class Routes:
         move_to((x, y))
 
     def click(self, x: int, y: int) -> None:
-        click(x=x, y=y)
+        click((x, y))
 
     def click_vertical_zone(self, x: int, y: int) -> None:
         click_vertical_zone((x, y))

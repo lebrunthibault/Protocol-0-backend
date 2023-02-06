@@ -17,6 +17,6 @@ def toggle_ableton_button(coords: Coords, activate: bool) -> None:
         and closest_color.is_button_activated
     ):
         logger.debug("color matching expectation, dispatching click")
-        click(*coords)
+        click(coords)
     else:
         logger.info("color %s not matching expectation, skipping" % closest_color)
