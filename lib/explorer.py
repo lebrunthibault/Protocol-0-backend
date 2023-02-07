@@ -77,7 +77,7 @@ def drag_file_to(
     if close_window:
         folder_name = basename(os.path.split(file_path)[0])
 
-        kill_window_by_criteria(name=folder_name)
+        # kill_window_by_criteria(name=folder_name)
 
 
 def close_samples_windows():
