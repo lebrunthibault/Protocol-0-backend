@@ -26,7 +26,7 @@ from lib.ableton.set_profiling.ableton_set_profiler import AbletonSetProfiler
 from lib.ableton_set import AbletonSet
 from lib.decorators import throttle
 from lib.enum.notification_enum import NotificationEnum
-from lib.explorer import close_samples_windows
+from lib.explorer import close_samples_windows, close_tracks_window
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
@@ -160,6 +160,9 @@ class Routes:
 
     def close_samples_windows(self) -> None:
         close_samples_windows()
+
+    def close_tracks_window(self) -> None:
+        close_tracks_window()
 
     def show_info(self, message: str, centered: bool = False):
         notification_window.delay(message, NotificationEnum.INFO.value, centered)

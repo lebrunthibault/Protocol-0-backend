@@ -299,7 +299,7 @@ async def _toggle_clip_notes():
 @router.get("/edit_automation_value")
 async def _edit_automation_value():
     assert (
-        AbletonSetManager.active().current_track.type == "SimpleAudioTrack"
+        AbletonSetManager.active().selected_track.type in ("SimpleAudioTrack", "SimpleMidiTrack")
     ), "cannot edit automation"
 
     edit_automation_value()

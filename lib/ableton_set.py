@@ -43,6 +43,7 @@ class AbletonSet(BaseModel):
     title: Optional[str]  # computed only by the backend
     muted: bool
     current_track: AbletonTrack
+    selected_track: AbletonTrack
     drum_rack_visible: bool
     room_eq_enabled: bool
 
