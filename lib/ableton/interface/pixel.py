@@ -1,5 +1,5 @@
 import math
-from typing import List
+from typing import List, Optional
 
 from PIL import ImageGrab
 
@@ -53,6 +53,18 @@ def get_pixel_color_at(coords: Coords) -> RGBColor:
     image = ImageGrab.grab()
     pixel_color = image.getpixel(coords)
     return pixel_color
+
+
+def get_pixel_having_color(
+    coords_list: List[Coords], color_enum: PixelColorEnum
+) -> Optional[Coords]:
+    image = ImageGrab.grab()
+
+    for coords in coords_list:
+        if image.getpixel(coords) == color_enum.rgb:
+            return coords
+
+    return None
 
 
 def get_closest_color_at_pixel(coords: Coords) -> PixelColorEnum:

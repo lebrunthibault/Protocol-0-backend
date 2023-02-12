@@ -10,7 +10,7 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.get_set import get_ableton_windows
-from lib.ableton.interface.pixel import get_pixel_color_at
+from lib.ableton.interface.pixel import get_pixel_having_color
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
@@ -152,12 +152,21 @@ def toggle_clip_notes():
 @keep_mouse_position
 def edit_automation_value():
     x, y = get_mouse_position()
-    x_menu, y_menu = x + 10, y - 387
+
     click((x, y), button=pyautogui.RIGHT)
 
-    # the menu can have the Delete entry (or not)
-    color = get_pixel_color_at((x_menu, y_menu))
-    if color != PixelColorEnum.CONTEXT_MENU_BACKGROUND.rgb:
-        y_menu += 32
+    x_menu = x + 10
+    border_coords = get_pixel_having_color(
+        [
+            (x_menu, y - 472),  # multiple points selected (ctrl+a)
+            (x_menu, y - 397),  # single point selected
+            (x_menu, y - 366),  # single point focused but not selected
+        ],
+        PixelColorEnum.CONTEXT_MENU_BORDER,
+    )
 
-    click((x_menu, y_menu))
+    if border_coords is None:
+        return
+
+    x_border, y_border = border_coords
+    click((x_border, y_border + 10))

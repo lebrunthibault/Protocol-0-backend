@@ -11,11 +11,9 @@ from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 def execute_powershell_command(*args: str):
     powershell_command_line = f"'cmd /c start /min powershell -Command {{ {' '.join(args)} }}'"
     logger.info(powershell_command_line)
-    res = subprocess.run(
+    subprocess.run(
         ["powershell.exe", "invoke-expression", powershell_command_line], stdout=sys.stdout
     )
-    logger.success(res.returncode)
-    logger.success(res.stdout)
 
 
 def execute_python_script_in_new_window(*args: str):

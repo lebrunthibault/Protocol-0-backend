@@ -129,6 +129,9 @@ return
 ~^+r::
 	callBackend("check_audio_export_valid")
 return
+^!q::
+    Send ^!p  ; left hand shortcut
+return
 
 
 !f:: ; fold / unfold set
