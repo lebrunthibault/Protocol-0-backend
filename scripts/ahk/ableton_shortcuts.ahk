@@ -9,8 +9,8 @@ CoordMode,mouse,screen
 #Include %A_ScriptDir%/lib.ahk
 
 ; Control: ^
-; Alt: !
 ; Shift: +
+; Alt: !
 ; Win: #
 
 ; loop must be before any return
@@ -129,6 +129,7 @@ return
 ~^+r::
 	callBackend("check_audio_export_valid")
 return
+
 
 !f:: ; fold / unfold set
 	Send `t

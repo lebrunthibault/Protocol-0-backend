@@ -1,5 +1,6 @@
 from loguru import logger
 
+from lib.ableton.ableton import show_plugins
 from lib.ableton.interface.coords import Coords
 from lib.ableton.interface.pixel import get_closest_color_at_pixel
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
@@ -8,6 +9,7 @@ from lib.mouse.mouse import click
 
 def toggle_ableton_button(coords: Coords, activate: bool) -> None:
     closest_color = get_closest_color_at_pixel(coords)
+
     logger.debug("closest_color: %s" % closest_color)
 
     if (
@@ -20,3 +22,4 @@ def toggle_ableton_button(coords: Coords, activate: bool) -> None:
         click(coords)
     else:
         logger.info("color %s not matching expectation, skipping" % closest_color)
+        show_plugins()
