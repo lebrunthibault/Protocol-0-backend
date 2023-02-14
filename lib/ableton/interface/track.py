@@ -36,7 +36,7 @@ def _click_context_menu(track_coords: Coords, y_offset: int):
 
     menu_coords = (x + 10, y + y_offset)
 
-    if get_pixel_color_at(menu_coords) != PixelColorEnum.CONTEXT_MENU_BACKGROUND.rgb:
+    if get_pixel_color_at(menu_coords) != PixelColorEnum.CONTEXT_MENU_BACKGROUND:
         menu_coords = (x - 10, y + y_offset)
 
     click(menu_coords)

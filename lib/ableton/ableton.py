@@ -155,15 +155,18 @@ def edit_automation_value():
 
     click((x, y), button=pyautogui.RIGHT)
 
-    x_menu = x + 10
-    border_coords = get_pixel_having_color(
-        [
-            (x_menu, y - 472),  # multiple points selected (ctrl+a)
-            (x_menu, y - 397),  # single point selected
-            (x_menu, y - 366),  # single point focused but not selected
-        ],
-        PixelColorEnum.CONTEXT_MENU_BORDER,
-    )
+    possible_menu_heights = [510, 472, 416, 397, 396, 366]
+
+    coords = []
+
+    for height in reversed(sorted(possible_menu_heights)):
+        # left and right
+        coords += [
+            (x - 10, y - height),
+            (x + 10, y - height)
+        ]
+
+    border_coords = get_pixel_having_color(coords, PixelColorEnum.CONTEXT_MENU_BORDER)
 
     if border_coords is None:
         return

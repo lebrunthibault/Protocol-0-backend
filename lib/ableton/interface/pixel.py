@@ -1,11 +1,10 @@
-import math
 from typing import List, Optional
 
 from PIL import ImageGrab
 
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
-from lib.ableton.interface.pixel_color_enum import PixelColorEnum, RGBColor
+from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.window.window import get_window_position
 
@@ -49,10 +48,15 @@ def get_absolute_coords(handle: int, coords: Coords) -> Coords:
     return (x + x_coords, y + y_coords)
 
 
-def get_pixel_color_at(coords: Coords) -> RGBColor:
+def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
     image = ImageGrab.grab()
     pixel_color = image.getpixel(coords)
-    return pixel_color
+
+    for color_enum in PixelColorEnum:
+        if color_enum.rgb == pixel_color:
+            return color_enum
+
+    return None
 
 
 def get_pixel_having_color(
@@ -65,14 +69,3 @@ def get_pixel_having_color(
             return coords
 
     return None
-
-
-def get_closest_color_at_pixel(coords: Coords) -> PixelColorEnum:
-    def color_distance(c1, c2):
-        # type: (RGBColor, RGBColor) -> float
-        (r1, g1, b1) = c1
-        (r2, g2, b2) = c2
-        return math.sqrt((r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2)
-
-    pixel_color = get_pixel_color_at(coords)
-    return sorted(list(PixelColorEnum), key=lambda c: color_distance(c.rgb, pixel_color))[0]

@@ -22,7 +22,7 @@ class PixelColorEnum(AbstractEnum):
     BUTTON_NOT_SHOWN = "C3C3C3"
     BUTTON_DEACTIVATED = "A5A5A5"
 
-    BROWSER = "878787"
+    BROWSER_BACKGROUND = "878787"
     BROWSER_SELECTED_DIM = "BFAB7A"
     BROWSER_SELECTED_DIMMER = "A8BBC4"
 
@@ -45,7 +45,7 @@ class PixelColorEnum(AbstractEnum):
     @property
     def is_browser_shown(self) -> bool:
         return self in (
-            PixelColorEnum.BROWSER,
+            PixelColorEnum.BROWSER_BACKGROUND,
             PixelColorEnum.BROWSER_SELECTED_DIM,
             PixelColorEnum.BROWSER_SELECTED_DIMMER,
         )
