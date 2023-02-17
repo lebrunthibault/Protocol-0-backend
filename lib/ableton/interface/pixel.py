@@ -1,3 +1,4 @@
+from time import sleep
 from typing import List, Optional
 
 from PIL import ImageGrab
@@ -6,6 +7,7 @@ from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.errors.Protocol0Error import Protocol0Error
+from lib.mouse.mouse import move_to
 from lib.window.window import get_window_position
 
 settings = Settings()
@@ -60,11 +62,15 @@ def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
 
 
 def get_pixel_having_color(
-    coords_list: List[Coords], color_enum: PixelColorEnum
+    coords_list: List[Coords], color_enum: PixelColorEnum, debug=False
 ) -> Optional[Coords]:
     image = ImageGrab.grab()
 
     for coords in coords_list:
+        if debug:
+            move_to(coords)
+            sleep(1)
+
         if image.getpixel(coords) == color_enum.rgb:
             return coords
 
