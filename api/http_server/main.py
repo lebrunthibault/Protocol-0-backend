@@ -20,6 +20,9 @@ from api.client.p0_script_api_client import p0_script_client
 from api.http_server.routes import router  # noqa
 from api.http_server.ws import ws_router  # noqa
 from protocol0.application.command.GetSetStateCommand import GetSetStateCommand  # noqa
+from protocol0.application.command.EmitBackendEventCommand import (
+    EmitBackendEventCommand,
+)
 
 app = FastAPI(debug=True)
 
@@ -47,6 +50,8 @@ async def _catch_protocol0_errors(request: Request, call_next):
             notification_level = NotificationEnum.WARNING.value
 
         notification_window.delay(str(e), notification_enum=notification_level, centered=True)
+
+        p0_script_client().dispatch(EmitBackendEventCommand("error"))
         return PlainTextResponse(str(e), status_code=500)
 
 

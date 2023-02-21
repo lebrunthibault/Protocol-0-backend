@@ -1,4 +1,3 @@
-import os
 from time import sleep
 from typing import Optional, Callable, Dict
 
@@ -18,7 +17,7 @@ from lib.ableton.ableton import (
 from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
-from lib.ableton_set import AbletonSetManager, AbletonSet
+from lib.ableton_set import AbletonSetManager, AbletonSet, show_sub_tracks
 from lib.desktop.desktop import go_to_desktop
 from lib.keys import send_keys
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
@@ -198,9 +197,9 @@ async def _bounce_track_to_audio():
     p0_script_client().dispatch(BounceTrackToAudioCommand())
 
 
-@router.get("/save_track_to_sub_tracks")
-async def _save_track_to_sub_tracks():
-    save_track_to_sub_tracks(AbletonSetManager.active())
+@router.get("/save_track_to_sub_tracks/{check_for_duplicate}")
+async def _save_track_to_sub_tracks(check_for_duplicate: bool):
+    save_track_to_sub_tracks(AbletonSetManager.active(), check_for_duplicate)
 
 
 @router.get("/load_matching_track")
@@ -215,7 +214,7 @@ async def _drag_matching_track():
 
 @router.get("/show_sub_tracks")
 async def _show_sub_tracks():
-    os.startfile(AbletonSetManager.active().tracks_folder)
+    show_sub_tracks()
 
 
 @router.get("/drum_rack_to_simpler")

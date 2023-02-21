@@ -70,6 +70,10 @@ class AbletonSet(BaseModel):
         return next(iter(glob.glob(f"{self.temp_track_folder}\\*.als")), None)
 
     @property
+    def saved_tracks(self) -> List[str]:
+        return glob.glob(f"{self.tracks_folder}\\*.als")
+
+    @property
     def is_current_track_saved(self) -> bool:
         saved_track = self.saved_temp_track
         if saved_track is None:
@@ -205,3 +209,7 @@ def get_focused_set() -> Optional[AbletonSet]:
         return None
 
     return AbletonSetManager.from_title(set_title)
+
+
+def show_sub_tracks():
+    os.startfile(AbletonSetManager.active().tracks_folder)

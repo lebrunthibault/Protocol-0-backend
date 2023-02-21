@@ -65,9 +65,9 @@ class Routes:
     def show_sample_category(self, category: str):
         preload_sample_category(category)
 
-    def save_track_to_sub_tracks(self):
+    def save_track_to_sub_tracks(self, check_for_duplicate: bool):
         # forward to http server
-        requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks")
+        requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks/{check_for_duplicate}")
 
     def drag_matching_track(self):
         # forward to http server
