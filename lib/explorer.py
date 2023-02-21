@@ -16,7 +16,7 @@ from lib.process import kill_window_by_criteria
 from lib.window.window import focus_window, move_window, window_contains_coords
 
 
-def _open_explorer(file_path: str) -> int:
+def open_explorer(file_path: str) -> int:
     assert os.path.exists(file_path), f"'{file_path}' does not exist"
 
     click((0, 500))  # move the cursor from the explorer window position
@@ -35,7 +35,7 @@ def _open_explorer(file_path: str) -> int:
 
 @retry(3, 0)
 def _open_explorer_until_selected(file_path: str, bbox: RectCoords, dest_coords: Coords):
-    handle = _open_explorer(file_path)
+    handle = open_explorer(file_path)
 
     window_bbox = win32gui.GetWindowRect(handle)
 

@@ -11,9 +11,10 @@ from lib.ableton.interface.browser import (
 )
 from lib.ableton.interface.coords import CoordsEnum
 from lib.ableton.interface.track import get_focused_track_coords
-from lib.ableton_set import AbletonSet, AbletonSetManager
+from lib.ableton_set import AbletonSet
 from lib.decorators import retry
 from lib.errors.Protocol0Error import Protocol0Error
+from lib.explorer import open_explorer
 from lib.keys import send_keys
 from lib.mouse.mouse import drag_to, keep_mouse_position, move_to
 from protocol0.application.command.EmitBackendEventCommand import (
@@ -40,8 +41,14 @@ def save_track_to_sub_tracks(set: AbletonSet, check_for_duplicate: bool):
         os.unlink(set.saved_temp_track)
 
     if check_for_duplicate:
-        if set.selected_track.name in [basename(t).split(".")[0] for t in set.saved_tracks]:
-            os.startfile(AbletonSetManager.active().tracks_folder)
+        duplicate = next(
+            filter(
+                lambda t: basename(t).split(".")[0] == set.selected_track.name, set.saved_tracks
+            ),
+            None,
+        )
+        if duplicate is not None:
+            open_explorer(duplicate)
             raise Protocol0Error("Duplicate saved track")
 
     click_browser_tracks()
