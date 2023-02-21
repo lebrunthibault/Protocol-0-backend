@@ -44,11 +44,23 @@ def are_logs_focused() -> bool:
     return is_window_focused(logs_handle)
 
 
+def plugins_shown() -> bool:
+    return (
+        find_window_handle_by_enum(
+            "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
+        )
+        is not None
+    )
+
+
 def show_plugins() -> None:
-    if not find_window_handle_by_enum(
-        "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
-    ):
+    if not plugins_shown():
         keyboard.press_and_release("ctrl+alt+p")
+
+
+def hide_plugins():
+    if plugins_shown():
+        send_keys("^%p")
 
 
 def reload_ableton() -> None:
@@ -161,10 +173,7 @@ def edit_automation_value():
 
     for height in reversed(sorted(possible_menu_heights)):
         # left and right
-        coords += [
-            (x - 10, y - height),
-            (x + 10, y - height)
-        ]
+        coords += [(x - 10, y - height), (x + 10, y - height)]
 
     border_coords = get_pixel_having_color(coords, PixelColorEnum.CONTEXT_MENU_BORDER, False)
 

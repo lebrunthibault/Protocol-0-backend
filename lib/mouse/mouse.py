@@ -1,4 +1,5 @@
 from functools import wraps
+from time import sleep
 
 import pyautogui
 from loguru import logger
@@ -20,7 +21,7 @@ def drag_to(coords: Coords, duration=0.5) -> None:
     pyautogui.dragTo(*coords, button="left", duration=duration, tween=tween)
 
 
-def click(coords: Coords, exact=False, button=pyautogui.PRIMARY) -> None:
+def click(coords: Coords, exact=False, button=pyautogui.PRIMARY, duration=0) -> None:
     # coordinates are relative to a 1080p display resolution
     # accounting for resolution change
 
@@ -31,7 +32,10 @@ def click(coords: Coords, exact=False, button=pyautogui.PRIMARY) -> None:
         y *= Settings().display_resolution_factor
 
     try:
-        pyautogui.click(x, y, button=button)
+        pyautogui.mouseDown(x, y, button=button)
+        sleep(duration)
+        pyautogui.mouseUp(x, y, button=button)
+        # pyautogui.click(x, y, button=button)
     except pyautogui.FailSafeException as e:
         logger.warning(e)
 

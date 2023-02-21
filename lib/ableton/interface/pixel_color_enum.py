@@ -19,6 +19,7 @@ class PixelColorEnum(AbstractEnum):
         return PixelColorEnum.hex_to_rgb(self.value)
 
     BUTTON_ACTIVATED = "FFA608"
+    BUTTON_ACTIVATED_2 = "FFB532"
     BUTTON_NOT_SHOWN = "C3C3C3"
     BUTTON_DEACTIVATED = "A5A5A5"
 
@@ -37,10 +38,6 @@ class PixelColorEnum(AbstractEnum):
     # needed for closest color detection
     SEPARATOR = "4B4B4B"
     LEFT_SIZE = "6E6E6E"
-
-    @property
-    def is_button_activated(self) -> bool:
-        return self in (PixelColorEnum.BUTTON_ACTIVATED, PixelColorEnum.BUTTON_NOT_SHOWN)
 
     @property
     def is_browser_shown(self) -> bool:

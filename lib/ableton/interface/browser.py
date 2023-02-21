@@ -13,7 +13,9 @@ def toggle_browser():
 
 
 def is_browser_visible() -> bool:
-    return get_pixel_color_at(CoordsEnum.BROWSER_LEFT_SIZE.value) == PixelColorEnum.BROWSER_BACKGROUND
+    return (
+        get_pixel_color_at(CoordsEnum.BROWSER_LEFT_SIZE.value) == PixelColorEnum.BROWSER_BACKGROUND
+    )
 
 
 def is_browser_tracks_folder_clickable(coords: CoordsEnum) -> bool:

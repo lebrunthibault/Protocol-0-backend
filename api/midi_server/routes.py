@@ -14,6 +14,8 @@ from lib.ableton.ableton import (
     clear_arrangement,
     save_set,
     save_set_as_template,
+    hide_plugins,
+    show_plugins,
 )
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
@@ -29,34 +31,33 @@ from lib.enum.notification_enum import NotificationEnum
 from lib.explorer import close_samples_windows, close_tracks_window
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
-from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import focus_window
 
 settings = Settings()
 
 
 class Routes:
-    def test(self) -> None:
+    def test(self):
         pass
 
-    def test_duplication(self) -> None:
+    def test_duplication(self):
         log_path = f"{settings.project_directory}/test_duplication.txt"
         with open(log_path, "a") as f:
             f.write(f"{time.time()} - pid: {os.getpid()}\n")
         logger.info(f"pid written to {log_path}")
         os.startfile(log_path)
 
-    def ping(self) -> None:
+    def ping(self):
         AbletonSetProfiler.end_measurement()
 
-    def notify_set_state(self, set_data: Dict) -> None:
+    def notify_set_state(self, set_data: Dict):
         # forward to http server
         requests.post(f"{settings.http_api_url}/set", data=AbletonSet(**set_data).json())
 
-    def close_set(self, id: str) -> None:
+    def close_set(self, id: str):
         requests.delete(f"{settings.http_api_url}/set/{id}")
 
-    def search(self, search: str) -> None:
+    def search(self, search: str):
         send_keys("^f")
         sleep(0.1)
         send_keys(search)
@@ -81,42 +82,36 @@ class Routes:
     def show_sub_tracks(self):
         requests.get(f"{settings.http_api_url}/show_sub_tracks")
 
-    def move_to(self, x: int, y: int) -> None:
+    def move_to(self, x: int, y: int):
         move_to((x, y))
 
-    def click(self, x: int, y: int) -> None:
+    def click(self, x: int, y: int):
         click((x, y))
 
-    def click_vertical_zone(self, x: int, y: int) -> None:
+    def click_vertical_zone(self, x: int, y: int):
         click_vertical_zone((x, y))
 
-    def select_and_copy(self) -> None:
+    def select_and_copy(self):
         send_keys("^a")
         send_keys("^c")
 
-    def select_and_paste(self) -> None:
+    def select_and_paste(self):
         send_keys("^a")
         send_keys("^v")
 
     def analyze_test_audio_clip_jitter(self, clip_path: str):
         analyze_test_audio_clip_jitter(clip_path=clip_path)
 
-    def show_plugins(self) -> None:
-        if not find_window_handle_by_enum(
-            "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
-        ):
-            send_keys("^%p")
+    def show_plugins(self):
+        show_plugins()
 
-    def show_hide_plugins(self) -> None:
+    def show_hide_plugins(self):
         send_keys("^%p")
 
-    def hide_plugins(self) -> None:
-        if find_window_handle_by_enum(
-            "AbletonVstPlugClass", search_type=SearchTypeEnum.WINDOW_CLASS_NAME
-        ):
-            send_keys("^%p")
+    def hide_plugins(self):
+        hide_plugins()
 
-    def focus_window(self, window_name: str) -> None:
+    def focus_window(self, window_name: str):
         focus_window(name=window_name)
 
     def reload_ableton(self):
@@ -131,10 +126,10 @@ class Routes:
     def clear_arrangement(self):
         clear_arrangement()
 
-    def toggle_ableton_button(self, x: int, y: int, activate: bool = False) -> None:
+    def toggle_ableton_button(self, x: int, y: int, activate: bool = False):
         toggle_ableton_button((x, y), activate=activate)
 
-    def load_instrument_track(self, instrument_name: str) -> None:
+    def load_instrument_track(self, instrument_name: str):
         load_instrument_track(instrument_name)
 
     def load_sample_in_simpler(self, sample_path: str):
@@ -143,25 +138,25 @@ class Routes:
     def set_clip_file_path(self, file_path: str):
         set_clip_file_path(file_path)
 
-    def activate_rev2_editor(self) -> None:
+    def activate_rev2_editor(self):
         activate_rev2_editor()
 
-    def post_activate_rev2_editor(self) -> None:
+    def post_activate_rev2_editor(self):
         post_activate_rev2_editor()
 
-    def start_set_profiling(self) -> None:
+    def start_set_profiling(self):
         AbletonSetProfiler.start_set_profiling()
 
-    def start_profiling_single_measurement(self) -> None:
+    def start_profiling_single_measurement(self):
         AbletonSetProfiler.start_profiling_single_measurement()
 
-    def stop_midi_server(self) -> None:
+    def stop_midi_server(self):
         stop_midi_server()
 
-    def close_samples_windows(self) -> None:
+    def close_samples_windows(self):
         close_samples_windows()
 
-    def close_tracks_window(self) -> None:
+    def close_tracks_window(self):
         close_tracks_window()
 
     def show_info(self, message: str, centered: bool = False):

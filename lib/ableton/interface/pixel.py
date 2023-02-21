@@ -2,6 +2,7 @@ from time import sleep
 from typing import List, Optional
 
 from PIL import ImageGrab
+from loguru import logger
 
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
@@ -37,7 +38,7 @@ def get_coords_for_color(
 
         return ((i % width) + x1, (i // width) + y1)
 
-    raise Protocol0Error("color not found in screen")
+    raise Protocol0Error(f"colors not found in screen: {colors}")
 
 
 def get_absolute_coords(handle: int, coords: Coords) -> Coords:
@@ -57,6 +58,8 @@ def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
     for color_enum in PixelColorEnum:
         if color_enum.rgb == pixel_color:
             return color_enum
+
+    logger.warning(f"didn't find color enum from rgb {pixel_color}")
 
     return None
 

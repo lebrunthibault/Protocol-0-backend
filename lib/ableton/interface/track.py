@@ -50,11 +50,13 @@ def flatten_track(is_only_child):
     coords = get_focused_track_coords()
 
     _click_context_menu(coords, freeze_pos)  # freeze track
-
     sleep(0.2)
+
     # wait for track freeze
     while "Freeze..." in get_ableton_windows():
         sleep(0.2)
+
+    sleep(0.3)
 
     _click_context_menu(coords, freeze_pos + 20)  # flatten track
 
