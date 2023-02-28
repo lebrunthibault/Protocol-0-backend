@@ -16,7 +16,6 @@ def toggle_ableton_button(coords: Coords, activate: bool) -> None:
 
     logger.info(f"color: {color}")
     logger.info(f"coords: {coords}")
-    logger.success(activate)
 
     if (
         activate
