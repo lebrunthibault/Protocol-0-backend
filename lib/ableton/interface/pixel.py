@@ -52,8 +52,14 @@ def get_absolute_coords(handle: int, coords: Coords) -> Coords:
 
 
 def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
+    _debug = False
+
     image = ImageGrab.grab()
     pixel_color = image.getpixel(coords)
+
+    if _debug:
+        move_to(coords)
+        sleep(1)
 
     for color_enum in PixelColorEnum:
         if color_enum.rgb == pixel_color:
