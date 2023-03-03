@@ -300,7 +300,9 @@ async def _edit_automation_value():
     if AbletonSetManager.active() is not None:
         assert AbletonSetManager.active().selected_track.type in (
             "SimpleAudioTrack",
+            "SimpleAudioExtTrack",
             "SimpleMidiTrack",
+            "SimpleMidiExtTrack",
         ), "cannot edit automation"
 
     edit_automation_value()
