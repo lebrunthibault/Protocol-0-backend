@@ -7,6 +7,7 @@ RectCoords = Tuple[int, int, int, int]
 
 class CoordsEnum(enum.Enum):
     BROWSER_LEFT_SIZE = (18, 221)
+    BROWSER_ALL_RESULTS = (49, 163)
     BROWSER_SEARCH_BOX = (86, 58)
     BROWSER_PLACE_TRACKS = (97, 284)
     BROWSER_PLACE_TRACKS_2 = (97, 308)  # when 'All results' is shown

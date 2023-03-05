@@ -18,25 +18,16 @@ def is_browser_visible() -> bool:
     )
 
 
-def is_browser_tracks_folder_clickable(coords: CoordsEnum) -> bool:
-    """Checks both that the browser is big enough and that the ableton proejct is not shown instead"""
-    color_enum = get_pixel_color_at(CoordsEnum.BROWSER_LEFT_SIZE.value)
-
-    return color_enum is not None and color_enum.is_browser_shown
-
-
 def click_browser_tracks():
     if not is_browser_visible():
         toggle_browser()
 
     coords = CoordsEnum.BROWSER_PLACE_TRACKS
-
-    if not is_browser_tracks_folder_clickable(coords):
+    if get_pixel_color_at(CoordsEnum.BROWSER_ALL_RESULTS.value) == PixelColorEnum.BLACK:
         coords = CoordsEnum.BROWSER_PLACE_TRACKS_2
-        # browser should have a minimum size
-        assert is_browser_tracks_folder_clickable(coords), "Browser is not selectable"
 
-    # drag the track to the tracks folder
+    assert is_browser_visible(), "Browser is not selectable"
+
     double_click(coords.value)
 
 

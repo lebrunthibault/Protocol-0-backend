@@ -175,7 +175,7 @@ def edit_automation_value():
         # left and right
         coords += [(x - 10, y - height), (x + 10, y - height)]
 
-    border_coords = get_pixel_having_color(coords, PixelColorEnum.CONTEXT_MENU_BORDER, False)
+    border_coords = get_pixel_having_color(coords, PixelColorEnum.BLACK, False)
 
     if border_coords is None:
         return
