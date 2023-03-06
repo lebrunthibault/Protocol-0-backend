@@ -10,12 +10,10 @@ settings = Settings()
 
 
 def activate_rev2_editor():
-    # type: () -> None
     _click_rev2_editor(CoordsEnum.REV2_ACTIVATION_MIDDLE_BUTTON.value)
 
 
 def post_activate_rev2_editor():
-    # type: () -> None
     _click_rev2_editor(CoordsEnum.REV2_PROGRAM.value)
 
 

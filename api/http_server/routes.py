@@ -25,19 +25,14 @@ from lib.server_state import ServerState
 from protocol0.application.command.BounceTrackToAudioCommand import BounceTrackToAudioCommand
 from protocol0.application.command.CheckAudioExportValidCommand import CheckAudioExportValidCommand
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
-from protocol0.application.command.EmitBackendEventCommand import (
-    EmitBackendEventCommand,
-)
 from protocol0.application.command.FireSceneToPositionCommand import FireSceneToPositionCommand
 from protocol0.application.command.FireSelectedSceneCommand import FireSelectedSceneCommand
-from protocol0.application.command.GetSetStateCommand import GetSetStateCommand
 from protocol0.application.command.GoToGroupTrackCommand import GoToGroupTrackCommand
 from protocol0.application.command.LoadDeviceCommand import LoadDeviceCommand
 from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackCommand
 from protocol0.application.command.LoadMatchingTrackCommand import LoadMatchingTrackCommand
 from protocol0.application.command.LoadMinitaurCommand import LoadMinitaurCommand
 from protocol0.application.command.LoadRev2Command import LoadRev2Command
-from protocol0.application.command.MuteSetCommand import MuteSetCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
 from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
@@ -50,7 +45,6 @@ from protocol0.application.command.ShowAutomationCommand import ShowAutomationCo
 from protocol0.application.command.ShowInstrumentCommand import ShowInstrumentCommand
 from protocol0.application.command.ToggleArmCommand import ToggleArmCommand
 from protocol0.application.command.ToggleReferenceTrackCommand import ToggleReferenceTrackCommand
-from protocol0.application.command.ToggleRoomEQCommand import ToggleRoomEQCommand
 from protocol0.application.command.ToggleSceneLoopCommand import ToggleSceneLoopCommand
 
 router = APIRouter()
@@ -76,46 +70,13 @@ async def server_state() -> ServerState:
 @router.post("/set")
 async def post_set(set: AbletonSet):
     """Forwarded from midi server"""
-    register_change = await AbletonSetManager.register(set)
-
-    if register_change:
-        sleep(0.5)  # fix too fast backend ..?
-        command = EmitBackendEventCommand("set_updated", data=set.dict())
-        command.set_id = set.id
-        p0_script_client().dispatch(command, log=False)
-
-    await ws_manager.broadcast_server_state()
+    await AbletonSetManager.register(set)
 
 
 @router.delete("/set/{id}")
 async def delete_set(id: str):
     await AbletonSetManager.remove(id)
     await ws_manager.broadcast_server_state()
-
-
-@router.get("/set/active")
-async def active_set() -> Optional[AbletonSet]:
-    return AbletonSetManager.active()
-
-
-@router.get("/set/sync")
-async def sync_sets():
-    await AbletonSetManager.sync()
-
-
-@router.get("/set/refresh")
-async def refresh_sets():
-    AbletonSetManager.clear()
-    p0_script_client().dispatch(GetSetStateCommand())
-    notification_window.delay("Refreshing set info")
-
-
-@router.get("/set/{id}/mute")
-async def mute_set(id: str):
-    command = MuteSetCommand()
-    command.set_id = id
-
-    p0_script_client().dispatch(command)
 
 
 @router.get("/save_set_as_template")
@@ -155,11 +116,6 @@ async def _open_set(name: str):
     set_filename = sets[name]()
     if set_filename is not None:
         open_set(set_filename)
-
-
-@router.get("/toggle_room_eq")
-async def toggle_room_eq():
-    p0_script_client().dispatch(ToggleRoomEQCommand())
 
 
 @router.get("/play_pause")

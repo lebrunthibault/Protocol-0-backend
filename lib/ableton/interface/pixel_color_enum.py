@@ -9,13 +9,11 @@ class PixelColorEnum(AbstractEnum):
     """used when doing dynamic color detection"""
 
     @classmethod
-    def hex_to_rgb(cls, color):
-        # type: (str) -> RGBColor
+    def hex_to_rgb(cls, color: str) -> RGBColor:
         return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
 
     @property
-    def rgb(self):
-        # type: () -> RGBColor
+    def rgb(self) -> RGBColor:
         return PixelColorEnum.hex_to_rgb(self.value)
 
     BUTTON_ACTIVATED = "FFA608"
@@ -38,11 +36,3 @@ class PixelColorEnum(AbstractEnum):
     # needed for closest color detection
     SEPARATOR = "4B4B4B"
     LEFT_SIZE = "6E6E6E"
-
-    @property
-    def is_browser_shown(self) -> bool:
-        return self in (
-            PixelColorEnum.BROWSER_BACKGROUND,
-            PixelColorEnum.BROWSER_SELECTED_DIM,
-            PixelColorEnum.BROWSER_SELECTED_DIMMER,
-        )

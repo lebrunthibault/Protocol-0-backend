@@ -11,14 +11,12 @@ KEEP_WINDOW_IN_BACKGROUND = False
 RELOAD_ON_STARTUP = False
 
 
-def send_search(search):
-    # type: (str) -> None
+def send_search(search: str):
     logger.info(f"sending search {search} to api")
     # connect to script
 
 
 def create_gui():
-    # type: () -> None
     layout = [[sg.Input(key="input")]]
     window = sg.Window(WINDOW_TITLE, layout, return_keyboard_events=True)
 
@@ -51,7 +49,6 @@ def create_gui():
 
 
 def search_set_gui():
-    # type: () -> None
     if not RELOAD_ON_STARTUP:
         handle = find_window_handle_by_enum(name=WINDOW_TITLE)
         if handle:

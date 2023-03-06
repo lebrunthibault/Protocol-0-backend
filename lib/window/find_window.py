@@ -1,10 +1,11 @@
 import enum
+from typing import Optional, List, Dict, Union
+
 import win32api
 import win32con
 import win32gui
 import win32process
 from loguru import logger
-from typing import Optional, Any, List, Dict, Union
 
 from lib.errors.Protocol0Error import Protocol0Error
 
@@ -42,8 +43,7 @@ def _find_window_handle_by_criteria(
 
     handle = 0
 
-    def winEnumHandler(hwnd, _):
-        # type: (int, Any) -> None
+    def winEnumHandler(hwnd: int, _):
         nonlocal handle
         handle_app_name = _get_app_name(hwnd)
         if handle_app_name == "chrome.exe":
@@ -70,8 +70,7 @@ def get_windows_list(_app_name_black_list: List[str] = None) -> List[Dict]:
 
     result = []
 
-    def winEnumHandler(handle, _):
-        # type: (int, Any) -> None
+    def winEnumHandler(handle: int, _):
         nonlocal result
         if win32gui.IsWindowVisible(handle):
             name = _get_window_title(handle)

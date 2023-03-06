@@ -1,4 +1,4 @@
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Optional
 
 from protocol0.domain.lom.device.DeviceEnum import DeviceEnum
 from protocol0.domain.lom.device.DeviceEnumGroup import DeviceEnumGroup
@@ -9,7 +9,7 @@ from lib.ableton_set import AbletonSet, AbletonSetManager
 
 
 class ServerState(BaseModel):
-    sets: List[AbletonSet]
+    set: Optional[AbletonSet]
     set_shortcuts: List[str]
     sample_categories: Dict[str, List[str]]
     favorite_device_names: List[List[Union[str, Dict]]]
@@ -17,8 +17,6 @@ class ServerState(BaseModel):
 
     @classmethod
     def create(cls) -> "ServerState":
-        sets = list(sorted([ss.dict() for ss in AbletonSetManager.all()], key=lambda s: s["title"]))
-
         def serialize_device_enum(d: Union[DeviceEnum, DeviceEnumGroup]) -> Union[str, Dict]:
             if isinstance(d, DeviceEnum):
                 return d.name
@@ -26,7 +24,7 @@ class ServerState(BaseModel):
                 return d.to_dict()
 
         return ServerState(
-            sets=sets,
+            set=AbletonSetManager.active().dict() if AbletonSetManager.has_active_set() else None,
             set_shortcuts=["last", "default", "new"],
             sample_categories={
                 category.name.lower(): category.subcategories

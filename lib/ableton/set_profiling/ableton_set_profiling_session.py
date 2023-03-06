@@ -14,7 +14,7 @@ class AbletonSetProfilingSession:
     def __init__(self, number_of_tests):
         self.number_of_tests = number_of_tests
         self.last_set_reloaded_at: Optional[float] = None
-        self.measurements = []  # type: List[float]
+        self.measurements: List[float] = []
 
     def __repr__(self):
         if len(self.measurements) > 0:

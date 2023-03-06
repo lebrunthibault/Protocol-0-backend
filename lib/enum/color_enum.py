@@ -10,8 +10,7 @@ class ColorEnum(AbstractEnum):
     ERROR = "ERROR"
 
     @property
-    def hex_value(self):
-        # type: () -> str
+    def hex_value(self) -> str:
         return self.get_value_from_mapping(
             {
                 ColorEnum.SUCCESS: "#2d985c",

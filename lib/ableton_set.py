@@ -3,7 +3,7 @@ import os.path
 import re
 import time
 from os.path import basename, dirname
-from typing import List, Dict, Optional
+from typing import List, Optional
 
 from loguru import logger
 from pydantic import BaseModel
@@ -21,6 +21,9 @@ from lib.enum.notification_enum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.timer import start_timer
 from lib.window.window import get_focused_window_title
+from protocol0.application.command.EmitBackendEventCommand import (
+    EmitBackendEventCommand,
+)
 from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 
 settings = Settings()
@@ -45,7 +48,6 @@ class AbletonSet(BaseModel):
     current_track: AbletonTrack
     selected_track: AbletonTrack
     drum_rack_visible: bool
-    room_eq_enabled: bool
 
     @property
     def is_untitled(self):
@@ -74,6 +76,10 @@ class AbletonSet(BaseModel):
         return glob.glob(f"{self.tracks_folder}\\*.als")
 
     @property
+    def saved_track_names(self) -> List[str]:
+        return [basename(t).split(".")[0] for t in self.saved_tracks]
+
+    @property
     def is_current_track_saved(self) -> bool:
         saved_track = self.saved_temp_track
         if saved_track is None:
@@ -88,14 +94,18 @@ class AbletonSet(BaseModel):
 
 
 class AbletonSetManager:
-    DEBUG = False
+    DEBUG = True
     LAST_SET_OPENED_AT: Optional[float] = None
+    _ACTIVE_SET: Optional[AbletonSet] = None
 
     @classmethod
-    async def register(cls, ableton_set: AbletonSet) -> bool:
-        launched_sets = get_ableton_windows()
+    async def register(cls, ableton_set: AbletonSet):
+        if cls.DEBUG:
+            logger.info(f"registering set {ableton_set}")
 
+        launched_sets = get_ableton_windows()
         is_untitled_set = len(launched_sets) == 1 and "Untitled" in launched_sets[0]
+
         if ableton_set.is_untitled:
             if is_untitled_set:
                 ableton_set.path = settings.ableton_test_set_path
@@ -103,24 +113,6 @@ class AbletonSetManager:
             else:
                 ableton_set.path = get_last_launched_track_set()
                 ableton_set.title = _get_window_title_from_filename(ableton_set.path)
-
-        # cleaning here in case a closed set didn't notify
-        for ss in cls.all():
-            if next(filter(lambda s: ss.title in s, launched_sets), None) is None:  # type: ignore
-                await cls.remove(ss.id)
-
-        # deduplicate on set title
-        existing_set = cls.from_title(str(ableton_set.title))
-
-        _ableton_set_registry[ableton_set.id] = ableton_set
-        if cls.DEBUG or existing_set is None:
-            logger.info(f"registering set {ableton_set}, existing: {existing_set is not None}")
-
-        if existing_set is not None and existing_set.id != ableton_set.id:
-            await cls.remove(existing_set.id)
-        if existing_set is None:
-            # it's an update
-            await cls.sync(active_set=ableton_set)
 
         if cls.LAST_SET_OPENED_AT is not None:
             startup_duration = time.time() - cls.LAST_SET_OPENED_AT
@@ -130,66 +122,58 @@ class AbletonSetManager:
 
             cls.LAST_SET_OPENED_AT = None
 
-        return existing_set is None or existing_set.id != ableton_set.id
+        # deduplicate on set title
+        existing_set = cls._ACTIVE_SET
+        if existing_set is not None:
+            if existing_set.title != ableton_set.title:
+                logger.warning(f"Cannot overwrite active set: {existing_set}")
+                return
 
-    @classmethod
-    async def remove(cls, id: str):
-        if cls.DEBUG:
-            logger.info(f"removing {id}")
+            _check_track_name_change(existing_set, ableton_set)
 
-        if id in _ableton_set_registry:
-            del _ableton_set_registry[id]
-
-            # pass the active state to another set
-            other_set = next(iter(cls.all()), None)
-            if other_set is not None:
-                await cls.sync(other_set)
-
-    @classmethod
-    def get(cls, id: str) -> AbletonSet:
-        return _ableton_set_registry[id]
-
-    @classmethod
-    def active(cls) -> Optional[AbletonSet]:
-        # take the first set
-        active_set = next(iter(cls.all()), None)  # type: ignore
-
-        if active_set is None:
-            raise Protocol0Error("no active set")
-
-        return active_set
-
-    @classmethod
-    def from_title(cls, title: str) -> Optional[AbletonSet]:
-        return next(filter(lambda s: s.title == title, cls.all()), None)  # type: ignore
-
-    @classmethod
-    def all(cls) -> List[AbletonSet]:
-        return list(_ableton_set_registry.values())
-
-    @classmethod
-    def clear(cls):
-        for set in cls.all():
-            cls.remove(set.id)
-
-    @classmethod
-    async def sync(cls, active_set: AbletonSet = None) -> None:
-        active_set = active_set or get_focused_set()
-
-        if active_set is None:
-            notification_window.delay("No set focused", NotificationEnum.WARNING.value)
-            return
+        cls._ACTIVE_SET = ableton_set
 
         from api.http_server.ws import ws_manager
 
         await ws_manager.broadcast_server_state()
 
+        # update backend
+        time.sleep(0.5)  # fix too fast backend ..?
+        command = EmitBackendEventCommand("set_updated", data=ableton_set.dict())
+        command.set_id = ableton_set.id
+        p0_script_client().dispatch(command, log=False)
 
-# in-memory registry
-_ableton_set_registry: Dict[str, AbletonSet] = {}
+    @classmethod
+    async def remove(cls, id: str):
+        if cls._ACTIVE_SET is None:
+            logger.warning(f"Cannot remove set id '{id}', no active set")
+        elif cls._ACTIVE_SET.id != id:
+            logger.warning(f"Cannot remove set id '{id}', active set is {cls._ACTIVE_SET}")
+        else:
+            cls._ACTIVE_SET = None
+
+    @classmethod
+    def active(cls) -> Optional[AbletonSet]:
+        if cls._ACTIVE_SET is None:
+            raise Protocol0Error("no active set")
+
+        return cls._ACTIVE_SET
+
+    @classmethod
+    def has_active_set(cls) -> bool:
+        return cls._ACTIVE_SET is not None
 
 
-def get_focused_set_title() -> Optional[str]:
+def _check_track_name_change(existing_set: AbletonSet, new_set: AbletonSet):
+    if (
+        existing_set.current_track.name != new_set.current_track.name
+        and existing_set.current_track.name in existing_set.saved_track_names
+    ):
+        notification_window.delay("You updated a saved track", NotificationEnum.WARNING.value, True)
+        show_sub_tracks()
+
+
+def _get_focused_set_title() -> Optional[str]:
     if not is_ableton_focused():
         return None
 
@@ -204,11 +188,12 @@ def get_focused_set_title() -> Optional[str]:
 
 
 def get_focused_set() -> Optional[AbletonSet]:
-    set_title = get_focused_set_title()
-    if set_title is None:
-        return None
+    set_title = _get_focused_set_title()
 
-    return AbletonSetManager.from_title(set_title)
+    if set_title is not None and AbletonSetManager.active().title == set_title:
+        return AbletonSetManager.active()
+
+    return None
 
 
 def show_sub_tracks():

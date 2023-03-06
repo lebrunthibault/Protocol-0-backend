@@ -1,10 +1,7 @@
-import os
-import time
 from time import sleep
 from typing import List, Dict
 
 import requests
-from loguru import logger
 
 from api.midi_server.main import stop_midi_server
 from api.settings import Settings
@@ -37,16 +34,6 @@ settings = Settings()
 
 
 class Routes:
-    def test(self):
-        pass
-
-    def test_duplication(self):
-        log_path = f"{settings.project_directory}/test_duplication.txt"
-        with open(log_path, "a") as f:
-            f.write(f"{time.time()} - pid: {os.getpid()}\n")
-        logger.info(f"pid written to {log_path}")
-        os.startfile(log_path)
-
     def ping(self):
         AbletonSetProfiler.end_measurement()
 
