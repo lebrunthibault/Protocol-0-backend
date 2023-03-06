@@ -32,6 +32,7 @@ settings = Settings()
 class AbletonTrack(BaseModel):
     name: str
     type: str
+    index: int
 
 
 class AbletonSet(BaseModel):
@@ -166,7 +167,9 @@ class AbletonSetManager:
 
 def _check_track_name_change(existing_set: AbletonSet, new_set: AbletonSet):
     if (
-        existing_set.current_track.name != new_set.current_track.name
+        existing_set.current_track.index == new_set.current_track.index
+        and existing_set.current_track.name != new_set.current_track.name
+        and existing_set.current_track.type == "SimpleAudioTrack"
         and existing_set.current_track.name in existing_set.saved_track_names
     ):
         notification_window.delay("You updated a saved track", NotificationEnum.WARNING.value, True)
@@ -190,7 +193,11 @@ def _get_focused_set_title() -> Optional[str]:
 def get_focused_set() -> Optional[AbletonSet]:
     set_title = _get_focused_set_title()
 
-    if set_title is not None and AbletonSetManager.active().title == set_title:
+    if (
+        set_title is not None
+        and AbletonSetManager.has_active_set()
+        and AbletonSetManager.active().title == set_title
+    ):
         return AbletonSetManager.active()
 
     return None
