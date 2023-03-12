@@ -33,7 +33,7 @@ def open_explorer(file_path: str) -> int:
     return handle
 
 
-@retry(3, 0)
+@retry(2, 0)
 def _open_explorer_until_selected(file_path: str, bbox: RectCoords, dest_coords: Coords):
     handle = open_explorer(file_path)
 

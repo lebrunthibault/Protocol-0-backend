@@ -32,7 +32,7 @@ class Settings(BaseSettings):
 
     rev2_editor_window_title = "REV2Editor/m"
     tracks_folder = "tracks"
-    instrument_tracks_folder = "instrument tracks"
+    instrument_tracks_folder = "instruments\\default"
     log_window_title = "logs terminal"
 
     # Midi port names are relative to the Protocol0 script and not this midi backend

@@ -48,6 +48,7 @@ class AbletonSet(BaseModel):
     muted: bool
     current_track: AbletonTrack
     selected_track: AbletonTrack
+    track_count: int
     drum_rack_visible: bool
 
     @property
@@ -167,7 +168,8 @@ class AbletonSetManager:
 
 def _check_track_name_change(existing_set: AbletonSet, new_set: AbletonSet):
     if (
-        existing_set.current_track.index == new_set.current_track.index
+        existing_set.track_count == new_set.track_count
+        and existing_set.current_track.index == new_set.current_track.index
         and existing_set.current_track.name != new_set.current_track.name
         and existing_set.current_track.type == "SimpleAudioTrack"
         and existing_set.current_track.name in existing_set.saved_track_names
