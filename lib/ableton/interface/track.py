@@ -74,3 +74,9 @@ def load_instrument_track(instrument_name: str):
     )
 
     p0_script_client().dispatch(EmitBackendEventCommand("instrument_loaded"))
+
+
+def click_focused_track():
+    coords = get_focused_track_coords(box_boundary="right")
+    click(coords)
+    p0_script_client().dispatch(EmitBackendEventCommand("track_clicked"))

@@ -15,6 +15,7 @@ from lib.ableton.ableton import (
     edit_automation_value,
 )
 from lib.ableton.get_set import get_last_launched_track_set
+from lib.ableton.interface.track import click_focused_track
 from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet, show_sub_tracks
@@ -151,6 +152,11 @@ async def load_minitaur():
 @router.get("/bounce_track_to_audio")
 async def _bounce_track_to_audio():
     p0_script_client().dispatch(BounceTrackToAudioCommand())
+
+
+@router.get("/click_focused_track")
+async def _click_focused_track():
+    click_focused_track()
 
 
 @router.get("/save_track_to_sub_tracks/{check_for_duplicate}")
