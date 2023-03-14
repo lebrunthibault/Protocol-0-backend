@@ -18,7 +18,7 @@ from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton.interface.track import click_focused_track
 from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
-from lib.ableton_set import AbletonSetManager, AbletonSet, show_sub_tracks
+from lib.ableton_set import AbletonSetManager, AbletonSet, show_saved_tracks, delete_saved_track
 from lib.desktop.desktop import go_to_desktop
 from lib.keys import send_keys
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
@@ -174,9 +174,14 @@ async def _drag_matching_track():
     drag_matching_track(AbletonSetManager.active())
 
 
-@router.get("/show_sub_tracks")
-async def _show_sub_tracks():
-    show_sub_tracks()
+@router.get("/show_saved_tracks")
+async def _show_saved_tracks():
+    show_saved_tracks()
+
+
+@router.get("/delete_saved_track/{track_name}")
+async def _delete_saved_track(track_name: str):
+    delete_saved_track(track_name)
 
 
 @router.get("/drum_rack_to_simpler")

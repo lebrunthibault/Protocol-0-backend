@@ -38,7 +38,7 @@ class LogConfig:
     START_SIZE = 300
     LOG_LEVEL = LogLevelEnum.DEBUG
     COLOR_SCHEME = {
-        "light-yellow": ["P0 - dev", "P0 - debug"],
+        "light-yellow": ["P0 - dev"],
         "light-blue": ["P0 - notice"],
         "cyan": ["P0 - warning"],
         "green": ["P0 - info", "Protocol0", "P0"],

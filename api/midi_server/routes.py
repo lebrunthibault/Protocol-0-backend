@@ -61,14 +61,17 @@ class Routes:
     def drag_matching_track(self):
         requests.get(f"{settings.http_api_url}/drag_matching_track")
 
+    def show_saved_tracks(self):
+        requests.get(f"{settings.http_api_url}/show_saved_tracks")
+
+    def delete_saved_track(self, track_name: str):
+        requests.get(f"{settings.http_api_url}/delete_saved_track/{track_name}")
+
     def flatten_track(self, is_only_child: bool):
         flatten_track(is_only_child)
 
     def crop_clip(self):
         crop_clip()
-
-    def show_sub_tracks(self):
-        requests.get(f"{settings.http_api_url}/show_sub_tracks")
 
     def move_to(self, x: int, y: int):
         move_to((x, y))

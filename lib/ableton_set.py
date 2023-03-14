@@ -175,7 +175,7 @@ def _check_track_name_change(existing_set: AbletonSet, new_set: AbletonSet):
         and existing_set.current_track.name in existing_set.saved_track_names
     ):
         notification_window.delay("You updated a saved track", NotificationEnum.WARNING.value, True)
-        show_sub_tracks()
+        show_saved_tracks()
 
 
 def _get_focused_set_title() -> Optional[str]:
@@ -205,5 +205,14 @@ def get_focused_set() -> Optional[AbletonSet]:
     return None
 
 
-def show_sub_tracks():
+def show_saved_tracks():
     os.startfile(AbletonSetManager.active().tracks_folder)
+
+
+def delete_saved_track(track_name: str):
+    set = AbletonSetManager.active()
+    assert track_name in set.saved_track_names
+
+    track_path = f"{set.tracks_folder}\\{track_name}.als"
+
+    os.unlink(track_path)
