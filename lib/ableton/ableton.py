@@ -3,20 +3,17 @@ import time
 from os.path import isabs
 
 import keyboard
-import pyautogui
 import win32gui
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.get_set import get_ableton_windows
-from lib.ableton.interface.pixel import get_pixel_having_color
-from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
 from lib.keys import send_right
-from lib.mouse.mouse import click, keep_mouse_position, get_mouse_position
+from lib.mouse.mouse import click, keep_mouse_position
 from lib.process import execute_powershell_command
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
@@ -154,34 +151,3 @@ def open_set(set_path: str):
         send_right()
         send_keys("{ENTER}")
         time.sleep(0.5)
-
-
-@keep_mouse_position
-def toggle_clip_notes():
-    click((87, 1015))
-
-
-@keep_mouse_position
-def edit_automation_value():
-    x, y = get_mouse_position()
-
-    click((x, y), button=pyautogui.RIGHT)
-
-    possible_menu_heights = [527, 510, 472, 416, 397, 396, 366, -2]
-
-    coords = []
-
-    for height in reversed(sorted(possible_menu_heights)):
-        # left and right
-        coords += [(x - 10, y - height), (x + 10, y - height)]
-
-    border_coords = get_pixel_having_color(coords, PixelColorEnum.BLACK, False)
-
-    if border_coords is None:
-        return
-
-    x_border, y_border = border_coords
-    from loguru import logger
-
-    logger.success((x_border, y_border + 10))
-    click((x_border, y_border + 10))

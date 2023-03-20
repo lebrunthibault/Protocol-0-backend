@@ -9,7 +9,7 @@ class PixelColorEnum(AbstractEnum):
     """used when doing pixel color detection"""
 
     BUTTON_ACTIVATED = "FFA608"
-    BUTTON_ACTIVATED_2 = "FFB532"
+    BUTTON_ACTIVATED_YELLOW = "FFB532"
     BUTTON_NOT_SHOWN = "C3C3C3"
     BUTTON_DEACTIVATED = "A5A5A5"
 
@@ -19,8 +19,6 @@ class PixelColorEnum(AbstractEnum):
     ELEMENT_SELECTED = "C7EDFF"
     CONTEXT_MENU_BACKGROUND = "C3C3C3"
     BLACK = "000000"
-    BLACK_DIM = "434343"
-    BLACK_DIM_2 = "373737"
 
     EXPLORER_SELECTED_ENTRY = "CCE8FF"
     EXPLORER_SELECTED_ENTRY_LIGHT = "E5F3FF"

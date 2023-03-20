@@ -15,6 +15,7 @@ from lib.ableton.ableton import (
     show_plugins,
 )
 from lib.ableton.analyze_clip_jitter import analyze_test_audio_clip_jitter
+from lib.ableton.automation import set_envelope_loop_length
 from lib.ableton.external_synth_track import activate_rev2_editor, post_activate_rev2_editor
 from lib.ableton.interface.browser import preload_sample_category
 from lib.ableton.interface.clip import set_clip_file_path, crop_clip
@@ -128,6 +129,9 @@ class Routes:
 
     def set_clip_file_path(self, file_path: str):
         set_clip_file_path(file_path)
+
+    def set_envelope_loop_length(self, length: int):
+        set_envelope_loop_length(length)
 
     def activate_rev2_editor(self):
         activate_rev2_editor()

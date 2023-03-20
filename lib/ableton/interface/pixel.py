@@ -1,5 +1,6 @@
+from dataclasses import dataclass, field
 from time import sleep
-from typing import List, Optional
+from typing import List, Optional, Tuple, Iterator
 
 from PIL import ImageGrab
 from loguru import logger
@@ -7,36 +8,105 @@ from loguru import logger
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
+from lib.decorators import timing
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.mouse.mouse import move_to
 from lib.window.window import get_window_position
 
 settings = Settings()
+_DEBUG = True
 
 
+@dataclass
+class PixelBox:
+    pixels: List[Tuple[int, Tuple]] = field(repr=False)
+    bbox: RectCoords
+    from_right: bool
+    from_bottom: bool
+
+    def __post_init__(self):
+        self.x1, self.y1, self.x2, self.y2 = self.bbox
+
+        self.width = self.x2 - self.x1
+        self.height = self.y2 - self.y1
+
+        if _DEBUG:
+            from loguru import logger
+
+            logger.info(self)
+            logger.info(f"w: {self.width}, height: {self.height}, pixel_count: {self.pixel_count}")
+
+    @property
+    def pixel_count(self):
+        return self.width * self.height
+
+    def iterate_pixels(self) -> Iterator:
+        pixels = self.pixels
+        if self.from_bottom:
+            pixels = list(reversed(self.pixels))
+
+        return iter(pixels[::10])
+
+    def iterate_line(self, i, backwards=False):
+        increment = 1
+        current_y = i // self.width
+        line_end = (current_y + 1) * self.width
+
+        if backwards:
+            increment = -1
+            line_end = current_y * self.width
+
+        for i, color in self.pixels[i:line_end:increment]:
+            yield i, color
+
+    def get_coords(self, i: int):
+
+        rel_width = i % self.width
+        rel_height = i // self.width
+
+        if _DEBUG:
+            logger.info(f"i: {i}")
+            logger.info(f"rel_width: {rel_width}")
+            logger.info(f"rel_height: {rel_height}")
+
+        return ((rel_width) + self.x1, (rel_height) + self.y1)
+
+
+@timing
 def get_coords_for_color(
-    colors: List[PixelColorEnum], bbox: RectCoords = None, box_boundary="left"
+    colors: List[PixelColorEnum],
+    bbox: RectCoords,
+    from_right=False,
+    from_bottom=False,
+    min_width: Optional[int] = None,
 ) -> Coords:
-    assert box_boundary in ("left", "right"), "Invalid box boundary"
     screen = ImageGrab.grab(bbox=bbox)
-
-    colors_rgb = [c.rgb for c in colors]
-    x1, y1, x2, _ = bbox
-    width = x2 - x1
-
     pixels = list(enumerate(screen.getdata()))
-    for i, color in pixels[::20]:
+
+    pixel_box = PixelBox(pixels, bbox, from_right, from_bottom)
+    colors_rgb = [c.rgb for c in colors]
+
+    pixel_list = pixel_box.iterate_pixels()
+
+    for i, color in pixel_list:
         if color not in colors_rgb:
             continue
 
-        if box_boundary == "right":
-            while True:
-                if color not in colors_rgb:
-                    break
-                i += 1
-                color = pixels[i]
+        # get the left or right boundary
+        for j, color in pixel_box.iterate_line(i, backwards=not from_right):
+            if color not in colors_rgb:
+                i = j
+                break
 
-        return ((i % width) + x1, (i // width) + y1)
+        if min_width is not None:
+            pixel_line = list(pixel_box.iterate_line(i, backwards=pixel_box.from_bottom))
+            if len(pixel_line) < min_width or pixel_line[min_width][1] not in colors_rgb:
+                # not wide enough, consume the pixels
+                for k, _ in pixel_list:
+                    if abs(k - i) // pixel_box.width >= 20:
+                        break
+
+        return pixel_box.get_coords(i)
 
     raise Protocol0Error(f"colors not found in screen: {colors}")
 

@@ -24,7 +24,7 @@ def toggle_ableton_button(coords: Coords, activate: bool) -> None:
         and color
         in (
             PixelColorEnum.BUTTON_ACTIVATED,
-            PixelColorEnum.BUTTON_ACTIVATED_2,
+            PixelColorEnum.BUTTON_ACTIVATED_YELLOW,
             # PixelColorEnum.BUTTON_NOT_SHOWN,
         )
     ):
