@@ -48,16 +48,15 @@ class PixelBox:
         return iter(pixels[::10])
 
     def iterate_line(self, i, backwards=False):
-        increment = 1
         current_y = i // self.width
         line_end = (current_y + 1) * self.width
 
+        line = self.pixels[i:line_end]
         if backwards:
-            increment = -1
             line_end = current_y * self.width
+            line = list(reversed(self.pixels[line_end:i]))
 
-        for i, color in self.pixels[i:line_end:increment]:
-            yield i, color
+        yield from line
 
     def get_coords(self, i: int):
 
@@ -95,8 +94,8 @@ def get_coords_for_color(
         # get the left or right boundary
         for j, color in pixel_box.iterate_line(i, backwards=not from_right):
             if color not in colors_rgb:
-                i = j
                 break
+            i = j
 
         if min_width is not None:
             pixel_line = list(pixel_box.iterate_line(i, backwards=pixel_box.from_bottom))

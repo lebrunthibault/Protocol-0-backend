@@ -37,10 +37,11 @@ def edit_automation_value():
     click((x_border, y_border + 10))
 
 
+@keep_mouse_position
 def set_envelope_loop_length(length: int):
     coords = get_coords_for_color(
         [PixelColorEnum.BUTTON_ACTIVATED_YELLOW],
-        bbox=(100, 500, 500, 1030),
+        bbox=(100, 500, 600, 1030),
         from_bottom=True,
         from_right=True,
     )
