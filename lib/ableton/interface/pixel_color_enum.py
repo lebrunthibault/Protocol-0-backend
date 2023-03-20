@@ -6,15 +6,7 @@ RGBColor = Tuple[int, int, int]
 
 
 class PixelColorEnum(AbstractEnum):
-    """used when doing dynamic color detection"""
-
-    @classmethod
-    def hex_to_rgb(cls, color: str) -> RGBColor:
-        return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
-
-    @property
-    def rgb(self) -> RGBColor:
-        return PixelColorEnum.hex_to_rgb(self.value)
+    """used when doing pixel color detection"""
 
     BUTTON_ACTIVATED = "FFA608"
     BUTTON_ACTIVATED_2 = "FFB532"
@@ -27,6 +19,8 @@ class PixelColorEnum(AbstractEnum):
     ELEMENT_SELECTED = "C7EDFF"
     CONTEXT_MENU_BACKGROUND = "C3C3C3"
     BLACK = "000000"
+    BLACK_DIM = "434343"
+    BLACK_DIM_2 = "373737"
 
     EXPLORER_SELECTED_ENTRY = "CCE8FF"
     EXPLORER_SELECTED_ENTRY_LIGHT = "E5F3FF"
@@ -34,3 +28,11 @@ class PixelColorEnum(AbstractEnum):
     # needed for closest color detection
     SEPARATOR = "4B4B4B"
     LEFT_SIZE = "6E6E6E"
+
+    @classmethod
+    def hex_to_rgb(cls, color: str) -> RGBColor:
+        return (int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
+
+    @property
+    def rgb(self) -> RGBColor:
+        return PixelColorEnum.hex_to_rgb(self.value)

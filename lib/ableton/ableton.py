@@ -167,7 +167,7 @@ def edit_automation_value():
 
     click((x, y), button=pyautogui.RIGHT)
 
-    possible_menu_heights = [527, 510, 472, 416, 397, 396, 366]
+    possible_menu_heights = [527, 510, 472, 416, 397, 396, 366, -2]
 
     coords = []
 
@@ -181,4 +181,7 @@ def edit_automation_value():
         return
 
     x_border, y_border = border_coords
+    from loguru import logger
+
+    logger.success((x_border, y_border + 10))
     click((x_border, y_border + 10))
