@@ -48,7 +48,7 @@ def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -
         # left and right
         separator_coords_list += [(x - 10, y + y_offset), (x + 10, y + y_offset)]
 
-    separator_coords = get_pixel_having_color(separator_coords_list, is_black=True)
+    separator_coords = get_pixel_having_color(separator_coords_list, is_black=True, debug=False)
 
     assert separator_coords is not None, "Couldn't find separator in context menu"
 
@@ -67,7 +67,7 @@ def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -
 def flatten_track():
     track_coords = get_focused_track_coords()
 
-    freeze_coords = click_context_menu(track_coords, [98, 136])
+    freeze_coords = click_context_menu(track_coords, [98, 136, 137])
     sleep(0.2)
 
     # wait for track freeze

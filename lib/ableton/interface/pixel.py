@@ -149,7 +149,8 @@ def get_pixel_having_color(
     for coords in coords_list:
         if debug:
             move_to(coords)
-            sleep(0.5)
+            logger.info(coords)
+            sleep(1.5)
 
         rgb_color = image.getpixel(coords)
         if color_enum is not None and rgb_color == color_enum.rgb:
