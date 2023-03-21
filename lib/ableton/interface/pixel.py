@@ -1,3 +1,4 @@
+import colorsys
 from dataclasses import dataclass, field
 from time import sleep
 from typing import List, Optional, Tuple, Iterator
@@ -7,8 +8,8 @@ from loguru import logger
 
 from api.settings import Settings
 from lib.ableton.interface.coords import Coords, RectCoords
-from lib.ableton.interface.pixel_color_enum import PixelColorEnum
-from lib.decorators import timing
+from lib.ableton.interface.pixel_color_enum import PixelColorEnum, RGBColor
+from lib.decorators import timeit
 from lib.errors.Protocol0Error import Protocol0Error
 from lib.mouse.mouse import move_to
 from lib.window.window import get_window_position
@@ -71,7 +72,7 @@ class PixelBox:
         return ((rel_width) + self.x1, (rel_height) + self.y1)
 
 
-@timing
+@timeit
 def get_coords_for_color(
     colors: List[PixelColorEnum],
     bbox: RectCoords,
@@ -121,36 +122,39 @@ def get_absolute_coords(handle: int, coords: Coords) -> Coords:
 
 
 def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
-    _debug = False
-
     image = ImageGrab.grab()
-    pixel_color = image.getpixel(coords)
-
-    if _debug:
-        move_to(coords)
-        sleep(1)
+    rgb_color = image.getpixel(coords)
 
     for color_enum in PixelColorEnum:
-        if color_enum.rgb == pixel_color:
+        if color_enum.rgb == rgb_color:
             return color_enum
 
-    logger.warning(f"didn't find color enum from rgb {pixel_color}")
+    logger.warning(f"didn't find color enum from rgb {rgb_color}")
 
     return None
 
 
+def is_rgb_color_black(rgb_color: RGBColor) -> bool:
+    hsv_color = colorsys.rgb_to_hsv(*rgb_color)
+
+    return hsv_color[2] <= 20
+
+
 def get_pixel_having_color(
-    coords_list: List[Coords], color_enum: PixelColorEnum, debug=False
+    coords_list: List[Coords], color_enum: PixelColorEnum = None, is_black=False, debug=False
 ) -> Optional[Coords]:
     image = ImageGrab.grab()
+    assert color_enum is not None or is_black
 
     for coords in coords_list:
         if debug:
             move_to(coords)
-            logger.info((coords, image.getpixel(coords)))
             sleep(0.5)
 
-        if image.getpixel(coords) == color_enum.rgb:
+        rgb_color = image.getpixel(coords)
+        if color_enum is not None and rgb_color == color_enum.rgb:
+            return coords
+        elif is_black and is_rgb_color_black(rgb_color):
             return coords
 
     return None

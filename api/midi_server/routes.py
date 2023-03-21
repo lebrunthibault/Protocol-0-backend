@@ -70,8 +70,8 @@ class Routes:
     def delete_saved_track(self, track_name: str):
         requests.get(f"{settings.http_api_url}/delete_saved_track/{track_name}")
 
-    def flatten_track(self, is_only_child: bool):
-        flatten_track(is_only_child)
+    def flatten_track(self):
+        flatten_track()
 
     def crop_clip(self):
         crop_clip()

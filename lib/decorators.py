@@ -46,7 +46,7 @@ class throttle(object):
         return wrapper
 
 
-def timing(f):
+def timeit(f):
     @wraps(f)
     def wrap(*a, **k):
         start_at = time.time()

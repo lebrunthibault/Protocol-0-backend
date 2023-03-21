@@ -1,4 +1,5 @@
 from time import sleep
+from typing import List, Union
 
 import pyautogui
 
@@ -6,8 +7,13 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings, DOWN_BBOX
 from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
-from lib.ableton.interface.pixel import get_pixel_color_at, get_coords_for_color
+from lib.ableton.interface.pixel import (
+    get_pixel_color_at,
+    get_coords_for_color,
+    get_pixel_having_color,
+)
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
+from lib.decorators import timeit
 from lib.explorer import drag_file_to
 from lib.mouse.mouse import click
 from protocol0.application.command.EmitBackendEventCommand import (
@@ -28,28 +34,40 @@ def get_focused_track_coords(box_boundary="left") -> Coords:
     return x, y + 5  # drag works better here
 
 
-def _click_context_menu(track_coords: Coords, y_offset: int):
-    """handles when menu appears left or right"""
+@timeit
+def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -> Coords:
+    y_offsets = [y_offsets] if isinstance(y_offsets, int) else y_offsets
+
     click(track_coords, button=pyautogui.RIGHT)
 
     x, y = track_coords
 
-    menu_coords = (x + 10, y + y_offset)
+    separator_coords_list = []
 
-    if get_pixel_color_at(menu_coords) != PixelColorEnum.CONTEXT_MENU_BACKGROUND:
-        menu_coords = (x - 10, y + y_offset)
+    for y_offset in y_offsets:
+        # left and right
+        separator_coords_list += [(x - 10, y + y_offset), (x + 10, y + y_offset)]
+
+    separator_coords = get_pixel_having_color(separator_coords_list, is_black=True)
+
+    assert separator_coords is not None, "Couldn't find separator in context menu"
+
+    x_separator, y_separator = separator_coords
+    menu_coords = (x_separator, y_separator + 10)
+
+    assert (
+        get_pixel_color_at(menu_coords) == PixelColorEnum.CONTEXT_MENU_BACKGROUND
+    ), "Click error on context menu"
 
     click(menu_coords)
 
+    return menu_coords
 
-def flatten_track(is_only_child):
-    freeze_pos = 150
-    if is_only_child:
-        freeze_pos = 111
 
-    coords = get_focused_track_coords()
+def flatten_track():
+    track_coords = get_focused_track_coords()
 
-    _click_context_menu(coords, freeze_pos)  # freeze track
+    freeze_coords = click_context_menu(track_coords, [98, 136])
     sleep(0.2)
 
     # wait for track freeze
@@ -58,7 +76,8 @@ def flatten_track(is_only_child):
 
     sleep(0.3)
 
-    _click_context_menu(coords, freeze_pos + 20)  # flatten track
+    click(track_coords, button=pyautogui.RIGHT)
+    click((freeze_coords[0], freeze_coords[1] + 20))  # flatten track
 
     p0_script_client().dispatch(EmitBackendEventCommand("track_flattened"))
 

@@ -2,7 +2,7 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import LEFT_BBOX
 from lib.ableton.interface.pixel import get_coords_for_color
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
-from lib.ableton.interface.track import _click_context_menu
+from lib.ableton.interface.track import click_context_menu
 from lib.explorer import drag_file_to
 from lib.mouse.mouse import keep_mouse_position
 from protocol0.application.command.EmitBackendEventCommand import (
@@ -29,6 +29,6 @@ def crop_clip():
         [PixelColorEnum.ELEMENT_FOCUSED],
         bbox=(40, 80, 1870, 750),
     )
-    _click_context_menu(coords, 258)  # crop clip
+    click_context_menu(coords, 242)  # crop clip
 
     p0_script_client().dispatch(EmitBackendEventCommand("clip_cropped"))
