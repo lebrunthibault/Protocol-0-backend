@@ -8,16 +8,20 @@ from api.settings import Settings
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 
 
-def execute_powershell_command(*args: str):
-    powershell_command_line = f"'cmd /c start /min powershell -Command {{ {' '.join(args)} }}'"
+def execute_powershell_command(*args: str, min=True):
+    powershell_command_line = (
+        f"'cmd /c start {'/min' if min else ''} powershell -Command {{ {' '.join(args)} }}'"
+    )
     logger.info(powershell_command_line)
     subprocess.run(
         ["powershell.exe", "invoke-expression", powershell_command_line], stdout=sys.stdout
     )
 
 
-def execute_python_script_in_new_window(*args: str):
-    execute_powershell_command(f"{Settings().project_directory}\\venv\\scripts\\python", *args)
+def execute_python_script_in_new_window(*args: str, min=True):
+    execute_powershell_command(
+        f"{Settings().project_directory}\\venv\\scripts\\python", *args, min=min
+    )
 
 
 def _get_window_pid_by_criteria(

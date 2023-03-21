@@ -29,7 +29,6 @@ from lib.enum.notification_enum import NotificationEnum
 from lib.explorer import close_samples_windows, close_tracks_window
 from lib.keys import send_keys
 from lib.mouse.mouse import click, click_vertical_zone, move_to
-from lib.window.window import focus_window
 
 settings = Settings()
 
@@ -55,6 +54,9 @@ class Routes:
 
     def click_focused_track(self):
         requests.get(f"{settings.http_api_url}/click_focused_track")
+
+    def tail_logs(self):
+        requests.get(f"{settings.http_api_url}/tail_logs")
 
     def save_track_to_sub_tracks(self, check_for_duplicate: bool):
         requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks/{check_for_duplicate}")
@@ -102,9 +104,6 @@ class Routes:
 
     def hide_plugins(self):
         hide_plugins()
-
-    def focus_window(self, window_name: str):
-        focus_window(name=window_name)
 
     def reload_ableton(self):
         reload_ableton()

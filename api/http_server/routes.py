@@ -1,4 +1,3 @@
-from time import sleep
 from typing import Optional, Callable, Dict
 
 from fastapi import APIRouter
@@ -19,9 +18,10 @@ from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet, show_saved_tracks, delete_saved_track
 from lib.desktop.desktop import go_to_desktop
-from lib.keys import send_keys
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
 from lib.server_state import ServerState
+from lib.window.find_window import find_window_handle_by_enum
+from lib.window.window import focus_window
 from protocol0.application.command.BounceTrackToAudioCommand import BounceTrackToAudioCommand
 from protocol0.application.command.CheckAudioExportValidCommand import CheckAudioExportValidCommand
 from protocol0.application.command.DrumRackToSimplerCommand import DrumRackToSimplerCommand
@@ -86,11 +86,13 @@ async def _save_set_as_template():
 
 @router.get("/tail_logs")
 async def tail_logs():
+    if find_window_handle_by_enum(settings.log_window_title):
+        focus_window(settings.log_window_title)
+        return
+
     execute_python_script_in_new_window(
-        f"{settings.project_directory}/scripts/tail_protocol0_logs.py"
+        f"{settings.project_directory}/scripts/tail_protocol0_logs.py", min=False
     )
-    sleep(0.5)
-    send_keys("%{TAB}")
 
 
 @router.get("/tail_logs_raw")
