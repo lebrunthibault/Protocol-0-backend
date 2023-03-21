@@ -160,9 +160,9 @@ async def _click_focused_track():
     click_focused_track()
 
 
-@router.get("/save_track_to_sub_tracks/{check_for_duplicate}")
-async def _save_track_to_sub_tracks(check_for_duplicate: bool):
-    save_track_to_sub_tracks(AbletonSetManager.active(), check_for_duplicate)
+@router.get("/save_track_to_sub_tracks")
+async def _save_track_to_sub_tracks():
+    save_track_to_sub_tracks(AbletonSetManager.active())
 
 
 @router.get("/load_matching_track")

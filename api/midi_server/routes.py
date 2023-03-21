@@ -58,8 +58,8 @@ class Routes:
     def tail_logs(self):
         requests.get(f"{settings.http_api_url}/tail_logs")
 
-    def save_track_to_sub_tracks(self, check_for_duplicate: bool):
-        requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks/{check_for_duplicate}")
+    def save_track_to_sub_tracks(self):
+        requests.get(f"{settings.http_api_url}/save_track_to_sub_tracks")
 
     def drag_matching_track(self):
         requests.get(f"{settings.http_api_url}/drag_matching_track")
