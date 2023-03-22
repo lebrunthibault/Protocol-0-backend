@@ -10,7 +10,6 @@ from lib.ableton.ableton import (
     reload_ableton,
     clear_arrangement,
     save_set,
-    save_set_as_template,
     hide_plugins,
     show_plugins,
 )
@@ -110,9 +109,6 @@ class Routes:
 
     def save_set(self):
         save_set()
-
-    def save_set_as_template(self):
-        save_set_as_template()
 
     def clear_arrangement(self):
         clear_arrangement()

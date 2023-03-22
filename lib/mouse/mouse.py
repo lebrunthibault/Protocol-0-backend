@@ -35,7 +35,6 @@ def click(coords: Coords, exact=False, button=pyautogui.PRIMARY, duration=0) -> 
         pyautogui.mouseDown(x, y, button=button)
         sleep(duration)
         pyautogui.mouseUp(x, y, button=button)
-        # pyautogui.click(x, y, button=button)
     except pyautogui.FailSafeException as e:
         logger.warning(e)
 

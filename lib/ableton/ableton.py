@@ -9,6 +9,8 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.get_set import get_ableton_windows
+from lib.ableton.interface.pixel import get_pixel_color_at
+from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
 from lib.keys import send_keys
@@ -87,29 +89,24 @@ def save_set():
 
 
 @keep_mouse_position
-def save_set_as_template(open_pref=True):
+def save_set_as_template():
     p0_script_client().dispatch(ResetPlaybackCommand())
-    if open_pref:
-        send_keys("^,")
-    else:
-        time.sleep(0.01)
+    send_keys("^,")
+    time.sleep(0.1)
 
-    # first possible position
-    click((703, 363))  # click on File Folder
-    click((1032, 201))  # click on set as new
-    time.sleep(0.05)
+    y_offset = 0
+    if get_pixel_color_at((900, 185)) == PixelColorEnum.WHITE:
+        y_offset = 30
 
-    # second position possible
-    click((703, 332))  # click on File Folder
-    click((1032, 203))  # click on set as new (2nd position)
-    click((1032, 230))  # click on set as new (2nd position)
+    click((703, 333 + y_offset))  # click on File Folder
+    click((1032, 195 + y_offset))  # click on set as new
+
     time.sleep(0.05)
     send_keys("{ENTER}")
     time.sleep(0.2)
-    send_keys("	{ESC}")
-    time.sleep(0.5)
 
     reload_ableton()
+    send_keys("	{ESC}")
 
 
 def toggle_fold_set():
