@@ -108,6 +108,10 @@ def save_set_as_template():
     reload_ableton()
     send_keys("	{ESC}")
 
+    time.sleep(0.5)
+    reload_ableton()
+    send_keys("	{ESC}")
+
 
 def toggle_fold_set():
     send_keys("{TAB}")
