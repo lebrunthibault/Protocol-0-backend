@@ -18,6 +18,7 @@ from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet, show_saved_tracks, delete_saved_track
 from lib.desktop.desktop import go_to_desktop
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.process import execute_python_script_in_new_window, execute_powershell_command
 from lib.server_state import ServerState
 from lib.window.find_window import find_window_handle_by_enum
@@ -265,8 +266,13 @@ async def _toggle_clip_notes():
 
 @router.get("/edit_automation_value")
 async def _edit_automation_value():
-    if AbletonSetManager.active() is not None:
-        assert AbletonSetManager.active().selected_track.type in (
+    try:
+        active_set = AbletonSetManager.active()
+    except Protocol0Error:
+        active_set = None
+
+    if active_set is not None:
+        assert active_set.selected_track.type in (
             "SimpleAudioTrack",
             "SimpleAudioExtTrack",
             "SimpleMidiTrack",

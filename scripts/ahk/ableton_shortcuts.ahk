@@ -31,7 +31,7 @@ return
 return
 
 ; ableton hotkeys
-#IfWinActive, ahk_exe Ableton Live 10 Suite.exe
+#IfWinActive, Ableton Live
 ^+z::
     Send ^y  ; redo
 return
@@ -113,6 +113,7 @@ return
 return
 ^l::
 	callBackend("toggle_scene_loop")
+	Send ^l
 return
 ^+_::
     Send {Up}
@@ -132,6 +133,7 @@ return
 ^!q::
     Send ^!p  ; left hand shortcut
 return
+
 
 
 !f:: ; fold / unfold set
