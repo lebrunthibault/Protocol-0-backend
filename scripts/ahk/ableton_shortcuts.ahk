@@ -42,6 +42,9 @@ return
 ^!+l::
 	callBackend("tail_logs_raw")
 return
+^!+t::
+	callBackend("test")
+return
 ^+a::
 	callBackend("arm")
 return

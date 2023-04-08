@@ -34,6 +34,7 @@ from protocol0.application.command.LoadDrumRackCommand import LoadDrumRackComman
 from protocol0.application.command.LoadMatchingTrackCommand import LoadMatchingTrackCommand
 from protocol0.application.command.LoadMinitaurCommand import LoadMinitaurCommand
 from protocol0.application.command.LoadRev2Command import LoadRev2Command
+from protocol0.application.command.MidiNoteCommand import MidiNoteCommand
 from protocol0.application.command.PlayPauseSongCommand import PlayPauseSongCommand
 from protocol0.application.command.RecordUnlimitedCommand import RecordUnlimitedCommand
 from protocol0.application.command.ReloadScriptCommand import ReloadScriptCommand
@@ -56,6 +57,11 @@ settings = Settings()
 @router.get("/reload_ableton")
 async def _reload_ableton():
     reload_ableton()
+
+
+@router.get("/test")
+async def test():
+    p0_script_client().dispatch(MidiNoteCommand(13, 1))
 
 
 @router.get("/reload_script")
