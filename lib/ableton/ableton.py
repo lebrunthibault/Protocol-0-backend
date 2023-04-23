@@ -1,4 +1,6 @@
 import os
+import shutil
+import subprocess
 import time
 from os.path import isabs
 
@@ -13,10 +15,11 @@ from lib.ableton.interface.pixel import get_pixel_color_at
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.desktop.desktop import go_to_desktop
 from lib.enum.notification_enum import NotificationEnum
+from lib.errors.Protocol0Error import Protocol0Error
 from lib.keys import send_keys
 from lib.keys import send_right
 from lib.mouse.mouse import click, keep_mouse_position
-from lib.process import execute_powershell_command
+from lib.process import execute_powershell_command, kill_window_by_criteria
 from lib.window.find_window import find_window_handle_by_enum, SearchTypeEnum
 from lib.window.window import (
     is_window_focused,
@@ -66,6 +69,22 @@ def reload_ableton() -> None:
     """
     Not easy to have this work every time
     """
+    if settings.ableton_major_version >= '11':
+        try:
+            focus_ableton()
+        except (AssertionError, Protocol0Error):
+            pass
+
+        kill_window_by_criteria(settings.ableton_process_name, search_type=SearchTypeEnum.PROGRAM_NAME)
+        try:
+            os.unlink(f"{settings.preferences_directory}\\CrashDetection.cfg")
+            os.unlink(f"{settings.preferences_directory}\\CrashRecoveryInfo.cfg")
+        except OSError:
+            pass
+        # shutil.rmtree(settings.crash_directory, ignore_errors=True)
+        subprocess.run(settings.ableton_exe)
+        return
+
     p0_script_client().dispatch(ResetPlaybackCommand())
     # hack to get the focus when ableton is shown
     go_to_desktop(1)

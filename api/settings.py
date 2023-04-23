@@ -2,9 +2,6 @@ import os
 
 from pydantic import BaseSettings
 
-_ableton_version = os.environ["abletonVersion"]
-_ableton_major_version = _ableton_version.split(".")[0]
-
 LEFT_BBOX = (0, 0, 1100, 1080)
 RIGHT_BBOX = (960, 0, 1920, 1080)
 DOWN_BBOX = (660, 300, 1920, 1080)
@@ -14,16 +11,35 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
-    logging_directory: str
+    user_home: str
+    ableton_version: str
+
+    @property
+    def ableton_major_version(self) -> str:
+        return self.ableton_version.split(".")[0]
 
     @property
     def log_file(self) -> str:
-        return f"{self.logging_directory}\\Log.txt"
+        return f"{self.user_home}\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\\Preferences\\Log.txt"
 
     project_directory = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-    ableton_exe = f"C:\\ProgramData\\Ableton\\Live {_ableton_major_version} Suite\\Program\\Ableton Live {_ableton_major_version} Suite.exe"
-    ableton_process_name = f"Ableton Live {_ableton_major_version} Suite.exe"
+    @property
+    def ableton_exe(self) -> str:
+        return f"C:\\ProgramData\\Ableton\\Live {self.ableton_major_version} Suite\\Program\\Ableton Live {self.ableton_major_version} Suite.exe"
+
+    @property
+    def ableton_process_name(self) -> str:
+        return f"Ableton Live {self.ableton_major_version} Suite.exe"
+
+    @property
+    def preferences_directory(self) -> str:
+        return f"{self.user_home}\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\\Preferences"
+
+    @property
+    def crash_directory(self) -> str:
+        return f"{self.preferences_directory}\\Crash"
+
     ableton_set_directory: str
     ableton_test_set_path = "D:\\ableton projects\\tracks\\Toto\\Toto.als"
     ableton_default_set = "Default.als"
