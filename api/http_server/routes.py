@@ -62,7 +62,8 @@ async def _reload_ableton():
 @router.get("/test")
 async def test():
     # p0_script_client().dispatch(MidiNoteCommand(13, 1))  # test
-    p0_script_client().dispatch(MidiNoteCommand(9, 4))  # bounce set
+    # p0_script_client().dispatch(MidiNoteCommand(9, 4))  # bounce set
+    p0_script_client().dispatch(BounceTrackToAudioCommand())
 
 
 @router.get("/reload_script")
