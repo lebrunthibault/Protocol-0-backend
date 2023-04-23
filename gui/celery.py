@@ -1,7 +1,7 @@
 import os
 import sys
 from functools import wraps
-from typing import List
+from typing import List, Optional
 
 from celery import Celery
 from loguru import logger
@@ -52,12 +52,19 @@ def handle_error(func):
 @celery_app.task(bind=True)
 @handle_error
 def notification_window(
-    self, message: str, notification_enum: str = NotificationEnum.INFO.value, centered=False
+    self,
+    message: str,
+    notification_enum: str = NotificationEnum.INFO.value,
+    centered=False,
+    auto_close_duration: Optional[int] = None,
 ):
     revoke_tasks(TaskCacheKey.NOTIFICATION)
     task_cache.add_task(TaskCacheKey.NOTIFICATION, self.request.id)
     NotificationFactory.createWindow(
-        message=message, notification_enum=NotificationEnum[notification_enum], centered=centered
+        message=message,
+        notification_enum=NotificationEnum[notification_enum],
+        centered=centered,
+        auto_close_duration=auto_close_duration,
     ).display(self.request.id)
 
 

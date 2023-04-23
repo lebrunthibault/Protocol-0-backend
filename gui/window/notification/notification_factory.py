@@ -1,3 +1,5 @@
+from typing import Optional
+
 from gui.window.notification.notification import Notification
 from gui.window.window_factory import WindowFactory
 from lib.enum.notification_enum import NotificationEnum
@@ -13,8 +15,11 @@ class NotificationFactory(WindowFactory):
         message: str,
         notification_enum: NotificationEnum = NotificationEnum.INFO,
         centered=False,
+        auto_close_duration: Optional[int] = None,
     ) -> Notification:
-        auto_close_duration = cls.BASE_SECOND_DURATION + len(message) * cls.CHAR_SECOND_DURATION
+        auto_close_duration = auto_close_duration or (
+            cls.BASE_SECOND_DURATION + len(message) * cls.CHAR_SECOND_DURATION
+        )
         return Notification(
             message=message,
             background_color=notification_enum.color,

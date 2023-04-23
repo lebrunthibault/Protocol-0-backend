@@ -1,10 +1,11 @@
 from time import sleep
-from typing import List, Union
+from typing import List, Union, Optional
 
 import pyautogui
 
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings, DOWN_BBOX
+from gui.celery import notification_window
 from lib.ableton.get_set import get_ableton_windows
 from lib.ableton.interface.coords import Coords
 from lib.ableton.interface.pixel import (
@@ -14,6 +15,7 @@ from lib.ableton.interface.pixel import (
 )
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.decorators import timeit
+from lib.enum.notification_enum import NotificationEnum
 from lib.explorer import drag_file_to
 from lib.mouse.mouse import click
 from protocol0.application.command.EmitBackendEventCommand import (
@@ -35,7 +37,7 @@ def get_focused_track_coords(box_boundary="left") -> Coords:
 
 
 @timeit
-def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -> Coords:
+def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -> Optional[Coords]:
     y_offsets = [y_offsets] if isinstance(y_offsets, int) else y_offsets
 
     click(track_coords, button=pyautogui.RIGHT)
@@ -50,14 +52,20 @@ def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -
 
     separator_coords = get_pixel_having_color(separator_coords_list, is_black=True, debug=False)
 
-    assert separator_coords is not None, "Couldn't find separator in context menu"
+    if separator_coords is None:
+        notification_window.delay(
+            "context menu not detected", NotificationEnum.WARNING.value, auto_close_duration=0.5
+        )
+        return (0, 0)
 
     x_separator, y_separator = separator_coords
     menu_coords = (x_separator, y_separator + 10)
 
-    assert (
-        get_pixel_color_at(menu_coords) == PixelColorEnum.CONTEXT_MENU_BACKGROUND
-    ), "Click error on context menu"
+    if get_pixel_color_at(menu_coords) != PixelColorEnum.CONTEXT_MENU_BACKGROUND:
+        notification_window.delay(
+            "context menu not detected", NotificationEnum.WARNING.value, auto_close_duration=0.5
+        )
+        return (0, 0)
 
     click(menu_coords)
 
@@ -68,6 +76,10 @@ def flatten_track():
     track_coords = get_focused_track_coords()
 
     freeze_coords = click_context_menu(track_coords, [98, 136, 137])
+
+    if freeze_coords is None:
+        return
+
     sleep(0.2)
 
     # wait for track freeze
