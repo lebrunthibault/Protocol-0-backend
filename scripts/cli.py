@@ -12,7 +12,7 @@ def command_generate_openapi_specs() -> None:
 
 @cli.command(name="test")
 async def command_test() -> None:
-    p0_script_client().dispatch(MidiNoteCommand(13, 1))
+    return
 
 
 if __name__ == "__main__":

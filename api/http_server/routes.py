@@ -61,7 +61,8 @@ async def _reload_ableton():
 
 @router.get("/test")
 async def test():
-    p0_script_client().dispatch(MidiNoteCommand(13, 1))
+    # p0_script_client().dispatch(MidiNoteCommand(13, 1))  # test
+    p0_script_client().dispatch(MidiNoteCommand(9, 4))  # bounce set
 
 
 @router.get("/reload_script")
@@ -210,6 +211,8 @@ async def toggle_scene_loop():
 @router.get("/fire_scene_to_position/{bar_length}")
 @router.get("/fire_scene_to_position")
 async def fire_scene_to_position(bar_length: Optional[int] = None):
+    from loguru import logger
+    logger.success(bar_length)
     p0_script_client().dispatch(FireSceneToPositionCommand(bar_length))
 
 

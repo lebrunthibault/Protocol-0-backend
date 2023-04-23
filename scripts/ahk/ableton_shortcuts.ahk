@@ -17,7 +17,10 @@ CoordMode,mouse,screen
 Loop, 9 {
     HotKey, ^NumPad%A_Index%, FireSceneToPosition
 }
-Return
+Loop, 9 {
+    HotKey, ^SC%A_Index%, FireSceneToPosition
+}
+return
 
 ; global hotkeys
 ^#+n::
