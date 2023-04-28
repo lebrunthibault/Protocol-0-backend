@@ -19,6 +19,10 @@ class Settings(BaseSettings):
         return self.ableton_version.split(".")[0]
 
     @property
+    def is_ableton_11(self) -> bool:
+        return self.ableton_version == "11"
+
+    @property
     def log_file(self) -> str:
         return f"{self.user_home}\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\\Preferences\\Log.txt"
 
@@ -42,7 +46,10 @@ class Settings(BaseSettings):
 
     ableton_set_directory: str
     ableton_test_set_path = "D:\\ableton projects\\tracks\\Toto\\Toto.als"
-    ableton_default_set = "Default.als"
+
+    @property
+    def ableton_default_set(self) -> str:
+        return "Default 11.als" if self.is_ableton_11 else "Default.als"
 
     http_api_url = "http://127.0.0.1:8000"
 

@@ -53,8 +53,7 @@ class AbletonSet(BaseModel):
 
     @property
     def is_untitled(self):
-        return self.title is None
-        # return self.title is None or self.title == "Untitled"
+        return self.title is None or self.title == "None"
 
     @property
     def tracks_folder(self):
@@ -106,10 +105,12 @@ class AbletonSetManager:
             logger.info(f"registering set {ableton_set}")
 
         launched_sets = get_ableton_windows()
-        is_untitled_set = len(launched_sets) == 1 and "Untitled" in launched_sets[0]
+        is_untitled_set = len(launched_sets) == 1 and any(
+            word in launched_sets[0] for word in ("Untitled",)
+        )
 
         if ableton_set.is_untitled:
-            if is_untitled_set:
+            if is_untitled_set or ableton_set.title is None:
                 ableton_set.path = settings.ableton_test_set_path
                 ableton_set.title = "Toto"
             else:

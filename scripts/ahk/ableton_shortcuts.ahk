@@ -61,10 +61,8 @@ return
 	callBackend("fire_scene_to_position", "-1")
 return
 FireSceneToPosition:
-if WinActive("ahk_exe Ableton Live 10 Suite.exe") {
     barLength:=SubStr(A_ThisHotkey,"^NumPad") - 1
 	callBackend("fire_scene_to_position", barLength)
-}
 Return
 ^Enter::
 	callBackend("go_to_group_track")
