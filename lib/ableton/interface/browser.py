@@ -13,16 +13,14 @@ def toggle_browser():
 
 
 def is_browser_visible() -> bool:
-    return (
-        get_pixel_color_at(CoordsEnum.BROWSER_LEFT_SIZE.value) == PixelColorEnum.BROWSER_BACKGROUND
-    )
+    return get_pixel_color_at(CoordsEnum.browser_left_size()) == PixelColorEnum.browser_background()
 
 
 def click_browser_tracks():
     if not is_browser_visible():
         toggle_browser()
 
-    coords = CoordsEnum.BROWSER_PLACE_TRACKS
+    coords = CoordsEnum.browser_place_tracks()
     if get_pixel_color_at(CoordsEnum.BROWSER_ALL_RESULTS.value) == PixelColorEnum.BLACK:
         coords = CoordsEnum.BROWSER_PLACE_TRACKS_2
 

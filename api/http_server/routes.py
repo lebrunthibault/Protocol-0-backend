@@ -1,25 +1,22 @@
-from typing import Optional, Callable, Dict
+from typing import Optional
 
 from fastapi import APIRouter
 
 from api.client.p0_script_api_client import p0_script_client
 from api.http_server.ws import ws_manager
 from api.settings import Settings
-from gui.celery import notification_window
 from lib.ableton.ableton import (
     reload_ableton,
     save_set_as_template,
-    open_set,
+    open_set_by_type,
 )
 from lib.ableton.automation import toggle_clip_notes, edit_automation_value
-from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton.interface.track import click_focused_track
 from lib.ableton.matching_track.load_matching_track import drag_matching_track
 from lib.ableton.matching_track.save_track import save_track_to_sub_tracks
 from lib.ableton_set import AbletonSetManager, AbletonSet, show_saved_tracks, delete_saved_track
-from lib.desktop.desktop import go_to_desktop
 from lib.errors.Protocol0Error import Protocol0Error
-from lib.process import execute_python_script_in_new_window, execute_powershell_command
+from lib.process import execute_python_script_in_new_window
 from lib.server_state import ServerState
 from lib.window.find_window import find_window_handle_by_enum
 from lib.window.window import focus_window
@@ -112,20 +109,7 @@ async def tail_logs_raw():
 
 @router.get("/set/{name}/open")
 async def _open_set(name: str):
-    if name == "new":
-        go_to_desktop(0)
-        execute_powershell_command(f'& "{settings.ableton_exe}"')
-        notification_window.delay("Opening new set")
-        return
-
-    sets: Dict[str, Callable] = {
-        "default": lambda: settings.ableton_default_set,
-        "last": get_last_launched_track_set,
-    }
-
-    set_filename = sets[name]()
-    if set_filename is not None:
-        open_set(set_filename)
+    open_set_by_type(name)
 
 
 @router.get("/play_pause")

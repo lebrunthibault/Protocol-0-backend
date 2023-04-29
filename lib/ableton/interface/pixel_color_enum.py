@@ -1,8 +1,11 @@
 from typing import Tuple
 
+from api.settings import Settings
 from lib.enum.abstract_enum import AbstractEnum
 
 RGBColor = Tuple[int, int, int]
+
+settings = Settings()
 
 
 class PixelColorEnum(AbstractEnum):
@@ -13,11 +16,17 @@ class PixelColorEnum(AbstractEnum):
     BUTTON_NOT_SHOWN = "C3C3C3"
     BUTTON_DEACTIVATED = "A5A5A5"
 
-    BROWSER_BACKGROUND = "878787"
+    @classmethod
+    def browser_background(cls):
+        return "8F8F8F" if settings.is_ableton_11 else "878787"
 
     ELEMENT_FOCUSED = "FF39D4"
     ELEMENT_SELECTED = "C7EDFF"
-    CONTEXT_MENU_BACKGROUND = "C3C3C3"
+
+    @classmethod
+    def context_menu_background(cls):
+        return "DCDCDC" if settings.is_ableton_11 else "C3C3C3"
+
     WHITE = "FFFFFF"
     BLACK = "000000"
 

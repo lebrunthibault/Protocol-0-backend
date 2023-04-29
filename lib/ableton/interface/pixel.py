@@ -129,7 +129,7 @@ def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
         if color_enum.rgb == rgb_color:
             return color_enum
 
-    logger.warning(f"didn't find color enum from rgb {rgb_color}")
+    logger.warning(f"didn't find color enum from rgb {rgb_color} at {coords}")
 
     return None
 
@@ -137,7 +137,7 @@ def get_pixel_color_at(coords: Coords) -> Optional[PixelColorEnum]:
 def is_rgb_color_black(rgb_color: RGBColor) -> bool:
     hsv_color = colorsys.rgb_to_hsv(*rgb_color)
 
-    return hsv_color[2] <= 20
+    return hsv_color[2] <= 20 or rgb_color == (121, 121, 121)  # for live 11
 
 
 def get_pixel_having_color(
@@ -150,7 +150,7 @@ def get_pixel_having_color(
         if debug:
             move_to(coords)
             logger.info(coords)
-            sleep(1.5)
+            sleep(1)
 
         rgb_color = image.getpixel(coords)
         if color_enum is not None and rgb_color == color_enum.rgb:

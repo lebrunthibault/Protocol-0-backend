@@ -1,8 +1,7 @@
 import os
-import shutil
-import subprocess
 import time
 from os.path import isabs
+from typing import Callable, Dict
 
 import keyboard
 import win32gui
@@ -11,6 +10,7 @@ from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import notification_window
 from lib.ableton.get_set import get_ableton_windows
+from lib.ableton.get_set import get_last_launched_track_set
 from lib.ableton.interface.pixel import get_pixel_color_at
 from lib.ableton.interface.pixel_color_enum import PixelColorEnum
 from lib.desktop.desktop import go_to_desktop
@@ -69,20 +69,24 @@ def reload_ableton() -> None:
     """
     Not easy to have this work every time
     """
-    if settings.ableton_major_version >= '11':
+    if settings.ableton_major_version >= "11":
         try:
             focus_ableton()
         except (AssertionError, Protocol0Error):
             pass
 
-        kill_window_by_criteria(settings.ableton_process_name, search_type=SearchTypeEnum.PROGRAM_NAME)
+        kill_window_by_criteria(
+            settings.ableton_process_name, search_type=SearchTypeEnum.PROGRAM_NAME
+        )
+        time.sleep(0.2)
         try:
             os.unlink(f"{settings.preferences_directory}\\CrashDetection.cfg")
             os.unlink(f"{settings.preferences_directory}\\CrashRecoveryInfo.cfg")
         except OSError:
             pass
-        # shutil.rmtree(settings.crash_directory, ignore_errors=True)
-        subprocess.run(settings.ableton_exe)
+
+        open_set_by_type("new")
+
         return
 
     p0_script_client().dispatch(ResetPlaybackCommand())
@@ -102,6 +106,47 @@ def reload_ableton() -> None:
 
         if win32gui.GetCursorInfo()[1] == 65543:  # loading
             break
+
+
+def open_set_by_type(type: str):
+    if type == "new":
+        go_to_desktop(0)
+        execute_powershell_command(f'& "{settings.ableton_exe}"')
+        notification_window.delay("Opening new set")
+        return
+
+    sets: Dict[str, Callable] = {
+        "default": lambda: settings.ableton_default_set,
+        "last": get_last_launched_track_set,
+    }
+
+    set_filename = sets[type]()
+    if set_filename is not None:
+        _open_set(set_filename)
+
+
+def _open_set(set_path: str):
+    if not isabs(set_path):
+        set_path = f"{settings.ableton_set_directory}\\{set_path}"
+
+    if not os.path.exists(set_path):
+        notification_window.delay(f"fichier introuvable : {set_path}", NotificationEnum.ERROR.value)
+        return
+
+    relative_path = set_path.replace(f"{settings.ableton_set_directory}\\", "").replace("//", "\\")
+    notification_window.delay(f"Opening '{relative_path}'")
+
+    go_to_desktop(0)
+    execute_powershell_command(f'& "{settings.ableton_exe}" "{set_path}"')
+    from lib.ableton_set import AbletonSetManager
+
+    AbletonSetManager.LAST_SET_OPENED_AT = time.time()
+    time.sleep(2)
+
+    for _ in range(6):
+        send_right()
+        send_keys("{ENTER}")
+        time.sleep(0.5)
 
 
 def save_set():
@@ -145,27 +190,3 @@ def clear_arrangement():
     send_keys("^a")
     time.sleep(0.05)
     send_keys("{BACKSPACE}")
-
-
-def open_set(set_path: str):
-    if not isabs(set_path):
-        set_path = f"{settings.ableton_set_directory}\\{set_path}"
-
-    if not os.path.exists(set_path):
-        notification_window.delay(f"fichier introuvable : {set_path}", NotificationEnum.ERROR.value)
-        return
-
-    relative_path = set_path.replace(f"{settings.ableton_set_directory}\\", "").replace("//", "\\")
-    notification_window.delay(f"Opening '{relative_path}'")
-
-    go_to_desktop(0)
-    execute_powershell_command(f'& "{settings.ableton_exe}" "{set_path}"')
-    from lib.ableton_set import AbletonSetManager
-
-    AbletonSetManager.LAST_SET_OPENED_AT = time.time()
-    time.sleep(2)
-
-    for _ in range(6):
-        send_right()
-        send_keys("{ENTER}")
-        time.sleep(0.5)

@@ -38,11 +38,9 @@ class Settings(BaseSettings):
 
     @property
     def preferences_directory(self) -> str:
-        return f"{self.user_home}\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\\Preferences"
-
-    @property
-    def crash_directory(self) -> str:
-        return f"{self.preferences_directory}\\Crash"
+        return (
+            f"{self.user_home}\\AppData\\Roaming\\Ableton\\Live {self.ableton_version}\\Preferences"
+        )
 
     ableton_set_directory: str
     ableton_test_set_path = "D:\\ableton projects\\tracks\\Toto\\Toto.als"

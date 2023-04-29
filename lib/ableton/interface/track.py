@@ -61,7 +61,7 @@ def click_context_menu(track_coords: Coords, y_offsets: Union[int, List[int]]) -
     x_separator, y_separator = separator_coords
     menu_coords = (x_separator, y_separator + 10)
 
-    if get_pixel_color_at(menu_coords) != PixelColorEnum.CONTEXT_MENU_BACKGROUND:
+    if get_pixel_color_at(menu_coords) != PixelColorEnum.context_menu_background():
         notification_window.delay(
             "context menu not detected", NotificationEnum.WARNING.value, auto_close_duration=0.5
         )

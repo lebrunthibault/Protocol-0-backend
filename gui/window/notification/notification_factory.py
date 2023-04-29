@@ -15,7 +15,7 @@ class NotificationFactory(WindowFactory):
         message: str,
         notification_enum: NotificationEnum = NotificationEnum.INFO,
         centered=False,
-        auto_close_duration: Optional[int] = None,
+        auto_close_duration: Optional[float] = None,
     ) -> Notification:
         auto_close_duration = auto_close_duration or (
             cls.BASE_SECOND_DURATION + len(message) * cls.CHAR_SECOND_DURATION
