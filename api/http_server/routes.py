@@ -78,6 +78,11 @@ async def post_set(set: AbletonSet):
     await AbletonSetManager.register(set)
 
 
+@router.put("/set")
+async def update_set(title: str, path: Optional[str] = None):
+    AbletonSetManager.update_set(title, path)
+
+
 @router.delete("/set/{id}")
 async def delete_set(id: str):
     await AbletonSetManager.remove(id)

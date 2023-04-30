@@ -157,14 +157,18 @@ class AbletonSetManager:
             cls._ACTIVE_SET = None
 
     @classmethod
-    def set_title(cls, title: str):
+    def update_set(cls, title: str, path: Optional[str] = None):
         ableton_set = cls.active()
 
-        logger.info(ableton_set)
-
         ableton_set.title = title
+        if path is None:
+            path = f"{settings.ableton_set_directory}\\tracks\\{title}\\{title}.als"
+
+        ableton_set.path = path
+
         command = EmitBackendEventCommand("set_updated", data=ableton_set.dict())
         command.set_id = ableton_set.id
+        p0_script_client().dispatch(command, log=False)
 
     @classmethod
     def active(cls) -> Optional[AbletonSet]:
