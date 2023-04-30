@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     @property
     def is_ableton_11(self) -> bool:
-        return self.ableton_version == "11"
+        return self.ableton_major_version == "11"
 
     @property
     def log_file(self) -> str:

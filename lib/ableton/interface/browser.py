@@ -22,11 +22,11 @@ def click_browser_tracks():
 
     coords = CoordsEnum.browser_place_tracks()
     if get_pixel_color_at(CoordsEnum.BROWSER_ALL_RESULTS.value) == PixelColorEnum.BLACK:
-        coords = CoordsEnum.BROWSER_PLACE_TRACKS_2
+        coords = CoordsEnum.BROWSER_PLACE_TRACKS_2.value
 
     assert is_browser_visible(), "Browser is not selectable"
 
-    double_click(coords.value)
+    double_click(coords)
 
 
 def search(search: str):
