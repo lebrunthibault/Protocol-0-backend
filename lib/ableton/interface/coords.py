@@ -11,7 +11,11 @@ settings = Settings()
 class CoordsEnum(enum.Enum):
     @classmethod
     def browser_left_size(cls) -> Coords:
-        return (30, 190) if settings.is_ableton_11 else (30, 221)
+        return (30, 165) if settings.is_ableton_11 else (30, 221)
+
+    # @classmethod
+    # def browser_left_size_2(cls) -> Coords:
+    #     return (30, 190) if settings.is_ableton_11 else cls.browser_left_size()
 
     @classmethod
     def browser_place_tracks(cls) -> Coords:

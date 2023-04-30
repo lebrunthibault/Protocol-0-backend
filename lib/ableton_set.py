@@ -26,6 +26,7 @@ from protocol0.application.command.EmitBackendEventCommand import (
 )
 from protocol0.application.command.ShowMessageCommand import ShowMessageCommand
 
+
 settings = Settings()
 
 
@@ -154,6 +155,16 @@ class AbletonSetManager:
             logger.warning(f"Cannot remove set id '{id}', active set is {cls._ACTIVE_SET}")
         else:
             cls._ACTIVE_SET = None
+
+    @classmethod
+    def set_title(cls, title: str):
+        ableton_set = cls.active()
+
+        logger.info(ableton_set)
+
+        ableton_set.title = title
+        command = EmitBackendEventCommand("set_updated", data=ableton_set.dict())
+        command.set_id = ableton_set.id
 
     @classmethod
     def active(cls) -> Optional[AbletonSet]:
