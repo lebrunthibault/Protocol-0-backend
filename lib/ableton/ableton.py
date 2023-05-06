@@ -69,7 +69,7 @@ def reload_ableton() -> None:
     """
     Not easy to have this work every time
     """
-    if settings.ableton_major_version >= "11":
+    if settings.is_ableton_11:
         try:
             focus_ableton()
         except (AssertionError, Protocol0Error):
@@ -155,6 +155,10 @@ def save_set():
 
 @keep_mouse_position
 def save_set_as_template():
+    if settings.is_ableton_11:
+        notification_window.delay("Not available in live 11", NotificationEnum.WARNING.value, True)
+        return
+
     p0_script_client().dispatch(ResetPlaybackCommand())
     send_keys("^,")
     time.sleep(0.1)

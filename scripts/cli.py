@@ -17,7 +17,7 @@ def update_set_title():
 
 @cli.command(name="test")
 async def command_test() -> None:
-    pass
+    update_set_title()
 
 
 if __name__ == "__main__":

@@ -117,7 +117,6 @@ return
 return
 ^l::
 	callBackend("toggle_scene_loop")
-	Send ^l
 return
 ^+_::
     Send {Up}
