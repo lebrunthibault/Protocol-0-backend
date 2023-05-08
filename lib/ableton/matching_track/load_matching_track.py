@@ -16,7 +16,7 @@ def drag_matching_track(set: AbletonSet):
         track_path,
         get_focused_track_coords(),
         bbox=DOWN_BBOX,
-        drag_duration=0.2,
+        drag_duration=0.5,
         close_window=False,
     )
     p0_script_client().dispatch(EmitBackendEventCommand("matching_track_loaded"))
