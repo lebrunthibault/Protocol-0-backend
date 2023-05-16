@@ -23,7 +23,7 @@ sdk:
 
 	cd api/midi_server/sdk_generation/p0_script_client && del /f /q api_client
 	cd api/midi_server/sdk_generation && java -jar openapi-generator-cli.jar generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_script_client\api_client -t p0_script_client\openapi_templates
-	cd "C:\ProgramData\Ableton\Live 10 Suite\Resources\MIDI Remote Scripts\protocol0" && venv\Scripts\pip.exe install "C:\Users\thiba\dev\protocol0_backend\api\midi_server\sdk_generation\p0_script_client\api_client"
+	cd "C:\ProgramData\Ableton\Live 11 Suite\Resources\MIDI Remote Scripts\protocol0" && venv\Scripts\pip.exe install "C:\Users\thiba\dev\protocol0_backend\api\midi_server\sdk_generation\p0_script_client\api_client"
 
 	cd api/midi_server/sdk_generation/p0_backend_client && del /f /q api_client
 	cd api/midi_server/sdk_generation && java -jar openapi-generator-cli.jar generate -i openapi.yaml -g python-legacy -c openapi_config.json -o p0_backend_client\api_client -t p0_backend_client\openapi_templates
