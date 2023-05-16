@@ -1,18 +1,16 @@
 import os
-import sys
 from functools import wraps
 from typing import List, Optional
 
 from celery import Celery
 from loguru import logger
 
+import lib.make_path  # noqa
 from gui.task_cache import TaskCache, TaskCacheKey
 from gui.window.notification.notification_factory import NotificationFactory
 from gui.window.select.select_factory import SelectFactory
 from lib.enum.color_enum import ColorEnum
 from lib.enum.notification_enum import NotificationEnum
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 os.environ.setdefault("FORKED_BY_MULTIPROCESSING", "1")
 celery_app = Celery("tasks", broker="redis://localhost")

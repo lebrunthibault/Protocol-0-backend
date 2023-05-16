@@ -9,7 +9,7 @@ from loguru import logger
 from starlette.requests import Request
 from starlette.responses import PlainTextResponse
 
-# needed when calling protocol0 Config
+import lib.make_path  # noqa
 from lib.enum.notification_enum import NotificationEnum
 from lib.errors.Protocol0Error import Protocol0Error
 

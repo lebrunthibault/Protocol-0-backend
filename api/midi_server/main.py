@@ -9,6 +9,7 @@ from loguru import logger
 from mido import Message
 from mido.backends.rtmidi import Input
 
+import lib.make_path  # noqa
 from api.client.p0_script_api_client import p0_script_client
 from api.settings import Settings
 from gui.celery import check_celery_worker_status, notification_window
