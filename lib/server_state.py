@@ -13,7 +13,6 @@ class ServerState(BaseModel):
     set_shortcuts: List[str]
     sample_categories: Dict[str, List[str]]
     favorite_device_names: List[List[Union[str, Dict]]]
-    insert_favorite_device_names: List[str]
 
     @classmethod
     def create(cls) -> "ServerState":
