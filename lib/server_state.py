@@ -33,5 +33,4 @@ class ServerState(BaseModel):
             favorite_device_names=[
                 list(map(serialize_device_enum, row)) for row in DeviceEnum.favorites()
             ],
-            insert_favorite_device_names=[device.name for device in DeviceEnum.insert_favorites()],
         )
