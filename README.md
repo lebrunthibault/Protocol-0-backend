@@ -1,4 +1,7 @@
-# Protocol0 script backend and audio libraries
+# Disclaimer : this project moved to this protocol0 monorepo : https://github.com/lebrunthibault/protocol0
+To make things a bit clearer betwwen the different repos I was using
+
+## Protocol0 script backend and audio libraries
 
 This monolithic repo is the backend of my ([Ableton control surface script](https://github.com/lebrunthibault/Protocol0-Ableton-Surface-Script))
 
