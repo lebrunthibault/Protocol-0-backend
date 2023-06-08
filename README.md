@@ -1,5 +1,4 @@
-# Disclaimer : this project moved to this protocol0 monorepo : https://github.com/lebrunthibault/protocol0
-To make things a bit clearer betwwen the different repos I was using
+# Disclaimer : this project moved to the [protocol0](https://github.com/lebrunthibault/protocol0/tree/main/p0_backend) monorepo
 
 ## Protocol0 script backend and audio libraries
 
